@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Title Section -->
-    <section class="title-section py-4 bg-white">
-        <div class="container-fluid px-0">
-            <h1 class="fw-bold display-5 text-primary text-start">Sekolah Partnership</h1>
-        </div>
-    </section>
 
 <!-- ===========================
       TITLE SECTION
@@ -45,7 +39,8 @@
                 </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
 <!-- ===========================
@@ -60,7 +55,8 @@
             <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7">
             <img src="https://images.unsplash.com/photo-1552664730-d307ca884978">
         </div>
-    </section>
+    </div>
+</section>
 
 
 <!-- ===========================
@@ -92,6 +88,7 @@
                         </a>
                     </div>
                 </div>
+            </div>
 
             <!-- Workshop 2 -->
             <div class="col-lg-4 col-md-6">
@@ -113,6 +110,7 @@
                         </a>
                     </div>
                 </div>
+            </div>
 
             <!-- Workshop 3 -->
             <div class="col-lg-4 col-md-6">
@@ -137,7 +135,8 @@
             </div>
 
         </div>
-    </section>
+    </div>
+</section>
 
 
 <!-- ===========================
@@ -212,15 +211,19 @@
         transition: 0.3s ease;
     }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0d8500 0%, #0a6b00 100%);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(16, 163, 0, 0.4);
-        }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0d8500 0%, #0a6b00 100%);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(16, 163, 0, 0.4);
+    }
 
     .workshop-section {
         background-color: #EDFFF3;
     }
 </style>
 
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> origin/dede
