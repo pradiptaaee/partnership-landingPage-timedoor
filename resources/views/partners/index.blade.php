@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Title Section -->
-<section class="title-section py-4 bg-white">
-    <div class="container-fluid px-0">
-        <h1 class="fw-bold display-5 text-primary text-start">Sekolah Partnership</h1>
-    </div>
-</section>
 
 <!-- ===========================
       TITLE SECTION
@@ -45,6 +39,7 @@
                 </p>
             </div>
         </div>
+    </div>
 </section>
 
 
@@ -60,6 +55,7 @@
             <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7">
             <img src="https://images.unsplash.com/photo-1552664730-d307ca884978">
         </div>
+    </div>
 </section>
 
 
@@ -92,51 +88,54 @@
                         </a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Workshop 2 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                        <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                            class="card-img-top workshop-img">
+            <!-- Workshop 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
+                        class="card-img-top workshop-img">
 
-                        <div class="card-body d-flex flex-column p-4">
-                            <p class="date-text">15 Februari 2024</p>
-                            <h5 class="card-title-color">Pelatihan Manajemen Kelas</h5>
+                    <div class="card-body d-flex flex-column p-4">
+                        <p class="date-text">15 Februari 2024</p>
+                        <h5 class="card-title-color">Pelatihan Manajemen Kelas</h5>
 
-                            <p class="text-muted flex-grow-1">
-                                Workshop untuk meningkatkan kemampuan guru dalam mengelola kelas dan menciptakan lingkungan belajar yang kondusif.
-                            </p>
+                        <p class="text-muted flex-grow-1">
+                            Workshop untuk meningkatkan kemampuan guru dalam mengelola kelas dan menciptakan lingkungan belajar yang kondusif.
+                        </p>
 
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
-                                class="btn btn-primary mt-3">
-                                <i class="bi bi-eye me-2"></i>Lihat Detail
-                            </a>
-                        </div>
+                        <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            class="btn btn-primary mt-3">
+                            <i class="bi bi-eye me-2"></i>Lihat Detail
+                        </a>
                     </div>
-
-                    <!-- Workshop 3 -->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                            <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                                class="card-img-top workshop-img">
-
-                            <div class="card-body d-flex flex-column p-4">
-                                <p class="date-text">20 Februari 2024</p>
-                                <h5 class="card-title-color">Seminar Kurikulum Merdeka</h5>
-
-                                <p class="text-muted flex-grow-1">
-                                    Pelatihan implementasi Kurikulum Merdeka dengan pendekatan pembelajaran yang berpusat pada siswa.
-                                </p>
-
-                                <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
-                                    class="btn btn-primary mt-3">
-                                    <i class="bi bi-eye me-2"></i>Lihat Detail
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+            </div>
+
+            <!-- Workshop 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
+                        class="card-img-top workshop-img">
+
+                    <div class="card-body d-flex flex-column p-4">
+                        <p class="date-text">20 Februari 2024</p>
+                        <h5 class="card-title-color">Seminar Kurikulum Merdeka</h5>
+
+                        <p class="text-muted flex-grow-1">
+                            Pelatihan implementasi Kurikulum Merdeka dengan pendekatan pembelajaran yang berpusat pada siswa.
+                        </p>
+
+                        <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            class="btn btn-primary mt-3">
+                            <i class="bi bi-eye me-2"></i>Lihat Detail
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </section>
 
 
