@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< HEAD
     <!-- ===========================
           TITLE SECTION
     =========================== -->
@@ -9,6 +10,17 @@
             <h1 class="fw-bold display-5 text-primary text-center">Goverment Partnership</h1>
         </div>
     </section>
+=======
+
+<!-- ===========================
+      TITLE SECTION
+=========================== -->
+<section class="title-section py-4 bg-white">
+    <div class="container-fluid px-0">
+        <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">Partnership</h1>
+    </div>
+</section>
+>>>>>>> origin/dede
 
 
     <!-- ===========================
@@ -233,5 +245,27 @@
         .workshop-section {
             background-color: #EDFFF3;
         }
+<<<<<<< HEAD
     </style>
 @endsection
+=======
+
+        /* Button Filter */
+    </style>
+    <script>
+        document.getElementById("loadMoreLink").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("moreWorkshops").classList.remove("d-none");
+            this.style.display = "none";
+        });
+
+        // load more 2
+        document.getElementById("loadMore").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("Workshops").classList.remove("d-none");
+            this.style.display = "none";
+        });
+    </script>
+
+    @endsection
+>>>>>>> origin/dede
