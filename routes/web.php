@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PartnerActivityAdminController;
 use App\Http\Controllers\admin\PartnerAdminController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Partner Routes
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     
     // Partner Management
     Route::resource('partners', PartnerAdminController::class);

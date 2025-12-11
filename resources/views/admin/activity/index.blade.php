@@ -3,193 +3,184 @@
 @section('title', 'Manajemen Kegiatan Partner')
 
 @section('content')
-<div class="container-fluid px-4">
-    <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 class="h3 mb-1 text-gray-800">Manajemen Kegiatan Partner</h1>
-            <p class="text-muted mb-0">Kelola seluruh kegiatan dan aktivitas partner</p>
+    <div class="container-fluid px-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1 text-gray-800">Manajemen Kegiatan Partner</h1>
+                <p class="text-muted mb-0">Kelola seluruh kegiatan dan aktivitas partner</p>
+            </div>
+            <div class="d-flex gap-2">
+                {{-- Tombol Kembali ke Partner --}}
+                <a href="{{ route('admin.partners.index') }}" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="bi bi-arrow-left me-2"></i>Kembali ke Partner
+                </a>
+                {{-- Tombol Tambah Kegiatan --}}
+                <a href="{{ route('admin.activity.create') }}" class="btn btn-primary d-flex align-items-center">
+                    <i class="bi bi-plus-lg me-2"></i>Tambah Kegiatan
+                </a>
+            </div>
         </div>
-        <div class="d-flex gap-2">
-            <a href="{{ route('admin.partners.index') }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-2"></i>Kembali ke Partner
-            </a>
-            <a href="{{ route('admin.activity.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus me-2"></i>Tambah Kegiatan
-            </a>
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        <div class="card shadow-sm border-0 mb-4 rounded-3">
+            <div class="card-body">
+                <form method="GET" action="{{ route('admin.activity.index') }}" class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label small text-muted">Cari Kegiatan</label>
+                        <input type="text" name="search" class="form-control" placeholder="Cari judul kegiatan..."
+                            value="{{ request('search') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted">Partner</label>
+                        <select name="partner_id" class="form-select">
+                            <option value="">Semua Partner</option>
+                            @foreach (\App\Models\Partner::orderBy('name')->get() as $partner)
+                                <option value="{{ $partner->id }}"
+                                    {{ request('partner_id') == $partner->id ? 'selected' : '' }}>
+                                    {{ $partner->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted">Urutkan</label>
+                        <select name="sort" class="form-select">
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
+                            <option value="title" {{ request('sort') == 'title' ? 'selected' : '' }}>Judul A-Z</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit"
+                            class="btn btn-primary w-100 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-funnel-fill me-1"></i>Filter
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- Alert Messages -->
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    @endif
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+           
+            @include('admin.activity.partials.activity_cards')
+            
+        </div>
 
-    <!-- Filter Section -->
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-body">
-            <form method="GET" action="{{ route('admin.activity.index') }}" class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label small text-muted">Cari Kegiatan</label>
-                    <input type="text" name="search" class="form-control" placeholder="Cari judul kegiatan..." value="{{ request('search') }}">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label small text-muted">Partner</label>
-                    <select name="partner_id" class="form-select">
-                        <option value="">Semua Partner</option>
-                        @foreach(\App\Models\Partner::orderBy('name')->get() as $partner)
-                        <option value="{{ $partner->id }}" {{ request('partner_id') == $partner->id ? 'selected' : '' }}>
-                            {{ $partner->name }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label small text-muted">Urutkan</label>
-                    <select name="sort" class="form-select">
-                        <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                        <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
-                        <option value="title" {{ request('sort') == 'title' ? 'selected' : '' }}>Judul A-Z</option>
-                    </select>
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="fas fa-filter me-1"></i>Filter
+        {{-- @if ($activities->hasMorePages() || $activities->total() > 0)
+            <div id="load-more-section" class="d-flex justify-content-center mb-5 mt-4">
+                @if ($activities->hasMorePages())
+                    <button id="load-more-btn" class="btn btn-outline-primary px-4 py-2"
+                        data-next-page="{{ $activities->nextPageUrl() }}">
+                        <span class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
+                        Tampilkan Lebih Banyak Kegiatan
                     </button>
+                @else
+                    <p class="text-muted small">Semua kegiatan sudah ditampilkan (Total: {{ $activities->total() }}).</p>
+                @endif
+            </div>
+        @endif --}}
+
+        @if ($activities->hasPages())
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted small">
+                    Menampilkan {{ $activities->firstItem() }} - {{ $activities->lastItem() }} dari
+                    {{ $activities->total() }} kegiatan
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Activities Grid -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
-        @forelse($activities as $activity)
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0 activity-card">
-                <!-- Featured Image -->
-                <div class="position-relative">
-                    @if($activity->featured_image)
-                    <img src="{{ asset('storage/' . $activity->featured_image) }}" 
-                         class="card-img-top" 
-                         alt="{{ $activity->title }}"
-                         style="height: 200px; object-fit: cover;">
-                    @else
-                    <div class="bg-light d-flex align-items-center justify-content-center" 
-                         style="height: 200px;">
-                        <i class="fas fa-image fa-3x text-muted"></i>
-                    </div>
-                    @endif
-                    
-                    <!-- Partner Badge -->
-                    <div class="position-absolute top-0 start-0 m-2">
-                        <span class="badge bg-primary">{{ $activity->partner->name }}</span>
-                    </div>
-
-                    <!-- Photo Count Badge -->
-                    @if($activity->photos && $activity->photos->count() > 0)
-                    <div class="position-absolute top-0 end-0 m-2">
-                        <span class="badge bg-dark">
-                            <i class="fas fa-images me-1"></i>{{ $activity->photos->count() }}
-                        </span>
-                    </div>
-                    @endif
-                </div>
-
-                <div class="card-body d-flex flex-column">
-                    <!-- Title -->
-                    <h5 class="card-title mb-2">{{ Str::limit($activity->title, 50) }}</h5>
-                    
-                    <!-- Short Description -->
-                    <p class="card-text text-muted small mb-3 flex-grow-1">
-                        {{ Str::limit($activity->short_description, 100) }}
-                    </p>
-
-                    <!-- Date -->
-                    <div class="mb-3">
-                        <small class="text-muted">
-                            <i class="far fa-calendar-alt me-1"></i>
-                            {{ \Carbon\Carbon::parse($activity->activity_date)->format('d M Y') }}
-                        </small>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="d-flex gap-2">
-                        <a href="{{ route('admin.activity.edit', $activity->id) }}" 
-                           class="btn btn-sm btn-warning text-white flex-fill">
-                            <i class="fas fa-edit me-1"></i>Edit
-                        </a>
-                        <form action="{{ route('admin.activity.destroy', $activity->id) }}" 
-                              method="POST" 
-                              class="flex-fill"
-                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus kegiatan ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger w-100">
-                                <i class="fas fa-trash me-1"></i>Hapus
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Card Footer -->
-                <div class="card-footer bg-light border-0">
-                    <small class="text-muted">
-                        <i class="far fa-clock me-1"></i>
-                        Dibuat {{ $activity->created_at->diffForHumans() }}
-                    </small>
+                <div>
+                    {{ $activities->links('pagination::bootstrap-5') }}
                 </div>
             </div>
-        </div>
-        @empty
-        <div class="col-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-body text-center py-5">
-                    <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
-                    <h5 class="text-muted mb-3">Belum Ada Kegiatan</h5>
-                    <p class="text-muted mb-4">Mulai tambahkan kegiatan partner untuk ditampilkan di sini</p>
-                    <a href="{{ route('admin.activity.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus me-2"></i>Tambah Kegiatan Pertama
-                    </a>
-                </div>
-            </div>
-        </div>
-        @endforelse
+        @endif
     </div>
 
-    <!-- Pagination -->
-    @if($activities->hasPages())
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="text-muted small">
-            Menampilkan {{ $activities->firstItem() }} - {{ $activities->lastItem() }} dari {{ $activities->total() }} kegiatan
-        </div>
-        <div>
-            {{ $activities->links() }}
-        </div>
-    </div>
-    @endif
-</div>
+    <style>
+        /* Styling yang sudah ada tetap dipertahankan */
+        .activity-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
 
-<style>
-.activity-card {
-    transition: transform 0.2s, box-shadow 0.2s;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
 
-.activity-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
 
-.card-img-top {
-    border-radius: 0;
-}
+        .card-img-top {
+            border-radius: 0;
+        }
 
-.badge {
-    font-weight: 500;
-}
-</style>
+        .badge {
+            font-weight: 500;
+        }
+    </style>
 @endsection
+
+{{-- PENTING: Tambahkan blok script ini --}}
+{{-- @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    let loadMoreBtn = $('#load-more-btn');
+    let nextPageUrl = loadMoreBtn.data('next-page');
+
+    if (loadMoreBtn.length > 0) {
+        loadMoreBtn.on('click', function() {
+            let button = $(this);
+            let spinner = button.find('.spinner-border');
+            
+            // Nonaktifkan tombol dan tampilkan spinner
+            button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Memuat...');
+
+            if (nextPageUrl) {
+                $.ajax({
+                    url: nextPageUrl,
+                    type: 'GET',
+                    // Mengirimkan parameter filter saat ini agar hasil load more sesuai filter
+                    data: {
+                        search: $('input[name="search"]').val(), 
+                        partner_id: $('select[name="partner_id"]').val(),
+                        sort: $('select[name="sort"]').val(),
+                    },
+                    success: function(response) {
+                        // Masukkan cards baru ke container
+                        $('#activity-container').append(response.html);
+
+                        // Update URL halaman selanjutnya
+                        nextPageUrl = response.next_page_url;
+
+                        // Cek apakah masih ada halaman selanjutnya
+                        if (nextPageUrl) {
+                            button.data('next-page', nextPageUrl);
+                            button.html('<i class="bi bi-arrow-down-circle me-2"></i>Tampilkan Lebih Banyak Kegiatan');
+                        } else {
+                            // Jika tidak ada lagi, hapus tombol dan tampilkan status
+                            $('#load-more-section').html('<p class="text-muted small">Semua kegiatan sudah ditampilkan.</p>');
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Gagal memuat data. Silakan coba lagi.');
+                    },
+                    complete: function() {
+                        // Aktifkan kembali tombol jika masih ada halaman berikutnya
+                        if (nextPageUrl) {
+                            button.prop('disabled', false);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    // Ketika form filter di submit, tombol Load More harus direset
+    $('#filter-form').on('submit', function() {
+        // Ini memastikan form berjalan normal saat di-submit untuk mendapatkan paginasi awal
+        // Jika Anda ingin filter juga menggunakan AJAX, logikanya akan lebih kompleks
+        return true; 
+    });
+});
+</script>
+@endpush --}}

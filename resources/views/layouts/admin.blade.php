@@ -1,71 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Partnership</title>
 
+    {{-- Bootstrap CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    {{-- Bootstrap Icons CSS (WAJIB DITAMBAHKAN) --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    {{-- Vite Assets (CSS Kustom Anda) --}}
+    @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+    
+    {{-- CSS Kustom untuk Sidebar (Agar Fixed dan Profil di Bawah) --}}
     <style>
-        body {
-            background: #f5f6fa;
-        }
+        /* Lebar sidebar sesuai kode sebelumnya */
+       
 
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: #2d3e50;
-            padding: 20px;
-            color: white;
-        }
-
-        .sidebar a {
-            color: #d9e3f0;
-            text-decoration: none;
-            display: block;
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar a:hover {
-            background: #1b2735;
-        }
-
+        /* Mengatur agar konten utama tidak tertutup sidebar */
         .content-wrapper {
-            margin-left: 270px;
-            padding: 30px;
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            background-color: #f8f9fa; /* Warna latar belakang konten */
         }
 
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            /* smooth scroll */
+        /* Styling untuk link navigasi */
+        .sidebar-link {
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Efek hover yang lebih jelas */
+        .sidebar-link:hover {
+            color: #fff !important;
+            background-color: #495057; 
         }
     </style>
 </head>
 
 <body>
 
-    <div class="sidebar">
-        <h4 class="fw-bold mb-4">Timedoor Academy</h4>
+    <div class="d-flex">
+        
+        {{-- MEMANGGIL FILE SIDEBAR DI SINI --}}
+        {{-- Asumsi: File sidebar Anda berada di 'admin.partials.sidebar' --}}
+        @include('admin.partials.sidebar') 
 
-        <a href="{{ route('admin.partners.index') }}">📌 Partner List</a>
-        <hr style="border-color: #45586b;">
-        <a href="#">⚙ Settings</a>
-        <a href="#">📊 Analytics</a>
+        {{-- Konten Utama --}}
+        <main class="content-wrapper w-100">
+            <div class="p-4">
+                @yield('content')
+            </div>
+        </main>
+        
     </div>
 
-    <div class="content-wrapper">
-        @yield('content')
-    </div>
+    {{-- Bootstrap JS Bundle --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>

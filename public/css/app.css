@@ -352,9 +352,6 @@ body {
     background-color: #1a1d3f;
 }
 
-.btn-trial {
-    background: #22c55e;
-}
 
 @media (max-width: 991px) {
     .navbar-collapse {

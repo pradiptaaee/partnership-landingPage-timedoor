@@ -4,98 +4,133 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
+use App\Models\PartnerActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+
 class PartnerAdminController extends Controller
-{ 
-    /**
-     * Display a listing of the partners.
-     */
+{
     public function index()
     {
-        $partners = Partner::latest()->paginate(10);
-        return view('admin.partners.index', compact('partners'));
+        $partners = Partner::latest()->paginate(5);
+
+        $totalPartners = Partner::count();
+
+        // Total Kategori UNIK (Menggunakan kolom 'category' di tabel partners)
+        $totalCategories = Partner::distinct('category')->count('category');
+
+        // Total Kegiatan (Menggunakan model PartnerActivity)
+        $totalActivities = PartnerActivity::count();
+        return view('admin.partners.index', compact('partners',
+            'totalPartners',
+            'totalCategories',
+            'totalActivities'));
     }
 
-    /**
-     * Show the form for creating a new partner.
-     */
+    public function show(Partner $partner)
+    {
+        // 1. Ambil data statistik yang diminta
+
+        // Total Partner (Menggunakan model Partner)
+        $totalPartners = Partner::count();
+
+        // Total Kategori UNIK (Menggunakan kolom 'category' di tabel partners)
+        $totalCategories = Partner::distinct('category')->count('category');
+
+        // Total Kegiatan (Menggunakan model PartnerActivity)
+        $totalActivities = PartnerActivity::count();
+
+        // 2. Tampilkan view detail (misalnya: admin.partners.show_detail atau admin.partners.show)
+        return view('admin.partners.show', compact(
+            'partner',
+            'totalPartners',
+            'totalCategories',
+            'totalActivities'
+        ));
+    }
+
     public function create()
     {
         return view('admin.partners.create');
     }
 
-    /**
-     * Store a newly created partner.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'logo' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
+            'name' => 'required|unique:partners,name',
+            'category' => 'required',
+            'description' => 'required',
+            'logo' => 'nullable|image|max:2048'
         ]);
 
-        // Tambahkan slug
-        $validated['slug'] = Str::slug($validated['name']);
+        
+        // Slug otomatis dari model
+        $partner = new Partner();
+        $partner->name = $validated['name'];
+        $partner->category = $validated['category'];
+        $partner->description = $validated['description'];
+        $partner->slug = Str::slug($validated['name']);
 
+        // Upload logo hanya jika ada file
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $request->file('logo')->store('partners', 'public');
+            $fileName = time() . '_' . $request->file('logo')->getClientOriginalName();
+            $request->file('logo')->storeAs('public/partner/logo', $fileName);
+            $partner->logo = 'partner/logo/' . $fileName;
         }
 
-        Partner::create($validated);
+        $partner->save();
 
-        return redirect()
-            ->route('admin.partners.index')
-            ->with('success', 'Partner berhasil ditambahkan.');
+        return redirect()->route('admin.partners.index')->with('success', 'Partner berhasil ditambahkan');
     }
 
-    /**
-     * Show the form for editing the specified partner.
-     */
     public function edit(Partner $partner)
     {
         return view('admin.partners.edit', compact('partner'));
     }
 
-    /**
-     * Update the specified partner.
-     */
-    public function update(Request $request, Partner $partner)
+
+    public function update(Request $request, $id)
     {
+        $partner = Partner::findOrFail($id);
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'logo' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
+            'name' => 'required|unique:partners,name,' . $partner->id,
+            'category' => 'required',
+            'description' => 'required',
+            'logo' => 'nullable|image|max:2048'
         ]);
 
-        // Update logo jika ada file baru
+        $partner->name = $validated['name'];
+        $partner->category = $validated['category'];
+        $partner->description = $validated['description'];
+
+        // Jika upload logo baru
         if ($request->hasFile('logo')) {
-            // hapus logo lama
-            if ($partner->logo && Storage::disk('public')->exists($partner->logo)) {
-                Storage::disk('public')->delete($partner->logo);
+
+            // Hapus logo lama — hanya jika ada logo lama
+            if ($partner->logo && Storage::exists('public/' . $partner->logo)) {
+                Storage::delete('public/' . $partner->logo);
             }
 
-            $validated['logo'] = $request->file('logo')->store('partners', 'public');
+            // Upload logo baru
+            $fileName = time() . '_' . $request->file('logo')->getClientOriginalName();
+            $request->file('logo')->storeAs('public/partner/logo', $fileName);
+
+            $partner->logo = 'partner/logo/' . $fileName;
         }
 
-        $partner->update($validated);
+        // Jika tidak upload logo → biarkan logo lama
 
-        return redirect()
-            ->route('admin.partners.index')
-            ->with('success', 'Partner berhasil diperbarui.');
+        $partner->save();
+
+        return redirect()->route('admin.partners.index')->with('success', 'Partner berhasil diupdate');
     }
 
-    /**
-     * Remove the specified partner.
-     */
+
     public function destroy(Partner $partner)
     {
-        // hapus logo jika ada
         if ($partner->logo && Storage::disk('public')->exists($partner->logo)) {
             Storage::disk('public')->delete($partner->logo);
         }

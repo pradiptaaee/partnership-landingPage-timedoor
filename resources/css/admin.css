@@ -1,0 +1,62 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Lebar sidebar tetap 250px */
+:root {
+    --sidebar-width: 250px;
+}
+
+/* Definisi Warna Hijau Timedoor (Asumsi: Menggunakan kode warna hijau yang cerah) */
+:root {
+    --timedoor-green: #38c172;
+    /* Contoh Hijau Cerah */
+    --timedoor-green-light: #e6ffe6;
+    /* Contoh Hijau Sangat Muda untuk background aktif */
+}
+
+/* Styling utama sidebar: Background Putih */
+#sidebar-admin {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: #ffffff !important;
+    /* Latar Belakang Putih */
+    border-right: 1px solid #f0f0f0;
+    /* Border tipis di kanan */
+}
+
+/* Mengatur agar konten utama tidak tertutup sidebar */
+.content-wrapper {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+/* Styling link di sidebar: Teks Abu-abu/Gelap */
+.sidebar-link {
+    color: #495057 !important;
+    /* Warna teks gelap */
+    padding: 10px 15px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+/* Styling link AKTIF: Background Hijau Muda & Teks Hijau Tua */
+.active-sidebar-link {
+    background-color: var(--timedoor-green-light) !important;
+    /* Latar belakang Hijau Muda */
+    color: var(--timedoor-green) !important;
+    /* Warna teks Hijau */
+    font-weight: 600;
+    border-radius: 8px !important;
+}
+
+/* Efek hover untuk link yang tidak aktif: Background Abu-abu Sangat Muda */
+.sidebar-link:hover:not(.active-sidebar-link) {
+    background-color: #f5f5f5;
+    /* Abu-abu sangat muda saat hover */
+    color: #343a40 !important;
+}

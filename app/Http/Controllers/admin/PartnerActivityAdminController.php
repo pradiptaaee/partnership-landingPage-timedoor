@@ -19,6 +19,7 @@ class PartnerActivityAdminController extends Controller
      */
     public function index(Request $request)
     {
+        // Menggunakan PartnerActivity sebagai model (asumsi: sama dengan PartnerActivity::class)
         $query = PartnerActivity::with(['partner', 'photos']);
 
         // Filter by partner
@@ -44,10 +45,31 @@ class PartnerActivityAdminController extends Controller
                 break;
         }
 
-        $activities = $query->paginate(15);
+        // Pagination: Set ke 3 item per halaman (sesuai setting Anda)
+        $activities = $query->paginate(6);
 
+        // --- PENYESUAIAN UNTUK AJAX LOAD MORE DIMULAI DI SINI ---
+
+        // Cek apakah permintaan datang dari AJAX (klik tombol Load More)
+        if ($request->ajax()) {
+
+            // 1. Render partial view yang hanya berisi cards (tanpa layout)
+            $html = view('admin.activity.partials.activity_cards', compact('activities'))->render();
+
+            // 2. Kembalikan respons dalam format JSON
+            return response()->json([
+                'html' => $html,
+                'next_page_url' => $activities->nextPageUrl(), // URL ke halaman selanjutnya
+                'has_more' => $activities->hasMorePages(),      // Cek apakah masih ada halaman
+            ]);
+        }
+
+        // Jika bukan permintaan AJAX (pemuatan halaman pertama kali)
         return view('admin.activity.index', compact('activities'));
     }
+
+
+    
 
     /**
      * Show the form for creating a new activity.
@@ -64,12 +86,12 @@ class PartnerActivityAdminController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate input
+        // Validasi
         $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
         try {
-            // Create activity
+
             $activity = new PartnerActivity();
             $activity->partner_id = $validated['partner_id'];
             $activity->title = $validated['title'];
@@ -78,17 +100,17 @@ class PartnerActivityAdminController extends Controller
             $activity->full_description = $validated['full_description'];
             $activity->activity_date = $validated['activity_date'];
 
-            // Handle featured image upload
+            /** Upload Featured Image */
             if ($request->hasFile('featured_image')) {
                 $activity->featured_image = $this->uploadImage(
                     $request->file('featured_image'),
-                    'partner_activities'
+                    'activity/featured'
                 );
             }
 
             $activity->save();
 
-            // Handle multiple photos upload
+            /** Upload Multiple Photos */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
@@ -102,7 +124,6 @@ class PartnerActivityAdminController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // Delete uploaded images if transaction fails
             if (isset($activity->featured_image)) {
                 Storage::disk('public')->delete($activity->featured_image);
             }
@@ -112,6 +133,7 @@ class PartnerActivityAdminController extends Controller
                 ->withErrors(['error' => 'Gagal menyimpan kegiatan: ' . $e->getMessage()]);
         }
     }
+
 
     /**
      * Show the form for editing the specified activity.
@@ -290,24 +312,33 @@ class PartnerActivityAdminController extends Controller
     /**
      * Upload single image.
      */
-    private function uploadImage($file, $folder)
+    private function uploadImage($file, $path)
     {
-        $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-        return $file->storeAs($folder, $filename, 'public');
+        // nama unik
+        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+        // simpan ke storage/app/public/activity/featured atau photos
+        $file->storeAs('public/' . $path, $fileName);
+
+        // simpan ke database TANPA "public/"
+        return $path . '/' . $fileName;
     }
+
 
     /**
      * Upload multiple photos.
      */
-    private function uploadPhotos($files, $activityId)
+    private function uploadPhotos($photos, $activityId)
     {
-        foreach ($files as $file) {
-            $path = $this->uploadImage($file, 'partner_activity_photos');
+        foreach ($photos as $photo) {
+            $fileName = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+            $photo->storeAs('public/activity/photos', $fileName);
 
             PhotoActivity::create([
                 'activity_id' => $activityId,
-                'image_path' => $path
+                'image_path' => 'activity/photos/' . $fileName
             ]);
         }
     }
+
 }
