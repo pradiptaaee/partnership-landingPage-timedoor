@@ -245,27 +245,5 @@
         .workshop-section {
             background-color: #EDFFF3;
         }
-<<<<<<< HEAD
     </style>
 @endsection
-=======
-
-        /* Button Filter */
-    </style>
-    <script>
-        document.getElementById("loadMoreLink").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.getElementById("moreWorkshops").classList.remove("d-none");
-            this.style.display = "none";
-        });
-
-        // load more 2
-        document.getElementById("loadMore").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.getElementById("Workshops").classList.remove("d-none");
-            this.style.display = "none";
-        });
-    </script>
-
-    @endsection
->>>>>>> origin/dede
