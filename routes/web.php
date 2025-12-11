@@ -20,13 +20,12 @@ use Illuminate\Support\Facades\Route;
 
 // Partner Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    
+
     // Partner Management
     Route::resource('partners', PartnerAdminController::class);
-    
+
     // Activity Management
     Route::resource('activity', PartnerActivityAdminController::class);
-    
 });
 
 // Route::get('adminnibos', [PartnerAdminController::class, 'index']);
@@ -34,3 +33,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('partnership', [PartnerController::class, 'index'])->name('partners.index');
 Route::get('/partnership/{partner:slug}', [PartnerController::class, 'show'])->name('partners.show');
 
+Route::get('/partners/{slug}', function ($slug) {
+    return view('partners.show', ['slug' => $slug]);
+})->name('partners.show');
