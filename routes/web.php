@@ -34,3 +34,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('partnership', [PartnerController::class, 'index'])->name('partners.index');
 Route::get('/partnership/{partner:slug}', [PartnerController::class, 'show'])->name('partners.show');
 
+// Landing page
+Route::get('landing', function() {
+    return view('landingPage.index');
+});
+
