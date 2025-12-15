@@ -1,7 +1,7 @@
 import Swiper from "swiper";
 import 'swiper/css';
 
-var swiper_left = new Swiper(".swiperLeft", {
+var swiperLeft = new Swiper(".swiperLeft", {
     loop: true,
     autoplay: {
         delay: 2800,
@@ -10,7 +10,7 @@ var swiper_left = new Swiper(".swiperLeft", {
     },
 });
 
-var swiper_right = new Swiper(".swiperRight", {
+var swiperRight = new Swiper(".swiperRight", {
     loop: true,
     autoplay: {
         delay: 3500,

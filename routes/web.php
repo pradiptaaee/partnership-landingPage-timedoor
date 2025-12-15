@@ -36,6 +36,6 @@ Route::get('/partnership/{partner:slug}', [PartnerController::class, 'show'])->n
 
 // Landing page
 Route::get('landing', function() {
-    return view('landingPage.index');
+    return view('landing_page.index');
 });
 
