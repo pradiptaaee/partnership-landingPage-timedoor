@@ -59,3 +59,8 @@ Route::prefix('partnership')
 // Route::get('/partners/{slug}', function ($slug) {
 //     return view('partners.show', ['slug' => $slug]);
 // })->name('partners.show');
+// Landing page
+Route::get('landing', function() {
+    return view('landing_page.index');
+});
+
