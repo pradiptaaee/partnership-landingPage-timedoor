@@ -51,6 +51,65 @@
                 </a>
             </li>
 
+             {{-- Tambahkan class 'group' di sini. Ini kuncinya. --}}
+<li class="nav-item group relative">
+    
+    @php
+        // Cek apakah sedang aktif di salah satu sub-menu
+        $isLandingPageActive = request()->routeIs('admin.banners.*') || 
+                               request()->routeIs('admin.testimonials.*') || 
+                               request()->routeIs('admin.student-projects.*');
+    @endphp
+
+    {{-- 1. Tombol Utama (Parent) --}}
+    {{-- Href dibuat # agar tidak reload saat cuma mau hover --}}
+    <a href="#" 
+       class="w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 
+              {{ $isLandingPageActive ? 'bg-gray-800 text-white' : 'text-gray-300 group-hover:bg-gray-800 group-hover:text-white' }}">
+        
+        <div class="flex items-center">
+            <i class="bi bi-window-fullscreen text-lg mr-3"></i>
+            <span class="font-medium">Landing Page</span>
+        </div>
+        
+        {{-- Ikon Panah (Otomatis berputar saat di-hover berkat group-hover) --}}
+        <i class="bi bi-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+    </a>
+
+    {{-- 2. Daftar Sub-Menu (Children) --}}
+    {{-- Logic: hidden (sembunyi), tapi group-hover:block (muncul saat induk di-hover) --}}
+    <ul class="hidden group-hover:block mt-1 space-y-1 pl-4 border-l border-gray-700 ml-4 animate-fade-in-down">
+        
+        {{-- A. Menu Banner --}}
+        <li>
+            <a href="{{ route('admin.banners.index') }}" 
+               class="block px-3 py-2 rounded-lg text-sm transition-colors 
+                      {{ request()->routeIs('admin.banners.*') ? 'text-green-400 font-bold bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-700' }}">
+                Banner Slider
+            </a>
+        </li>
+
+        {{-- B. Menu Testimonials --}}
+        <li>
+            <a href="{{ Route::has('admin.testimonials.index') ? route('admin.testimonials.index') : '#' }}" 
+               class="block px-3 py-2 rounded-lg text-sm transition-colors 
+                      {{ request()->routeIs('admin.testimonials.*') ? 'text-green-400 font-bold bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-700' }}">
+                Testimonials
+            </a>
+        </li>
+
+        {{-- C. Menu Student Projects --}}
+        <li>
+            <a href="{{ Route::has('admin.student-projects.index') ? route('admin.student-projects.index') : '#' }}" 
+               class="block px-3 py-2 rounded-lg text-sm transition-colors 
+                      {{ request()->routeIs('admin.student-projects.*') ? 'text-green-400 font-bold bg-gray-800' : 'text-gray-400 hover:text-white hover:bg-gray-700' }}">
+                Student Projects
+            </a>
+        </li>
+
+    </ul>
+</li>
+
         </ul>
     </nav>
 

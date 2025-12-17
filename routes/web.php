@@ -4,7 +4,8 @@ use App\Http\Controllers\Admin\PartnerActivityAdminController;
 use App\Http\Controllers\admin\PartnerAdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PartnerController;
-use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\BannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('activity', PartnerActivityAdminController::class);
     Route::get('/admin/activity/{slug}', [PartnerActivityAdminController::class, 'show'])
         ->name('admin.activity.show');
+    
+    Route::resource('landing-page/banners', BannerController::class);
     
     
 });

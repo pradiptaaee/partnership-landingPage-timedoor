@@ -1,6 +1,7 @@
 /* @import "bootstrap-icons/font/bootstrap-icons.css"; */
 @import "tailwindcss";
 
+
 /* Lebar sidebar tetap 250px */
 :root {
     --sidebar-width: 250px;

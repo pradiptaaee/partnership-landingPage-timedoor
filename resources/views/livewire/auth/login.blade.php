@@ -55,7 +55,7 @@
 
     {{-- Back Link --}}
     <div class="text-center">
-        <a href="{{ route('partners.index') }}"
+        <a href="{{ route('partnership.index') }}"
             class="text-muted text-decoration-none d-inline-flex align-items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
