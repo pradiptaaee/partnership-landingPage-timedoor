@@ -7,6 +7,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session ;
+// use Illuminate\Support\Facades\Session as FacadesSession;
+
 
 class LoginController extends Controller
 {
@@ -47,6 +50,7 @@ class LoginController extends Controller
             // Re-generate session ID untuk mencegah session fixation
             $request->session()->regenerate();
 
+            Session::flash('login_success', 'Selamat datang kembali! Anda berhasil login.');
             // Otentikasi berhasil, arahkan ke halaman dashboard admin
             return redirect()->intended(route('admin.partners.index'));
         }

@@ -6,27 +6,47 @@ use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use App\Models\PartnerActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
 class PartnerAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $partners = Partner::latest()->paginate(5);
+        // $query = Partner::query();
 
-        $totalPartners = Partner::count();
+        // // Search by title
+        // if ($request->filled('search')) {
+        //     $query->where('name', 'like', '%' . $request->search . '%');
+        // }
 
-        // Total Kategori UNIK (Menggunakan kolom 'category' di tabel partners)
-        $totalCategories = Partner::distinct('category')->count('category');
 
-        // Total Kegiatan (Menggunakan model PartnerActivity)
-        $totalActivities = PartnerActivity::count();
-        return view('admin.partners.index', compact('partners',
-            'totalPartners',
-            'totalCategories',
-            'totalActivities'));
+        // switch ($request->input('sort', 'latest')) { // Defaultnya 'latest'
+        //     case 'oldest':
+        //         $query->oldest(); // Urutkan berdasarkan created_at ASC
+        //         break;
+        //     case 'name_asc':
+        //         $query->orderBy('name', 'asc'); // Urutkan berdasarkan nama A-Z
+        //         break;
+        //     case 'name_desc':
+        //         $query->orderBy('name', 'desc'); // Urutkan berdasarkan nama Z-A
+        //         break;
+        //     default: // 'latest'
+        //         $query->latest(); // Urutkan berdasarkan created_at DESC
+        //         break;
+        // }
+
+        // $partners = $query->paginate(5);
+
+        // $totalPartners = Partner::count();
+        // // Total Kategori UNIK (Menggunakan kolom 'category' di tabel partners)
+        // $totalCategories = Partner::distinct('category')->count('category');
+       
+        // // Total Kegiatan (Menggunakan model PartnerActivity)
+        // $totalActivities = PartnerActivity::count();
+        return view('admin.partners.index');
     }
 
     public function show(Partner $partner)
@@ -80,6 +100,8 @@ class PartnerAdminController extends Controller
             $partner->logo = 'partner/logo/' . $fileName;
         }
 
+        Session::flash('success_message', 'Partner baru berhasil ditambahkan!');
+
         $partner->save();
 
         return redirect()->route('admin.partners.index')->with('success', 'Partner berhasil ditambahkan');
@@ -122,6 +144,7 @@ class PartnerAdminController extends Controller
         }
 
         // Jika tidak upload logo → biarkan logo lama
+        Session::flash('success_message', 'Partner berhasil diperbarui!');
 
         $partner->save();
 

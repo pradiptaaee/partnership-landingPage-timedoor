@@ -21,9 +21,7 @@ class PhotoActivity extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image_path
-            ? asset('storage/' . $this->image_path)
-            : null;
+        return asset('storage/activity/photos/' . $this->image_path);
     }
 
     protected static function booted()

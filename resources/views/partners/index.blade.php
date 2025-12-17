@@ -81,7 +81,7 @@
             <div class="container my-5">
                 <div class="search-wrapper mx-auto py-3 px-4 shadow-sm" style="border-radius: 15px; background: #ffffff;">
 
-                    <form action="{{ route('partners.index') }}" method="GET" class="d-flex gap-3">
+                    <form action="{{ route('partnership.index') }}" method="GET" class="d-flex gap-3">
 
                         <!-- SEARCH INPUT -->
                         <div class="input-group">
@@ -158,7 +158,7 @@
                                 modern untuk mengajar.
                             </p>
 
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -204,7 +204,7 @@
                                 siswa.
                             </p>
 
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>

@@ -34,9 +34,15 @@ class PartnerActivity extends Model
     public function getFeaturedImageUrlAttribute()
     {
         return $this->featured_image
-            ? asset('storage/' . $this->featured_image)
+            ? asset('storage/activity/featured/' . $this->featured_image)
             : null;
     }
+    // public function getFeaturedImageUrlAttribute()
+    // {
+    //     return $this->featured_image
+    //         ? asset('storage/' . $this->featured_image)
+    //         : null;
+    // }
 
     // Delete images automatically when activity is deleted
     protected static function booted()

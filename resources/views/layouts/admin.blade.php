@@ -1,67 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Partnership</title>
 
-    {{-- Bootstrap CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    {{-- Bootstrap Icons CSS (WAJIB DITAMBAHKAN) --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
-    {{-- Vite Assets (CSS Kustom Anda) --}}
+    {{-- SweetAlert --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    {{-- Bootstrap Icons (boleh tetap dipakai) --}}
+    {{-- <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
+
+    {{-- Tailwind via Vite --}}
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
-    
-    {{-- CSS Kustom untuk Sidebar (Agar Fixed dan Profil di Bawah) --}}
-    <style>
-        /* Lebar sidebar sesuai kode sebelumnya */
-       
 
-        /* Mengatur agar konten utama tidak tertutup sidebar */
-        .content-wrapper {
-            margin-left: var(--sidebar-width);
-            min-height: 100vh;
-            background-color: #f8f9fa; /* Warna latar belakang konten */
-        }
-
-        /* Styling untuk link navigasi */
-        .sidebar-link {
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Efek hover yang lebih jelas */
-        .sidebar-link:hover {
-            color: #fff !important;
-            background-color: #495057; 
-        }
-    </style>
+    @livewireStyles
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-    <div class="d-flex">
-        
-        {{-- MEMANGGIL FILE SIDEBAR DI SINI --}}
-        {{-- Asumsi: File sidebar Anda berada di 'admin.partials.sidebar' --}}
-        @include('admin.partials.sidebar') 
+    <div class="flex min-h-screen">
 
-        {{-- Konten Utama --}}
-        <main class="content-wrapper w-100">
-            <div class="p-4">
+        {{-- Sidebar --}}
+        @include('admin.partials.sidebar')
+
+        {{-- Main Content --}}
+        <main class="flex-1 ml-65 bg-gray-100">
+            <div class="p-6">
                 @yield('content')
             </div>
         </main>
-        
+
     </div>
 
-    {{-- Bootstrap JS Bundle --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- SweetAlert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @livewireScripts
+
+    {{-- Livewire & Session Alert --}}
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('success-alert', (data) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: data.message,
+                    position: 'center',
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                });
+            });
+        });
+
+        window.onload = function () {
+
+            @if (Session::has('login_success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Berhasil!',
+                text: "{{ Session::get('login_success') }}",
+                showConfirmButton: true,
+                confirmButtonText: 'Lanjutkan',
+            });
+            @endif
+
+            @if (Session::has('success_message'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ Session::get('success_message') }}",
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+            });
+            @endif
+        }
+    </script>
 
 </body>
 </html>

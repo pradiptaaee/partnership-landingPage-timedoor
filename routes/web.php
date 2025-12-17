@@ -21,6 +21,11 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::delete(
+    '/admin/activity/photo/{photo}',
+    [PartnerActivityAdminController::class, 'deletePhoto']
+)->name('admin.activity.photo.delete');
+
 // Partner Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     
@@ -29,13 +34,25 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Activity Management
     Route::resource('activity', PartnerActivityAdminController::class);
+    Route::get('/admin/activity/{slug}', [PartnerActivityAdminController::class, 'show'])
+        ->name('admin.activity.show');
+    
+    
 });
 
-// Route::get('adminnibos', [PartnerAdminController::class, 'index']);
 
-Route::get('partnership', [PartnerController::class, 'index'])->name('partners.index');
-Route::get('/partnership/{partner:slug}', [PartnerController::class, 'show'])->name('partners.show');
 
-Route::get('/partners/{slug}', function ($slug) {
-    return view('partners.show', ['slug' => $slug]);
-})->name('partners.show');
+Route::prefix('partnership')
+    ->name('partnership.')
+    ->group(function () {
+
+        Route::get('/', [PartnerController::class, 'index'])
+            ->name('index');
+
+        Route::get('/{partner:slug}', [PartnerController::class, 'show'])
+            ->name('show');
+    });
+
+// Route::get('/partners/{slug}', function ($slug) {
+//     return view('partners.show', ['slug' => $slug]);
+// })->name('partners.show');

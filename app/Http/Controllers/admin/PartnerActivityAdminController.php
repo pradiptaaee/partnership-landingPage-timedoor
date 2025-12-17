@@ -8,6 +8,7 @@ use App\Models\PartnerActivity;
 use App\Models\PhotoActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -31,6 +32,7 @@ class PartnerActivityAdminController extends Controller
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
+
 
         // Sorting
         switch ($request->input('sort', 'latest')) {
@@ -69,7 +71,7 @@ class PartnerActivityAdminController extends Controller
     }
 
 
-    
+
 
     /**
      * Show the form for creating a new activity.
@@ -102,10 +104,17 @@ class PartnerActivityAdminController extends Controller
 
             /** Upload Featured Image */
             if ($request->hasFile('featured_image')) {
-                $activity->featured_image = $this->uploadImage(
-                    $request->file('featured_image'),
-                    'activity/featured'
-                );
+
+                $file = $request->file('featured_image');
+
+                // buat nama unik
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // simpan ke storage/app/public/activity/featured
+                $file->storeAs('activity/featured', $filename, 'public');
+
+                // simpan hanya nama file ke database
+                $activity->featured_image = $filename;
             }
 
             $activity->save();
@@ -119,7 +128,7 @@ class PartnerActivityAdminController extends Controller
 
             return redirect()
                 ->route('admin.activity.index')
-                ->with('success', 'Kegiatan berhasil ditambahkan.');
+                ->with('success_message', 'Kegiatan berhasil ditambahkan.');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -135,6 +144,18 @@ class PartnerActivityAdminController extends Controller
     }
 
 
+    public function show($slug)
+    {
+        $activity = PartnerActivity::with('photos', 'partner')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return view('admin.activity.show', compact('activity'));
+    }
+
+
+    private string $featuredPath = 'activity/featured';
+    private string $photosPath = 'activity/photos';
     /**
      * Show the form for editing the specified activity.
      */
@@ -172,16 +193,20 @@ class PartnerActivityAdminController extends Controller
 
             // Handle featured image replacement
             if ($request->hasFile('featured_image')) {
-                // Delete old featured image
+
+                // hapus foto lama
                 if ($activity->featured_image) {
-                    Storage::disk('public')->delete($activity->featured_image);
+                    Storage::disk('public')
+                        ->delete($this->featuredPath . '/' . $activity->featured_image);
                 }
 
+                // upload baru
                 $activity->featured_image = $this->uploadImage(
                     $request->file('featured_image'),
-                    'partner_activities'
+                    $this->featuredPath
                 );
             }
+
 
             $activity->save();
 
@@ -191,10 +216,11 @@ class PartnerActivityAdminController extends Controller
             }
 
             DB::commit();
+            
 
             return redirect()
-                ->route('admin.activity.edit', $activity->id)
-                ->with('success', 'Kegiatan berhasil diperbarui.');
+                ->route('admin.activity.index', $activity->id)
+                ->with('success_message', 'Kegiatan berhasil diperbarui.');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -229,26 +255,30 @@ class PartnerActivityAdminController extends Controller
     /**
      * Delete individual photo from activity.
      */
-    public function deletePhoto($id)
+    public function deletePhoto(PhotoActivity $photo)
     {
         try {
-            $photo = PhotoActivity::findOrFail($id);
+            // Dapatkan ID kegiatan yang terkait (untuk redirect yang lebih spesifik jika perlu)
+            $activityId = $photo->partner_activity_id;
 
-            // Image will be deleted automatically via model boot method
+            // 1. Hapus file fisik dari storage
+            $filePath = 'storage/activity/photos/' . $photo->image_path;
+            Storage::disk('public')->delete($filePath);
+
+            // 2. Hapus record database
             $photo->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Foto berhasil dihapus.'
-            ]);
+            // Berhasil: Flash pesan sukses ke session
+            // Ini akan ditangkap oleh SweetAlert listener di layout admin
+            return back()->with('success_alert', 'Foto berhasil dihapus dari galeri.');
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal menghapus foto: ' . $e->getMessage()
-            ], 500);
+            // Gagal: Flash pesan error ke session
+            return back()->with('error_alert', 'Gagal menghapus foto. Error: ' . $e->getMessage());
         }
     }
+
+
 
     /**
      * Validate activity input.
@@ -312,17 +342,15 @@ class PartnerActivityAdminController extends Controller
     /**
      * Upload single image.
      */
-    private function uploadImage($file, $path)
+    private function uploadImage($file, $folder)
     {
-        // nama unik
         $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-        // simpan ke storage/app/public/activity/featured atau photos
-        $file->storeAs('public/' . $path, $fileName);
+        $file->storeAs($folder, $fileName, 'public');
 
-        // simpan ke database TANPA "public/"
-        return $path . '/' . $fileName;
+        return $fileName;
     }
+
 
 
     /**
@@ -332,11 +360,12 @@ class PartnerActivityAdminController extends Controller
     {
         foreach ($photos as $photo) {
             $fileName = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
-            $photo->storeAs('public/activity/photos', $fileName);
+
+            $photo->storeAs($this->photosPath, $fileName, 'public');
 
             PhotoActivity::create([
                 'activity_id' => $activityId,
-                'image_path' => 'activity/photos/' . $fileName
+                'image_path' => $fileName
             ]);
         }
     }

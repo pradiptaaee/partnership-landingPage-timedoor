@@ -1,52 +1,57 @@
 @extends('layouts.admin')
 
 @section('content')
-<h4 class="fw-bold mb-4">Detail Aktivitas</h4>
+<div class="container">
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <h5 class="fw-bold">{{ $activity->title }}</h5>
-        <p class="mb-1"><strong>Partner:</strong> {{ $activity->partner->name }}</p>
-        <p class="mb-1"><strong>Tanggal:</strong> {{ $activity->date }}</p>
-        <p class="mt-3">{{ $activity->description }}</p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">{{ $activity->title }}</h3>
+        <a href="{{ route('admin.activity.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </a>
     </div>
-</div>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-body">
-        <h5 class="fw-bold mb-3">Upload Foto Baru</h5>
+    {{-- Featured Image --}}
+    @if($activity->featured_image)
+        <div class="mb-4">
+            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
+                 class="img-fluid rounded shadow-sm"
+                 alt="{{ $activity->title }}" width="300">
+        </div>
+    @endif
 
-        <form action="{{ route('admin.activity-photos.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="activity_id" value="{{ $activity->id }}">
-
-            <input type="file" name="photos[]" class="form-control mb-3" multiple>
-            <button class="btn btn-primary">Upload</button>
-        </form>
-    </div>
-</div>
-
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h5 class="fw-bold mb-3">Galeri Foto</h5>
-
-        <div class="row g-3">
-            @foreach($activity->photos as $photo)
-            <div class="col-md-3">
-                <div class="card border-0">
-                    <img src="{{ asset('storage/'.$photo->image) }}" class="rounded mb-2 w-100" style="height: 160px; object-fit: cover;">
-                    <form action="{{ route('admin.activity-photos.destroy', $photo->id) }}" method="POST">
-                        @csrf @method('DELETE')
-                        <button onclick="return confirm('Hapus foto?')" class="btn btn-sm btn-danger w-100">Hapus</button>
-                    </form>
-                </div>
-            </div>
-            @endforeach
-
-            @if($activity->photos->isEmpty())
-            <p class="text-muted">Belum ada foto kegiatan.</p>
-            @endif
+    {{-- Informasi Utama --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="fw-semibold">Informasi Kegiatan</h5>
+            <p><strong>Partner:</strong> {{ $activity->partner->name ?? '-' }}</p>
+            <p><strong>Tanggal:</strong> {{ $activity->activity_date }}</p>
+            <p><strong>Deskripsi Singkat:</strong> {{ $activity->short_description }}</p>
         </div>
     </div>
+
+    {{-- Deskripsi Lengkap --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="fw-semibold">Deskripsi Lengkap</h5>
+            <div>{!! nl2br(e($activity->full_description)) !!}</div>
+        </div>
+    </div>
+
+    {{-- Gallery Photo --}}
+    <h5 class="fw-semibold mb-2">Foto Kegiatan</h5>
+
+    @if($activity->photos->count() > 0)
+        <div class="row">
+            @foreach($activity->photos as $photo)
+                <div class="col-md-3 mb-3">
+                    <img src="{{ asset('storage/activity/photos/' . $photo) }}"
+                         class="img-fluid rounded-3 shadow-sm">
+                </div>
+            @endforeach
+        </div>
+    @else
+        <p class="text-muted">Tidak ada foto tambahan.</p>
+    @endif
+
 </div>
 @endsection
