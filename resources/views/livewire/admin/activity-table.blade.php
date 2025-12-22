@@ -75,7 +75,7 @@
                         <div class="relative overflow-hidden h-48 flex-shrink-0">
                             @if ($activity->featured_image)
                                 <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
-                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                                      alt="{{ $activity->title }}">
                             @else
                                 <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -104,14 +104,7 @@
                                 </div>
                             @endif
 
-                            {{-- View Detail Badge on Hover --}}
-                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                                <a href="{{ route('admin.activity.show', $activity->slug) }}" 
-                                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/95 backdrop-blur-sm text-indigo-600 font-semibold rounded-lg shadow-lg hover:bg-white transition-colors">
-                                    <i class="bi bi-eye-fill"></i>
-                                    Lihat Detail
-                                </a>
-                            </div>
+                            
                         </div>
 
                         {{-- Content Section --}}
@@ -188,10 +181,10 @@
 
         {{-- Loading State --}}
         <div wire:loading class="py-20 text-center">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4 animate-pulse">
+            <div class="w-full inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4 animate-pulse">
                 <i class="bi bi-hourglass-split text-2xl text-indigo-600 animate-spin"></i>
             </div>
-            <p class="text-gray-600 font-medium">Memuat kegiatan...</p>
+            
         </div>
 
         {{-- Pagination --}}
@@ -211,7 +204,7 @@
 
     {{-- Delete Confirmation Modal --}}
     @if ($confirmingActivityDeletion)
-        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn h-full">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-scaleIn">
                 {{-- Modal Header --}}
                 <div class="flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mx-auto mb-4">

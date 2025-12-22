@@ -8,7 +8,7 @@
                 <div class="flex-1">
                     <p class="text-xs uppercase font-bold text-green-700 tracking-wider mb-1">Total Partner</p>
                     <p class="text-3xl font-bold text-green-900">{{ $totalPartners ?? 0 }}</p>
-                    <p class="text-xs text-green-600 mt-1">Partner terdaftar</p>
+                    
                 </div>
                 <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center shadow-lg">
                     <i class="bi bi-people-fill text-white text-2xl"></i>
@@ -22,7 +22,7 @@
                 <div class="flex-1">
                     <p class="text-xs uppercase font-bold text-blue-700 tracking-wider mb-1">Jumlah Kategori</p>
                     <p class="text-3xl font-bold text-blue-900">{{ $totalCategories ?? 0 }}</p>
-                    <p class="text-xs text-blue-600 mt-1">Kategori aktif</p>
+                    
                 </div>
                 <div class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
                     <i class="bi bi-tags-fill text-white text-2xl"></i>
@@ -36,7 +36,6 @@
                 <div class="flex-1">
                     <p class="text-xs uppercase font-bold text-purple-700 tracking-wider mb-1">Total Kegiatan</p>
                     <p class="text-3xl font-bold text-purple-900">{{ $totalActivities ?? 0 }}</p>
-                    <p class="text-xs text-purple-600 mt-1">Kegiatan berlangsung</p>
                 </div>
                 <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center shadow-lg">
                     <i class="bi bi-calendar-event-fill text-white text-2xl"></i>
@@ -64,10 +63,10 @@
                 <div class="relative">
                     <select wire:model.live="sortBy" 
                             class="appearance-none pl-4 pr-10 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white cursor-pointer">
-                        <option value="latest">🕒 Terbaru</option>
-                        <option value="oldest">⏳ Terlama</option>
-                        <option value="name_asc">🔤 Nama (A–Z)</option>
-                        <option value="name_desc">🔤 Nama (Z–A)</option>
+                        <option value="latest">Terbaru</option>
+                        <option value="oldest">Terlama</option>
+                        <option value="name_asc">Nama (A–Z)</option>
+                        <option value="name_desc">Nama (Z–A)</option>
                     </select>
                     <i class="bi bi-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                 </div>
@@ -76,10 +75,10 @@
                 <div class="relative">
                     <select wire:model.live="perPage" 
                             class="appearance-none pl-4 pr-10 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white cursor-pointer">
-                        <option value="5">5 per halaman</option>
-                        <option value="10">10 per halaman</option>
-                        <option value="25">25 per halaman</option>
-                        <option value="50">50 per halaman</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
                     </select>
                     <i class="bi bi-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                 </div>
@@ -114,6 +113,7 @@
                             <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Partner</th>
                             <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Deskripsi</th>
                             <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Kategori</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Created at</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
@@ -150,8 +150,14 @@
                                 {{-- Category --}}
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-green-100 to-green-200 text-green-800 border border-green-300">
-                                        <i class="bi bi-tag-fill mr-1.5"></i>
+                                       
                                         {{ $partner->category }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center px-3 py-1  text-gray-600 rounded-full text-xs max-w-30  ">
+                                       
+                                        {{ $partner->created_at }}
                                     </span>
                                 </td>
 
