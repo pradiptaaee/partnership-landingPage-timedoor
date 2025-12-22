@@ -36,34 +36,39 @@
 
         <div class="flex w-full gap-1.5">
 
-            <!-- Btn Prev -->
-            <button class="btn-prev">
+            <button class="btn-prev z-10">
                 <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="rounded-full transition duration-300 hover:scale-105">
                     <circle cx="17" cy="17" r="16" stroke="white" stroke-width="2" />
                     <path d="M21 8L12 17L21 26" stroke="white" stroke-width="2" />
                 </svg>
             </button>
 
+            {{-- SWIPER CONTAINER --}}
             <div class="swiper projectSwiper w-5/6 h-full bg-white rounded-[2.5rem]">
                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide p-1.5 shadow-2xl mx-auto">
-                        <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
-                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
+                    @forelse($projects as $project)
+                        <div class="swiper-slide p-1.5 shadow-2xl mx-auto" 
+                            {{-- Simpan data di atribut dataset agar bisa dibaca JS --}}
+                            data-student="{{ $project->student_name }}" 
+                            data-type="{{ $project->project_type }}">
+                            
+                            <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
+                                <img src="{{ Storage::url($project->project_image) }}" 
+                                    alt="{{ $project->project_type }}" 
+                                    class="absolute inset-0 w-full h-full object-cover opacity-100 transition-transform duration-700 group-hover:scale-105">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="swiper-slide p-1.5 shadow-2xl mx-auto">
-                        <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
-                            <img src="https://widya.ai/wp-content/uploads/2023/03/Optimized-Illustration-from-Adobe-Stock-for-ITC-Post-on-AI-in-Game-Development-scaled-1.jpeg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
+                    @empty
+                        <div class="swiper-slide p-1.5 text-center py-20">
+                            <p class="text-gray-500">Belum ada project.</p>
                         </div>
-                    </div>
+                    @endforelse
 
                 </div>
             </div>
 
-            <!-- Btn Next -->
-            <button class="btn-next">
+            <button class="btn-next z-10">
                 <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="rounded-full transition duration-300 hover:scale-105">
                     <circle cx="17" cy="17" r="16" stroke="white" stroke-width="2" />
                     <path d="M13 8L22 17L13 26" stroke="white" stroke-width="2" />
@@ -71,14 +76,19 @@
             </button>
         </div>
 
-        <div class="text-center mt-8 pb-10">
-            <h3 class="text-white font-extrabold text-base sm:text-4xl lg:text-5xl tracking-wide mb-3 drop-shadow-md">
-                Students Name, Age
+        {{-- INFORMASI TEXT DI BAWAH (Akan berubah via JS) --}}
+        <div class="text-center mt-8 pb-10 fade-in-up">
+            <h3 id="student-name-display" class="text-white font-extrabold text-base sm:text-4xl lg:text-5xl tracking-wide mb-3 drop-shadow-md transition-all duration-300">
+                {{-- Default Value (Data Pertama) --}}
+                {{ $projects->first()->student_name ?? 'Nama Murid' }}
             </h3>
             <div class="inline-flex items-center gap-4 bg-white/10 px-6 py-2 rounded-2xl backdrop-blur-sm border border-white/10">
                 <span class="text-white font-bold text-sm sm:text-2xl lg:text-3xl">Project Type:</span>
                 <span class="bg-[#1C2F70] text-[#FFD43C] px-6 py-1.5 rounded-xl text-sm sm:text-2xl font-bold shadow-lg transform -skew-x-6 border-2 border-[#fbbf24]/50">
-                    <span class="block transform skew-x-6">Website</span>
+                    <span id="project-type-display" class="block transform skew-x-6">
+                        {{-- Default Value (Data Pertama) --}}
+                        {{ $projects->first()->project_type ?? 'Tipe Project' }}
+                    </span>
                 </span>
             </div>
         </div>

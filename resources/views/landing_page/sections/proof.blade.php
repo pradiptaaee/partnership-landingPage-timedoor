@@ -36,35 +36,38 @@
         <!-- Swiper Container V1 -->
         <div class="swiper swiperLeft border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14">
             <div class="swiper-wrapper">
-                <!-- Slide 1 -->
-                <div class="swiper-slide">
-                    <div class="p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
-                        <div class="text-white z-10 w-1/2">
-                            <h3 class="text-base sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-                                🏆 Winner: Tech Kids Grand Prix ASEAN 2024
-                            </h3>
-                        </div>
-                        <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1740&auto=format&fit=crop"
-                                class="w-full h-full object-cover opacity-80" alt="Winner">
-                        </div>
-                    </div>
-                </div>
+                
+                {{-- CEK APAKAH ADA BANNER? --}}
+                @forelse($banners as $banner)
+                    {{-- LOOPING DATA BANNER --}}
+                    <div class="swiper-slide">
+                        <div class="p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
+                            
+                            {{-- Judul Banner --}}
+                            <div class="text-white z-10 w-1/2">
+                                <h3 class="text-base sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+                                    {{ $banner->title }}
+                                </h3>
+                            </div>
 
-                <!-- Slide 2 -->
-                <div class="swiper-slide">
-                    <div class="p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
-                        <div class="text-white z-10 w-1/2 ">
-                            <h3 class="text-base sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-                                🏆 Winner: Tech Kids Grand Prix ASEAN 2024
-                            </h3>
-                        </div>
-                        <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1740&auto=format&fit=crop"
-                                class="w-full h-full object-cover opacity-80" alt="Winner">
+                            {{-- Gambar Banner --}}
+                            <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
+                                {{-- Gunakan Storage::url untuk memanggil gambar --}}
+                                <img src="{{ Storage::url($banner->image) }}"
+                                    class="w-full h-full object-cover opacity-80" 
+                                    alt="{{ $banner->title }}">
+                            </div>
                         </div>
                     </div>
-                </div>
+                @empty
+                    {{-- JIKA TIDAK ADA DATA (TAMPILAN DEFAULT) --}}
+                    <div class="swiper-slide">
+                        <div class="p-10 bg-[#10AF13] text-white text-center">
+                            <h3 class="text-3xl font-bold">Belum ada Banner Aktif</h3>
+                        </div>
+                    </div>
+                @endforelse
+
             </div>
         </div>
 
@@ -110,52 +113,66 @@
         <div class="swiper swiperRight">
             <div class="swiper-wrapper">
 
-
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
-                        <div class="flex gap-0">
-                            <div class="w-2/5">
-                                <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] bg-gray-200 overflow-hidden border-4 border-green-100">
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover">
+                {{-- LOOPING DATA DARI DATABASE --}}
+                @forelse($testimonials as $testimoni)
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12 border border-gray-100 h-full">
+                            <div class="flex gap-0">
+                                
+                                {{-- Bagian Kiri: Foto & Identitas --}}
+                                <div class="w-2/5 flex flex-col items-center sm:items-start text-center sm:text-left">
+                                    
+                                    {{-- Foto Profil --}}
+                                    <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] bg-gray-200 overflow-hidden border-4 border-green-100 mb-4 rounded-3xl">
+                                        {{-- Panggil Gambar dari Storage --}}
+                                        <img src="{{ Storage::url($testimoni->parent_image) }}" 
+                                            alt="{{ $testimoni->parent_name }}"
+                                            class="w-full h-full object-cover">
+                                    </div>
+                                    
+                                    {{-- Teks Identitas --}}
+                                    <div class="text-blue-900 w-full pr-2">
+                                        <p class="font-extrabold text-xs md:text-xl lg:text-3xl line-clamp-1">
+                                            {{ $testimoni->parent_name }}
+                                        </p>
+                                        
+                                        {{-- Cek jika ada nama murid --}}
+                                        @if($testimoni->student_name)
+                                            <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600 mt-1">
+                                                {{ $testimoni->student_name }}
+                                            </p>
+                                        @endif
+                                        
+                                        {{-- Cek jika ada nama kursus --}}
+                                        @if($testimoni->course_name)
+                                            <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">
+                                                {{ $testimoni->course_name }}
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="text-blue-900">
-                                    <p class="font-extrabold text-xs md:text-xl lg:text-3xl">Parents Name</p>
-                                    <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">Students Name, age</p>
-                                    <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">Level/Courses</p>
-                                </div>
-                            </div>
 
-                            <div class="w-3/5">
-                                <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] leading-relaxed italic">
-                                    "My daughter's problem-solving skills have improved so much... The teachers are patient and the small class is perfect."
-                                </blockquote>
+                                {{-- Bagian Kanan: Isi Review --}}
+                                <div class="w-3/5 flex items-center">
+                                    <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] leading-relaxed italic relative">
+                                        <span class="text-6xl text-green-200 absolute -top-4 -left-2 opacity-50 font-serif">"</span>
+                                        {{ $testimoni->review }}
+                                        <span class="text-6xl text-green-200 absolute -bottom-8 -right-2 opacity-50 font-serif">"</span>
+                                    </blockquote>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
-                        <div class="flex gap-0">
-                            <div class="w-2/5">
-                                <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] bg-gray-200 overflow-hidden border-4 border-green-100">
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover">
-                                </div>
-                                <div class="text-blue-900">
-                                    <p class="font-extrabold text-xs md:text-xl lg:text-3xl">Parents Name</p>
-                                    <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">Students Name, age</p>
-                                    <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">Level/Courses</p>
-                                </div>
-                            </div>
-
-                            <div class="w-3/5">
-                                <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] leading-relaxed italic">
-                                    "My daughter's problem-solving skills have improved so much... The teachers are patient and the small class is perfect."
-                                </blockquote>
-                            </div>
+                @empty
+                    {{-- TAMPILAN JIKA BELUM ADA DATA (Fallback) --}}
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-[2.5rem] p-12 shadow-xl text-center">
+                            <p class="text-gray-500 text-xl">Belum ada testimoni yang ditampilkan.</p>
                         </div>
                     </div>
-                </div>
+                @endforelse
+
             </div>
         </div>
 

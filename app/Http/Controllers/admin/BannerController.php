@@ -12,8 +12,10 @@ class BannerController extends Controller
     // Menampilkan daftar banner
     public function index()
     {
-        $banners = Banner::latest()->get();
-        // Pastikan struktur foldernya sesuai rencana kita
+        $banners = Banner::latest()
+                ->filter(request(['search', 'sort'])) // Panggil scopeFilter tadi
+                ->get();
+
         return view('admin.landing_page.banners.index', compact('banners'));
     }
 
