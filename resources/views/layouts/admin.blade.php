@@ -17,7 +17,7 @@
 
     {{-- Tailwind via Vite --}}
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
-
+    
     @livewireStyles
 </head>
 

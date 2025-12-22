@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Partner;
 use App\Models\PartnerActivity;
 use Illuminate\Http\Request;
