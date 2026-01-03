@@ -27,7 +27,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // --- ADMIN ROUTES GROUP ---
 // Semua yang ada di dalam sini otomatis kena prefix 'admin/' dan nama 'admin.'
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin.locale'])->prefix('admin')->name('admin.')->group(function () {
     
     // 1. Group Partner & Activity
     Route::resource('partners', PartnerAdminController::class);
@@ -74,3 +74,15 @@ Route::get('landing', function() {
     // 4. Kirim SEMUANYA ke view
     return view('landing_page.index', compact('banners', 'testimonials', 'projects'));
 });
+
+Route::get('/lang/{locale}', function ($locale) {
+    // Daftar bahasa yang kita dukung
+    $availableLocales = ['en', 'id', 'ms', 'fil', 'ar', 'ja', 'bn'];
+    
+    // Cek apakah kode bahasa valid
+    if (in_array($locale, $availableLocales)) {
+        Session::put('locale', $locale); // Simpan pilihan bahasa ke Session
+    }
+    
+    return Redirect::back(); // Kembali ke halaman sebelumnya
+})->name('switch.language');

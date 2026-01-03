@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder; // Import Builder
+use Spatie\Translatable\HasTranslations;
 
 class Banner extends Model
 {
     use HasFactory;
-
+    use HasTranslations;
     protected $guarded = ['id'];
+    public $translatable = ['title', 'description'];
 
     /**
      * Scope untuk memfilter pencarian dan sorting.

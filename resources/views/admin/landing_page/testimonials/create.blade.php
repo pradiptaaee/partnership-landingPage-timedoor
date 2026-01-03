@@ -7,7 +7,7 @@
     <div class="flex justify-between items-center mb-6 shrink-0">
         <div>
             <h1 class="text-2xl font-bold text-gray-900">Tambah Testimoni Baru</h1>
-            <p class="text-gray-500 text-sm">Input data review dari orang tua murid</p>
+            <p class="text-gray-500 text-sm">Input data review dari orang tua murid (Multi-bahasa Otomatis)</p>
         </div>
         <a href="{{ route('admin.testimonials.index') }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 text-sm flex items-center gap-2">
             <i class="bi bi-arrow-left"></i> Kembali
@@ -28,26 +28,57 @@
                         {{-- 1. Identitas Ortu --}}
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Nama Orang Tua <span class="text-red-500">*</span></label>
-                            <input type="text" name="parent_name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Contoh: Ibu Ani" required>
+                            <input type="text" 
+                                   name="parent_name" 
+                                   value="{{ old('parent_name') }}"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('parent_name') border-red-500 @enderror" 
+                                   placeholder="Contoh: Ibu Ani" required>
+                            @error('parent_name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
 
                         {{-- 2. Identitas Anak & Kursus --}}
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Nama Murid / Umur</label>
-                                <input type="text" name="student_name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Cth: Budi, 10th">
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Nama Murid / Umur <span class="text-red-500">*</span></label>
+                                <input type="text" 
+                                       name="student_name" 
+                                       value="{{ old('student_name') }}"
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('student_name') border-red-500 @enderror" 
+                                       placeholder="Cth: Budi, 10th" required>
+                                @error('student_name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Level / Kursus</label>
-                                <input type="text" name="course_name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" placeholder="Cth: Web Dev Lvl 1">
+                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Level / Kursus <span class="text-red-500">*</span></label>
+                                <input type="text" 
+                                       name="course_name" 
+                                       value="{{ old('course_name') }}"
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('course_name') border-red-500 @enderror" 
+                                       placeholder="Cth: Web Dev Lvl 1" required>
+                                @error('course_name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                         </div>
 
-                        {{-- 3. Isi Review --}}
+                        {{-- 3. Isi Review (SUDAH DISESUAIKAN KE [id]) --}}
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Isi Testimoni <span class="text-red-500">*</span></label>
-                            <textarea name="review" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition resize-none" placeholder="Tulis pendapat mereka di sini..." required></textarea>
-                            <p class="text-xs text-gray-400 mt-2 text-right">Tulis apa adanya sesuai perkataan orang tua.</p>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">
+                                Isi Testimoni (Bahasa Indonesia) <span class="text-red-500">*</span>
+                            </label>
+                            
+                            <textarea name="review[id]" 
+                                      rows="5" 
+                                      class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition resize-none @error('review.id') border-red-500 @enderror" 
+                                      placeholder="Tulis pendapat mereka di sini dalam Bahasa Indonesia..." required>{{ old('review.id') }}</textarea>
+                            
+                            @error('review.id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+
+                            <div class="flex flex-col mt-2 gap-1">
+                                <p class="text-xs text-blue-600 font-bold">
+                                    <i class="bi bi-magic mr-1"></i> Auto-Translate Smart Bridge
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    Sistem akan menerjemahkan: <b>Indo -> Inggris -> Jepang/Arab</b> agar hasilnya natural & akurat.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -84,8 +115,18 @@
                             </div>
                         </div>
 
-                        <input id="dropzone-file" name="parent_image" type="file" class="hidden" accept="image/*" required onchange="previewImage(event)" />
+                        {{-- INPUT FILE (Tanpa Required) --}}
+                        <input id="dropzone-file" name="parent_image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
                     </label>
+
+                    {{-- Pesan Error Gambar --}}
+                    @error('parent_image')
+                        <div class="absolute bottom-4 left-0 right-0 text-center z-20">
+                            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-bold border border-red-200">
+                                {{ $message }}
+                            </span>
+                        </div>
+                    @enderror
                 </div>
 
             </div>

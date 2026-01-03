@@ -7,7 +7,7 @@
     <div class="flex justify-between items-center mb-6 shrink-0">
         <div>
             <h1 class="text-2xl font-bold text-gray-900">Tambah Project Baru</h1>
-            <p class="text-gray-500 text-sm">Upload hasil karya murid (Game, Web, App, dll)</p>
+            <p class="text-gray-500 text-sm">Upload hasil karya murid (Multi-bahasa Otomatis)</p>
         </div>
         <a href="{{ route('admin.projects.index') }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 text-sm flex items-center gap-2">
             <i class="bi bi-arrow-left"></i> Kembali
@@ -25,7 +25,7 @@
                 <div class="w-full lg:w-1/2 p-6 border-r border-gray-100 overflow-y-auto flex flex-col">
                     
                     <div class="space-y-6">
-                        {{-- 1. Nama Murid --}}
+                        {{-- 1. Nama Murid (Tidak perlu translate) --}}
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-2">
                                 Nama Murid <span class="text-red-500">*</span>
@@ -41,41 +41,46 @@
                             @enderror
                         </div>
 
-                        {{-- 2. Tipe Project --}}
+                        {{-- 2. Tipe Project (INPUT UTAMA: BAHASA INDONESIA) --}}
+                        {{-- PERBAIKAN: name="project_type[id]" --}}
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-2">
-                                Tipe Project / Judul <span class="text-red-500">*</span>
+                                Tipe Project / Judul (Bahasa Indonesia) <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
-                                   name="project_type" 
-                                   value="{{ old('project_type') }}"
-                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('project_type') border-red-500 @enderror" 
-                                   placeholder="Contoh: Flappy Bird Game / Website Portfolio" 
+                                   name="project_type[id]" 
+                                   value="{{ old('project_type.id') }}"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('project_type.id') border-red-500 @enderror" 
+                                   placeholder="Contoh: Pengembangan Game" 
                                    required>
-                            @error('project_type')
+                            
+                            @error('project_type.id')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
+
+                            <p class="text-xs text-blue-600 mt-2">
+                                <i class="bi bi-magic mr-1"></i> Sistem akan menerjemahkan: <b>Indo -> Inggris -> Jepang</b> secara otomatis.
+                            </p>
                         </div>
 
                         {{-- Info Box --}}
                         <div class="p-4 bg-blue-50 rounded-xl border border-blue-100 flex gap-3 items-start mt-6">
-                        <i class="bi bi-info-circle-fill text-blue-600 mt-0.5 text-lg"></i>
-                        <div>
-                            <h5 class="font-bold text-blue-900 text-sm">Info Upload Gambar</h5>
-                            <p class="text-xs text-blue-800 leading-relaxed mt-1">
-                                Silakan upload screenshot hasil karya murid pada <strong>area di sebelah kanan</strong>.
-                                <br class="mb-1">
-                                <span class="opacity-90">
-                                    • Rekomendasi Ukuran: <strong>1920 x 1080 px (Landscape)</strong>
-                                    <br>
-                                    • Format: JPG/PNG, Maksimal <strong>2MB</strong>
-                                </span>
-                            </p>
+                            <i class="bi bi-info-circle-fill text-blue-600 mt-0.5 text-lg"></i>
+                            <div>
+                                <h5 class="font-bold text-blue-900 text-sm">Info Upload Gambar</h5>
+                                <p class="text-xs text-blue-800 leading-relaxed mt-1">
+                                    Silakan upload screenshot hasil karya murid pada <strong>area di sebelah kanan</strong>.
+                                    <br class="mb-1">
+                                    <span class="opacity-90">
+                                        • Rekomendasi Ukuran: <strong>1920 x 1080 px (Landscape)</strong>
+                                        <br>
+                                        • Format: JPG/PNG, Maksimal <strong>2MB</strong>
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    </div>
                     
-
                     {{-- Tombol Simpan --}}
                     <div class="mt-8 pt-6 border-t border-gray-100">
                         <button type="submit" class="w-full py-3 rounded-lg bg-blue-600 text-white font-bold shadow-md hover:bg-blue-700 hover:shadow-lg transition transform hover:-translate-y-0.5">
@@ -95,9 +100,6 @@
                             </div>
                             <h3 class="font-bold text-gray-700">Screenshot Project</h3>
                             <p class="text-sm text-gray-500 mt-1">Format: JPG, PNG (Max 2MB)</p>
-                            @error('project_image')
-                                <p class="text-red-500 text-sm mt-2 font-bold">{{ $message }}</p>
-                            @enderror
                         </div>
 
                         {{-- Preview --}}
@@ -109,8 +111,18 @@
                             </div>
                         </div>
 
-                        <input id="dropzone-file" name="project_image" type="file" class="hidden" accept="image/*" required onchange="previewImage(event)" />
+                        {{-- INPUT FILE (HAPUS REQUIRED DISINI) --}}
+                        <input id="dropzone-file" name="project_image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
                     </label>
+
+                    {{-- Pesan Error Gambar --}}
+                    @error('project_image')
+                        <div class="absolute bottom-4 left-0 right-0 text-center z-20">
+                            <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-bold border border-red-200 shadow-sm">
+                                <i class="bi bi-exclamation-circle mr-1"></i> {{ $message }}
+                            </span>
+                        </div>
+                    @enderror
                 </div>
 
             </div>

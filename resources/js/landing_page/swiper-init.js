@@ -62,3 +62,4 @@ const projectSwiper = new Swiper(".projectSwiper", {
         },
     },
 });
+

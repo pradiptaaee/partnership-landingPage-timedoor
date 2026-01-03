@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('student_projects', function (Blueprint $table) {
             $table->id();
             $table->string('student_name');    // Nama Murid
-            $table->string('project_type');    // Contoh: "Website", "Game", "App"
+            $table->json('project_type');    // Contoh: "Website", "Game", "App"
             $table->string('project_image');   // Screenshot project
             $table->timestamps();
         });

@@ -75,74 +75,63 @@
             <span class="text-sm font-medium tracking-wide">Activity Log</span>
         </a>
 
-        {{-- LANDING PAGE DROPDOWN (VERSI KLIK / JS) --}}
+        {{-- LANDING PAGE DROPDOWN (VERSI SVG - ANTI GAGAL) --}}
         <div class="relative mt-2">
             
             @php
-                // Cek apakah sedang aktif di sub-menu
                 $isLandingPageActive = request()->routeIs('admin.banners.*') || 
                                        request()->routeIs('admin.testimonials.*') || 
                                        request()->routeIs('admin.projects.*');
             @endphp
 
-            {{-- Parent Toggle Button --}}
+            {{-- TOMBOL UTAMA --}}
             <button type="button" 
                     onclick="toggleLandingMenu()"
                     class="w-full group flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-300 border border-transparent cursor-pointer
                    {{ $isLandingPageActive 
-                      ? 'bg-white/5 text-white shadow-lg' 
-                      : 'text-gray-400 hover:bg-white/5 hover:text-white' }}">
+                      ? 'bg-gradient-to-r from-emerald-500/10 to-transparent text-emerald-400 border-emerald-500/20' 
+                      : 'text-gray-400 hover:text-white hover:bg-white/5' }}">
+                
+                {{-- BAGIAN KIRI: Ikon & Teks --}}
                 <div class="flex items-center gap-3">
-                    <div class="p-1.5 rounded-lg {{ $isLandingPageActive ? 'bg-emerald-500 text-black' : 'bg-gray-800 text-gray-400 group-hover:text-white' }} transition-colors">
-                        <i class="bi bi-layers-fill text-xs"></i>
-                    </div>
+                    <i class="bi bi-collection-fill text-lg transition-colors {{ $isLandingPageActive ? 'text-emerald-400' : 'group-hover:text-emerald-400' }}"></i>
                     <span class="text-sm font-medium tracking-wide">Landing Page</span>
                 </div>
-                {{-- Chevron Icon --}}
-                <i id="landing-chevron" class="bi bi-chevron-down text-[10px] transition-transform duration-300 opacity-50 {{ $isLandingPageActive ? 'rotate-180' : '' }}"></i>
+                
+                {{-- BAGIAN KANAN: Ikon Panah --}}
+                {{-- id="landing-chevron" untuk rotasi --}}
+                <svg id="landing-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="transition-transform duration-300 opacity-50 {{ $isLandingPageActive ? 'rotate-180' : '' }}" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                </svg>
+
             </button>
 
-            {{-- Child Menu Container --}}
+            {{-- SUB-MENU --}}
             <div id="landing-menu" class="{{ $isLandingPageActive ? 'block' : 'hidden' }} relative mt-2 pl-2 transition-all duration-500">
-                
-                {{-- Decorative Line --}}
-                <div class="absolute left-[1.65rem] top-0 bottom-4 w-px bg-gradient-to-b from-gray-700 to-transparent opacity-30"></div>
-
+                <div class="absolute left-[1.65rem] top-0 bottom-4 w-px bg-gray-800"></div>
                 <ul class="space-y-1">
-                    
                     {{-- Banner Slider --}}
                     <li>
                         <a href="{{ route('admin.banners.index') }}" 
                            class="flex items-center gap-3 px-4 py-2.5 ml-4 rounded-lg text-[13px] font-medium transition-all duration-200 border border-transparent
-                                  {{ request()->routeIs('admin.banners.*') 
-                                     ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/10' 
-                                     : 'text-gray-500 hover:text-gray-200 hover:translate-x-1' }}">
-                            <i class="bi bi-images text-sm opacity-70"></i>
-                            Banner Slider
+                                  {{ request()->routeIs('admin.banners.*') ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/10' : 'text-gray-500 hover:text-gray-200 hover:translate-x-1' }}">
+                            <i class="bi bi-images text-sm opacity-70"></i> Banner Slider
                         </a>
                     </li>
-
                     {{-- Testimonials --}}
                     <li>
                         <a href="{{ Route::has('admin.testimonials.index') ? route('admin.testimonials.index') : '#' }}" 
                            class="flex items-center gap-3 px-4 py-2.5 ml-4 rounded-lg text-[13px] font-medium transition-all duration-200 border border-transparent
-                                  {{ request()->routeIs('admin.testimonials.*') 
-                                     ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/10' 
-                                     : 'text-gray-500 hover:text-gray-200 hover:translate-x-1' }}">
-                            <i class="bi bi-chat-square-quote-fill text-sm opacity-70"></i>
-                            Testimonials
+                                  {{ request()->routeIs('admin.testimonials.*') ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/10' : 'text-gray-500 hover:text-gray-200 hover:translate-x-1' }}">
+                            <i class="bi bi-chat-square-quote-fill text-sm opacity-70"></i> Testimonials
                         </a>
                     </li>
-
                     {{-- Student Projects --}}
                     <li>
                         <a href="{{ route('admin.projects.index') }}" 
                            class="flex items-center gap-3 px-4 py-2.5 ml-4 rounded-lg text-[13px] font-medium transition-all duration-200 border border-transparent
-                                  {{ request()->routeIs('admin.projects.*') 
-                                     ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/10' 
-                                     : 'text-gray-500 hover:text-gray-200 hover:translate-x-1' }}">
-                            <i class="bi bi-mortarboard-fill text-sm opacity-70"></i>
-                            Student Projects
+                                  {{ request()->routeIs('admin.projects.*') ? 'text-emerald-400 bg-emerald-400/10 border-emerald-500/10' : 'text-gray-500 hover:text-gray-200 hover:translate-x-1' }}">
+                            <i class="bi bi-mortarboard-fill text-sm opacity-70"></i> Student Projects
                         </a>
                     </li>
                 </ul>
@@ -185,11 +174,12 @@
         const menu = document.getElementById('landing-menu');
         const chevron = document.getElementById('landing-chevron');
         
-        // Logika Toggle Class Hidden
+        // Jika menu sedang tersembunyi, maka tampilkan & putar panah
         if (menu.classList.contains('hidden')) {
             menu.classList.remove('hidden');
             chevron.classList.add('rotate-180');
         } else {
+            // Jika menu sedang terbuka, maka sembunyikan & kembalikan panah
             menu.classList.add('hidden');
             chevron.classList.remove('rotate-180');
         }

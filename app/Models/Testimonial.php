@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder; // <--- WAJIB IMPORT INI
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\Translatable\HasTranslations;
 
 class Testimonial extends Model
 {
     use HasFactory;
-    
+    use HasTranslations;
     // Sesuaikan dengan model Anda
     protected $fillable = [
         'parent_name', 
@@ -18,6 +19,8 @@ class Testimonial extends Model
         'review', 
         'parent_image'
     ];
+
+    public $translatable = ['review'];
 
     /**
      * Scope untuk memfilter pencarian dan sorting (Laravel Best Practice).

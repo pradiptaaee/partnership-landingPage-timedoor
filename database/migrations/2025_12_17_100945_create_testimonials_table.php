@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('parent_name');     // Nama Orang Tua
             $table->string('student_name');    // Nama Murid + Umur
             $table->string('course_name');     // Level/Kelas
-            $table->text('review');            // Isi testimoni
+            $table->json('review');            // Isi testimoni
             $table->string('parent_image')->nullable(); // Foto profil (opsional)
             $table->timestamps();
         });
