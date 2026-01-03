@@ -1,5 +1,5 @@
 <section class="w-full bg-[#10AF13]">
-    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <nav class="flex justify-between items-center pb-10">
             <div class="w-32 sm:w-40">
                 <svg width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
@@ -25,16 +25,16 @@
                     <path d="M152.93 42.1927L153.816 39.3528C154.348 39.5301 154.793 39.6205 155.234 39.6205C156.475 39.6205 157.361 38.7342 157.984 36.958L153.107 24.7051H156.566L159.402 32.5155L162.151 24.7051H165.61L161.178 37.3993C160.556 39.2624 159.76 40.6841 158.783 41.4836C157.897 42.2831 156.743 42.7281 155.415 42.7281C154.525 42.6376 153.729 42.5508 152.93 42.1927Z" fill="white" />
                 </svg>
             </div>
-            <a href="#" class="bg-white text-[#00C220] text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl transition duration-300 uppercase shadow-[0_7px_0_#0E8E10] hover:scale-105">
+            <a href="#" class="bg-white text-[#00C220] text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl uppercase shadow-[0_7px_0_#0E8E10] transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
                 Book a Free Trial
             </a>
         </nav>
 
-        <h2 class="text-white text-center font-extrabold text-[22px] sm:text-5xl mb-5 lg:text-6xl tracking-tight drop-shadow-sm">
+        <h2 class="text-white text-center font-extrabold text-[22px] sm:text-5xl mb-5 lg:text-6xl xl:text-5xl tracking-tight drop-shadow-sm">
             What our Students Built
         </h2>
 
-        <div class="flex w-full gap-1.5">
+        <div class="flex w-full gap-1.5 xl:gap-0 items-center">
 
             <!-- Btn Prev -->
             <button class="btn-prev">
@@ -44,20 +44,27 @@
                 </svg>
             </button>
 
-            <div class="swiper projectSwiper w-5/6 h-full bg-white rounded-[2.5rem]">
+            <div class="swiper project_swiper w-5/6 xl:w-1/2 h-full bg-white rounded-[2.5rem]">
                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide p-1.5 shadow-2xl mx-auto">
+                    <div class="swiper-slide p-1.5 shadow-2xl mx-auto"
+                        data-name="Krisna Mahardika"
+                        data-age="17 Years"
+                        data-project="Website">
                         <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
-                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                                class="absolute inset-0 w-full h-full object-cover opacity-80">
                         </div>
                     </div>
 
-                    <div class="swiper-slide p-1.5 shadow-2xl mx-auto">
+                    <!-- <div class="swiper-slide p-1.5 shadow-2xl mx-auto"
+                        data-name="Komang Sudana"
+                        data-age="30 Years"
+                        data-project="Game">
                         <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
                             <img src="https://widya.ai/wp-content/uploads/2023/03/Optimized-Illustration-from-Adobe-Stock-for-ITC-Post-on-AI-in-Game-Development-scaled-1.jpeg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -72,13 +79,13 @@
         </div>
 
         <div class="text-center mt-8 pb-10">
-            <h3 class="text-white font-extrabold text-base sm:text-4xl lg:text-5xl tracking-wide mb-3 drop-shadow-md">
-                Students Name, Age
+            <h3 id="students" class="text-white font-extrabold text-base sm:text-4xl lg:text-5xl xl:text-4xl tracking-wide mb-3 drop-shadow-md">
+                Student Name, Age
             </h3>
             <div class="inline-flex items-center gap-4 bg-white/10 px-6 py-2 rounded-2xl backdrop-blur-sm border border-white/10">
                 <span class="text-white font-bold text-sm sm:text-2xl lg:text-3xl">Project Type:</span>
                 <span class="bg-[#1C2F70] text-[#FFD43C] px-6 py-1.5 rounded-xl text-sm sm:text-2xl font-bold shadow-lg transform -skew-x-6 border-2 border-[#fbbf24]/50">
-                    <span class="block transform skew-x-6">Website</span>
+                    <span id="project_type" class="block transform skew-x-6">Website</span>
                 </span>
             </div>
         </div>

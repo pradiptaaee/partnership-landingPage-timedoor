@@ -1,6 +1,6 @@
 <section class="w-full bg-white relative overflow-hidden">
 
-    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- HEADER PAGE 4 (Logo Warna) -->
         <nav class="flex justify-between items-center py-6">
@@ -28,7 +28,7 @@
                     <path d="M152.93 42.1927L153.816 39.3529C154.348 39.5301 154.793 39.6206 155.234 39.6206C156.475 39.6206 157.361 38.7342 157.984 36.958L153.107 24.7051H156.566L159.402 32.5155L162.151 24.7051H165.61L161.178 37.3993C160.556 39.2624 159.76 40.6841 158.783 41.4836C157.897 42.2831 156.743 42.7281 155.415 42.7281C154.525 42.6377 153.729 42.5508 152.93 42.1927Z" fill="#10AF13" />
                 </svg>
             </div>
-            <a href="#" class="bg-[#10AF13] py-2.5 text-white text-xs sm:text-sm font-bold px-4 rounded-xl transition duration-300 uppercase shadow-[0_7px_0_#0E8E10] hover:scale-105">
+            <a href="#" class="bg-[#10AF13] text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl uppercase shadow-[0_7px_0_#0E8E10] transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
                 Book a Free Trial
             </a>
         </nav>
