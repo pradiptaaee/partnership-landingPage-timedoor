@@ -140,12 +140,12 @@
             0% {
                 transform: translateX(0);
             }
-
+        }
             /* Global Primary Text Color */
             .text-primary {
                 color: #001D7A !important;
             }
-
+        
         /* Pause on hover */
         .slider-track:hover {
             animation-play-state: paused;
@@ -180,7 +180,7 @@
                 0% {
                     transform: translateX(0);
                 }
-
+            }
         .workshop-section {
             background-color: #EDFFF3;
         }

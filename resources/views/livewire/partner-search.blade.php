@@ -95,7 +95,7 @@
                             {{ $activity->short_description }}
                         </p>
 
-                        <a href="{{ route('partners.show', $activity->slug) }}"
+                        <a href="{{ route('partnership.show', $activity->slug) }}"
                             class="btn btn-primary mt-3"
                             style="background: linear-gradient(135deg, #10A300 0%, #0d8500 100%); border: none; border-radius: 25px; padding: 10px 25px;">
                             <i class="bi bi-eye me-2"></i>Lihat Detail
