@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Banner;
 use App\Models\Partner;
 use App\Models\PartnerActivity;
 use App\Models\PhotoActivity;

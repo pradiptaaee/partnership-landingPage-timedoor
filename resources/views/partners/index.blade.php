@@ -141,10 +141,10 @@
                 transform: translateX(0);
             }
 
-            100% {
-                transform: translateX(-50%);
+            /* Global Primary Text Color */
+            .text-primary {
+                color: #001D7A !important;
             }
-        }
 
         /* Pause on hover */
         .slider-track:hover {
@@ -157,32 +157,29 @@
             object-fit: cover;
         }
 
-        .date-text {
-            color: #10A300;
-            font-size: 14px;
-            font-weight: 600;
-        }
+            /* -------- SLIDER -------- */
+            .slider-container {
+                overflow: hidden;
+                width: 100%;
+            }
 
-        .card-title-color {
-            font-weight: 700;
-            font-size: 18px;
-            color: #0C3D8F;
-        }
+            .slider-track {
+                display: flex;
+                gap: 10px;
+                animation: slide 10s linear infinite;
+            }
 
-        /* Button */
-        .btn-primary {
-            background: linear-gradient(135deg, #10A300 0%, #0d8500 100%);
-            border: none;
-            border-radius: 25px;
-            padding: 10px 25px;
-            transition: 0.3s ease;
-        }
+            .slider-track img {
+                width: 33.33%;
+                height: 250px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0d8500 0%, #0a6b00 100%);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(16, 163, 0, 0.4);
-        }
+            @keyframes slide {
+                0% {
+                    transform: translateX(0);
+                }
 
         .workshop-section {
             background-color: #EDFFF3;

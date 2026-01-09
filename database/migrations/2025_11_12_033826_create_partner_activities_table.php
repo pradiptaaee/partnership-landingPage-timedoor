@@ -17,8 +17,9 @@ return new class extends Migration
                 ->constrained('partners')
                 ->onDelete('cascade');
             $table->string('title');
+            $table->string('category_activity');
             $table->string('slug')->unique();
-            $table->text('short_description');
+            $table->text('short_description')->nullable();
             $table->longText('full_description');
             $table->date('activity_date');
             $table->string('featured_image')->nullable();

@@ -1,4 +1,6 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import "tailwindcss";
+
 
 /* Lebar sidebar tetap 250px */
 :root {
@@ -21,7 +23,7 @@
     top: 0;
     left: 0;
     z-index: 1030;
-    background-color: #ffffff !important;
+    background-color: #131325 !important;
     /* Latar Belakang Putih */
     border-right: 1px solid #f0f0f0;
     /* Border tipis di kanan */
@@ -36,7 +38,7 @@
 
 /* Styling link di sidebar: Teks Abu-abu/Gelap */
 .sidebar-link {
-    color: #495057 !important;
+    color: #e3eef9 !important;
     /* Warna teks gelap */
     padding: 10px 15px;
     transition: all 0.2s;

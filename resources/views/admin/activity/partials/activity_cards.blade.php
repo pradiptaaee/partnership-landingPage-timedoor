@@ -2,10 +2,12 @@
 {{-- WAJIB: Tambahkan <div class="col"> di sini --}}
 <div class="col"> 
     <div class="card h-100 shadow-sm border-0 activity-card">
+        <a href="{{ route('admin.activity.show', $activity->slug) }}" 
+       class="text-decoration-none text-dark">
         <div class="position-relative">
             {{-- Featured Image --}}
             @if($activity->featured_image)
-            <img src="{{ asset('storage/' . $activity->featured_image) }}" 
+            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" 
                  class="card-img-top" 
                  alt="{{ $activity->title }}"
                  style="height: 200px; object-fit: cover;">
@@ -70,5 +72,6 @@
             </small>
         </div>
     </div>
+    </a>
 </div> {{-- WAJIB: Penutup <div class="col"> --}}
 @endforeach
