@@ -6,24 +6,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Partner Routes
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    
+
     // Partner Management
     Route::resource('partners', PartnerAdminController::class);
 
@@ -36,6 +25,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 Route::get('partnership', [PartnerController::class, 'index'])->name('partners.index');
 Route::get('/partnership/{partner:slug}', [PartnerController::class, 'show'])->name('partners.show');
 
-Route::get('/partners/{slug}', function ($slug) {
-    return view('partners.show', ['slug' => $slug]);
-})->name('partners.show');
+Route::get('/partners/{slug}', [PartnerController::class, 'show'])
+    ->name('partners.show');
+
+Route::get('lang/{locale}', function ($locale) {
+    $availableLangs = ['id', 'en', 'ja', 'ar', 'hi', 'tl', 'ms'];
+
+    if (in_array($locale, $availableLangs)) {
+        session(['locale' => $locale]);
+    }
+
+    return redirect()->back();
+})->name('lang.switch');

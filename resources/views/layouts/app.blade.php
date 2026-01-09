@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@livewireStyles
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -395,6 +397,7 @@
 
     @stack('styles')
 </head>
+@livewireScripts
 
 <body>
     <!-- Navbar -->
@@ -494,6 +497,31 @@
                                     <img src="https://flagcdn.com/w40/id.png" alt="ID" class="lang-flag me-2">
                                     Indonesia
                                 </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('lang.switch', 'ja') }}">
+                                    <img src="https://flagcdn.com/w20/jp.png" class="me-2" width="20" alt="JA">
+                                    日本語 (Japanese)</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('lang.switch', 'ar') }}">
+                                    <img src="https://flagcdn.com/w20/sa.png" class="me-2" width="20" alt="AR"> العربية (Arabic)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('lang.switch', 'hi') }}">
+                                    <img src="https://flagcdn.com/w20/in.png" class="me-2" width="20" alt="HI">
+                                    हिन्दी (Hindi)</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('lang.switch', 'tl') }}">
+                                    <img src="https://flagcdn.com/w20/ph.png" class="me-2" width="20" alt="TL">
+                                    Filipino</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('lang.switch', 'ms') }}">
+                                    <img src="https://flagcdn.com/w20/my.png" class="me-2" width="20" alt="MS">
+                                    Bahasa Melayu</a>
                             </li>
                         </ul>
                     </div>

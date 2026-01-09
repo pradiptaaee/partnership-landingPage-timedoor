@@ -4,17 +4,19 @@
 
 <!-- Hero Section with Overlay -->
 <section class="hero-detail position-relative mb-5" style="height: 500px; overflow: hidden;">
-    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-        alt="Workshop"
+    <img src="{{ $activity->featured_image_url }}"
+        alt="{{ $activity->title }}"
         class="w-100 h-100"
         style="object-fit: cover; position: absolute;">
     <div class="overlay position-absolute w-100 h-100 d-flex align-items-end"
         style="background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);">
         <div class="container pb-5">
             <span class="badge px-3 py-2 mb-3" style="background-color: #10A300; font-size: 14px;">
-                <i class="bi bi-calendar-event me-1"></i> 15 Januari 2024
+                <i class="bi bi-calendar-event me-1"></i> {{ $activity->activity_date->translatedFormat('d F Y') }}
             </span>
-            <h1 class="text-white fw-bold display-4 mb-0">Workshop Digital Learning</h1>
+            <h1 class="text-white fw-bold display-4 mb-0">
+                {{ $activity->title }}
+            </h1>
         </div>
     </div>
 </section>
@@ -28,12 +30,17 @@
                 <div class="col-md-4 border-end">
                     <i class="bi bi-calendar-check fs-3 mb-2" style="color: #10A300;"></i>
                     <h6 class="fw-bold mb-1">Tanggal</h6>
-                    <p class="text-muted mb-0 small">15 Januari 2024</p>
+                    <p class="text-muted mb-0 small">
+                        {{ $activity->activity_date->translatedFormat('d F Y') }}
+                    </p>
                 </div>
                 <div class="col-md-4 border-end">
                     <i class="bi bi-envelope fs-3 mb-2" style="color: #10A300;"></i>
                     <h6 class="fw-bold mb-1">Email</h6>
-                    <p class="text-muted mb-0 small">info@timedooracademy.com</p>
+                    <p class="text-muted mb-0 small">@timedooracademy.com</p>
+                    <!-- <p class="text-muted mb-0 small">
+                        {{ $activity->partner->email ?? '-' }}
+                    </p> -->
                 </div>
                 <div class="col-md-4">
                     <i class="bi bi-telephone fs-3 mb-2" style="color: #10A300;"></i>
@@ -104,9 +111,7 @@
                 <div class="col-md-10">
                     <h4 class="fw-bold mb-4" style="color: #001D7A;">Deskripsi Lengkap</h4>
                     <div class="text-muted" style="font-size: 16px; line-height: 1.9;">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <p class="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        {!! nl2br(e($activity->full_description)) !!}
                     </div>
                 </div>
             </div>
@@ -119,84 +124,25 @@
             <i class="bi bi-images me-2" style="color: #10A300;"></i>
             Galeri Kegiatan
         </h3>
+
         <div class="row g-3">
-            <!-- Large Image -->
-            <div class="col-md-8">
-                <div class="position-relative overflow-hidden rounded shadow-sm" style="height: 400px;">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="w-100 h-100 gallery-img"
-                        style="object-fit: cover;">
-                    <div class="overlay-hover position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
-                        style="background: rgba(16, 163, 0, 0); transition: all 0.3s ease;">
-                        <i class="bi bi-zoom-in text-white fs-1" style="opacity: 0; transition: opacity 0.3s ease;"></i>
-                    </div>
+            @forelse ($activity->photos as $index => $photo)
+            <div class="{{ $index === 0 ? 'col-md-8' : 'col-md-4' }}">
+                <div class="gallery-box {{ $index === 0 ? 'gallery-large' : 'gallery-small' }}">
+                    <img
+                        src="{{ asset('storage/' . $photo->path) }}"
+                        alt="Galeri {{ $activity->title }}"
+                        class="w-100 h-100 gallery-img">
                 </div>
             </div>
-
-            <!-- Side Images -->
-            <div class="col-md-4">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="position-relative overflow-hidden rounded shadow-sm" style="height: 193px;">
-                            <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                                class="w-100 h-100 gallery-img"
-                                style="object-fit: cover;">
-                            <div class="overlay-hover position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
-                                style="background: rgba(16, 163, 0, 0); transition: all 0.3s ease;">
-                                <i class="bi bi-zoom-in text-white fs-1" style="opacity: 0; transition: opacity 0.3s ease;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="position-relative overflow-hidden rounded shadow-sm" style="height: 193px;">
-                            <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                                class="w-100 h-100 gallery-img"
-                                style="object-fit: cover;">
-                            <div class="overlay-hover position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
-                                style="background: rgba(16, 163, 0, 0); transition: all 0.3s ease;">
-                                <i class="bi bi-zoom-in text-white fs-1" style="opacity: 0; transition: opacity 0.3s ease;"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            @empty
+            <div class="col-12 text-center">
+                <p class="text-muted">Belum ada foto kegiatan.</p>
             </div>
-
-            <!-- Bottom Row -->
-            <div class="col-md-4">
-                <div class="position-relative overflow-hidden rounded shadow-sm" style="height: 250px;">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="w-100 h-100 gallery-img"
-                        style="object-fit: cover;">
-                    <div class="overlay-hover position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
-                        style="background: rgba(16, 163, 0, 0); transition: all 0.3s ease;">
-                        <i class="bi bi-zoom-in text-white fs-1" style="opacity: 0; transition: opacity 0.3s ease;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="position-relative overflow-hidden rounded shadow-sm" style="height: 250px;">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="w-100 h-100 gallery-img"
-                        style="object-fit: cover;">
-                    <div class="overlay-hover position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
-                        style="background: rgba(16, 163, 0, 0); transition: all 0.3s ease;">
-                        <i class="bi bi-zoom-in text-white fs-1" style="opacity: 0; transition: opacity 0.3s ease;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="position-relative overflow-hidden rounded shadow-sm" style="height: 250px;">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="w-100 h-100 gallery-img"
-                        style="object-fit: cover;">
-                    <div class="overlay-hover position-absolute w-100 h-100 top-0 start-0 d-flex align-items-center justify-content-center"
-                        style="background: rgba(16, 163, 0, 0); transition: all 0.3s ease;">
-                        <i class="bi bi-zoom-in text-white fs-1" style="opacity: 0; transition: opacity 0.3s ease;"></i>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
+
 
     <!-- Share Section -->
     <div class="text-center">
@@ -237,182 +183,26 @@
                     viewBox="0 0 24 24">
                     <path fill="#FFF" d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm-.4 3.25-7.2 4.5-7.2-4.5V6.5l7.2 4.5 7.2-4.5v.75Z" />
                 </svg>
-
             </a>
-
-
         </div>
     </div>
 
-</div>
-<<<<<<< HEAD
-@endsection
-=======
-<section class="workshop-section py-5">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5">Keep Reading</h2>
-
-        <div class="row g-4">
-
-            <!-- Workshop 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="card-img-top workshop-img">
-
-                    <div class="card-body d-flex flex-column p-4">
-                        <p class="date-text">10 Februari 2024</p>
-                        <h5 class="card-title-color">Workshop Digital Learning</h5>
-
-                        <p class="text-muted flex-grow-1">
-                            Pelatihan intensif untuk guru dalam menggunakan platform pembelajaran digital dan tools modern untuk mengajar.
-                        </p>
-
-                        <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
-                            class="btn btn-primary mt-3">
-                            <i class="bi bi-eye me-2"></i>Lihat Detail
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Workshop 2 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="card-img-top workshop-img">
-
-                    <div class="card-body d-flex flex-column p-4">
-                        <p class="date-text">15 Februari 2024</p>
-                        <h5 class="card-title-color">Pelatihan Manajemen Kelas</h5>
-
-                        <p class="text-muted flex-grow-1">
-                            Workshop untuk meningkatkan kemampuan guru dalam mengelola kelas dan menciptakan lingkungan belajar yang kondusif.
-                        </p>
-
-                        <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
-                            class="btn btn-primary mt-3">
-                            <i class="bi bi-eye me-2"></i>Lihat Detail
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Workshop 3 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                    <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                        class="card-img-top workshop-img">
-
-                    <div class="card-body d-flex flex-column p-4">
-                        <p class="date-text">20 Februari 2024</p>
-                        <h5 class="card-title-color">Seminar Kurikulum Merdeka</h5>
-
-                        <p class="text-muted flex-grow-1">
-                            Pelatihan implementasi Kurikulum Merdeka dengan pendekatan pembelajaran yang berpusat pada siswa.
-                        </p>
-
-                        <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
-                            class="btn btn-primary mt-3">
-                            <i class="bi bi-eye me-2"></i>Lihat Detail
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- Custom CSS -->
-<style>
-    /* Hero zoom effect only */
-    .hero-detail img {
-        transition: transform 0.5s ease;
-    }
-
-    .hero-detail:hover img {
-        transform: scale(1.05);
-    }
-
-    /* Remove zoom from gallery */
-    .gallery-img {
-        transition: opacity 0.3s ease;
-    }
-
-    /* Subtle hover for gallery */
-    .position-relative:hover .overlay-hover {
-        background: rgba(16, 163, 0, 0.7) !important;
-    }
-
-    .position-relative:hover .overlay-hover i {
-        opacity: 1 !important;
-    }
-
-    /* Remove card zoom, just shadow */
-    .card {
-        transition: box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-    }
-
-    /* Button zoom only */
-    .btn:hover {
-        transform: scale(1.05);
-        transition: all 0.3s ease;
-    }
-
-    .workshop-img {
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .date-text {
-        color: #10A300;
-        font-size: 14px;
-        font-weight: 600;
-    }
-
-    .card-title-color {
-        font-weight: 700;
-        font-size: 18px;
-        color: #0C3D8F;
-    }
-
-    /* Button */
-    .btn-primary {
-        background: linear-gradient(135deg, #10A300 0%, #0d8500 100%);
-        border: none;
-        border-radius: 25px;
-        padding: 10px 25px;
-        transition: 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background: linear-gradient(135deg, #0d8500 0%, #0a6b00 100%);
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(16, 163, 0, 0.4);
-    }
-
-    .workshop-section {
-        background-color: #EDFFF3;
-    }
-
-    @media (max-width: 768px) {
-        .hero-detail {
-            height: 350px !important;
+    <style>
+        .gallery-box {
+            overflow: hidden;
+            border-radius: 15px;
         }
 
-        .border-end {
-            border-right: none !important;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 1rem;
-            margin-bottom: 1rem;
+        .gallery-large {
+            height: 400px;
         }
-    }
-</style>
 
-@endsection
->>>>>>> origin/dede
+        .gallery-small {
+            height: 193px;
+        }
+
+        .gallery-img {
+            object-fit: cover;
+        }
+    </style>
+    @endsection

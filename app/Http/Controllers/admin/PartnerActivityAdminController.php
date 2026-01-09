@@ -324,7 +324,6 @@ class PartnerActivityAdminController extends Controller
         return $path . '/' . $fileName;
     }
 
-
     /**
      * Upload multiple photos.
      */
