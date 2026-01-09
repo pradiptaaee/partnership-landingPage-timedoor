@@ -181,7 +181,7 @@
                                 belajar yang kondusif.
                             </p>
 
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -232,7 +232,7 @@
                             <p class="text-muted flex-grow-1">
                                 Pelatihan untuk meningkatkan kreativitas guru dalam merancang metode belajar inovatif.
                             </p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -252,7 +252,7 @@
                             <p class="text-muted flex-grow-1">
                                 Membantu guru membangun karakter kepemimpinan dalam lingkungan sekolah.
                             </p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -272,7 +272,7 @@
                             <p class="text-muted flex-grow-1">
                                 Pelatihan manajemen administratif dan operasional untuk meningkatkan kualitas sekolah.
                             </p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -290,7 +290,7 @@
                             <h5 class="card-title-color">Workshop Inovasi Pembelajaran</h5>
                             <p class="text-muted flex-grow-1">Meningkatkan kreativitas guru dalam merancang pembelajaran
                                 inovatif.</p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -308,7 +308,7 @@
                             <h5 class="card-title-color">Pelatihan Leadership Guru</h5>
                             <p class="text-muted flex-grow-1">Pengembangan karakter kepemimpinan guru dalam kegiatan
                                 sekolah.</p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -326,7 +326,7 @@
                             <h5 class="card-title-color">Pelatihan Manajemen Sekolah</h5>
                             <p class="text-muted flex-grow-1">Peningkatan kemampuan manajemen administratif dan operasional
                                 sekolah.</p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -344,7 +344,7 @@
                             <h5 class="card-title-color">Workshop Keterampilan Digital</h5>
                             <p class="text-muted flex-grow-1">Pembekalan keterampilan digital untuk menunjang pembelajaran
                                 modern.</p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -361,7 +361,7 @@
                             <p class="date-text">9 Maret 2024</p>
                             <h5 class="card-title-color">Pelatihan Pengelolaan Kelas Digital</h5>
                             <p class="text-muted flex-grow-1">Strategi efektif mengelola kelas hybrid dan online.</p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -378,7 +378,7 @@
                             <p class="date-text">11 Maret 2024</p>
                             <h5 class="card-title-color">Seminar Mindset Pengajar Modern</h5>
                             <p class="text-muted flex-grow-1">Membangun pola pikir positif dan adaptif pada guru.</p>
-                            <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                            <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                 class="btn btn-primary mt-3">
                                 <i class="bi bi-eye me-2"></i>Lihat Detail
                             </a>
@@ -403,7 +403,7 @@
                                 <h5 class="card-title-color">Training Soft Skill Guru</h5>
                                 <p class="text-muted flex-grow-1">Peningkatan komunikasi, empati, dan manajemen emosi guru.
                                 </p>
-                                <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                                <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                     class="btn btn-primary mt-3">
                                     <i class="bi bi-eye me-2"></i>Lihat Detail
                                 </a>
@@ -420,7 +420,7 @@
                                 <p class="date-text">15 Maret 2024</p>
                                 <h5 class="card-title-color">Workshop Creative Teaching</h5>
                                 <p class="text-muted flex-grow-1">Teknik mengajar kreatif yang menarik bagi siswa.</p>
-                                <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                                <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                     class="btn btn-primary mt-3">
                                     <i class="bi bi-eye me-2"></i>Lihat Detail
                                 </a>
@@ -438,7 +438,7 @@
                                 <h5 class="card-title-color">Pelatihan Pengembangan Media Ajar</h5>
                                 <p class="text-muted flex-grow-1">Membuat media pembelajaran yang menarik dan interaktif.
                                 </p>
-                                <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                                <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                     class="btn btn-primary mt-3">
                                     <i class="bi bi-eye me-2"></i>Lihat Detail
                                 </a>
@@ -456,7 +456,7 @@
                                 <h5 class="card-title-color">Workshop Evaluasi Pembelajaran</h5>
                                 <p class="text-muted flex-grow-1">Teknik evaluasi pembelajaran yang efektif dan efisien.
                                 </p>
-                                <a href="{{ route('partners.show', 'workshop-digital-learning') }}"
+                                <a href="{{ route('partnership.show', 'workshop-digital-learning') }}"
                                     class="btn btn-primary mt-3">
                                     <i class="bi bi-eye me-2"></i>Lihat Detail
                                 </a>

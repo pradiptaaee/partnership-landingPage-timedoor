@@ -15,29 +15,49 @@ class PartnershipSeeder extends Seeder
         // 1) Seed 5 partners
         $partners = collect([
             [
-                'name' => 'Tech Innovators',
-                'category' => 'Technology',
-                'description' => 'Perusahaan berbasis teknologi yang fokus pada AI dan IoT.',
+                'name' => 'STMIK Primakara',
+                'category' => 'Kampus',
+                'description' => 'Perguruan tinggi di bidang teknologi dan bisnis digital.',
             ],
             [
-                'name' => 'Edu Global',
-                'category' => 'Education',
-                'description' => 'Lembaga pendidikan internasional dengan fokus riset.',
+                'name' => 'Universitas Muhammadiyah Surakarta',
+                'category' => 'Kampus',
+                'description' => 'Universitas swasta dengan fokus pengembangan akademik dan teknologi.',
             ],
             [
-                'name' => 'HealthPlus',
-                'category' => 'Healthcare',
-                'description' => 'Layanan kesehatan modern dan digital.',
+                'name' => 'Sekolah Pelita Harapan',
+                'category' => 'Sekolah',
+                'description' => 'Sekolah nasional-plus dengan kurikulum internasional.',
             ],
             [
-                'name' => 'EcoFuture',
-                'category' => 'Environment',
-                'description' => 'Organisasi peduli lingkungan dan energi terbarukan.',
+                'name' => 'Education Plus School',
+                'category' => 'Sekolah',
+                'description' => 'Sekolah dengan pendekatan pembelajaran kreatif dan modern.',
             ],
             [
-                'name' => 'Creative Media Labs',
-                'category' => 'Media',
-                'description' => 'Studio kreatif untuk produksi media dan digital branding.',
+                'name' => 'Blue Dolphin Playskool',
+                'category' => 'Sekolah',
+                'description' => 'Pendidikan anak usia dini dengan metode bermain edukatif.',
+            ],
+            [
+                'name' => 'Taruwinara School',
+                'category' => 'Sekolah',
+                'description' => 'Sekolah berbasis karakter dan pengembangan potensi siswa.',
+            ],
+            [
+                'name' => 'SekolahApa.com',
+                'category' => 'Platform Edukasi',
+                'description' => 'Platform informasi dan kolaborasi pendidikan di Indonesia.',
+            ],
+            [
+                'name' => 'JJC Bali',
+                'category' => 'Komunitas',
+                'description' => 'Komunitas pengembangan bakat dan kreativitas anak muda.',
+            ],
+            [
+                'name' => 'Finns Recreation Club',
+                'category' => 'Corporate',
+                'description' => 'Pusat rekreasi dan olahraga keluarga di Bali.',
             ],
         ]);
 

@@ -119,7 +119,7 @@
 
                             {{-- Description --}}
                             <p class="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed">
-                                {{ $activity->short_description }}
+                                {{ Str::limit(strip_tags($activity->full_description), 120) }}
                             </p>
 
                             {{-- Spacer --}}
@@ -180,8 +180,8 @@
         </div>
 
         {{-- Loading State --}}
-        <div wire:loading class="py-20 text-center">
-            <div class="w-full inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4 animate-pulse">
+        <div wire:loading class="w-full py-20 text-center">
+            <div class="inline-flex items-center justify-center w-20 h-16 mb-4 animate-pulse">
                 <i class="bi bi-hourglass-split text-2xl text-indigo-600 animate-spin"></i>
             </div>
             
@@ -195,9 +195,9 @@
                     <span class="font-semibold text-gray-900">{{ $activities->lastItem() }}</span> dari 
                     <span class="font-semibold text-gray-900">{{ $activities->total() }}</span> kegiatan
                 </div>
-                <div>
-                    {{ $activities->links() }}
-                </div>
+                
+                    {{ $activities->withPath('/admin/activity')->links('pagination') }}
+                
             </div>
         @endif
     </div>

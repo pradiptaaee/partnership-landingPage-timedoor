@@ -72,7 +72,7 @@
                      ? 'bg-gradient-to-r from-emerald-500/10 to-transparent text-emerald-400 border-emerald-500/20' 
                      : 'text-gray-400 hover:text-white hover:bg-white/5' }}">
             <i class="bi bi-activity text-lg {{ request()->routeIs('admin.activity.*') ? 'text-emerald-400' : 'group-hover:text-emerald-400 transition-colors' }}"></i>
-            <span class="text-sm font-medium tracking-wide">Activity Log</span>
+            <span class="text-sm font-medium tracking-wide">Activity Partner</span>
         </a>
 
         {{-- LANDING PAGE DROPDOWN (VERSI KLIK / JS) --}}

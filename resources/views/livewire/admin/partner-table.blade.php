@@ -193,8 +193,13 @@
             </div>
 
             {{-- Pagination --}}
-            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                {{ $partners->links() }}
+            <div class="flex flex-col sm:flex-row justify-between items-center px-6 py-4 border-t border-gray-200 bg-gray-50">
+                <div class="text-sm text-gray-600">
+                    Menampilkan <span class="font-semibold text-gray-900">{{ $partners->firstItem() }}</span> - 
+                    <span class="font-semibold text-gray-900">{{ $partners->lastItem() }}</span> dari 
+                    <span class="font-semibold text-gray-900">{{ $partners->total() }}</span> partner
+                </div>
+                {{ $partners->withPath('/admin/partners')->links('pagination') }}
             </div>
         @else
             {{-- Empty State --}}

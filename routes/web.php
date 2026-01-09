@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\StudentProjectController; 
 use App\Models\StudentProject;
 use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 // Import Model untuk Route Public di bawah
 use App\Models\Banner;
@@ -19,6 +20,8 @@ use App\Models\Testimonial;
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+Route::redirect('/', '/partnership');
 
 // --- AUTHENTICATION ROUTES ---
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

@@ -14,6 +14,7 @@ class PartnerActivity extends Model
         'partner_id',
         'title',
         'slug',
+        'category_activity',
         'short_description',
         'full_description',
         'activity_date',

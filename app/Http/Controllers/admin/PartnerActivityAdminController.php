@@ -88,38 +88,28 @@ class PartnerActivityAdminController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi
         $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
         try {
-
             $activity = new PartnerActivity();
             $activity->partner_id = $validated['partner_id'];
             $activity->title = $validated['title'];
+            $activity->category_activity = $validated['category_activity'];
             $activity->slug = $this->generateUniqueSlug($validated['title']);
-            $activity->short_description = $validated['short_description'];
+            $activity->short_description = $validated['short_description'] ?? null;
             $activity->full_description = $validated['full_description'];
             $activity->activity_date = $validated['activity_date'];
 
-            /** Upload Featured Image */
             if ($request->hasFile('featured_image')) {
-
-                $file = $request->file('featured_image');
-
-                // buat nama unik
-                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-
-                // simpan ke storage/app/public/activity/featured
-                $file->storeAs('activity/featured', $filename, 'public');
-
-                // simpan hanya nama file ke database
-                $activity->featured_image = $filename;
+                $activity->featured_image = $this->uploadImage(
+                    $request->file('featured_image'),
+                    $this->featuredPath
+                );
             }
 
             $activity->save();
 
-            /** Upload Multiple Photos */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
@@ -133,15 +123,12 @@ class PartnerActivityAdminController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            if (isset($activity->featured_image)) {
-                Storage::disk('public')->delete($activity->featured_image);
-            }
-
             return back()
                 ->withInput()
-                ->withErrors(['error' => 'Gagal menyimpan kegiatan: ' . $e->getMessage()]);
+                ->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
 
     public function show($slug)
@@ -173,53 +160,43 @@ class PartnerActivityAdminController extends Controller
     public function update(Request $request, $id)
     {
         $activity = PartnerActivity::findOrFail($id);
-
-        // Validate input
         $validated = $this->validateActivity($request, $id);
 
         DB::beginTransaction();
         try {
-            // Update basic information
             $activity->partner_id = $validated['partner_id'];
             $activity->title = $validated['title'];
-            $activity->short_description = $validated['short_description'];
+            $activity->category_activity = $validated['category_activity'];
+            $activity->short_description = $validated['short_description'] ?? null;
             $activity->full_description = $validated['full_description'];
             $activity->activity_date = $validated['activity_date'];
 
-            // Update slug if title changed
             if ($activity->isDirty('title')) {
                 $activity->slug = $this->generateUniqueSlug($validated['title'], $id);
             }
 
-            // Handle featured image replacement
             if ($request->hasFile('featured_image')) {
-
-                // hapus foto lama
                 if ($activity->featured_image) {
                     Storage::disk('public')
                         ->delete($this->featuredPath . '/' . $activity->featured_image);
                 }
 
-                // upload baru
                 $activity->featured_image = $this->uploadImage(
                     $request->file('featured_image'),
                     $this->featuredPath
                 );
             }
 
-
             $activity->save();
 
-            // Handle additional photos upload
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
 
             DB::commit();
-            
 
             return redirect()
-                ->route('admin.activity.index', $activity->id)
+                ->route('admin.activity.index')
                 ->with('success_message', 'Kegiatan berhasil diperbarui.');
 
         } catch (\Exception $e) {
@@ -227,9 +204,10 @@ class PartnerActivityAdminController extends Controller
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => 'Gagal memperbarui kegiatan: ' . $e->getMessage()]);
+                ->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
     /**
      * Remove the specified activity from storage.
@@ -288,29 +266,15 @@ class PartnerActivityAdminController extends Controller
         return $request->validate([
             'partner_id' => 'required|exists:partners,id',
             'title' => 'required|string|max:255',
-            'short_description' => 'required|string|max:200',
+            'category_activity' => 'required|string|max:100',
+            'short_description' => 'nullable|string|max:255',
             'full_description' => 'required|string',
             'activity_date' => 'required|date',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
-        ], [
-            'partner_id.required' => 'Partner wajib dipilih.',
-            'partner_id.exists' => 'Partner tidak valid.',
-            'title.required' => 'Judul kegiatan wajib diisi.',
-            'title.max' => 'Judul kegiatan maksimal 255 karakter.',
-            'short_description.required' => 'Deskripsi singkat wajib diisi.',
-            'short_description.max' => 'Deskripsi singkat maksimal 200 karakter.',
-            'full_description.required' => 'Deskripsi lengkap wajib diisi.',
-            'activity_date.required' => 'Tanggal kegiatan wajib diisi.',
-            'activity_date.date' => 'Format tanggal tidak valid.',
-            'featured_image.image' => 'File harus berupa gambar.',
-            'featured_image.mimes' => 'Format gambar harus jpeg, png, jpg, atau webp.',
-            'featured_image.max' => 'Ukuran gambar maksimal 2MB.',
-            'photos.*.image' => 'Semua file harus berupa gambar.',
-            'photos.*.mimes' => 'Format gambar harus jpeg, png, jpg, atau webp.',
-            'photos.*.max' => 'Ukuran setiap gambar maksimal 2MB.',
+            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
     }
+
 
     /**
      * Generate unique slug from title.
