@@ -75,8 +75,8 @@
                         <div class="relative overflow-hidden h-48 flex-shrink-0">
                             @if ($activity->featured_image)
                                 <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                                     alt="{{ $activity->title }}">
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                    alt="{{ $activity->title }}">
                             @else
                                 <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                                     <i class="bi bi-image text-gray-400 text-5xl"></i>
@@ -111,7 +111,7 @@
                         <div class="p-5 flex flex-col flex-grow">
                             {{-- Title --}}
                             <a href="{{ route('admin.activity.show', $activity->slug) }}" 
-                               class="block mb-3">
+                            class="block mb-3">
                                 <h3 class="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-indigo-600 transition-colors leading-snug">
                                     {{ $activity->title }}
                                 </h3>
@@ -138,7 +138,7 @@
                             {{-- Action Buttons --}}
                             <div class="flex gap-2.5 mb-4">
                                 <a href="{{ route('admin.activity.edit', $activity->id) }}"
-                                   class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold rounded-lg transition-all duration-200 border border-amber-200 hover:border-amber-300 hover:shadow-md group/edit">
+                                class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold rounded-lg transition-all duration-200 border border-amber-200 hover:border-amber-300 hover:shadow-md group/edit">
                                     <i class="bi bi-pencil-square group-hover/edit:scale-110 transition-transform"></i>
                                     Edit
                                 </a>

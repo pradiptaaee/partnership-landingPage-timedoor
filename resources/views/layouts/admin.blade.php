@@ -13,11 +13,11 @@
 
     {{-- Bootstrap Icons (boleh tetap dipakai) --}}
     {{-- <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
 
     {{-- Tailwind via Vite --}}
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
-    
+
     @livewireStyles
 </head>
 
@@ -58,9 +58,9 @@
             });
         });
 
-        window.onload = function () {
+        window.onload = function() {
 
-            @if (Session::has('login_success'))
+            @if(Session::has('login_success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Login Berhasil!',
@@ -70,7 +70,7 @@
             });
             @endif
 
-            @if (Session::has('success_message'))
+            @if(Session::has('success_message'))
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
@@ -84,4 +84,5 @@
     </script>
 
 </body>
+
 </html>
