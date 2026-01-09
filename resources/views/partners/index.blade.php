@@ -82,7 +82,7 @@
         @livewire('partner-search')
 
         <div class="mt-5 d-flex justify-content-center">
-            {{ $activities->links() }}
+            {{ $activities->links('pagination') }}
         </div>
 
     </div>
@@ -145,17 +145,25 @@
             .text-primary {
                 color: #001D7A !important;
             }
+<<<<<<< HEAD
         
         /* Pause on hover */
         .slider-track:hover {
             animation-play-state: paused;
         }
+=======
 
-        /* -------- WORKSHOP CARDS -------- */
-        .workshop-img {
-            height: 200px;
-            object-fit: cover;
-        }
+            /* Pause on hover */
+            .slider-track:hover {
+                animation-play-state: paused;
+            }
+>>>>>>> origin/dede
+
+            /* -------- WORKSHOP CARDS -------- */
+            .workshop-img {
+                height: 200px;
+                object-fit: cover;
+            }
 
             /* -------- SLIDER -------- */
             .slider-container {
@@ -185,7 +193,7 @@
             background-color: #EDFFF3;
         }
 
-        /* Button Filter */
+                /* Button Filter */
     </style>
     <script>
         document.getElementById("loadMoreLink").addEventListener("click", function(e) {

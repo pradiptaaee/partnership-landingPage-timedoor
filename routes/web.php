@@ -70,10 +70,16 @@ Route::get('landing', function() {
     
     // 2. Ambil data testimoni
     $testimonials = Testimonial::latest()->get();
-
-    // 3. Ambil data project (INI YANG KURANG TADI)
-    $projects = StudentProject::latest()->get(); 
-    
-    // 4. Kirim SEMUANYA ke view
-    return view('landing_page.index', compact('banners', 'testimonials', 'projects'));
 });
+// Route::get('/partners/{slug}', [PartnerController::class, 'show'])
+//     ->name('partners.show');
+
+Route::get('lang/{locale}', function ($locale) {
+    $availableLangs = ['id', 'en', 'ja', 'ar', 'hi', 'tl', 'ms'];
+
+    if (in_array($locale, $availableLangs)) {
+        session(['locale' => $locale]);
+    }
+
+    return redirect()->back();
+})->name('lang.switch');
