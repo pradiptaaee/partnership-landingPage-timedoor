@@ -16,7 +16,7 @@ class PartnerController extends Controller
     {
         $partners = Partner::latest()->get();
 
-        $activities = PartnerActivity::with('partner')
+        $activities = PartnerActivity::with(['partner', 'photos'])
             ->when($request->search, function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->search . '%');
             })
@@ -28,6 +28,7 @@ class PartnerController extends Controller
 
         return view('partners.index', compact('partners', 'activities'));
     }
+
 
 
     public function show($slug)
@@ -54,14 +55,17 @@ class PartnerController extends Controller
         // 2. UPLOAD PHOTOS
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
-                $path = $photo->store('activities/gallery', 'public');
+
+                $filename = $photo->hashName();
+                $photo->storeAs('activity/photos', $filename, 'public');
 
                 PhotoActivity::create([
-                    'partner_activity_id' => $activity->id,  // Sesuaikan dengan nama kolom foreign key
-                    'path' => $path
+                    'activity_id' => $activity->id,
+                    'image_path' => $filename
                 ]);
             }
         }
+
 
         return redirect()->route('partners.index')->with('success', 'Berhasil!');
     }
