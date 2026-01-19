@@ -91,7 +91,7 @@
                             {{ $activity->title }}
                         </h5>
 
-                        <p class="text-muted flex-grow-1">
+                        <p class="text-muted grow">
                             {{ $activity->short_description }}
                         </p>
 
@@ -113,7 +113,7 @@
 
         <!-- ========== PAGINATION ========== -->
         @if($activities->hasPages())
-        <div class="mt-5 d-flex justify-content-center">
+        <div class="mt-5 d-flex justify-content-between">
             {{ $activities->links() }}
         </div>
         @endif

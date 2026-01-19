@@ -10,7 +10,7 @@
                             <p class="date-text">10 Februari 2024</p>
                             <h5 class="card-title-color">Workshop Digital Learning</h5>
 
-                            <p class="text-muted flex-grow-1">
+                            <p class="text-muted grow">
                                 Pelatihan intensif untuk guru dalam menggunakan platform pembelajaran digital dan tools
                                 modern untuk mengajar.
                             </p>

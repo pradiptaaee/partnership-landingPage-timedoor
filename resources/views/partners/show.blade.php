@@ -57,7 +57,7 @@
         <!-- Visual Highlight -->
         <div class="col-lg-6">
             <div class="card border-0 shadow-sm h-100" style="border-radius: 15px; overflow: hidden;">
-                <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
+                <img src="{{ $activity->photos }}" alt="{{ $activity->title }}"
                     class="w-100"
                     style="height: 100%; object-fit: cover; min-height: 300px;">
             </div>
@@ -77,17 +77,17 @@
                         <h3 class="fw-bold mb-0" style="color: #001D7A;">Profil Pembicara</h3>
                     </div>
 
-                    <p class="text-muted flex-grow-1 mb-2" style="font-size: 16px; line-height: 1.8;">
+                    <p class="text-muted grow mb-2" style="font-size: 16px; line-height: 1.8;">
                         <strong>Dr. Jonathan Pratama</strong><br>
                         Kepala Divisi Kurikulum & Pelatihan – EduTech Indonesia
                     </p>
 
-                    <p class="text-muted flex-grow-1 mb-4" style="font-size: 16px; line-height: 1.8;">
+                    <p class="text-muted grow mb-4" style="font-size: 16px; line-height: 1.8;">
                         Berpengalaman lebih dari 12 tahun dalam transformasi pembelajaran digital,
                         memberikan pelatihan kepada guru, dan menjadi pembicara di berbagai konferensi nasional.
                     </p>
 
-                    <a href="{{ route('partners.index') }}" class="btn text-white align-self-start"
+                    <a href="{{ route('partnership.index') }}" class="btn text-white align-self-start"
                         style="background: linear-gradient(135deg, #10A300 0%, #0d8500 100%); border: none; border-radius: 25px; padding: 12px 30px;">
                         <i class="bi bi-arrow-left me-2"></i>Kembali
                     </a>

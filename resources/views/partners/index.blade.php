@@ -1,163 +1,165 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- ===========================
+            TITLE SECTION
+        =========================== -->
+    <section class="title-section py-4 bg-white">
+        <div class="container-fluid px-0">
+            <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">Partnership</h1>
+        </div>
+    </section>
 
-<!-- ===========================
-    TITLE SECTION
-=========================== -->
-<section class="title-section py-4 bg-white">
+
+    <!-- ===========================
+            HERO IMAGE
+        =========================== -->
+    <section class="hero-section">
+        <div class="container py-4 px-lg-3 px-md-4 px-3">
+            <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
+                alt="School Partnership" class="img-fluid w-100 shadow-sm hero-img">
+        </div>
+    </section>
+
+
+    <!-- ===========================
+            INTRO TEXT
+        =========================== -->
+    <section class="intro-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <p class="text-center text-muted">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
+                        et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================
+            SLIDER (AUTOPLAY FLEX)
+        =========================== -->
     <div class="container-fluid px-0">
-        <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">Partnership</h1>
+        <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
+            {{ __('Partnership') }}
+        </h1>
     </div>
-</section>
 
+    <section class="partnership-slider py-4">
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack">
+                @foreach ($partners as $p)
+                    <div class="slider-item">
+                        <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
+                    </div>
+                @endforeach
 
-<!-- ===========================
-    HERO IMAGE
-=========================== -->
-<section class="hero-section">
-    <div class="container py-4 px-lg-3 px-md-4 px-3">
-        <img
-            src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-            alt="School Partnership"
-            class="img-fluid w-100 shadow-sm hero-img">
-    </div>
-</section>
-
-
-<!-- ===========================
-    INTRO TEXT
-=========================== -->
-<section class="intro-section py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <p class="text-center text-muted">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                </p>
+                <!-- Duplikasi untuk infinite loop -->
+                @foreach ($partners as $p)
+                    <div class="slider-item">
+                        <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
+                    </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- ===========================
+            WORKSHOP SECTION
+        =========================== -->
+    <section class="workshop-section py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Workshop dan Pelatihan Sekolah</h2>
 
-<!-- ===========================
-    SLIDER (AUTOPLAY FLEX)
-=========================== -->
-<div class="container-fluid px-0">
-    <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
-        {{ __('Partnership') }}
-    </h1>
-</div>
+            <!-- Search Section -->
+            @livewire('partner-search')
 
-<section class="partnership-slider py-4">
-    <div class="slider-container">
-        <div class="slider-track" id="sliderTrack">
-            @foreach ($partners as $p)
-            <div class="slider-item">
-                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
-            </div>
-            @endforeach
-
-            <!-- Duplikasi untuk infinite loop -->
-            @foreach ($partners as $p)
-            <div class="slider-item">
-                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-<!-- ===========================
-    WORKSHOP SECTION
-=========================== -->
-<section class="workshop-section py-5">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5">Workshop dan Pelatihan Sekolah</h2>
-
-        <!-- Search Section -->
-        @livewire('partner-search')
-
-        <div class="mt-5 d-flex justify-content-center">
-            {{ $activities->links('pagination') }}
         </div>
 
-    </div>
-    </div>
-    </div>
-
-    <style>
-        /* Hover effect */
-        .btnFilter:hover {
-            background-color: #d2d2d2ff;
-        }
-
-        /* Global Primary Text Color */
-        .text-primary {
-            color: #001D7A !important;
-        }
-
-        /* -------- HERO IMAGE -------- */
-        .hero-img {
-            max-height: 420px;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        /* -------- SLIDER -------- */
-        .slider-container {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-        }
-
-        .slider-track {
-            display: flex;
-            gap: 20px;
-            animation: slide 50s linear infinite;
-            width: fit-content;
-        }
-
-        .slider-item {
-            flex-shrink: 0;
-            width: 200px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slider-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        @keyframes slide {
-            0% {
-                transform: translateX(0);
+        <style>
+            /* Hover effect */
+            .btnFilter:hover {
+                background-color: #d2d2d2ff;
             }
-        }
+
             /* Global Primary Text Color */
             .text-primary {
                 color: #001D7A !important;
             }
-<<<<<<< HEAD
-        
-        /* Pause on hover */
-        .slider-track:hover {
-            animation-play-state: paused;
-        }
-=======
+
+            /* -------- HERO IMAGE -------- */
+            .hero-img {
+                max-height: 420px;
+                object-fit: cover;
+                border-radius: 20px;
+            }
+
+            /* -------- SLIDER -------- */
+            /* ===== SLIDER WRAPPER ===== */
+            .slider-container {
+                overflow: hidden;
+                width: 100%;
+                background: #ffffff;
+            }
+
+            /* ===== SLIDER TRACK ===== */
+            .slider-track {
+                display: flex;
+                width: max-content;
+                gap: 0px;
+                animation: scroll 30s linear infinite;
+            }
+
+            /* ===== SLIDER ITEM ===== */
+            .slider-item {
+                flex: 0 0 auto;
+                width: 300px;
+                height: 180px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+            }
+
+            .slider-item img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+            /* ===== ANIMATION ===== */
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
 
             /* Pause on hover */
             .slider-track:hover {
                 animation-play-state: paused;
             }
->>>>>>> origin/dede
+
+
+            /* Global Primary Text Color */
+            .text-primary {
+                color: #001D7A !important;
+            }
+
+            /* Pause on hover */
+            .slider-track:hover {
+                animation-play-state: paused;
+            }
 
             /* -------- WORKSHOP CARDS -------- */
             .workshop-img {
@@ -165,49 +167,25 @@
                 object-fit: cover;
             }
 
-            /* -------- SLIDER -------- */
-            .slider-container {
-                overflow: hidden;
-                width: 100%;
+
+            .workshop-section {
+                background-color: #EDFFF3;
             }
 
-            .slider-track {
-                display: flex;
-                gap: 10px;
-                animation: slide 10s linear infinite;
-            }
+            /* Button Filter */
+        </style>
+        <script>
+            document.getElementById("loadMoreLink").addEventListener("click", function(e) {
+                e.preventDefault();
+                document.getElementById("moreWorkshops").classList.remove("d-none");
+                this.style.display = "none";
+            });
 
-            .slider-track img {
-                width: 33.33%;
-                height: 250px;
-                object-fit: cover;
-                border-radius: 10px;
-            }
-
-            @keyframes slide {
-                0% {
-                    transform: translateX(0);
-                }
-            }
-        .workshop-section {
-            background-color: #EDFFF3;
-        }
-
-                /* Button Filter */
-    </style>
-    <script>
-        document.getElementById("loadMoreLink").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.getElementById("moreWorkshops").classList.remove("d-none");
-            this.style.display = "none";
-        });
-
-        // load more 2
-        document.getElementById("loadMore").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.getElementById("Workshops").classList.remove("d-none");
-            this.style.display = "none";
-        });
-    </script>
-
+            // load more 2
+            document.getElementById("loadMore").addEventListener("click", function(e) {
+                e.preventDefault();
+                document.getElementById("Workshops").classList.remove("d-none");
+                this.style.display = "none";
+            });
+        </script>
     @endsection
