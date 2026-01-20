@@ -4,35 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder; // Import Builder
-use Spatie\Translatable\HasTranslations;
+use Illuminate\Support\Facades\Storage; // Tambahkan ini
 
 class Banner extends Model
 {
     use HasFactory;
-    use HasTranslations;
-    protected $guarded = ['id'];
-    public $translatable = ['title', 'description'];
 
-    /**
-     * Scope untuk memfilter pencarian dan sorting.
-     * Cara panggil: Banner::filter(request(['search', 'sort']))->get();
-     */
-    public function scopeFilter(Builder $query, array $filters): void
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'is_active'
+    ];
+
+    // PENTING: Casting ini wajib agar bisa simpan JSON (en, id, ja, dll)
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+        'is_active' => 'boolean',
+    ];
+
+    // Helper untuk ambil terjemahan (Opsional, tapi berguna di Blade)
+    public function getTranslation($field, $locale)
     {
-        // 1. Logika Search (Menggunakan when agar lebih rapi)
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            $query->where('title', 'like', '%' . $search . '%');
-        });
-
-        // 2. Logika Sort
-        $query->when($filters['sort'] ?? false, function ($query, $sort) {
-            match ($sort) {
-                'oldest' => $query->reorder('created_at', 'asc'),
-                'az'     => $query->reorder('title', 'asc'),
-                'za'     => $query->reorder('title', 'desc'),
-                default  => $query->latest(), // Default tetap terbaru
-            };
-        });
+        $data = $this->$field;
+        // Coba ambil sesuai bahasa user, kalau tidak ada, ambil bahasa inggris
+        return $data[$locale] ?? $data['en'] ?? '';
     }
 }

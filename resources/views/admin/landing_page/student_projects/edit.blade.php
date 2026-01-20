@@ -1,176 +1,198 @@
 @extends('layouts.admin') 
 
 @section('content')
-{{-- Container Utama --}}
-<div class="w-full p-6 bg-gray-50 h-[calc(100vh-80px)] overflow-hidden flex flex-col">
+{{-- CONTAINER UTAMA --}}
+<div class="flex-1 p-8 bg-white min-h-screen font-sans flex flex-col">
     
     {{-- HEADER PAGE --}}
-    <div class="flex justify-between items-center mb-6 shrink-0">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 shrink-0">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Edit Project</h1>
-            <p class="text-gray-500 text-sm">Perbarui data karya murid (Bahasa Indonesia)</p>
+            <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight mb-1">Edit Project</h1>
+            <p class="text-gray-500 text-sm">Perbarui informasi karya siswa (Bahasa Indonesia)</p>
         </div>
-        <a href="{{ route('admin.projects.index') }}" class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 text-sm flex items-center gap-2 transition">
-            <i class="bi bi-arrow-left"></i> Kembali
+        
+        <a href="{{ route('admin.projects.index') }}" 
+           class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 text-gray-600 text-sm font-semibold rounded-lg hover:bg-gray-100 hover:text-[#0f5132] transition border border-gray-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Kembali
         </a>
     </div>
 
-    {{-- MAIN CARD FORM --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex-grow flex flex-col">
-        {{-- Form Update --}}
-        <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data" class="h-full flex flex-col">
+    {{-- CARD WRAPPER --}}
+    <div class="flex-grow bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col">
+        
+        <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data" class="flex flex-col lg:flex-row h-full">
             @csrf
-            @method('PUT') 
+            @method('PUT')
             
-            <div class="flex flex-col lg:flex-row h-full">
+            {{-- KOLOM KIRI: INPUT FORM --}}
+            <div class="w-full lg:w-5/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
                 
-                {{-- BAGIAN KIRI: INPUT TEKS --}}
-                <div class="w-full lg:w-1/2 p-6 border-r border-gray-100 overflow-y-auto custom-scrollbar flex flex-col">
+                <div class="space-y-6 flex-grow overflow-y-auto pr-2 custom-scrollbar">
                     
-                    <div class="space-y-6">
-                        {{-- 1. Input Nama Murid (Tetap Teks Biasa) --}}
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">
-                                Nama Murid <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   name="student_name" 
-                                   value="{{ old('student_name', $project->student_name) }}"
-                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('student_name') border-red-500 @enderror" 
-                                   placeholder="Contoh: Budi Santoso" 
-                                   required>
-                            @error('student_name')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    {{-- 1. Nama Murid --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Nama Murid <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               name="student_name" 
+                               value="{{ old('student_name', $project->student_name) }}"
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                               placeholder="Nama lengkap murid" 
+                               required>
+                        @error('student_name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
 
-                        {{-- 2. Input Tipe Project (PERBAIKAN UTAMA: [id]) --}}
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">
-                                Tipe Project / Judul (Bahasa Indonesia) <span class="text-red-500">*</span>
-                            </label>
-                            
-                            {{-- PERBAIKAN: name="project_type[id]" --}}
+                    {{-- 2. Umur Murid --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Umur <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
                             <input type="text" 
-                                   name="project_type[id]" 
-                                   value="{{ old('project_type.id', $project->getTranslation('project_type', 'id')) }}"
-                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition @error('project_type.id') border-red-500 @enderror" 
-                                   placeholder="Contoh: Website Portfolio" 
+                                   name="age" 
+                                   value="{{ old('age', $project->age) }}"
+                                   class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                                   placeholder="Contoh: 12 Years" 
                                    required>
-                            
-                            @error('project_type.id')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-
-                            {{-- Info Update Translate --}}
-                            <div class="mt-2 p-3 bg-yellow-50 rounded-lg border border-yellow-100 flex gap-2 items-start">
-                                <i class="bi bi-magic text-yellow-600 mt-0.5"></i>
-                                <p class="text-xs text-yellow-700 leading-relaxed">
-                                    <strong>Auto-Update:</strong> Jika Anda mengedit teks Indonesia ini, sistem akan otomatis menerjemahkan ulang ke Inggris, Jepang, dll.
-                                </p>
+                            <div class="absolute right-4 top-3 text-gray-400 pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
                             </div>
                         </div>
+                        @error('age') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
 
-                        {{-- Info Box --}}
-                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex gap-3 items-start">
-                            <i class="bi bi-info-circle-fill text-gray-500 mt-0.5 text-lg"></i>
-                            <div>
-                                <h5 class="font-bold text-gray-700 text-sm">Info Mode Edit</h5>
-                                <p class="text-xs text-gray-600 leading-relaxed mt-1">
-                                    Gambar di sebelah kanan adalah gambar yang aktif saat ini. 
-                                    <strong>Biarkan kosong input filenya</strong> jika Anda tidak ingin mengubah gambar tersebut.
-                                </p>
-                            </div>
+                    {{-- 3. Tipe Project (Translatable) --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Judul Project (ID) <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               name="project_type[id]" 
+                               value="{{ old('project_type.id', $project->getTranslation('project_type', 'id')) }}"
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                               placeholder="Judul dalam Bahasa Indonesia" 
+                               required>
+                        @error('project_type.id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    {{-- INFO BOX: Auto Translate --}}
+                    <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex gap-3 items-start">
+                        <div class="shrink-0 mt-0.5 text-[#0f5132]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.223 1.794.49 2.684.785" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#0f5132] font-bold text-sm mb-0.5">Auto-Translate Aktif</h4>
+                            <p class="text-xs text-emerald-700 leading-relaxed">
+                                Jika Anda mengubah judul Indonesia, sistem akan otomatis menerjemahkan ulang ke Inggris & Jepang saat disimpan.
+                            </p>
                         </div>
                     </div>
 
-                    {{-- Tombol Update --}}
-                    <div class="mt-8 pt-6 border-t border-gray-100">
-                        <button type="submit" class="w-full py-3 rounded-lg bg-blue-600 text-white font-bold shadow-md hover:bg-blue-700 hover:shadow-lg transition transform hover:-translate-y-0.5">
-                            <i class="bi bi-check-lg mr-2"></i> Update Project
-                        </button>
-                    </div>
                 </div>
 
-                {{-- BAGIAN KANAN: PREVIEW GAMBAR --}}
-                <div class="w-full lg:w-1/2 bg-gray-900 relative group h-64 lg:h-full">
-                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-full cursor-pointer relative overflow-hidden">
-                        
-                        {{-- Prompt Upload --}}
-                        <div id="upload-prompt" class="hidden flex-col items-center justify-center p-6 text-center z-10">
-                            <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
-                                <i class="bi bi-cloud-arrow-up text-4xl text-white"></i>
-                            </div>
-                            <h3 class="font-bold text-white">Pilih Gambar Baru</h3>
-                            <p class="text-sm text-gray-300 mt-1">Klik untuk mengganti</p>
-                        </div>
-
-                        {{-- Preview Container --}}
-                        <div id="preview-container" class="absolute inset-0 w-full h-full bg-black">
-                            <img id="preview-image" 
-                                 src="{{ Storage::url($project->project_image) }}" 
-                                 class="w-full h-full object-cover opacity-100 group-hover:opacity-50 transition duration-500">
-                            
-                            {{-- Overlay Informasi File di Bawah --}}
-                            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex justify-between items-end translate-y-2 group-hover:translate-y-0 transition duration-500">
-                                <div class="overflow-hidden">
-                                    <p class="text-xs text-blue-400 uppercase font-bold tracking-wider mb-1">Gambar Saat Ini</p>
-                                    <p id="file-name" class="text-white text-sm truncate font-medium">{{ basename($project->project_image) }}</p>
-                                </div>
-                                <div class="shrink-0 px-4 py-2 bg-white/20 backdrop-blur-md rounded-lg text-white text-sm font-semibold border border-white/30 group-hover:bg-white group-hover:text-gray-900 transition flex items-center gap-2">
-                                    <i class="bi bi-pencil-square"></i> Ganti
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Input File --}}
-                        <input id="dropzone-file" name="project_image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
-                        
-                        @error('project_image')
-                            <div class="absolute inset-0 bg-red-900/80 flex items-center justify-center p-6 text-white text-center z-20">
-                                <div>
-                                    <i class="bi bi-exclamation-circle text-4xl mb-2 block"></i>
-                                    <p class="font-bold">{{ $message }}</p>
-                                </div>
-                            </div>
-                        @enderror
-                    </label>
+                {{-- ACTION BUTTONS --}}
+                <div class="pt-6 mt-6 border-t border-gray-100 flex gap-3 shrink-0">
+                    <a href="{{ route('admin.projects.index') }}" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-bold text-center hover:bg-gray-50 hover:text-gray-800 transition">
+                        Batal
+                    </a>
+                    <button type="submit" class="flex-1 px-4 py-3 rounded-lg bg-[#0f5132] text-white text-sm font-bold shadow-md hover:bg-[#0b3d26] transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                        Simpan Perubahan
+                    </button>
                 </div>
 
             </div>
+
+            {{-- KOLOM KANAN: PREVIEW GAMBAR --}}
+            <div class="w-full lg:w-7/12 bg-gray-900 relative group overflow-hidden flex items-center justify-center min-h-[300px] lg:min-h-auto">
+                
+                {{-- Hidden Input --}}
+                <input id="dropzone-file" name="project_image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
+                
+                {{-- Trigger Button (Center Overlay) --}}
+                <label for="dropzone-file" class="absolute inset-0 z-20 cursor-pointer flex flex-col items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px]">
+                    <div class="w-16 h-16 mb-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg transform translate-y-4 group-hover:translate-y-0 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
+                    </div>
+                    <span class="text-white font-bold text-lg tracking-tight">Ganti Gambar</span>
+                    <span class="text-gray-300 text-xs mt-1">Klik untuk mengunggah screenshot baru</span>
+                </label>
+
+                {{-- Image Container --}}
+                <div class="w-full h-full relative">
+                    <img id="preview-image" 
+                         src="{{ Storage::url($project->project_image) }}" 
+                         class="w-full h-full object-contain transition-all duration-500 group-hover:scale-95 group-hover:opacity-60">
+                    
+                    {{-- Gradient Overlay Bawah --}}
+                    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/90 to-transparent pointer-events-none"></div>
+                </div>
+
+                {{-- Info File (Floating Bottom) --}}
+                <div class="absolute bottom-6 left-6 right-6 z-10 flex justify-between items-end pointer-events-none">
+                    <div>
+                        <p class="text-[10px] text-[#4ade80] font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse"></span>
+                            Gambar Saat Ini
+                        </p>
+                        <p id="file-name" class="text-white font-medium text-sm truncate max-w-xs opacity-90">
+                            {{ basename($project->project_image) }}
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Error Message --}}
+                @error('project_image')
+                    <div class="absolute top-4 left-1/2 -translate-x-1/2 z-30 animate-bounce">
+                        <span class="bg-red-500 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+                            {{ $message }}
+                        </span>
+                    </div>
+                @enderror
+
+            </div>
+
         </form>
     </div>
 </div>
 
-{{-- Javascript untuk Preview Gambar Baru --}}
+{{-- SCRIPT --}}
 <script>
     function previewImage(event) {
         const input = event.target;
-        const promptDiv = document.getElementById('upload-prompt');
-        const previewDiv = document.getElementById('preview-container');
-        const previewImg = document.getElementById('preview-image');
-        const fileNameTxt = document.getElementById('file-name');
-
-        // Jika user memilih file baru
         if (input.files && input.files[0]) {
             const reader = new FileReader();
-
+            
             reader.onload = function(e) {
-                // Ganti source gambar dengan file baru
-                previewImg.src = e.target.result;
-                // Update teks nama file
-                fileNameTxt.textContent = "File Baru: " + input.files[0].name;
-                // Pastikan container preview terlihat dan prompt hidden
-                promptDiv.classList.add('hidden');
-                previewDiv.classList.remove('hidden');
+                const img = document.getElementById('preview-image');
+                const fileName = document.getElementById('file-name');
                 
-                // Efek visual file baru
-                previewImg.classList.remove('opacity-100');
-                previewImg.classList.add('opacity-100'); 
+                // Visual feedback loading
+                img.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    img.src = e.target.result;
+                    fileName.innerHTML = `<span class="text-yellow-400 font-bold">Baru:</span> ${input.files[0].name}`;
+                    img.style.opacity = '1';
+                }, 200);
             }
-
+            
             reader.readAsDataURL(input.files[0]);
         }
     }
 </script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 20px; }
+    .custom-scrollbar:hover::-webkit-scrollbar-thumb { background-color: #d1d5db; }
+</style>
 @endsection

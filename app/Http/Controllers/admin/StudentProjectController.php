@@ -81,6 +81,7 @@ class StudentProjectController extends Controller
         $request->validate([
             'project_image'   => 'required|image|max:2048',
             'student_name'    => 'required|string',
+            'age'             => 'required|string',
             'project_type.id' => 'required|string', // Validasi input ID
         ]);
 
@@ -93,6 +94,7 @@ class StudentProjectController extends Controller
         StudentProject::create([
             'project_image' => $imagePath,
             'student_name'  => $request->student_name,
+            'age'           => $request->age,
             'project_type'  => $types,
         ]);
 
@@ -120,31 +122,35 @@ class StudentProjectController extends Controller
      * Update Data
      */
     public function update(Request $request, StudentProject $project)
-    {
-        $request->validate([
-            'project_image'   => 'nullable|image|max:2048',
-            'student_name'    => 'required|string',
-            'project_type.id' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'project_image'   => 'nullable|image|max:2048',
+        'student_name'    => 'required|string',
+        'age'             => 'required|string', 
+        'project_type.id' => 'required|string',
+    ]);
 
-        $data = $request->except(['project_image', 'project_type']);
-        
-        // Translate ulang jika diedit
-        $types = $this->processTranslation($request->project_type);
-        $data['project_type'] = $types;
+    // --- CARA MANUAL (MEMAKSA DATA MASUK) ---
+    $project->student_name = $request->student_name;
+    $project->age = $request->age; // Kita paksa isi kolom age
+    
+    // Proses Project Type (Translate)
+    $types = $this->processTranslation($request->project_type);
+    $project->project_type = $types;
 
-        // Cek Gambar Baru
-        if ($request->hasFile('project_image')) {
-            if ($project->project_image && Storage::disk('public')->exists($project->project_image)) {
-                Storage::disk('public')->delete($project->project_image);
-            }
-            $data['project_image'] = $request->file('project_image')->store('projects', 'public');
+    // Proses Gambar
+    if ($request->hasFile('project_image')) {
+        if ($project->project_image && Storage::disk('public')->exists($project->project_image)) {
+            Storage::disk('public')->delete($project->project_image);
         }
-
-        $project->update($data);
-
-        return redirect()->route('admin.projects.index')->with('success', 'Project berhasil diperbarui!');
+        $project->project_image = $request->file('project_image')->store('projects', 'public');
     }
+
+    $project->save(); // Simpan perubahan
+    // ----------------------------------------
+
+    return redirect()->route('admin.projects.index')->with('success', 'Project berhasil diperbarui!');
+}
 
     /**
      * Hapus Data (DESTROY) - INI YANG TADI ANDA CARI

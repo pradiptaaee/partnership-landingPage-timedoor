@@ -1,20 +1,3 @@
-@php
-    // Mapping Bahasa & Bendera
-    $languages = [
-        'id' => ['flag' => '🇮🇩', 'name' => 'ID'],
-        'en' => ['flag' => '🇬🇧', 'name' => 'EN'],
-        'bn' => ['flag' => '🇧🇩', 'name' => 'BD'],
-        'ar' => ['flag' => '🇪🇬', 'name' => 'AR'],
-        'ms' => ['flag' => '🇲🇾', 'name' => 'MY'],
-        'fil'=> ['flag' => '🇵🇭', 'name' => 'PH'],
-        'ja' => ['flag' => '🇯🇵', 'name' => 'JP'],
-    ];
-
-    // Ambil bahasa aktif saat ini
-    $currentLocale = app()->getLocale();
-    $currentLang = $languages[$currentLocale] ?? $languages['en'];
-@endphp
-
 @extends('landing_page.layouts.app')
 
 @section('content')
@@ -37,4 +20,3 @@
     @include('landing_page.sections.footer')
 
 @endsection
-

@@ -12,7 +12,7 @@ class StudentProject extends Model
     use HasFactory;
     use HasTranslations;
     // Sesuai punya Anda
-    protected $fillable = ['student_name', 'project_type', 'project_image'];
+    protected $fillable = ['student_name', 'age', 'project_type', 'project_image'];
     public $translatable = ['project_type'];
     /**
      * Scope Filter untuk Search & Sort

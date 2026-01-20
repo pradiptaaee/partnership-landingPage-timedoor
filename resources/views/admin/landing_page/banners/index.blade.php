@@ -1,178 +1,175 @@
 @extends('layouts.admin') 
 
 @section('content')
-<div class="flex-1 p-6 md:p-8 bg-gray-50 min-h-screen">
-    <div class="max-w-7xl mx-auto">
+<div class="flex-1 p-8 bg-white min-h-screen font-sans">
+    
+    <div class="max-w-7xl mx-auto space-y-8">
 
         {{-- 1. HEADER PAGE --}}
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div class="flex flex-col md:flex-row justify-between items-end gap-4 pb-6 border-b border-gray-100">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
-                    Manajemen Banner
-                </h1>
-                <p class="text-gray-500 mt-1 text-sm">
-                    Kelola tampilan banner slide pada halaman utama website
-                </p>
+                <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight">Manajemen Banner</h1>
+                <p class="text-gray-500 text-sm mt-1">Atur slide promo yang tampil di halaman depan.</p>
             </div>
-
+            
+            {{-- Tombol Tambah (Tanpa efek naik) --}}
             <a href="{{ route('admin.banners.create') }}" 
-               class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white font-semibold rounded-xl shadow-sm hover:bg-blue-700 transition duration-200 transform hover:-translate-y-0.5">
-                <i class="bi bi-plus-lg text-lg"></i>
+               class="group inline-flex items-center gap-2 px-6 py-2.5 bg-[#0f5132] text-white text-sm font-semibold rounded-full shadow-lg shadow-emerald-900/10 hover:shadow-emerald-900/20 transition-all duration-300">
+                <div class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </div>
                 <span>Tambah Banner</span>
             </a>
         </div>
 
-        {{-- 2. FILTER SECTION --}}
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
-            <form action="{{ route('admin.banners.index') }}" method="GET">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    
-                    {{-- Input Cari --}}
-                    <div class="md:col-span-8">
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                            CARI BANNER
-                        </label>
-                        <div class="relative group">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i class="bi bi-search text-gray-400 group-focus-within:text-blue-500 transition"></i>
-                            </div>
-                            
-                            <input type="text" 
-                                name="search" 
-                                id="searchInput"
-                                value="{{ request('search') }}"
-                                oninput="searchWithDebounce(this)" 
-                                onfocus="var val=this.value; this.value=''; this.value= val;"
-                                class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 text-gray-700 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition duration-200" 
-                                placeholder="Ketik judul banner..."
-                                {{ request('search') ? 'autofocus' : '' }}>
-                            {{-- 'autofocus' agar kursor kembali ke sini setelah reload --}}
-                        </div>
-                    </div>
+        {{-- 2. TOOLBAR (Search & Filter) --}}
+        <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+            {{-- Search Input --}}
+            <div class="relative w-full sm:w-72 group">
+                <input type="text" 
+                       name="search" 
+                       value="{{ request('search') }}" 
+                       oninput="searchWithDebounce(this)"
+                       placeholder="Cari banner..."
+                       class="w-full pl-0 pr-8 py-2 bg-transparent border-b-2 border-gray-100 focus:border-[#0f5132] outline-none text-sm transition-colors placeholder-gray-400 group-hover:border-gray-200">
+                <i class="bi bi-search absolute right-0 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
 
-                    {{-- Input Sort --}}
-                    <div class="md:col-span-4">
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                            URUTKAN
-                        </label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i class="bi bi-sort-down text-gray-400"></i>
-                            </div>
-                            <select name="sort" onchange="this.form.submit()" class="w-full pl-11 pr-10 py-3 rounded-xl border border-gray-200 text-gray-700 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition duration-200 appearance-none cursor-pointer">
-                                <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                                <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
-                                <option value="az" {{ request('sort') == 'az' ? 'selected' : '' }}>Nama (A-Z)</option>
-                                <option value="za" {{ request('sort') == 'za' ? 'selected' : '' }}>Nama (Z-A)</option>
-                            </select>
-                            
-                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                <i class="bi bi-chevron-down text-xs text-gray-500"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            {{-- Sort Dropdown --}}
+            <div class="relative">
+                <form id="sortForm" action="{{ route('admin.banners.index') }}" method="GET">
+                    @if(request('search'))
+                        <input type="hidden" name="search" value="{{ request('search') }}">
+                    @endif
+                    <select name="sort" onchange="this.form.submit()" 
+                            class="appearance-none pl-4 pr-10 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm font-medium text-gray-600 focus:ring-1 focus:ring-[#0f5132] focus:border-[#0f5132] cursor-pointer outline-none hover:bg-gray-100 transition">
+                        <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
+                        <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
+                    </select>
+                    <i class="bi bi-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                </form>
+            </div>
         </div>
 
-        {{-- Alert Success --}}
+        {{-- ALERT SUCCESS --}}
         @if(session('success'))
-            <div class="mb-8 p-4 rounded-xl bg-green-50 border border-green-200 text-green-700 flex items-start gap-3 animate-fade-in-down">
-                <i class="bi bi-check-circle-fill text-xl mt-0.5"></i>
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-800 flex items-center gap-3 animate-fadeIn">
+                <i class="bi bi-check-circle-fill text-xl text-emerald-500"></i>
                 <div>
-                    <h4 class="font-bold">Berhasil!</h4>
-                    <p class="text-sm">{{ session('success') }}</p>
+                    <h4 class="text-sm font-bold">Berhasil</h4>
+                    <p class="text-xs opacity-90">{{ session('success') }}</p>
                 </div>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-emerald-600 hover:text-emerald-800 transition">
+                    <i class="bi bi-x"></i>
+                </button>
             </div>
         @endif
 
-        {{-- 3. CARD GRID SYSTEM --}}
+        {{-- 3. BANNER GRID --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
             @forelse($banners as $banner)
-            {{-- ITEM CARD --}}
-            <div class="group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-blue-200 transition duration-300 flex flex-col h-full">
+            
+            {{-- CARD ITEM (Tanpa hover:-translate-y) --}}
+            <div class="group relative bg-white rounded-2xl border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] transition-all duration-300 flex flex-col overflow-hidden">
                 
-                {{-- Bagian Atas: Gambar --}}
-                <div class="relative w-full aspect-[16/9] bg-gray-100 overflow-hidden">
-                    <img src="{{ Storage::url($banner->image) }}" 
-                         alt="{{ $banner->title }}" 
+                {{-- IMAGE AREA --}}
+                <div class="relative aspect-[16/9] overflow-hidden bg-gray-100">
+                    <img src="{{ Storage::url($banner->image) }}" alt="Banner Image" 
                          class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                     
-                    {{-- Overlay Gradient --}}
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    {{-- Gradient Overlay (Bottom) --}}
+                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent opacity-60 pointer-events-none"></div>
 
-                    {{-- Badge Status --}}
-                    <div class="absolute top-3 left-3">
-                        <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-green-600 text-xs font-bold rounded-full shadow-sm flex items-center gap-1">
-                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Active
+                    {{-- Status Badge --}}
+                    <div class="absolute top-3 left-3 z-10">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-md text-[10px] font-bold tracking-wider text-[#0f5132] shadow-sm uppercase border border-gray-100">
+                            Active
                         </span>
                     </div>
-                </div>
 
-                {{-- Bagian Tengah: Konten --}}
-                <div class="p-6 flex-1 flex flex-col">
-                    <h3 class="text-lg font-bold text-gray-900 line-clamp-2 mb-3 group-hover:text-blue-600 transition">
-                        {{ $banner->title }}
-                    </h3>
-                    
-                    <div class="mt-auto pt-4 border-t border-gray-50 flex items-center gap-2 text-gray-500 text-xs font-medium uppercase tracking-wide">
-                        <i class="bi bi-clock-history"></i>
-                        <span>Diupdate {{ $banner->updated_at->diffForHumans() }}</span>
+                    {{-- Floating Actions (Edit & Delete) - Muncul diam (fade in) --}}
+                    <div class="absolute top-3 right-3 z-20 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {{-- Edit --}}
+                        <a href="{{ route('admin.banners.edit', $banner->id) }}" 
+                           class="w-9 h-9 flex items-center justify-center bg-white text-gray-700 rounded-full hover:text-[#0f5132] hover:bg-emerald-50 shadow-md transition" 
+                           title="Edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                        </a>
+                        {{-- Delete --}}
+                        <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST" onsubmit="return confirm('Hapus banner ini?')">
+                            @csrf @method('DELETE')
+                            <button type="submit" 
+                                    class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full hover:bg-red-50 shadow-md transition" 
+                                    title="Hapus">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456-3.834a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 </div>
 
-                {{-- Bagian Bawah: Tombol Aksi --}}
-                <div class="p-6 pt-0 mt-auto grid grid-cols-2 gap-3">
-                    <a href="{{ route('admin.banners.edit', $banner->id) }}" 
-                       class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-yellow-50 hover:text-yellow-700 hover:border-yellow-200 transition duration-200 font-semibold text-sm">
-                        <i class="bi bi-pencil-square"></i> Edit
-                    </a>
+                {{-- CONTENT BODY --}}
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                            {{ $banner->created_at->format('d M Y') }}
+                        </span>
+                    </div>
 
-                    <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST" onsubmit="return confirm('Yakin hapus banner ini?')" class="w-full">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" 
-                                class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition duration-200 font-semibold text-sm">
-                            <i class="bi bi-trash"></i> Hapus
-                        </button>
-                    </form>
+                    <h3 class="text-lg font-bold text-gray-800 leading-tight mb-2 line-clamp-1 group-hover:text-[#0f5132] transition-colors">
+                        {{ $banner->title['en'] ?? 'Untitled Banner' }}
+                    </h3>
+                    
+                    <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                        {{ $banner->description['en'] ?? 'Tidak ada deskripsi.' }}
+                    </p>
                 </div>
             </div>
             
             @empty
-            {{-- Empty State --}}
-            <div class="col-span-1 md:col-span-2 lg:col-span-3 py-12">
-                <div class="flex flex-col items-center justify-center text-center">
-                    <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6">
-                        <i class="bi bi-images text-4xl text-gray-300"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Belum ada Banner</h3>
-                    <p class="text-gray-500 mb-8 max-w-sm mx-auto">Data banner masih kosong. Silakan tambahkan banner baru untuk mempercantik halaman depan.</p>
-                    <a href="{{ route('admin.banners.create') }}" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-200">
-                        + Buat Banner Pertama
-                    </a>
+            {{-- EMPTY STATE --}}
+            <div class="col-span-full py-20 text-center mt-4">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-50 rounded-full text-gray-300 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
                 </div>
+                <h3 class="text-lg font-bold text-gray-800">Belum ada Banner</h3>
+                <p class="text-gray-500 text-sm mt-1">Tambahkan banner untuk mempercantik halaman depan.</p>
             </div>
             @endforelse
-
         </div>
+
     </div>
 </div>
 
 <script>
-    // Variabel untuk menyimpan timer
     let debounceTimer;
-
     function searchWithDebounce(input) {
-        // 1. Hapus timer sebelumnya jika user masih mengetik
         clearTimeout(debounceTimer);
-
-        // 2. Buat timer baru (tunggu 800ms atau 0.8 detik)
-        debounceTimer = setTimeout(() => {
-            // 3. Submit form secara otomatis
-            input.form.submit();
-        }, 800); 
+        debounceTimer = setTimeout(() => { 
+            const form = document.getElementById('sortForm');
+            let hiddenInput = form.querySelector('input[name="search"]');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'search';
+                form.appendChild(hiddenInput);
+            }
+            hiddenInput.value = input.value;
+            form.submit(); 
+        }, 600); 
     }
 </script>
+
+<style>
+    /* Hapus translate-y dari animasi */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+</style>
 @endsection

@@ -1,287 +1,265 @@
-@extends('layouts.admin')
+@extends('layouts.admin') 
 
 @section('title', 'Tambah Kegiatan Partner')
 
 @section('content')
-<div class="container-fluid px-4">
-    <!-- Header Section -->
-    <div class="mb-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.activity.index') }}">Kegiatan</a></li>
-                <li class="breadcrumb-item active">Tambah Kegiatan</li>
-            </ol>
-        </nav>
-        <h1 class="h3 mb-1 text-gray-800">Tambah Kegiatan Baru</h1>
-        <p class="text-muted mb-0">Dokumentasikan kegiatan partner dengan detail</p>
+{{-- CONTAINER UTAMA --}}
+<div class="flex-1 p-8 bg-white min-h-screen font-sans flex flex-col">
+    
+    {{-- HEADER PAGE --}}
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 shrink-0">
+        <div>
+            <nav class="flex mb-1" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                    <li class="inline-flex items-center">
+                        <a href="{{ route('admin.activity.index') }}" class="text-xs font-medium text-gray-500 hover:text-[#0f5132]">
+                            Kegiatan
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="bi bi-chevron-right text-gray-400 text-xs mx-1"></i>
+                            <span class="text-xs font-medium text-gray-400">Buat Baru</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight">Tambah Kegiatan</h1>
+            <p class="text-gray-500 text-sm mt-1">Dokumentasikan aktivitas partner secara detail.</p>
+        </div>
+        
+        <a href="{{ route('admin.activity.index') }}" 
+           class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-600 text-sm font-semibold rounded-lg hover:bg-gray-50 hover:text-[#0f5132] transition shadow-sm">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </a>
     </div>
 
-    <form action="{{ route('admin.activity.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row">
-            <!-- Main Form -->
-            <div class="col-lg-8">
-                <!-- Basic Information Card -->
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Informasi Dasar</h6>
-                    </div>
-                    <div class="card-body p-4">
-                        <!-- Partner Selection -->
-                        <div class="mb-3">
-                            <label for="partner_id" class="form-label fw-bold">
-                                Partner <span class="text-danger">*</span>
-                            </label>
-                            <select class="form-select @error('partner_id') is-invalid @enderror" 
-                                    id="partner_id" 
-                                    name="partner_id" 
+    {{-- CARD FORM WRAPPER --}}
+    <div class="flex-grow bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col">
+        
+        <form action="{{ route('admin.activity.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col lg:flex-row h-full">
+            @csrf
+            
+            {{-- KOLOM KIRI: Input Form --}}
+            <div class="w-full lg:w-7/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
+                
+                <div class="space-y-6 flex-grow overflow-y-auto pr-2 custom-scrollbar">
+                    
+                    {{-- 1. Partner Selection --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Pilih Partner <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <select name="partner_id" 
+                                    class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium appearance-none cursor-pointer"
                                     required>
                                 <option value="">-- Pilih Partner --</option>
                                 @foreach($partners as $partner)
-                                <option value="{{ $partner->id }}" {{ old('partner_id') == $partner->id ? 'selected' : '' }}>
-                                    {{ $partner->name }}
-                                </option>
+                                    <option value="{{ $partner->id }}" {{ old('partner_id') == $partner->id ? 'selected' : '' }}>
+                                        {{ $partner->name }}
+                                    </option>
                                 @endforeach
                             </select>
-                            @error('partner_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <i class="bi bi-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                         </div>
+                        @error('partner_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
 
-                        <!-- Title -->
-                        <div class="mb-3">
-                            <label for="title" class="form-label fw-bold">
-                                Judul Kegiatan <span class="text-danger">*</span>
+                    {{-- 2. Judul & Tanggal (Grid) --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                                Judul Kegiatan <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
-                                   class="form-control @error('title') is-invalid @enderror" 
-                                   id="title" 
                                    name="title" 
-                                   value="{{ old('title') }}" 
-                                   placeholder="Contoh: Workshop Pelatihan Digital Marketing"
+                                   value="{{ old('title') }}"
+                                   class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                                   placeholder="Contoh: Workshop Digital" 
                                    required>
-                            @error('title')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            @error('title') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
 
-                        <!-- Activity Date -->
-                        <div class="mb-3">
-                            <label for="activity_date" class="form-label fw-bold">
-                                Tanggal Kegiatan <span class="text-danger">*</span>
+                        <div>
+                            <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                                Tanggal Pelaksanaan <span class="text-red-500">*</span>
                             </label>
                             <input type="date" 
-                                   class="form-control @error('activity_date') is-invalid @enderror" 
-                                   id="activity_date" 
                                    name="activity_date" 
                                    value="{{ old('activity_date') }}"
+                                   class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
                                    required>
-                            @error('activity_date')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Short Description -->
-                        <div class="mb-3">
-                            <label for="short_description" class="form-label fw-bold">
-                                Deskripsi Singkat <span class="text-danger">*</span>
-                            </label>
-                            <textarea class="form-control @error('short_description') is-invalid @enderror" 
-                                      id="short_description" 
-                                      name="short_description" 
-                                      rows="3" 
-                                      placeholder="Ringkasan kegiatan (maks 200 karakter)"
-                                      maxlength="200"
-                                      required>{{ old('short_description') }}</textarea>
-                            <small class="text-muted">
-                                <span id="char_count">0</span>/200 karakter
-                            </small>
-                            @error('short_description')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Full Description -->
-                        <div class="mb-3">
-                            <label for="full_description" class="form-label fw-bold">
-                                Deskripsi Lengkap <span class="text-danger">*</span>
-                            </label>
-                            <textarea class="form-control @error('full_description') is-invalid @enderror" 
-                                      id="full_description" 
-                                      name="full_description" 
-                                      rows="6" 
-                                      placeholder="Jelaskan detail kegiatan, tujuan, hasil, dan hal-hal penting lainnya..."
-                                      required>{{ old('full_description') }}</textarea>
-                            @error('full_description')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            @error('activity_date') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                     </div>
+
+                    {{-- 3. Deskripsi Singkat --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Deskripsi Singkat <span class="text-red-500">*</span>
+                        </label>
+                        <textarea name="short_description" 
+                                  id="short_description"
+                                  rows="3" 
+                                  maxlength="200"
+                                  class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm leading-relaxed resize-none" 
+                                  placeholder="Ringkasan kegiatan untuk tampilan kartu..." required>{{ old('short_description') }}</textarea>
+                        <div class="flex justify-end mt-1">
+                            <span class="text-[10px] text-gray-400"><span id="char_count">0</span>/200 karakter</span>
+                        </div>
+                        @error('short_description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    {{-- 4. Deskripsi Lengkap --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Deskripsi Lengkap <span class="text-red-500">*</span>
+                        </label>
+                        <textarea name="full_description" 
+                                  id="full_description"
+                                  rows="6" 
+                                  class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm leading-relaxed" 
+                                  placeholder="Jelaskan detail kegiatan, tujuan, dan hasil yang dicapai..." required>{{ old('full_description') }}</textarea>
+                        @error('full_description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    {{-- INFO BOX: PANDUAN --}}
+                    <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex gap-3 items-start">
+                        <i class="bi bi-info-circle-fill text-[#0f5132] mt-0.5"></i>
+                        <div>
+                            <h4 class="text-[#0f5132] font-bold text-sm mb-1">Tips Pengisian</h4>
+                            <p class="text-xs text-emerald-700 leading-relaxed">
+                                Pastikan deskripsi menarik dan informatif. Foto yang diupload sebaiknya memiliki orientasi landscape (16:9) untuk hasil terbaik.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Media Upload Card -->
-                <div class="card shadow-sm border-0 mb-4">
-                    <div class="card-header bg-success text-white">
-                        <h6 class="mb-0"><i class="fas fa-images me-2"></i>Media & Foto</h6>
-                    </div>
-                    <div class="card-body p-4">
-                        <!-- Featured Image -->
-                        <div class="mb-4">
-                            <label for="featured_image" class="form-label fw-bold">
-                                Gambar Utama <span class="text-muted">(Opsional)</span>
-                            </label>
-                            <input type="file" 
-                                   class="form-control @error('featured_image') is-invalid @enderror" 
-                                   id="featured_image" 
-                                   name="featured_image" 
-                                   accept="image/*"
-                                   onchange="previewFeaturedImage(event)">
-                            <small class="text-muted">Rekomendasi: 1200x600px, maksimal 2MB</small>
-                            @error('featured_image')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                            
-                            <!-- Featured Image Preview -->
-                            <div id="featured_preview" class="mt-3" style="display: none;">
-                                <p class="mb-2 text-muted small">Preview Gambar Utama:</p>
-                                <img id="featured_img" src="" alt="Preview" class="img-thumbnail" style="max-height: 200px;">
+                {{-- ACTION BUTTONS --}}
+                <div class="pt-6 mt-6 border-t border-gray-100 flex gap-3 shrink-0">
+                    <a href="{{ route('admin.activity.index') }}" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-bold text-center hover:bg-gray-50 hover:text-gray-800 transition">
+                        Batal
+                    </a>
+                    <button type="submit" class="flex-1 px-4 py-3 rounded-lg bg-[#0f5132] text-white text-sm font-bold shadow-md hover:bg-[#0b3d26] transition flex items-center justify-center gap-2">
+                        <i class="bi bi-save"></i> Simpan Kegiatan
+                    </button>
+                </div>
+
+            </div>
+
+            {{-- KOLOM KANAN: Upload Media --}}
+            <div class="w-full lg:w-5/12 bg-gray-50 border-l border-gray-100 overflow-y-auto custom-scrollbar flex flex-col">
+                
+                {{-- 1. FEATURED IMAGE --}}
+                <div class="p-8 border-b border-gray-100">
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">
+                        Gambar Utama (Cover)
+                    </label>
+                    
+                    <div class="relative group w-full aspect-video bg-white rounded-2xl border-2 border-dashed border-gray-300 hover:border-[#0f5132] hover:bg-emerald-50/30 transition-all duration-300 overflow-hidden flex items-center justify-center">
+                        
+                        <input type="file" id="featured_image" name="featured_image" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" onchange="previewFeaturedImage(event)">
+                        
+                        {{-- Prompt --}}
+                        <div id="featured_prompt" class="text-center p-6">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400 group-hover:bg-white group-hover:text-[#0f5132] transition shadow-sm">
+                                <i class="bi bi-image text-3xl"></i>
                             </div>
+                            <p class="text-sm font-semibold text-gray-600 group-hover:text-[#0f5132]">Upload Cover</p>
+                            <p class="text-[10px] text-gray-400 mt-1">JPG/PNG, Max 2MB</p>
                         </div>
 
-                        <!-- Multiple Photos -->
-                        <div class="mb-3">
-                            <label for="photos" class="form-label fw-bold">
-                                Foto Galeri <span class="text-muted">(Opsional)</span>
-                            </label>
-                            <input type="file" 
-                                   class="form-control @error('photos.*') is-invalid @enderror" 
-                                   id="photos" 
-                                   name="photos[]" 
-                                   accept="image/*"
-                                   multiple
-                                   onchange="previewMultipleImages(event)">
-                            <small class="text-muted">Upload beberapa foto sekaligus. Maksimal 2MB per foto.</small>
-                            @error('photos.*')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                            
-                            <!-- Multiple Photos Preview -->
-                            <div id="photos_preview" class="row g-2 mt-3" style="display: none;"></div>
-                        </div>
+                        {{-- Preview --}}
+                        <img id="featured_preview_img" src="#" class="hidden w-full h-full object-cover z-10">
                     </div>
+                    @error('featured_image') <p class="text-red-500 text-xs mt-2 text-center">{{ $message }}</p> @enderror
                 </div>
-            </div>
 
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <!-- Action Card -->
-                <div class="card shadow-sm border-0 mb-3 sticky-top" style="top: 20px;">
-                    <div class="card-header bg-light">
-                        <h6 class="mb-0"><i class="fas fa-bolt me-2"></i>Aksi</h6>
+                {{-- 2. GALLERY PHOTOS --}}
+                <div class="p-8 flex-grow">
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">
+                        Galeri Foto (Multiple)
+                    </label>
+
+                    <div class="relative">
+                        <label for="photos" class="flex flex-col items-center justify-center w-full h-32 bg-white border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-emerald-50/30 hover:border-[#0f5132] transition">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <i class="bi bi-images text-2xl text-gray-400 mb-2"></i>
+                                <p class="text-xs text-gray-500"><span class="font-semibold">Klik untuk tambah</span> beberapa foto</p>
+                            </div>
+                            <input id="photos" name="photos[]" type="file" multiple accept="image/*" class="hidden" onchange="previewMultipleImages(event)" />
+                        </label>
                     </div>
-                    <div class="card-body">
-                        <button type="submit" class="btn btn-primary w-100 mb-2">
-                            <i class="fas fa-save me-2"></i>Simpan Kegiatan
-                        </button>
-                        <a href="{{ route('admin.activity.index') }}" class="btn btn-secondary w-100">
-                            <i class="fas fa-times me-2"></i>Batal
-                        </a>
+                    @error('photos.*') <p class="text-red-500 text-xs mt-2">{{ $message }}</p> @enderror
+
+                    {{-- Gallery Grid Preview --}}
+                    <div id="gallery_preview_container" class="grid grid-cols-3 gap-2 mt-4">
+                        {{-- JS will populate this --}}
                     </div>
                 </div>
 
-                <!-- Help Card -->
-                <div class="card shadow-sm border-0">
-                    <div class="card-header bg-light">
-                        <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Panduan</h6>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled mb-0 small">
-                            <li class="mb-2">
-                                <i class="fas fa-check text-success me-2"></i>
-                                Pastikan semua field wajib (*) terisi
-                            </li>
-                            <li class="mb-2">
-                                <i class="fas fa-check text-success me-2"></i>
-                                Gunakan gambar berkualitas tinggi
-                            </li>
-                            <li class="mb-2">
-                                <i class="fas fa-check text-success me-2"></i>
-                                Deskripsi singkat untuk preview
-                            </li>
-                            <li class="mb-2">
-                                <i class="fas fa-check text-success me-2"></i>
-                                Deskripsi lengkap untuk detail
-                            </li>
-                            <li class="mb-0">
-                                <i class="fas fa-check text-success me-2"></i>
-                                Upload beberapa foto untuk galeri
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-        </div>
-    </form>
+
+        </form>
+    </div>
 </div>
 
+{{-- JAVASCRIPT --}}
 <script>
-// Character counter for short description
-document.getElementById('short_description').addEventListener('input', function() {
-    document.getElementById('char_count').textContent = this.value.length;
-});
+    // Character Counter
+    document.getElementById('short_description').addEventListener('input', function() {
+        document.getElementById('char_count').textContent = this.value.length;
+    });
 
-// Preview featured image
-function previewFeaturedImage(event) {
-    const preview = document.getElementById('featured_img');
-    const previewContainer = document.getElementById('featured_preview');
-    const file = event.target.files[0];
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            previewContainer.style.display = 'block';
-        }
-        reader.readAsDataURL(file);
-    } else {
-        previewContainer.style.display = 'none';
-    }
-}
+    // Preview Featured Image
+    function previewFeaturedImage(event) {
+        const file = event.target.files[0];
+        const prompt = document.getElementById('featured_prompt');
+        const img = document.getElementById('featured_preview_img');
 
-// Preview multiple images
-function previewMultipleImages(event) {
-    const previewContainer = document.getElementById('photos_preview');
-    const files = event.target.files;
-    
-    previewContainer.innerHTML = '';
-    
-    if (files.length > 0) {
-        previewContainer.style.display = 'flex';
-        
-        Array.from(files).forEach(file => {
+        if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const col = document.createElement('div');
-                col.className = 'col-4';
-                col.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" style="height: 100px; object-fit: cover;">`;
-                previewContainer.appendChild(col);
+                img.src = e.target.result;
+                img.classList.remove('hidden');
+                prompt.classList.add('hidden');
             }
             reader.readAsDataURL(file);
-        });
-    } else {
-        previewContainer.style.display = 'none';
+        }
     }
-}
+
+    // Preview Multiple Images
+    function previewMultipleImages(event) {
+        const container = document.getElementById('gallery_preview_container');
+        const files = event.target.files;
+        
+        container.innerHTML = ''; // Reset preview
+
+        if (files.length > 0) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm group';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/20 hidden group-hover:flex items-center justify-center">
+                            <i class="bi bi-check-circle-fill text-white text-xl"></i>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+    }
 </script>
 
 <style>
-.card {
-    border-radius: 0.5rem;
-}
-
-.form-control:focus, .form-select:focus {
-    border-color: #4e73df;
-    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
-}
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 20px; }
 </style>
 @endsection

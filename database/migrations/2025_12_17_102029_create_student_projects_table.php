@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('student_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('student_name');    // Nama Murid
-            $table->json('project_type');    // Contoh: "Website", "Game", "App"
-            $table->string('project_image');   // Screenshot project
+            $table->string('student_name');
+            
+            // PERBAIKAN: Hapus ->after(), cukup taruh baris ini di urutan ke-3
+            $table->string('age')->nullable(); 
+            
+            $table->json('project_type');
+            $table->string('project_image');
             $table->timestamps();
         });
     }
