@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('title');       // Judul banner (misal: "Winner Tech Kids...")
+            $table->json('title');       // Judul banner (misal: "Winner Tech Kids...")
             $table->string('image');       // Path file gambar
-            $table->string('alt_text')->nullable(); // Bagus untuk SEO
+            $table->json('description')->nullable(); // Bagus untuk SEO
             $table->timestamps();
         });
     }

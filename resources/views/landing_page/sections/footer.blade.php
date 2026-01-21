@@ -2,10 +2,10 @@
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
             <h2 class="text-white font-extrabold text-3xl sm:text-4xl tracking-tight text-center md:text-left">
-                Try a Free Class!
+                {{ __('Try Free Class') }}
             </h2>
-            <button class="bg-[#10AF13] text-white font-bold text-sm sm:text-base py-3 px-8 rounded-lg shadow-[0_7px_0_#0E8E10] transition uppercase tracking-wide transform hover:scale-105">
-                Book a Free Trial
+            <button class="bg-[#10AF13] text-white font-bold text-sm sm:text-base py-3 px-8 rounded-lg shadow-[0_7px_0_#0E8E10] uppercase tracking-wide transform transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
+                {{ __('Book a Free Trial') }}
             </button>
         </div>
     </div>
@@ -24,18 +24,17 @@
     <div class="max-w-screen-xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
 
         <h2 class="text-[#00C220] font-extrabold text-3xl sm:text-4xl mb-12">
-            Our Branches
+            {{ __('Footer Branches') }}
         </h2>
 
         <div class="flex flex-wrap justify-center gap-y-12 gap-x-8 lg:gap-x-12 mb-12">
 
-            <!-- Item 1: Indonesia -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇮🇩</span>
                     <h3 class="font-bold text-xl">Indonesia</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+628814677923</span>
                 </div>
@@ -43,18 +42,17 @@
                     <span>✉</span> <span>id@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
-            <!-- Item 2: Malaysia -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇲🇾</span>
                     <h3 class="font-bold text-xl">Malaysia</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+601121898022</span>
                 </div>
@@ -62,18 +60,17 @@
                     <span>✉</span> <span>my@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
-            <!-- Item 3: Philippines -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇵🇭</span>
                     <h3 class="font-bold text-xl">Philippines</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>timedooracademy.ph</span>
                 </div>
@@ -81,18 +78,17 @@
                     <span>✉</span> <span>ph@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
-            <!-- Item 4: Egypt -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇪🇬</span>
                     <h3 class="font-bold text-xl">Egypt</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+201022439691</span>
                 </div>
@@ -100,19 +96,18 @@
                     <span>✉</span> <span>eg@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
 
-            <!-- Item 5: Japan -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇯🇵</span>
                     <h3 class="font-bold text-xl">Japan</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+6282144420385</span>
                 </div>
@@ -121,13 +116,12 @@
                 </div>
             </div>
 
-            <!-- Item 6: Syria -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇸🇾</span>
                     <h3 class="font-bold text-xl">Syria</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+963934354199</span>
                 </div>
@@ -136,13 +130,12 @@
                 </div>
             </div>
 
-            <!-- Item 7: Bangladesh -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇧🇩</span>
                     <h3 class="font-bold text-xl">Bangladesh</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+8801779800142</span>
                 </div>
@@ -151,13 +144,12 @@
                 </div>
             </div>
 
-            <!-- Item 8: United States -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇺🇸</span>
                     <h3 class="font-bold text-xl">United States</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+818080667680</span>
                 </div>
@@ -174,7 +166,6 @@
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
-            <!-- Column 1: Logo & Socials -->
             <div>
                 <div class="w-32 mb-6">
                     <svg width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -201,12 +192,12 @@
                     </svg>
                 </div>
                 <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-[#00C220] flex items-center justify-center text-white hover:scale-110 transition shadow-md">
+                    <a href="https://www.instagram.com/timedooracademy/" class="w-10 h-10 rounded-full bg-[#00C220] flex items-center justify-center text-white hover:scale-110 transition shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.486-.276a2.478 2.478 0 0 1-.919-.598 2.48 2.48 0 0 1-.599-.92c-.11-.281-.24-.704-.275-1.485-.038-.843-.047-1.096-.047-3.232 0-2.136.009-2.388.047-3.231.036-.78.166-1.203.275-1.485.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
                         </svg>
                     </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-[#00C220] flex items-center justify-center text-white hover:scale-110 transition shadow-md">
+                    <a href="https://www.facebook.com/timedooracademy/" class="w-10 h-10 rounded-full bg-[#00C220] flex items-center justify-center text-white hover:scale-110 transition shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
                         </svg>
@@ -214,54 +205,90 @@
                 </div>
             </div>
 
-            <!-- Column 2: Quick Links -->
             <div>
-                <h3 class="text-[#00C220] font-bold mb-6 text-lg">Quick Links</h3>
+                <h3 class="text-[#00C220] font-bold mb-6 text-lg">{{ __('Footer Quick Links') }}</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
-                    <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
-                    <li><a href="#" class="hover:text-white transition">FAQ</a></li>
-                    <li><a href="#" class="hover:text-white transition">Karir</a></li>
-                    <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu About') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu FAQ') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Career') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Contact') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Column 3: Our Course -->
             <div>
-                <h3 class="text-[#00C220] font-bold mb-6 text-lg">Our Course</h3>
+                <h3 class="text-[#00C220] font-bold mb-6 text-lg">{{ __('Footer Course') }}</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
-                    <li><a href="#" class="hover:text-white transition">Junior Coder</a></li>
-                    <li><a href="#" class="hover:text-white transition">Code Adventure</a></li>
-                    <li><a href="#" class="hover:text-white transition">Python Developer</a></li>
-                    <li><a href="#" class="hover:text-white transition">IoT Developer</a></li>
-                    <li><a href="#" class="hover:text-white transition">Software Developer</a></li>
-                    <li><a href="#" class="hover:text-white transition">AI Engineer</a></li>
-                    <li><a href="#" class="hover:text-white transition">Coder Profesional (Online)</a></li>
-                    <li><a href="#" class="hover:text-white transition">Matematika, English & IPA</a></li>
-                    <li><a href="#" class="hover:text-white transition">Portofolio Siswa</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Junior') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Adventure') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Python') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course IoT') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Software') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course AI') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Professional') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Subjects') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Portfolio') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Column 4: Partnership -->
             <div>
-                <h3 class="text-[#00C220] font-bold mb-6 text-lg">Partnership</h3>
+                <h3 class="text-[#00C220] font-bold mb-6 text-lg">{{ __('Footer Partnership') }}</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
-                    <li><a href="#" class="hover:text-white transition">Franchise & Investasi</a></li>
-                    <li><a href="#" class="hover:text-white transition">Kemitraan Sekolah</a></li>
-                    <li><a href="#" class="hover:text-white transition">Friend Referral</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Franchise') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu School') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Referral') }}</a></li>
                 </ul>
             </div>
         </div>
 
 
         <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
-            <div class="flex gap-6 font-medium">
-                <a href="#" class="text-white">Indonesia</a>
-                <a href="#" class="hover:text-white transition">English</a>
-                <a href="#" class="hover:text-white transition">বাংলা</a>
-                <a href="#" class="hover:text-white transition">عربي</a>
-            </div>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 font-medium">
+    
+            {{-- 1. INDONESIA (id) --}}
+            <a href="{{ route('change.language', 'id') }}" 
+            class="{{ app()->getLocale() == 'id' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            Indonesia
+            </a>
+
+            {{-- 2. ENGLISH (en) --}}
+            <a href="{{ route('change.language', 'en') }}" 
+            class="{{ app()->getLocale() == 'en' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            English
+            </a>
+
+            {{-- 3. JEPANG (ja) --}}
+            <a href="{{ route('change.language', 'ja') }}" 
+            class="{{ app()->getLocale() == 'ja' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            日本語
+            </a>
+
+            {{-- 4. ARAB (ar) --}}
+            <a href="{{ route('change.language', 'ar') }}" 
+            class="{{ app()->getLocale() == 'ar' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            عربي
+            </a>
+
+            {{-- 5. BENGALI (bn) --}}
+            <a href="{{ route('change.language', 'bn') }}" 
+            class="{{ app()->getLocale() == 'bn' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            বাংলা
+            </a>
+
+            {{-- 6. FILIPINO (fil) --}}
+            <a href="{{ route('change.language', 'fil') }}" 
+            class="{{ app()->getLocale() == 'fil' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            Filipino
+            </a>
+
+            {{-- 7. MALAY (ms) --}}
+            <a href="{{ route('change.language', 'ms') }}" 
+            class="{{ app()->getLocale() == 'ms' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            Melayu
+            </a>
+
+        </div>
             <div class="text-center md:text-right">
-                Copyright PT CERDAS DIGITAL INDONESIA ©️ 2025. All Rights Reserved
+                {{ __('Copyright') }}
             </div>
         </div>
     </div>

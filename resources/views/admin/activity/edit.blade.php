@@ -3,51 +3,49 @@
 @section('title', 'Edit Kegiatan Partner')
 
 @section('content')
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    {{-- CDN Font Awesome (Agar icon muncul) --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        {{-- Breadcrumb & Header --}}
-        <div class="mb-8">
-            <nav class="flex mb-4" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-2">
-                    <li class="inline-flex items-center">
-                        <a href="{{ route('admin.activity.index') }}"
-                            class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-amber-600 transition-colors">
-                            <i class="bi bi-house-door mr-2"></i>
-                            Kegiatan
-                        </a>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-                            <span class="ml-2 text-sm font-medium text-gray-500">Edit Kegiatan</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-
-            <div class="flex items-center gap-3">
-                <div
-                    class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="bi bi-pencil-square text-white text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Edit Kegiatan</h1>
-                    <p class="text-gray-600 mt-1">Perbarui informasi kegiatan partner</p>
-                </div>
+    <div class="p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <nav class="flex text-sm text-gray-500 mb-2" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                        <li class="inline-flex items-center">
+                            {{-- UBAH HOVER LINK BREADCRUMB --}}
+                            <a href="{{ route('admin.activity.index') }}" class="hover:text-[#0f5132] transition-colors flex items-center">
+                                <i class="fas fa-home mr-2"></i> Kegiatan
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right text-gray-400 text-xs mx-1"></i>
+                                <span class="ml-1 font-medium text-gray-800">Edit Kegiatan</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Edit Kegiatan</h1>
+                <p class="text-gray-500 mt-1 text-sm">Perbarui detail, gambar utama, dan galeri kegiatan partner.</p>
             </div>
+            
+            {{-- UBAH HOVER & FOCUS TOMBOL KEMBALI --}}
+            <a href="{{ route('admin.activity.index') }}" 
+               class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#0f5132] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0f5132] shadow-sm transition-all duration-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali
+            </a>
         </div>
 
-        {{-- Success Alert --}}
+        {{-- Alert Success (GUNAKAN OPASITAS UNTUK BG TERANG) --}}
         @if (session('success'))
-            <div class="mb-6 bg-green-50 border border-green-200 rounded-xl p-4 flex items-start gap-3 animate-slideDown">
-                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i class="bi bi-check-circle-fill text-white text-xl"></i>
+            <div class="flex items-center p-4 mb-6 text-[#0f5132] rounded-xl bg-[#0f5132]/10 border border-[#0f5132]/20 shadow-sm" role="alert">
+                <div class="flex-shrink-0 bg-[#0f5132]/20 rounded-full p-2">
+                    <i class="fas fa-check text-[#0f5132]"></i>
                 </div>
-                <div class="flex-1">
-                    <p class="text-green-800 font-medium">{{ session('success') }}</p>
-                </div>
-                <button onclick="this.parentElement.remove()" class="text-green-600 hover:text-green-800 transition-colors">
-                    <i class="bi bi-x-lg"></i>
+                <div class="ml-3 text-sm font-medium">{{ session('success') }}</div>
+                <button type="button" class="ml-auto bg-transparent text-[#0f5132] rounded-lg focus:ring-2 focus:ring-[#0f5132]/50 p-1.5 hover:bg-[#0f5132]/20 inline-flex h-8 w-8 justify-center items-center" onclick="this.parentElement.remove()">
+                    <span class="sr-only">Close</span>
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
         @endif
@@ -56,449 +54,312 @@
             @csrf
             @method('PUT')
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                {{-- Main Form --}}
-                <div class="lg:col-span-2 space-y-6">
-
-                    {{-- Basic Information Card --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-4">
-                            <h2 class="text-lg font-semibold text-white flex items-center">
-                                <i class="bi bi-info-circle-fill mr-2"></i>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                {{-- KOLOM KIRI --}}
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    {{-- CARD INFORMASI DASAR --}}
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+                            <h2 class="text-xl font-bold text-gray-800 flex items-center">
+                                {{-- WARNA ICON KOTAK --}}
+                                <span class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
+                                    <i class="fas fa-pen"></i>
+                                </span>
                                 Informasi Dasar
                             </h2>
                         </div>
-
-                        <div class="p-6 space-y-6">
-                            {{-- Partner Selection --}}
+                        
+                        <div class="p-8 space-y-6">
+                            {{-- SEMUA INPUT MENGGUNAKAN focus:ring-[#0f5132] dan focus:border-[#0f5132] --}}
                             <div>
-                                <label for="partner_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Partner <span class="text-red-500">*</span>
+                                <label for="partner_id" class="block mb-2 text-sm font-bold text-gray-700">
+                                    Partner Terkait <span class="text-red-500">*</span>
                                 </label>
                                 <div class="relative">
-                                    <select
-                                        class="w-full appearance-none px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 bg-white cursor-pointer @error('partner_id') border-red-500 ring-2 ring-red-200 @enderror"
-                                        id="partner_id" name="partner_id" required>
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-building text-gray-400"></i>
+                                    </div>
+                                    <select id="partner_id" name="partner_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full pl-10 p-3 transition-colors @error('partner_id') border-red-500 bg-red-50 @enderror" required>
                                         <option value="">-- Pilih Partner --</option>
                                         @foreach ($partners as $partner)
-                                            <option value="{{ $partner->id }}"
-                                                {{ old('partner_id', $activity->partner_id) == $partner->id ? 'selected' : '' }}>
+                                            <option value="{{ $partner->id }}" {{ old('partner_id', $activity->partner_id) == $partner->id ? 'selected' : '' }}>
                                                 {{ $partner->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <i
-                                        class="bi bi-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                                 </div>
-                                @error('partner_id')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
+                                @error('partner_id') <p class="mt-2 text-sm text-red-600 flex items-center"><i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p> @enderror
                             </div>
 
-                            {{-- Title --}}
-                            <div>
-                                <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Judul Kegiatan <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text"
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 @error('title') border-red-500 ring-2 ring-red-200 @enderror"
-                                    id="title" name="title" value="{{ old('title', $activity->title) }}"
-                                    placeholder="Contoh: Workshop Pelatihan Digital Marketing" required>
-                                @error('title')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-                            </div>
-
-                            {{-- Category Activity --}}
-                            <div>
-                                <label for="category_activity" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Kategori Kegiatan <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" id="category_activity" name="category_activity"
-                                    value="{{ old('category_activity', $activity->category_activity) }}"
-                                    placeholder="Contoh: seminar, workshop, event" oninput="toggleShortDesc(this.value)"
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 @error('category_activity') border-red-500 ring-2 ring-red-200 @enderror"
-                                    required>
-
-                                @error('category_activity')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-                            </div>
-
-                            {{-- Activity Date --}}
-                            <div>
-                                <label for="activity_date" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Tanggal Kegiatan <span class="text-red-500">*</span>
-                                </label>
-                                <input type="date"
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 @error('activity_date') border-red-500 ring-2 ring-red-200 @enderror"
-                                    id="activity_date" name="activity_date"
-                                    value="{{ old('activity_date', \Carbon\Carbon::parse($activity->activity_date)->format('Y-m-d')) }}"
-                                    required>
-                                @error('activity_date')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-                            </div>
-
-                            {{-- Short Description --}}
-                            <div>
-                                <label for="short_description" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Deskripsi Singkat <span class="text-red-500">*</span>
-                                </label>
-                                <textarea
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 @error('short_description') border-red-500 ring-2 ring-red-200 @enderror"
-                                    id="short_description" name="short_description" rows="3" placeholder="Ringkasan kegiatan (maks 200 karakter)"
-                                    maxlength="200" required>{{ old('short_description', $activity->short_description) }}</textarea>
-                                <div class="flex justify-between items-center mt-2">
-                                    <p class="text-xs text-gray-500 flex items-center">
-                                        <i class="bi bi-info-circle mr-1"></i>
-                                        <span id="char_count">{{ strlen($activity->short_description) }}</span>/200
-                                        karakter
-                                    </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="md:col-span-2">
+                                    <label for="title" class="block mb-2 text-sm font-bold text-gray-700">Judul Kegiatan <span class="text-red-500">*</span></label>
+                                    <input type="text" id="title" name="title" value="{{ old('title', $activity->title) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3 transition-shadow @error('title') border-red-500 bg-red-50 @enderror" placeholder="Contoh: Kunjungan Industri..." required>
+                                    @error('title') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                                 </div>
-                                @error('short_description')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
+                                <div>
+                                    <label for="activity_date" class="block mb-2 text-sm font-bold text-gray-700">Tanggal <span class="text-red-500">*</span></label>
+                                    <input type="date" id="activity_date" name="activity_date" value="{{ old('activity_date', \Carbon\Carbon::parse($activity->activity_date)->format('Y-m-d')) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3 @error('activity_date') border-red-500 bg-red-50 @enderror" required>
+                                    @error('activity_date') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                                </div>
                             </div>
 
-                            {{-- Full Description --}}
                             <div>
-                                <label for="full_description" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Deskripsi Lengkap <span class="text-red-500">*</span>
-                                </label>
-                                <textarea
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 @error('full_description') border-red-500 ring-2 ring-red-200 @enderror"
-                                    id="full_description" name="full_description" rows="6"
-                                    placeholder="Jelaskan detail kegiatan, tujuan, hasil, dan hal-hal penting lainnya..." required>{{ old('full_description', $activity->full_description) }}</textarea>
-                                @error('full_description')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
+                                <div class="flex justify-between items-center mb-2">
+                                    <label for="short_description" class="text-sm font-bold text-gray-700">Deskripsi Singkat <span class="text-red-500">*</span></label>
+                                    <span class="text-xs text-gray-500 font-medium"><span id="char_count">{{ strlen($activity->short_description) }}</span>/200 Karakter</span>
+                                </div>
+                                <textarea id="short_description" name="short_description" rows="3" maxlength="200" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all resize-none @error('short_description') border-red-500 bg-red-50 @enderror" placeholder="Tulis ringkasan singkat untuk tampilan kartu..." required>{{ old('short_description', $activity->short_description) }}</textarea>
+                                @error('short_description') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div>
+                                <label for="full_description" class="block mb-2 text-sm font-bold text-gray-700">Deskripsi Lengkap <span class="text-red-500">*</span></label>
+                                <textarea id="full_description" name="full_description" rows="8" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all @error('full_description') border-red-500 bg-red-50 @enderror" placeholder="Jelaskan detail lengkap kegiatan..." required>{{ old('full_description', $activity->full_description) }}</textarea>
+                                @error('full_description') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
                             </div>
                         </div>
                     </div>
 
-                    {{-- Current Featured Image --}}
-                    @if ($activity->featured_image)
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                            <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4 border-b border-blue-200">
-                                <h3 class="text-lg font-semibold text-blue-900 flex items-center">
-                                    <i class="bi bi-image-fill mr-2"></i>
-                                    Gambar Utama Saat Ini
-                                </h3>
-                            </div>
-                            <div class="p-6 text-center">
-                                <div class="relative inline-block">
-                                    <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
-                                        alt="{{ $activity->title }}"
-                                        class="rounded-xl border-2 border-gray-200 shadow-md max-w-full"
-                                        style="max-height: 300px;">
-                                    <div
-                                        class="absolute -top-2 -right-2 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg">
-                                        <i class="bi bi-check2 text-lg font-bold"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    {{-- Media Upload Card --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4">
-                            <h2 class="text-lg font-semibold text-white flex items-center">
-                                <i class="bi bi-cloud-upload-fill mr-2"></i>
-                                Upload Media Baru
+                    {{-- CARD MEDIA & GALERI --}}
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+                            <h2 class="text-xl font-bold text-gray-800 flex items-center">
+                                {{-- WARNA ICON KOTAK --}}
+                                <span class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
+                                    <i class="fas fa-images"></i>
+                                </span>
+                                Media & Galeri
                             </h2>
                         </div>
-
-                        <div class="p-6 space-y-6">
-                            {{-- Featured Image --}}
-                            <div>
-                                <label for="featured_image" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Ganti Gambar Utama <span class="text-gray-500">(Opsional)</span>
-                                </label>
-                                <input type="file"
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-green-50 file:text-green-700 file:font-medium hover:file:bg-green-100 @error('featured_image') border-red-500 ring-2 ring-red-200 @enderror"
-                                    id="featured_image" name="featured_image" accept="image/*"
-                                    onchange="previewFeaturedImage(event)">
-                                <p class="mt-2 text-xs text-gray-500 flex items-center">
-                                    <i class="bi bi-info-circle mr-1"></i>
-                                    Kosongkan jika tidak ingin mengganti. Rekomendasi: 1200x600px, maksimal 2MB
-                                </p>
-                                @error('featured_image')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-
-                                {{-- Featured Image Preview --}}
-                                <div id="featured_preview" class="mt-4 hidden">
-                                    <p class="text-sm font-medium text-gray-700 mb-2">Preview Gambar Baru:</p>
-                                    <div class="relative inline-block">
-                                        <img id="featured_img" src="" alt="Preview"
-                                            class="rounded-xl border-2 border-green-300 shadow-md max-w-xs">
-                                        <button type="button" onclick="removeFeaturedPreview()"
-                                            class="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition-colors">
-                                            <i class="bi bi-x text-xl"></i>
-                                        </button>
+                        
+                        <div class="p-8 space-y-8">
+                            
+                            <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 border-dashed">
+                                <label class="block mb-4 text-sm font-bold text-gray-700">Gambar Utama (Thumbnail)</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative shadow-inner group">
+                                        @if ($activity->featured_image)
+                                            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" id="current_featured_preview" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                        @else
+                                            <div class="flex flex-col items-center justify-center h-full text-gray-400">
+                                                <i class="fas fa-image text-3xl mb-2"></i>
+                                                <span class="text-xs">Tidak ada gambar</span>
+                                            </div>
+                                        @endif
+                                        <img id="new_featured_preview_img" class="absolute inset-0 w-full h-full object-cover hidden">
                                     </div>
-                                </div>
-                            </div>
-
-                            {{-- Multiple Photos --}}
-                            <div>
-                                <label for="photos" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Tambah Foto Galeri <span class="text-gray-500">(Opsional)</span>
-                                </label>
-                                <input type="file"
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-green-50 file:text-green-700 file:font-medium hover:file:bg-green-100 @error('photos.*') border-red-500 ring-2 ring-red-200 @enderror"
-                                    id="photos" name="photos[]" accept="image/*" multiple
-                                    onchange="previewMultipleImages(event)">
-                                <p class="mt-2 text-xs text-gray-500 flex items-center">
-                                    <i class="bi bi-info-circle mr-1"></i>
-                                    Upload foto tambahan untuk galeri. Maksimal 2MB per foto
-                                </p>
-                                @error('photos.*')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center">
-                                        <i class="bi bi-exclamation-circle mr-1"></i>
-                                        {{ $message }}
-                                    </p>
-                                @enderror
-
-                                {{-- Multiple Photos Preview --}}
-                                <div id="photos_preview" class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4 hidden"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Existing Gallery Photos --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-6 py-4 border-b border-purple-200">
-                            <h3 class="text-lg font-semibold text-purple-900 flex items-center">
-                                <i class="bi bi-images mr-2"></i>
-                                Galeri Foto ({{ $activity->photos->count() }})
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            @if ($activity->photos->isEmpty())
-                                <div class="text-center py-12">
-                                    <div
-                                        class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-3">
-                                        <i class="bi bi-image text-3xl text-gray-400"></i>
-                                    </div>
-                                    <p class="text-gray-500">Tidak ada foto kegiatan</p>
-                                </div>
-                            @else
-                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="photoGallery">
-                                    @foreach ($activity->photos as $photo)
-                                        <div class="relative group" id="photo-{{ $photo->id }}">
-                                            <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}"
-                                                alt="Photo"
-                                                class="w-full h-32 object-cover rounded-lg border-2 border-gray-200 group-hover:border-purple-300 transition-all duration-200">
-
-                                            <button type="button"
-                                                class="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 btn-delete-photo"
-                                                data-photo-id="{{ $photo->id }}" title="Hapus foto">
-                                                <i class="bi bi-trash3-fill text-sm"></i>
-                                            </button>
+                                    
+                                    <div>
+                                        {{-- UBAH FOCUS RING TOMBOL UPLOAD --}}
+                                        <label for="featured_image" class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0f5132] focus:ring-offset-2 transition ease-in-out duration-150">
+                                            <i class="fas fa-upload mr-2"></i> Pilih Gambar Baru
+                                        </label>
+                                        <input id="featured_image" name="featured_image" type="file" class="hidden" accept="image/*" onchange="previewFeaturedImage(event)">
+                                        
+                                        {{-- UBAH WARNA ICON CHECKLIST --}}
+                                        <div class="mt-4 text-xs text-gray-500 space-y-1">
+                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Format: JPG, PNG, WEBP</p>
+                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Max Size: 2MB</p>
+                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Rasio: 16:9 (Disarankan)</p>
                                         </div>
-                                    @endforeach
+                                        @error('featured_image') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                                    </div>
                                 </div>
-                            @endif
-                        </div>
-                    </div>
+                            </div>
 
-                </div>
+                            <div>
+                                <div class="flex justify-between items-end mb-4">
+                                    <label class="text-sm font-bold text-gray-700">Galeri Foto</label>
+                                    {{-- UBAH WARNA LINK TAMBAH FOTO --}}
+                                    <label for="photos" class="cursor-pointer text-sm font-semibold text-[#0f5132] hover:text-[#0a3622] hover:underline">
+                                        + Tambah Foto
+                                    </label>
+                                    <input id="photos" name="photos[]" type="file" multiple class="hidden" accept="image/*" onchange="previewMultipleImages(event)">
+                                </div>
 
-                {{-- Sidebar --}}
-                <div class="lg:col-span-1 space-y-6">
+                                <div id="photos_preview" class="grid grid-cols-4 sm:grid-cols-5 gap-3 mb-4 empty:hidden"></div>
 
-                    {{-- Action Card --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden sticky top-6">
-                        <div class="bg-gradient-to-r from-indigo-50 to-indigo-100 px-6 py-4 border-b border-indigo-200">
-                            <h3 class="text-lg font-semibold text-indigo-900 flex items-center">
-                                <i class="bi bi-lightning-charge-fill mr-2"></i>
-                                Aksi
-                            </h3>
-                        </div>
-                        <div class="p-6 space-y-3">
-                            <button type="submit"
-                                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold rounded-lg hover:from-amber-600 hover:to-amber-700 shadow-md hover:shadow-lg transition-all duration-200">
-                                <i class="bi bi-check-circle-fill"></i>
-                                Update Kegiatan
-                            </button>
-                            <a href="{{ route('admin.activity.index') }}"
-                                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-200">
-                                <i class="bi bi-arrow-left-circle"></i>
-                                Kembali
-                            </a>
+                                @if ($activity->photos->isEmpty())
+                                    <div class="text-center py-8 rounded-xl bg-gray-50 border border-gray-200 border-dashed">
+                                        <i class="fas fa-camera text-gray-300 text-3xl mb-2"></i>
+                                        <p class="text-gray-500 text-sm">Belum ada foto galeri.</p>
+                                    </div>
+                                @else
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                        @foreach ($activity->photos as $photo)
+                                            <div class="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all" id="photo-card-{{ $photo->id }}">
+                                                <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                                                
+                                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
+                                                    <button type="button" onclick="deletePhoto({{ $photo->id }})" class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-colors shadow-lg" title="Hapus Foto">
+                                                        <i class="fas fa-trash-alt text-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
 
-                            <div class="border-t border-gray-200 my-4"></div>
-
-                            <button type="button" onclick="deleteActivity()"
-                                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-lg hover:from-red-600 hover:to-red-700 shadow-md hover:shadow-lg transition-all duration-200">
-                                <i class="bi bi-trash3-fill"></i>
-                                Hapus Kegiatan
-                            </button>
-                        </div>
-                    </div>
-
-                    {{-- Info Card --}}
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
-                            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i class="bi bi-info-circle-fill mr-2"></i>
-                                Informasi
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            <ul class="space-y-4 text-sm">
-                                <li>
-                                    <p class="font-semibold text-gray-700 mb-1">Slug:</p>
-                                    <code
-                                        class="px-2 py-1 bg-gray-100 rounded text-xs text-gray-800 break-all">{{ $activity->slug }}</code>
-                                </li>
-                                <li>
-                                    <p class="font-semibold text-gray-700 mb-1">Dibuat:</p>
-                                    <p class="text-gray-600">{{ $activity->created_at->format('d M Y H:i') }}</p>
-                                </li>
-                                <li>
-                                    <p class="font-semibold text-gray-700 mb-1">Diupdate:</p>
-                                    <p class="text-gray-600">{{ $activity->updated_at->format('d M Y H:i') }}</p>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
+
+                {{-- KOLOM KANAN: SIDEBAR PUBLIKASI --}}
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-6">
+                        <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50">
+                            <h2 class="text-lg font-bold text-gray-800 flex items-center">
+                                {{-- UBAH ICON ROKET --}}
+                                <i class="fas fa-rocket mr-3 text-[#0f5132]"></i> Publikasi
+                            </h2>
+                        </div>
+                        
+                        <div class="p-6 space-y-4">
+                            <div class="space-y-3 mb-6 text-sm text-gray-600">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span><i class="far fa-calendar-alt mr-2 text-gray-400"></i> Dibuat</span>
+                                    <span class="font-medium text-gray-900">{{ $activity->created_at->format('d M Y') }}</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span><i class="far fa-clock mr-2 text-gray-400"></i> Update</span>
+                                    <span class="font-medium text-gray-900">{{ $activity->updated_at->diffForHumans() }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span><i class="far fa-eye mr-2 text-gray-400"></i> Status</span>
+                                    {{-- UBAH BADGE STATUS (BG Opacity, Text, Border) --}}
+                                    <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-[#0f5132]/10 text-[#0f5132] border border-[#0f5132]/20">PUBLISHED</span>
+                                </div>
+                            </div>
+
+                            {{-- TOMBOL SIMPAN SUDAH BENAR --}}
+                            <button type="submit" class="w-full text-white bg-[#0f5132] hover:bg-[#0a3622] focus:ring-4 focus:ring-[#0f5132]/50 font-bold rounded-xl text-sm px-5 py-3.5 focus:outline-none transition-all shadow-md transform hover:-translate-y-0.5 flex items-center justify-center">
+                                <i class="fas fa-save mr-2"></i> Simpan Perubahan
+                            </button>
+                            
+                            <button type="button" onclick="deleteActivity()" class="w-full text-red-600 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 focus:ring-4 focus:ring-red-100 font-medium rounded-xl text-sm px-5 py-3 focus:outline-none transition-all flex items-center justify-center mt-3">
+                                <i class="fas fa-trash-alt mr-2"></i> Hapus Kegiatan
+                            </button>
+                        </div>
+                        
+                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 leading-relaxed">
+                            <i class="fas fa-info-circle mr-1 text-gray-400"></i>
+                            Pastikan data benar. Foto yang dihapus tidak dapat dikembalikan.
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </form>
     </div>
 
-    {{-- Delete Activity Form --}}
-    <form id="deleteActivityForm" action="{{ route('admin.activity.destroy', $activity->id) }}" method="POST"
-        class="hidden">
+    <form id="deleteActivityForm" action="{{ route('admin.activity.destroy', $activity->id) }}" method="POST" class="hidden">
         @csrf
         @method('DELETE')
     </form>
 
+    {{-- Script JavaScript --}}
     <script>
-        // Character counter
-        document.getElementById('short_description').addEventListener('input', function() {
-            document.getElementById('char_count').textContent = this.value.length;
-        });
+        // Hitung Karakter
+        const shortDesc = document.getElementById('short_description');
+        const charCount = document.getElementById('char_count');
+        if(shortDesc && charCount) {
+            shortDesc.addEventListener('input', function() {
+                charCount.textContent = this.value.length;
+                if(this.value.length >= 200) {
+                    charCount.classList.add('text-red-500', 'font-bold');
+                } else {
+                    charCount.classList.remove('text-red-500', 'font-bold');
+                }
+            });
+        }
 
-        // Preview featured image
+        // Preview Featured
         function previewFeaturedImage(event) {
-            const preview = document.getElementById('featured_img');
-            const previewContainer = document.getElementById('featured_preview');
             const file = event.target.files[0];
-
+            const preview = document.getElementById('new_featured_preview_img');
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     preview.src = e.target.result;
-                    previewContainer.style.display = 'block';
+                    preview.classList.remove('hidden');
                 }
                 reader.readAsDataURL(file);
-            } else {
-                previewContainer.style.display = 'none';
             }
         }
 
-        // Preview multiple images
+        // Preview Gallery
         function previewMultipleImages(event) {
-            const previewContainer = document.getElementById('photos_preview');
+            const container = document.getElementById('photos_preview');
             const files = event.target.files;
-
-            previewContainer.innerHTML = '';
-
+            container.innerHTML = '';
+            
             if (files.length > 0) {
-                previewContainer.style.display = 'flex';
-
+                container.classList.remove('hidden');
                 Array.from(files).forEach(file => {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        const col = document.createElement('div');
-                        col.className = 'col-4';
-                        col.innerHTML =
-                            `<img src="${e.target.result}" class="img-thumbnail" style="height: 100px; object-fit: cover;">`;
-                        previewContainer.appendChild(col);
+                        const div = document.createElement('div');
+                        div.className = 'aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm relative';
+                        {{-- UBAH WARNA BORDER & BG OVERLAY PREVIEW JS --}}
+                        div.innerHTML = `
+                            <img src="${e.target.result}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-[#0f5132]/20 border-2 border-[#0f5132] rounded-lg"></div>
+                        `;
+                        container.appendChild(div);
                     }
                     reader.readAsDataURL(file);
                 });
-            } else {
-                previewContainer.style.display = 'none';
             }
         }
 
-        // Delete activity
+        // Delete Logic
         function deleteActivity() {
-            if (confirm('Apakah Anda yakin ingin menghapus kegiatan ini? Semua foto terkait akan ikut terhapus.')) {
+            if (confirm('PERINGATAN: Apakah Anda yakin ingin menghapus kegiatan ini secara permanen? Data yang dihapus tidak bisa dikembalikan.')) {
                 document.getElementById('deleteActivityForm').submit();
             }
         }
 
-        // Delete individual photo
         function deletePhoto(photoId) {
-            if (!confirm('Yakin ingin menghapus foto ini?')) return;
+            if (!confirm('Hapus foto ini dari galeri?')) return;
+            
+            const card = document.getElementById(`photo-card-${photoId}`);
+            if(card) {
+                card.style.opacity = '0.5';
+                card.style.pointerEvents = 'none';
+            }
 
             fetch(`/admin/activity/photo/${photoId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json'
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => {
+                if(res.ok) {
+                    if(card) {
+                        card.classList.add('scale-0');
+                        setTimeout(() => card.remove(), 300);
                     }
-                })
-                .then(res => {
-                    if (!res.ok) throw new Error('Gagal hapus');
-                    return res.json();
-                })
-                .then(() => {
-                    location.reload(); // simpel & aman
-                })
-                .catch(err => {
-                    alert('Terjadi kesalahan saat menghapus foto');
-                    console.error(err);
-                });
+                } else {
+                    alert('Gagal menghapus foto.');
+                    if(card) {
+                        card.style.opacity = '1';
+                        card.style.pointerEvents = 'auto';
+                    }
+                }
+            })
+            .catch(err => {
+                alert('Terjadi kesalahan koneksi.');
+                if(card) {
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                }
+            });
         }
     </script>
-
-    <style>
-        .card {
-            border-radius: 0.5rem;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #4e73df;
-            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
-        }
-
-        .position-relative .btn-danger {
-            opacity: 0.9;
-        }
-
-        .position-relative:hover .btn-danger {
-            opacity: 1;
-        }
-    </style>
 @endsection
