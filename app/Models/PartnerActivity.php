@@ -63,4 +63,10 @@ class PartnerActivity extends Model
         'activity_date' => 'date',
     ];
 
+    public function hasExtraDescription()
+    {
+        $allowed = ['seminar', 'workshop'];
+        return in_array(strtolower($this->category_activity), $allowed);
+    }
+
 }

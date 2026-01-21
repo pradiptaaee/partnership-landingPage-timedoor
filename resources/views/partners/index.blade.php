@@ -47,29 +47,44 @@
             SLIDER (AUTOPLAY FLEX)
         =========================== -->
     <div class="container-fluid px-0">
-        <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
-            {{ __('Partnership') }}
-        </h1>
-    </div>
+    <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
+        {{ __('Partnership') }}
+    </h1>
+</div>
 
-    <section class="partnership-slider py-4">
-        <div class="slider-container">
-            <div class="slider-track" id="sliderTrack">
-                @foreach ($partners as $p)
-                    <div class="slider-item">
-                        <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
+<section class="partnership-slider py-4">
+    <div class="slider-container overflow-hidden"> {{-- Pastikan overflow hidden agar rapi --}}
+        <div class="slider-track" id="sliderTrack">
+            
+            {{-- Loop Pertama --}}
+            @foreach ($partners as $p)
+                {{-- Cek apakah logo ada dan file fisiknya ada --}}
+                @if($p->logo)
+                    <div class="slider-item group relative inline-block ">
+                        <img src="{{ asset('storage/' . $p->logo) }}" 
+                             alt="{{ $p->name }}"
+                             title="{{ $p->name }}" {{-- Tooltip bawaan browser --}}
+                             class="transition-transform duration-300 hover:scale-110 cursor-pointer">
                     </div>
-                @endforeach
+                @endif
+            @endforeach
 
-                <!-- Duplikasi untuk infinite loop -->
-                @foreach ($partners as $p)
-                    <div class="slider-item">
-                        <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
+            {{-- Duplikasi untuk Infinite Loop (Pastikan filter yang sama diterapkan) --}}
+            @foreach ($partners as $p)
+                @if($p->logo)
+                    <div class="slider-item group relative inline-block ">
+                        <img src="{{ asset('storage/' . $p->logo) }}" 
+                             alt="{{ $p->name }}"
+                             title="{{ $p->name }}"
+                             class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                        
                     </div>
-                @endforeach
-            </div>
+                @endif
+            @endforeach
+
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- ===========================
             WORKSHOP SECTION
