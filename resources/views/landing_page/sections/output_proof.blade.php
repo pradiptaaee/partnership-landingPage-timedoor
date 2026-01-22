@@ -1,6 +1,6 @@
-<section class="w-full bg-[#10AF13]">
-    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <nav class="flex justify-between items-center pb-10">
+<section class="w-full bg-[#10AF13] relative overflow-hidden bg-green-trigger">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
+        <!-- <nav class="flex justify-between items-center pb-10">
             <div class="w-32 sm:w-40">
                 <svg width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
                     <path d="M26.1776 19.7234C27.1886 19.7234 28.0081 18.9039 28.0081 17.8929C28.0081 16.8819 27.1886 16.0624 26.1776 16.0624C25.1666 16.0624 24.3471 16.8819 24.3471 17.8929C24.3471 18.9039 25.1666 19.7234 26.1776 19.7234Z" fill="white" />
@@ -28,66 +28,137 @@
             <a href="#" class="bg-white text-[#00C220] text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl uppercase shadow-[0_7px_0_#0E8E10] transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
                 Book a Free Trial
             </a>
-        </nav>
+        </nav> -->
 
-        <h2 class="text-white text-center font-extrabold text-[22px] sm:text-5xl mb-5 lg:text-6xl xl:text-5xl tracking-tight drop-shadow-sm">
+        <h2 data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" class="text-white text-center font-extrabold text-[22px] sm:text-5xl lg:text-6xl xl:text-5xl tracking-tight drop-shadow-sm">
             What our Students Built
         </h2>
 
-        <div class="flex w-full gap-1.5 xl:gap-0 items-center">
-
-            <!-- Btn Prev -->
-            <button class="btn-prev">
-                <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="rounded-full transition duration-300 hover:scale-105">
-                    <circle cx="17" cy="17" r="16" stroke="white" stroke-width="2" />
-                    <path d="M21 8L12 17L21 26" stroke="white" stroke-width="2" />
-                </svg>
+        <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" class="relative w-full py-5 xl:py-6">
+            <!-- Navigation Buttons -->
+            <button class="btn-prev absolute left-1 xl:left-[8%] top-1/2 -translate-y-1/2 z-20 group">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-white/20 rounded-full blur-xl group-hover:bg-white/30 transition-all duration-300"></div>
+                    <svg width="22" height="22" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="relative rounded-full transition-all duration-300 group-hover:scale-110 xl:w-14 xl:h-14 md:w-10 md:h-10 drop-shadow-lg">
+                        <circle cx="17" cy="17" r="16" stroke="white" stroke-width="2.5" class="group-hover:stroke-white/90" />
+                        <path d="M21 8L12 17L21 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
             </button>
 
-            <div class="swiper project_swiper w-5/6 xl:w-1/2 h-full bg-white rounded-[2.5rem]">
+            <button class="btn-next absolute right-1 xl:right-[8%] top-1/2 -translate-y-1/2 z-20 group">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-white/20 rounded-full blur-xl group-hover:bg-white/30 transition-all duration-300"></div>
+                    <svg width="22" height="22" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="relative rounded-full transition-all duration-300 group-hover:scale-110 xl:w-14 xl:h-14 md:w-10 md:h-10 drop-shadow-lg">
+                        <circle cx="17" cy="17" r="16" stroke="white" stroke-width="2.5" class="group-hover:stroke-white/90" />
+                        <path d="M13 8L22 17L13 26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Swiper Container -->
+            <div class="swiper project_swiper w-[82%] xl:w-3/5 mx-auto h-full">
                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide p-1.5 shadow-2xl mx-auto"
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide group"
                         data-name="Krisna Mahardika"
                         data-age="17 Years"
                         data-project="Website">
-                        <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
-                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
-                                class="absolute inset-0 w-full h-full object-cover opacity-80">
+                        <div class="relative bg-white rounded-[2.5rem] xl:rounded-[3rem] p-2 xl:p-3 transition-all duration-500">
+                            <!-- Image Container -->
+                            <div class="relative aspect-video rounded-[2rem] xl:rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800">
+                                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                                    class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
+                                    alt="Project showcase">
+
+                                <!-- Gradient Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                <!-- Hover Info Badge -->
+                                <div class="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+                                        <p class="text-white text-sm xl:text-base font-medium">Space Technology Website</p>
+                                        <p class="text-white/80 text-xs xl:text-sm mt-1">Interactive 3D Earth Visualization</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Corner Accent -->
+                            <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-lg shadow-green-400/50"></div>
                         </div>
                     </div>
 
-                    <!-- <div class="swiper-slide p-1.5 shadow-2xl mx-auto"
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide group"
                         data-name="Komang Sudana"
                         data-age="30 Years"
                         data-project="Game">
-                        <div class="relative aspect-video rounded-[2.2rem] overflow-hidden bg-gray-900 group">
-                            <img src="https://widya.ai/wp-content/uploads/2023/03/Optimized-Illustration-from-Adobe-Stock-for-ITC-Post-on-AI-in-Game-Development-scaled-1.jpeg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105">
+                        <div class="relative bg-white rounded-[2.5rem] xl:rounded-[3rem] p-2 xl:p-3 transition-all duration-500">
+                            <!-- Image Container -->
+                            <div class="relative aspect-video rounded-[2rem] xl:rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-purple-900 to-blue-900">
+                                <img src="https://widya.ai/wp-content/uploads/2023/03/Optimized-Illustration-from-Adobe-Stock-for-ITC-Post-on-AI-in-Game-Development-scaled-1.jpeg"
+                                    class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
+                                    alt="Game development project">
+
+                                <!-- Gradient Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                <!-- Hover Info Badge -->
+                                <div class="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+                                        <p class="text-white text-sm xl:text-base font-medium">AI-Powered Game Development</p>
+                                        <p class="text-white/80 text-xs xl:text-sm mt-1">Machine Learning Integration</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Corner Accent -->
+                            <div class="absolute top-4 right-4 w-3 h-3 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-lg shadow-purple-400/50"></div>
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
-            </div>
 
-            <!-- Btn Next -->
-            <button class="btn-next">
-                <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" class="rounded-full transition duration-300 hover:scale-105">
-                    <circle cx="17" cy="17" r="16" stroke="white" stroke-width="2" />
-                    <path d="M13 8L22 17L13 26" stroke="white" stroke-width="2" />
-                </svg>
-            </button>
+                <!-- Optional: Pagination dots -->
+                <div class="swiper-pagination !bottom-[-2.5rem]"></div>
+            </div>
         </div>
 
-        <div class="text-center mt-8 pb-10">
-            <h3 id="students" class="text-white font-extrabold text-base sm:text-4xl lg:text-5xl xl:text-4xl tracking-wide mb-3 drop-shadow-md">
+        <div class="text-center pb-10">
+            <h3 data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" id="students" class="text-white font-extrabold text-base sm:text-4xl lg:text-5xl xl:text-4xl tracking-wide mb-3 drop-shadow-md">
                 Student Name, Age
             </h3>
-            <div class="inline-flex items-center gap-4 bg-white/10 px-6 py-2 rounded-2xl backdrop-blur-sm border border-white/10">
+            <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" class="inline-flex items-center gap-4 bg-white/10 px-6 py-2 rounded-2xl backdrop-blur-sm border border-white/10">
                 <span class="text-white font-bold text-sm sm:text-2xl lg:text-3xl">Project Type:</span>
                 <span class="bg-[#1C2F70] text-[#FFD43C] px-6 py-1.5 rounded-xl text-sm sm:text-2xl font-bold shadow-lg transform -skew-x-6 border-2 border-[#fbbf24]/50">
                     <span id="project_type" class="block transform skew-x-6">Website</span>
                 </span>
             </div>
         </div>
+    </div>
+
+    <!-- Background Decorative Elements -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <!-- Dot Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #0E8E10 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+        <!-- Subtle Wave Lines -->
+        <div class="absolute bottom-0 left-0 w-full h-3/5 opacity-30">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-full">
+                <path d="M0,50 Q300,10 600,50 T1200,50 L1200,120 L0,120 Z" fill="#0E8E10" />
+            </svg>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-1/2 opacity-55">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-full">
+                <path d="M0,70 Q300,30 600,70 T1200,70 L1200,120 L0,120 Z" fill="#0E8E10" />
+            </svg>
+        </div>
+
+        <!-- Grid Lines Subtle -->
+        <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#0E8E10 1px, transparent 1px), linear-gradient(90deg, #0E8E10 1px, transparent 1px); background-size: 100px 100px;"></div>
     </div>
 </section>

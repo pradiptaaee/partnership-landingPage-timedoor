@@ -1,4 +1,4 @@
-<section class="w-full bg-[#10AF13] relative overflow-hidden">
+<section class="w-full bg-[#10AF13] relative overflow-hidden bg-green-trigger">
 
     <!-- BACKGROUND ORNAMENT -->
     <div class="absolute inset-0 z-0 pointer-events-none">
@@ -34,7 +34,7 @@
     <div class="relative z-10">
         <div class="mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <!-- HEADER PAGE 2 (Logo Putih) -->
-            <nav class="flex justify-between items-center pb-12">
+            <!-- <nav class="flex justify-between items-center pb-12">
                 <div class="w-32 sm:w-40">
                     <svg width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
                         <path d="M26.1776 19.7234C27.1886 19.7234 28.0081 18.9039 28.0081 17.8929C28.0081 16.8819 27.1886 16.0624 26.1776 16.0624C25.1666 16.0624 24.3471 16.8819 24.3471 17.8929C24.3471 18.9039 25.1666 19.7234 26.1776 19.7234Z" fill="white" />
@@ -63,7 +63,7 @@
                 <a href="#" class="bg-white text-[#00C220] text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl uppercase shadow-[0_7px_0_#0E8E10] transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
                     Book a Free Trial
                 </a>
-            </nav>
+            </nav> -->
 
         </div>
 
@@ -145,12 +145,12 @@
             </div>
 
             <div>
-                <h2 class="text-white text-center font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl mb-5">
+                <h2 data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" class="text-white text-center font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl mb-5">
                     What Parents Are Saying
                 </h2>
 
                 <!-- Swiper Testimonial -->
-                <div class="px-4 sm:px-6 lg:px-8 overflow-visible">
+                <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" class="px-4 sm:px-6 lg:px-8 overflow-visible">
                     <div class="swiper swiper_right">
                         <div class="swiper-wrapper">
 
