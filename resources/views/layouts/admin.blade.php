@@ -6,66 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Partnership</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
-    <style>
-        body {
-            background: #f5f6fa;
-        }
+    {{-- SweetAlert --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {{-- Bootstrap Icons (boleh tetap dipakai) --}}
+    {{-- <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
 
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: #2d3e50;
-            padding: 20px;
-            color: white;
-        }
-
-        .sidebar a {
-            color: #d9e3f0;
-            text-decoration: none;
-            display: block;
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar a:hover {
-            background: #1b2735;
-        }
-
-        .content-wrapper {
-            margin-left: 270px;
-            padding: 30px;
-        }
-
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            /* smooth scroll */
-        }
-    </style>
+    {{-- Tailwind via Vite --}}
+    @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+    
+    @livewireStyles
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-    <div class="sidebar">
-        <h4 class="fw-bold mb-4">Timedoor Academy</h4>
+    <div class="flex min-h-screen">
 
-        <a href="{{ route('admin.partners.index') }}">📌 Partner List</a>
-        <hr style="border-color: #45586b;">
-        <a href="#">⚙ Settings</a>
-        <a href="#">📊 Analytics</a>
+        {{-- Sidebar --}}
+        @include('admin.partials.sidebar')
+
+        {{-- Main Content --}}
+        <main class="flex-1 ml-65 bg-gray-100">
+            <div class="p-6">
+                @yield('content')
+            </div>
+        </main>
+
     </div>
 
-    <div class="content-wrapper">
-        @yield('content')
-    </div>
+    {{-- SweetAlert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @livewireScripts
+
+    {{-- Livewire & Session Alert --}}
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('success-alert', (data) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: data.message,
+                    position: 'center',
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                });
+            });
+        });
+
+        window.onload = function () {
+
+            @if (Session::has('login_success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Berhasil!',
+                text: "{{ Session::get('login_success') }}",
+                showConfirmButton: true,
+                confirmButtonText: 'Lanjutkan',
+            });
+            @endif
+
+            @if (Session::has('success_message'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ Session::get('success_message') }}",
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+            });
+            @endif
+        }
+    </script>
 
 </body>
-
 </html>

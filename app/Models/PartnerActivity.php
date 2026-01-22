@@ -10,14 +10,6 @@ class PartnerActivity extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     */
-    protected $table = 'partner_activities';
-
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'partner_id',
         'title',
@@ -25,66 +17,49 @@ class PartnerActivity extends Model
         'short_description',
         'full_description',
         'activity_date',
-        'featured_image',
+        'featured_image'
     ];
 
-    /**
-     * The attributes that should be cast.
-     */
-    protected $casts = [
-        'activity_date' => 'date',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-
-    /**
-     * Get the partner that owns the activity.
-     */
     public function partner()
     {
         return $this->belongsTo(Partner::class);
     }
 
-    /**
-     * Get the photos for the activity.
-     */
     public function photos()
     {
         return $this->hasMany(PhotoActivity::class, 'activity_id');
     }
 
-    /**
-     * Get the featured image URL.
-     */
+    // URL accessor
     public function getFeaturedImageUrlAttribute()
     {
-        if ($this->featured_image) {
-            return Storage::disk('public');
-        }
-        return null;
+        return $this->featured_image
+            ? asset('storage/activity/featured/' . $this->featured_image)
+            : null;
     }
+    // public function getFeaturedImageUrlAttribute()
+    // {
+    //     return $this->featured_image
+    //         ? asset('storage/' . $this->featured_image)
+    //         : null;
+    // }
 
-    /**
-     * Boot the model.
-     */
-    protected static function boot()
+    // Delete images automatically when activity is deleted
+    protected static function booted()
     {
-        parent::boot();
-
-        // Delete featured image and photos when activity is deleted
         static::deleting(function ($activity) {
-            // Delete featured image
-            if ($activity->featured_image && Storage::disk('public')->exists($activity->featured_image)) {
+            if ($activity->featured_image) {
                 Storage::disk('public')->delete($activity->featured_image);
             }
 
-            // Delete all photos
             foreach ($activity->photos as $photo) {
-                if (Storage::disk('public')->exists($photo->image_path)) {
-                    Storage::disk('public')->delete($photo->image_path);
-                }
-                $photo->delete();
+                $photo->delete(); // model PhotoActivity will delete its file
             }
         });
     }
+
+    protected $casts = [
+        'activity_date' => 'date',
+    ];
+
 }

@@ -11,7 +11,7 @@ class Partner extends Model
 {
     use HasFactory;
 
-    protected $table = 'partners';
+    // protected $table = 'partners';
     protected $fillable = ['name', 'slug', 'category', 'description', 'logo'];
 
     public function activities()

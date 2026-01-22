@@ -8,6 +8,7 @@ use App\Models\PartnerActivity;
 use App\Models\PhotoActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -19,6 +20,7 @@ class PartnerActivityAdminController extends Controller
      */
     public function index(Request $request)
     {
+        // Menggunakan PartnerActivity sebagai model (asumsi: sama dengan PartnerActivity::class)
         $query = PartnerActivity::with(['partner', 'photos']);
 
         // Filter by partner
@@ -30,6 +32,7 @@ class PartnerActivityAdminController extends Controller
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
+
 
         // Sorting
         switch ($request->input('sort', 'latest')) {
@@ -44,10 +47,31 @@ class PartnerActivityAdminController extends Controller
                 break;
         }
 
-        $activities = $query->paginate(15);
+        // Pagination: Set ke 3 item per halaman (sesuai setting Anda)
+        $activities = $query->paginate(6);
 
+        // --- PENYESUAIAN UNTUK AJAX LOAD MORE DIMULAI DI SINI ---
+
+        // Cek apakah permintaan datang dari AJAX (klik tombol Load More)
+        if ($request->ajax()) {
+
+            // 1. Render partial view yang hanya berisi cards (tanpa layout)
+            $html = view('admin.activity.partials.activity_cards', compact('activities'))->render();
+
+            // 2. Kembalikan respons dalam format JSON
+            return response()->json([
+                'html' => $html,
+                'next_page_url' => $activities->nextPageUrl(), // URL ke halaman selanjutnya
+                'has_more' => $activities->hasMorePages(),      // Cek apakah masih ada halaman
+            ]);
+        }
+
+        // Jika bukan permintaan AJAX (pemuatan halaman pertama kali)
         return view('admin.activity.index', compact('activities'));
     }
+
+
+
 
     /**
      * Show the form for creating a new activity.
@@ -64,12 +88,12 @@ class PartnerActivityAdminController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate input
+        // Validasi
         $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
         try {
-            // Create activity
+
             $activity = new PartnerActivity();
             $activity->partner_id = $validated['partner_id'];
             $activity->title = $validated['title'];
@@ -78,17 +102,24 @@ class PartnerActivityAdminController extends Controller
             $activity->full_description = $validated['full_description'];
             $activity->activity_date = $validated['activity_date'];
 
-            // Handle featured image upload
+            /** Upload Featured Image */
             if ($request->hasFile('featured_image')) {
-                $activity->featured_image = $this->uploadImage(
-                    $request->file('featured_image'),
-                    'partner_activities'
-                );
+
+                $file = $request->file('featured_image');
+
+                // buat nama unik
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // simpan ke storage/app/public/activity/featured
+                $file->storeAs('activity/featured', $filename, 'public');
+
+                // simpan hanya nama file ke database
+                $activity->featured_image = $filename;
             }
 
             $activity->save();
 
-            // Handle multiple photos upload
+            /** Upload Multiple Photos */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
@@ -97,12 +128,11 @@ class PartnerActivityAdminController extends Controller
 
             return redirect()
                 ->route('admin.activity.index')
-                ->with('success', 'Kegiatan berhasil ditambahkan.');
+                ->with('success_message', 'Kegiatan berhasil ditambahkan.');
 
         } catch (\Exception $e) {
             DB::rollBack();
 
-            // Delete uploaded images if transaction fails
             if (isset($activity->featured_image)) {
                 Storage::disk('public')->delete($activity->featured_image);
             }
@@ -113,6 +143,19 @@ class PartnerActivityAdminController extends Controller
         }
     }
 
+
+    public function show($slug)
+    {
+        $activity = PartnerActivity::with('photos', 'partner')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return view('admin.activity.show', compact('activity'));
+    }
+
+
+    private string $featuredPath = 'activity/featured';
+    private string $photosPath = 'activity/photos';
     /**
      * Show the form for editing the specified activity.
      */
@@ -150,16 +193,20 @@ class PartnerActivityAdminController extends Controller
 
             // Handle featured image replacement
             if ($request->hasFile('featured_image')) {
-                // Delete old featured image
+
+                // hapus foto lama
                 if ($activity->featured_image) {
-                    Storage::disk('public')->delete($activity->featured_image);
+                    Storage::disk('public')
+                        ->delete($this->featuredPath . '/' . $activity->featured_image);
                 }
 
+                // upload baru
                 $activity->featured_image = $this->uploadImage(
                     $request->file('featured_image'),
-                    'partner_activities'
+                    $this->featuredPath
                 );
             }
+
 
             $activity->save();
 
@@ -169,10 +216,11 @@ class PartnerActivityAdminController extends Controller
             }
 
             DB::commit();
+            
 
             return redirect()
-                ->route('admin.activity.edit', $activity->id)
-                ->with('success', 'Kegiatan berhasil diperbarui.');
+                ->route('admin.activity.index', $activity->id)
+                ->with('success_message', 'Kegiatan berhasil diperbarui.');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -207,26 +255,30 @@ class PartnerActivityAdminController extends Controller
     /**
      * Delete individual photo from activity.
      */
-    public function deletePhoto($id)
+    public function deletePhoto(PhotoActivity $photo)
     {
         try {
-            $photo = PhotoActivity::findOrFail($id);
+            // Dapatkan ID kegiatan yang terkait (untuk redirect yang lebih spesifik jika perlu)
+            $activityId = $photo->partner_activity_id;
 
-            // Image will be deleted automatically via model boot method
+            // 1. Hapus file fisik dari storage
+            $filePath = 'storage/activity/photos/' . $photo->image_path;
+            Storage::disk('public')->delete($filePath);
+
+            // 2. Hapus record database
             $photo->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Foto berhasil dihapus.'
-            ]);
+            // Berhasil: Flash pesan sukses ke session
+            // Ini akan ditangkap oleh SweetAlert listener di layout admin
+            return back()->with('success_alert', 'Foto berhasil dihapus dari galeri.');
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal menghapus foto: ' . $e->getMessage()
-            ], 500);
+            // Gagal: Flash pesan error ke session
+            return back()->with('error_alert', 'Gagal menghapus foto. Error: ' . $e->getMessage());
         }
     }
+
+
 
     /**
      * Validate activity input.
@@ -292,22 +344,30 @@ class PartnerActivityAdminController extends Controller
      */
     private function uploadImage($file, $folder)
     {
-        $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-        return $file->storeAs($folder, $filename, 'public');
+        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs($folder, $fileName, 'public');
+
+        return $fileName;
     }
+
+
 
     /**
      * Upload multiple photos.
      */
-    private function uploadPhotos($files, $activityId)
+    private function uploadPhotos($photos, $activityId)
     {
-        foreach ($files as $file) {
-            $path = $this->uploadImage($file, 'partner_activity_photos');
+        foreach ($photos as $photo) {
+            $fileName = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+
+            $photo->storeAs($this->photosPath, $fileName, 'public');
 
             PhotoActivity::create([
                 'activity_id' => $activityId,
-                'image_path' => $path
+                'image_path' => $fileName
             ]);
         }
     }
+
 }

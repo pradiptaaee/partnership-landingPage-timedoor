@@ -2,10 +2,10 @@
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
             <h2 class="text-white font-extrabold text-3xl sm:text-4xl tracking-tight text-center md:text-left">
-                Try a Free Class!
+                {{ __('Try Free Class') }}
             </h2>
             <button class="bg-[#10AF13] text-white font-bold text-sm sm:text-base py-3 px-8 rounded-lg shadow-[0_7px_0_#0E8E10] uppercase tracking-wide transform transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
-                Book a Free Trial
+                {{ __('Book a Free Trial') }}
             </button>
         </div>
     </div>
@@ -24,18 +24,17 @@
     <div class="max-w-screen-xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10">
 
         <h2 class="text-[#00C220] font-extrabold text-3xl sm:text-4xl mb-12">
-            Our Branches
+            {{ __('Footer Branches') }}
         </h2>
 
         <div class="flex flex-wrap justify-center gap-y-12 gap-x-8 lg:gap-x-12 mb-12">
 
-            <!-- Item 1: Indonesia -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇮🇩</span>
                     <h3 class="font-bold text-xl">Indonesia</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+628814677923</span>
                 </div>
@@ -43,18 +42,17 @@
                     <span>✉</span> <span>id@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
-            <!-- Item 2: Malaysia -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇲🇾</span>
                     <h3 class="font-bold text-xl">Malaysia</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+601121898022</span>
                 </div>
@@ -62,18 +60,17 @@
                     <span>✉</span> <span>my@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
-            <!-- Item 3: Philippines -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇵🇭</span>
                     <h3 class="font-bold text-xl">Philippines</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>timedooracademy.ph</span>
                 </div>
@@ -81,18 +78,17 @@
                     <span>✉</span> <span>ph@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
-            <!-- Item 4: Egypt -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇪🇬</span>
                     <h3 class="font-bold text-xl">Egypt</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+201022439691</span>
                 </div>
@@ -100,19 +96,18 @@
                     <span>✉</span> <span>eg@timedooracademy.com</span>
                 </div>
                 <div class="flex items-center justify-between text-gray-300 text-sm border-b border-gray-600 pb-1 cursor-pointer hover:text-white group">
-                    <span>Cabang Offline</span>
+                    <span>{{ __('Offline Branch') }}</span>
                     <span class="text-xs group-hover:rotate-180 transition">▼</span>
                 </div>
             </div>
 
 
-            <!-- Item 5: Japan -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇯🇵</span>
                     <h3 class="font-bold text-xl">Japan</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+6282144420385</span>
                 </div>
@@ -121,13 +116,12 @@
                 </div>
             </div>
 
-            <!-- Item 6: Syria -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇸🇾</span>
                     <h3 class="font-bold text-xl">Syria</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+963934354199</span>
                 </div>
@@ -136,13 +130,12 @@
                 </div>
             </div>
 
-            <!-- Item 7: Bangladesh -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇧🇩</span>
                     <h3 class="font-bold text-xl">Bangladesh</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+8801779800142</span>
                 </div>
@@ -151,13 +144,12 @@
                 </div>
             </div>
 
-            <!-- Item 8: United States -->
             <div class="w-full sm:w-[45%] lg:w-[17%] text-white">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="text-2xl">🇺🇸</span>
                     <h3 class="font-bold text-xl">United States</h3>
                 </div>
-                <p class="text-sm font-semibold mb-2">Admin Online</p>
+                <p class="text-sm font-semibold mb-2">{{ __('Admin Online') }}</p>
                 <div class="flex items-center gap-2 mb-1 text-xs text-gray-300 hover:text-white transition">
                     <span class="text-green-400">●</span> <span>+818080667680</span>
                 </div>
@@ -174,7 +166,6 @@
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
-            <!-- Column 1: Logo & Socials -->
             <div>
                 <div class="w-32 mb-6">
                     <svg width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,54 +205,90 @@
                 </div>
             </div>
 
-            <!-- Column 2: Quick Links -->
             <div>
-                <h3 class="text-[#00C220] font-bold mb-6 text-lg">Quick Links</h3>
+                <h3 class="text-[#00C220] font-bold mb-6 text-lg">{{ __('Footer Quick Links') }}</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
-                    <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
-                    <li><a href="#" class="hover:text-white transition">FAQ</a></li>
-                    <li><a href="#" class="hover:text-white transition">Karir</a></li>
-                    <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu About') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu FAQ') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Career') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Contact') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Column 3: Our Course -->
             <div>
-                <h3 class="text-[#00C220] font-bold mb-6 text-lg">Our Course</h3>
+                <h3 class="text-[#00C220] font-bold mb-6 text-lg">{{ __('Footer Course') }}</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
-                    <li><a href="#" class="hover:text-white transition">Junior Coder</a></li>
-                    <li><a href="#" class="hover:text-white transition">Code Adventure</a></li>
-                    <li><a href="#" class="hover:text-white transition">Python Developer</a></li>
-                    <li><a href="#" class="hover:text-white transition">IoT Developer</a></li>
-                    <li><a href="#" class="hover:text-white transition">Software Developer</a></li>
-                    <li><a href="#" class="hover:text-white transition">AI Engineer</a></li>
-                    <li><a href="#" class="hover:text-white transition">Coder Profesional (Online)</a></li>
-                    <li><a href="#" class="hover:text-white transition">Matematika, English & IPA</a></li>
-                    <li><a href="#" class="hover:text-white transition">Portofolio Siswa</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Junior') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Adventure') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Python') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course IoT') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Software') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course AI') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Professional') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Subjects') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Portfolio') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Column 4: Partnership -->
             <div>
-                <h3 class="text-[#00C220] font-bold mb-6 text-lg">Partnership</h3>
+                <h3 class="text-[#00C220] font-bold mb-6 text-lg">{{ __('Footer Partnership') }}</h3>
                 <ul class="space-y-3 text-sm text-gray-300">
-                    <li><a href="#" class="hover:text-white transition">Franchise & Investasi</a></li>
-                    <li><a href="#" class="hover:text-white transition">Kemitraan Sekolah</a></li>
-                    <li><a href="#" class="hover:text-white transition">Friend Referral</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Franchise') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu School') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Referral') }}</a></li>
                 </ul>
             </div>
         </div>
 
 
         <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
-            <div class="flex gap-6 font-medium">
-                <a href="#" class="text-white">Indonesia</a>
-                <a href="#" class="hover:text-white transition">English</a>
-                <a href="#" class="hover:text-white transition">বাংলা</a>
-                <a href="#" class="hover:text-white transition">عربي</a>
-            </div>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 font-medium">
+    
+            {{-- 1. INDONESIA (id) --}}
+            <a href="{{ route('change.language', 'id') }}" 
+            class="{{ app()->getLocale() == 'id' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            Indonesia
+            </a>
+
+            {{-- 2. ENGLISH (en) --}}
+            <a href="{{ route('change.language', 'en') }}" 
+            class="{{ app()->getLocale() == 'en' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            English
+            </a>
+
+            {{-- 3. JEPANG (ja) --}}
+            <a href="{{ route('change.language', 'ja') }}" 
+            class="{{ app()->getLocale() == 'ja' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            日本語
+            </a>
+
+            {{-- 4. ARAB (ar) --}}
+            <a href="{{ route('change.language', 'ar') }}" 
+            class="{{ app()->getLocale() == 'ar' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            عربي
+            </a>
+
+            {{-- 5. BENGALI (bn) --}}
+            <a href="{{ route('change.language', 'bn') }}" 
+            class="{{ app()->getLocale() == 'bn' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            বাংলা
+            </a>
+
+            {{-- 6. FILIPINO (fil) --}}
+            <a href="{{ route('change.language', 'fil') }}" 
+            class="{{ app()->getLocale() == 'fil' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            Filipino
+            </a>
+
+            {{-- 7. MALAY (ms) --}}
+            <a href="{{ route('change.language', 'ms') }}" 
+            class="{{ app()->getLocale() == 'ms' ? 'text-white font-bold underline decoration-green-500 decoration-2 underline-offset-4' : 'text-gray-400 hover:text-white transition' }}">
+            Melayu
+            </a>
+
+        </div>
             <div class="text-center md:text-right">
-                Copyright PT CERDAS DIGITAL INDONESIA ©️ 2025. All Rights Reserved
+                {{ __('Copyright') }}
             </div>
         </div>
     </div>

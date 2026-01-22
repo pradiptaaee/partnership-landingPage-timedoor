@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Partner;
+use App\Models\PartnerActivity;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller
 {
-    public function index(){
-        $partners = Partner::latest()->paginate(4);
+    public function index()
+    {
+        $partners = Partner::latest()->get();
+        $activities = PartnerActivity::latest()->paginate(2);
 
-        return view('partners.index', compact('partners'));
+        return view('partners.index', compact('partners', 'activities'));
     }
 
-    public function show(Partner $partner)
+    public function show(Partner $partner, $slug)
     {
-        return view('partners.show', compact('partner'));
+        $activity = PartnerActivity::where('slug', $slug)->firstOrFail();
+
+
+        return view('partners.show', compact('partners', 'activity'));
     }
 }
