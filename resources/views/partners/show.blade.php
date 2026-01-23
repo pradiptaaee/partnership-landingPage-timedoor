@@ -87,7 +87,7 @@
                         memberikan pelatihan kepada guru, dan menjadi pembicara di berbagai konferensi nasional.
                     </p>
 
-                    <a href="{{ route('partners.index') }}" class="btn text-white align-self-start"
+                    <a href="{{ route('partnership.index') }}" class="btn text-white align-self-start"
                         style="background: linear-gradient(135deg, #10A300 0%, #0d8500 100%); border: none; border-radius: 25px; padding: 12px 30px;">
                         <i class="bi bi-arrow-left me-2"></i>Kembali
                     </a>
