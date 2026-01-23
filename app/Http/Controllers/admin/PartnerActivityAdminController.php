@@ -91,16 +91,20 @@ class PartnerActivityAdminController extends Controller
         $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
+
         try {
             $activity = new PartnerActivity();
+
+            // ===== FIELD UTAMA =====
             $activity->partner_id = $validated['partner_id'];
             $activity->title = $validated['title'];
-            $activity->category_activity = $validated['category_activity'];
+            $activity->category_activity = strtolower(trim($validated['category_activity']));
             $activity->slug = $this->generateUniqueSlug($validated['title']);
             $activity->short_description = $validated['short_description'] ?? null;
             $activity->full_description = $validated['full_description'];
             $activity->activity_date = $validated['activity_date'];
 
+            // ===== FEATURED IMAGE =====
             if ($request->hasFile('featured_image')) {
                 $activity->featured_image = $this->uploadImage(
                     $request->file('featured_image'),
@@ -108,10 +112,34 @@ class PartnerActivityAdminController extends Controller
                 );
             }
 
+            // ===== EXTRA ATTRIBUTES (INI KUNCI) =====
+            $extra = $request->input('extra');
+
+            // HANDLE FILE EXTRA
+            if ($request->hasFile('extra.speaker_photo')) {
+                $file = $request->file('extra.speaker_photo');
+
+                $filename = time() . '_' . $file->getClientOriginalName();
+
+                $file->storeAs('public/activity/speakers', $filename);
+
+                $extra['speaker_photo'] = $filename;
+            }
+
+            if ($extra && is_array($extra)) {
+                $activity->extra_attributes = $extra;
+            } else {
+                $activity->extra_attributes = null;
+            }
+
             $activity->save();
 
+            // ===== GALERI FOTO =====
             if ($request->hasFile('photos')) {
-                $this->uploadPhotos($request->file('photos'), $activity->id);
+                $this->uploadPhotos(
+                    $request->file('photos'),
+                    $activity->id
+                );
             }
 
             DB::commit();
@@ -120,14 +148,17 @@ class PartnerActivityAdminController extends Controller
                 ->route('admin.activity.index')
                 ->with('success_message', 'Kegiatan berhasil ditambahkan.');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => $e->getMessage()]);
+                ->withErrors([
+                    'error' => 'Gagal menyimpan kegiatan: ' . $e->getMessage()
+                ]);
         }
     }
+
 
 
 
@@ -151,7 +182,12 @@ class PartnerActivityAdminController extends Controller
         $activity = PartnerActivity::with('photos')->findOrFail($id);
         $partners = Partner::orderBy('name')->get();
 
-        return view('admin.activity.edit', compact('activity', 'partners'));
+        $extraAttributes = $activity->extra_attributes ?? [];
+
+        return view(
+            'admin.activity.edit',
+            compact('activity', 'partners', 'extraAttributes')
+        );
     }
 
     /**
@@ -163,22 +199,30 @@ class PartnerActivityAdminController extends Controller
         $validated = $this->validateActivity($request, $id);
 
         DB::beginTransaction();
+
         try {
+            // ===== FIELD UTAMA =====
             $activity->partner_id = $validated['partner_id'];
             $activity->title = $validated['title'];
-            $activity->category_activity = $validated['category_activity'];
+            $activity->category_activity = strtolower(trim($validated['category_activity']));
             $activity->short_description = $validated['short_description'] ?? null;
             $activity->full_description = $validated['full_description'];
             $activity->activity_date = $validated['activity_date'];
 
+            // ===== SLUG =====
             if ($activity->isDirty('title')) {
-                $activity->slug = $this->generateUniqueSlug($validated['title'], $id);
+                $activity->slug = $this->generateUniqueSlug(
+                    $validated['title'],
+                    $activity->id
+                );
             }
 
+            // ===== FEATURED IMAGE =====
             if ($request->hasFile('featured_image')) {
                 if ($activity->featured_image) {
-                    Storage::disk('public')
-                        ->delete($this->featuredPath . '/' . $activity->featured_image);
+                    Storage::disk('public')->delete(
+                        $this->featuredPath . '/' . $activity->featured_image
+                    );
                 }
 
                 $activity->featured_image = $this->uploadImage(
@@ -187,26 +231,66 @@ class PartnerActivityAdminController extends Controller
                 );
             }
 
+            // ===== EXTRA ATTRIBUTES (INI KUNCI) =====
+            $extra = $request->input('extra');
+            // ==== HANDLE FILE EXTRA (SEMINAR) ====
+            if ($request->hasFile('extra.speaker_photo')) {
+
+                // hapus file lama jika ada
+                if (!empty($activity->extra_attributes['speaker_photo'])) {
+                    Storage::disk('public')->delete(
+                        'activity/speakers/' . $activity->extra_attributes['speaker_photo']
+                    );
+                }
+
+                $file = $request->file('extra.speaker_photo');
+                $filename = time() . '_' . $file->getClientOriginalName();
+
+                $file->storeAs('activity/speakers', $filename, 'public');
+
+                $extra['speaker_photo'] = $filename;
+            } else {
+                // jika tidak upload baru → pertahankan file lama
+                if (!empty($activity->extra_attributes['speaker_photo'])) {
+                    $extra['speaker_photo'] = $activity->extra_attributes['speaker_photo'];
+                }
+            }
+
+            if ($extra && is_array($extra)) {
+                $activity->extra_attributes = $extra;
+            } else {
+                $activity->extra_attributes = null;
+            }
+
             $activity->save();
 
+            // ===== GALERI FOTO =====
             if ($request->hasFile('photos')) {
-                $this->uploadPhotos($request->file('photos'), $activity->id);
+                $this->uploadPhotos(
+                    $request->file('photos'),
+                    $activity->id
+                );
             }
 
             DB::commit();
+
+
 
             return redirect()
                 ->route('admin.activity.index')
                 ->with('success_message', 'Kegiatan berhasil diperbarui.');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => $e->getMessage()]);
+                ->withErrors([
+                    'error' => 'Gagal memperbarui kegiatan: ' . $e->getMessage()
+                ]);
         }
     }
+
 
 
     /**

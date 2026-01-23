@@ -156,7 +156,7 @@
         {{-- Pagination --}}
         @if ($activities->hasPages())
             <div class="pt-8 border-t border-gray-100">
-                {{ $activities->links() }}
+                {{ $activities->links('pagination') }}
             </div>
         @endif
 

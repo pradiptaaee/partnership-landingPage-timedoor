@@ -157,11 +157,11 @@
             <div class="flex items-center gap-3">
                 {{-- Avatar dengan background Hijau Tua (Sesuai Referensi) --}}
                 <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#0f5132] text-white text-sm font-bold">
-                    SW
+                    {{ substr(auth()->user()->name, 0, 2) }}
                 </div>
                 
                 <div class="flex flex-col">
-                    <span class="text-sm font-bold text-gray-800">Sudana Wijaya</span>
+                    <span class="text-sm font-bold text-gray-800">{{ auth()->user()->name }}</span>
                     <span class="text-[11px] text-gray-500">Administrator</span>
                 </div>
             </div>

@@ -9,18 +9,48 @@ use Illuminate\Support\Facades\Storage;
 
 class PartnerActivity extends Model
 {
-    use HasFactory;
+    use HasTranslations;
 
     protected $fillable = [
         'partner_id',
         'title',
-        'slug',
         'category_activity',
         'short_description',
         'full_description',
         'activity_date',
-        'featured_image'
+        'extra_attributes',
+        'featured_image',
     ];
+
+    protected $casts = [
+        'extra_attributes' => 'array',
+        'activity_date' => 'date',
+    ];
+
+    public function getSpeakerNameAttribute()
+    {
+        return $this->extra_attributes['speaker_name'] ?? null;
+    }
+
+    public function getMentorNameAttribute()
+    {
+        return $this->extra_attributes['mentor_name'] ?? null;
+    }
+
+    /**
+     * Mengambil Foto Speaker dari JSON extra_attributes (Jika ada)
+     */
+    public function getSpeakerPhotoUrlAttribute()
+    {
+        $photo = $this->extra_attributes['speaker_photo'] ?? null;
+        return $photo ? asset('storage/activity/speakers/' . $photo) : null;
+    }
+
+    // Optional helper
+    public function getExtra(string $key, $default = null)
+    {
+        return $this->extra_attributes[$key] ?? $default;
+    }
 
     public function partner()
     {
@@ -60,9 +90,6 @@ class PartnerActivity extends Model
         });
     }
 
-    protected $casts = [
-        'activity_date' => 'date',
-    ];
 
     public function hasExtraDescription()
     {

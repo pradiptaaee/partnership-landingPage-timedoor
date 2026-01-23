@@ -96,7 +96,7 @@ class BannerController extends Controller
             // 'is_active'   => true
         ]);
 
-        return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil dibuat & diterjemahkan  otomatis!');
+        return redirect()->route('admin.banners.index')->with('success_message', 'Banner berhasil dibuat & diterjemahkan  otomatis!');
     }
 
     public function edit(Banner $banner)
@@ -133,7 +133,7 @@ class BannerController extends Controller
 
         $banner->update($data);
 
-        return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil diperbarui!');
+        return redirect()->route('admin.banners.index')->with('success_message', 'Banner berhasil diperbarui!');
     }
 
     public function destroy(Banner $banner)
@@ -142,6 +142,6 @@ class BannerController extends Controller
             Storage::disk('public')->delete($banner->image);
         }
         $banner->delete();
-        return redirect()->route('admin.banners.index')->with('success', 'Banner dihapus.');
+        return redirect()->back()->with('success_message', 'Banner dihapus.');
     }
 }

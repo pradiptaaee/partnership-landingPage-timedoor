@@ -70,7 +70,7 @@ class TestimonialController extends Controller
             'review'       => $reviews,
         ]);
 
-        return redirect()->route('admin.testimonials.index')->with('success', 'Testimoni dibuat!');
+        return redirect()->route('admin.testimonials.index')->with('success_message', 'Testimoni dibuat!');
     }
 
     public function show(Testimonial $testimonial)
@@ -105,7 +105,7 @@ class TestimonialController extends Controller
         }
 
         $testimonial->update($data);
-        return redirect()->route('admin.testimonials.index')->with('success', 'Testimoni diupdate!');
+        return redirect()->route('admin.testimonials.index')->with('success_message', 'Testimoni diupdate!');
     }
 
     public function destroy(Testimonial $testimonial)
@@ -114,6 +114,6 @@ class TestimonialController extends Controller
             Storage::disk('public')->delete($testimonial->parent_image);
         }
         $testimonial->delete();
-        return redirect()->back()->with('success', 'Testimoni dihapus!');
+        return redirect()->back()->with('success_message', 'Testimoni dihapus!');
     }
 }
