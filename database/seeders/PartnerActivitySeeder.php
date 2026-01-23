@@ -11,99 +11,66 @@ class PartnerActivitySeeder extends Seeder
 {
     public function run(): void
     {
+         $partners = Partner::pluck('id');
+
+        if ($partners->isEmpty()) {
+            $this->command->warn('Seeder dihentikan: Tidak ada data partner.');
+            return;
+        }
+
         $activities = [
-            'STMIK Primakara' => [
-                [
-                    'title' => 'Seminar Digital Innovation for Students',
-                    'category_activity' => 'seminar',
-                    'short_description' => 'Seminar pengenalan inovasi digital dan peluang karier teknologi.',
-                    'full_description' => 'Kegiatan seminar yang membahas tren teknologi digital, startup, dan pengembangan skill mahasiswa.',
+            [
+                'title' => 'Seminar Literasi Digital',
+                'category_activity' => 'seminar',
+                'extra_attributes' => [
+                    'speaker_name' => 'Dr. Andi Wijaya',
+                    'speaker_photo' => 'activities/extra/speaker_andi.jpg',
                 ],
             ],
-
-            'Universitas Muhammadiyah Surakarta' => [
-                [
-                    'title' => 'Workshop Pengenalan Coding untuk Mahasiswa',
-                    'category_activity' => 'workshop',
-                    'full_description' => 'Workshop interaktif mengenai dasar pemrograman dan logika komputasi.',
+            [
+                'title' => 'Workshop Web Development Dasar',
+                'category_activity' => 'workshop',
+                'extra_attributes' => [
+                    'mentor_name' => 'Budi Santoso',
+                    'tools' => 'HTML, CSS, JavaScript',
                 ],
             ],
-
-            'Sekolah Pelita Harapan' => [
-                [
-                    'title' => 'Coding Class for High School Students',
-                    'category_activity' => 'kelas',
-                    'full_description' => 'Kelas pengenalan coding untuk siswa SMA dengan metode praktik langsung.',
+            [
+                'title' => 'Seminar Keamanan Siber',
+                'category_activity' => 'seminar',
+                'extra_attributes' => [
+                    'speaker_name' => 'Rina Prameswari, M.Kom',
+                    'speaker_photo' => 'activities/extra/speaker_rina.jpg',
                 ],
             ],
-
-            'Education Plus School' => [
-                [
-                    'title' => 'Technology Day at Education Plus',
-                    'category_activity' => 'event',
-                    'full_description' => 'Kegiatan pengenalan teknologi dan kreativitas digital untuk siswa.',
-                ],
+            [
+                'title' => 'Pelatihan Administrasi Digital',
+                'category_activity' => 'pelatihan',
+                'extra_attributes' => null, // kategori bebas tanpa extra field
             ],
-
-            'Blue Dolphin Playskool' => [
-                [
-                    'title' => 'Fun Coding for Kids',
-                    'category_activity' => 'kelas',
-                    'full_description' => 'Kegiatan belajar logika dan kreativitas digital untuk anak usia dini.',
-                ],
-            ],
-
-            'Taruwinara School' => [
-                [
-                    'title' => 'Creative Digital Workshop',
-                    'category_activity' => 'workshop',
-                    'full_description' => 'Workshop pengembangan kreativitas digital bagi siswa.',
-                ],
-            ],
-
-            'SekolahApa.com' => [
-                [
-                    'title' => 'Kolaborasi Platform Edukasi Digital',
-                    'category_activity' => 'kerjasama',
-                    'full_description' => 'Kolaborasi pengembangan konten dan informasi edukasi digital.',
-                ],
-            ],
-
-            'JJC Bali' => [
-                [
-                    'title' => 'Community Tech Sharing Session',
-                    'category_activity' => 'seminar',
-                    'short_description' => 'Sesi berbagi teknologi bersama komunitas JJC Bali.',
-                    'full_description' => 'Diskusi dan sharing seputar teknologi, kreativitas, dan peluang digital.',
-                ],
-            ],
-
-            'Finns Recreation Club' => [
-                [
-                    'title' => 'Kids Tech Camp Collaboration',
-                    'category_activity' => 'event',
-                    'full_description' => 'Kolaborasi event edukasi teknologi anak dalam suasana rekreasi.',
+            [
+                'title' => 'Workshop UI/UX Design',
+                'category_activity' => 'workshop',
+                'extra_attributes' => [
+                    'mentor_name' => 'Agus Pratama',
+                    'tools' => 'Figma',
                 ],
             ],
         ];
 
-        foreach ($activities as $partnerName => $partnerActivities) {
-            $partner = Partner::where('name', $partnerName)->first();
-
-            if (!$partner)
-                continue;
-
-            foreach ($partnerActivities as $activity) {
-                PartnerActivity::create([
-                    'partner_id' => $partner->id,
-                    'title' => $activity['title'],
-                    'slug' => Str::slug($activity['title']),
-                    'category_activity' => $activity['category_activity'],
-                    'short_description' => $activity['short_description'] ?? null,
-                    'full_description' => $activity['full_description'],
-                    'activity_date' => now()->subDays(rand(10, 120)),
-                ]);
-            }
+        foreach ($activities as $activity) {
+            PartnerActivity::create([
+                'partner_id' => $partners->random(),
+                'title' => $activity['title'],
+                'slug' => Str::slug($activity['title']) . '-' . Str::random(5),
+                'category_activity' => $activity['category_activity'],
+                'short_description' => 'Kegiatan kolaborasi bersama partner dalam rangka peningkatan kompetensi.',
+                'full_description' => 'Kegiatan ini merupakan bagian dari program kerja sama yang bertujuan meningkatkan kapasitas dan pemahaman peserta melalui pendekatan praktis dan teoritis.',
+                'activity_date' => now()->subDays(rand(1, 90)),
+                'featured_image' => 'activities/featured/default.jpg',
+                'extra_attributes' => $activity['extra_attributes'],
+            ]);
+            
         }
     }
 }

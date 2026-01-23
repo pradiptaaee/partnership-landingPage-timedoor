@@ -27,6 +27,8 @@ class ActivityTable extends Component
         $this->resetPage();
     }
 
+    
+
     // Custom view pagination (agar menggunakan Bootstrap style)
     public function paginationView()
     {

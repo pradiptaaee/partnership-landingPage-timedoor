@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session; 
 use App\Http\Controllers\Admin\PartnerActivityAdminController;
 use App\Http\Controllers\admin\PartnerAdminController;
 use App\Http\Controllers\Auth\LoginController;
@@ -7,13 +9,14 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\StudentProjectController; 
-use App\Models\StudentProject;
 use App\Http\Controllers\Admin\DashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\LandingController;
 
-// Import Model untuk Route Public di bawah
 use App\Models\Banner;
 use App\Models\Testimonial; 
+use App\Models\StudentProject;
+use App\Models\Hero;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +32,14 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // --- ADMIN ROUTES GROUP ---
-// Semua yang ada di dalam sini otomatis kena prefix 'admin/' dan nama 'admin.'
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin.locale'])->prefix('admin')->name('admin.')->group(function () {
     
-    // 1. Group Partner & Activity
+    // 1. (TAMBAHAN PENTING) Redirect /admin ke /admin/dashboard
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+
+    // 2. Group Partner & Activity
     Route::resource('partners', PartnerAdminController::class);
     
     Route::resource('activity', PartnerActivityAdminController::class);
@@ -41,17 +48,19 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::delete('/activity/photo/{photo}', [PartnerActivityAdminController::class, 'deletePhoto'])
         ->name('activity.photo.delete');
 
-    // 2. Group Landing Page Management (DISINI POSISINYA)
-    Route::prefix('landing-page')->group(function() {
-        // URL: /admin/landing-page/banners
-        Route::resource('banners', BannerController::class);
+    // 3. Group Landing Page Management
+        Route::prefix('landing-page')->group(function() {
+    
+    // Resource Banners, Testimoni, Project (Akan kembali normal jadi: admin.projects.index, dll)
+            Route::resource('banners', BannerController::class);
+            Route::resource('testimonials', TestimonialController::class);
+            Route::resource('projects', StudentProjectController::class);
 
-        // URL: /admin/landing-page/testimonials
-        Route::resource('testimonials', TestimonialController::class);
-
-        // URL: /admin/landing-page/project
-        Route::resource('projects', StudentProjectController::class);
-    });
+            // Hero Section (Kita beri nama simpel saja)
+            Route::get('hero/preview', [HeroController::class, 'index'])->name('hero.index');
+            Route::get('hero', [HeroController::class, 'edit'])->name('hero.edit');
+            Route::put('hero', [HeroController::class, 'update'])->name('hero.update');
+        });
 
     // Admin Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -64,22 +73,21 @@ Route::prefix('partnership')->name('partnership.')->group(function () {
 });
 
 // --- PUBLIC LANDING PAGE ---
-Route::get('landing', function() {
-    // 1. Ambil data banner
+Route::get('/', function() {
+    $hero = Hero::first();
+
     $banners = Banner::latest()->get();
-    
-    // 2. Ambil data testimoni
     $testimonials = Testimonial::latest()->get();
-});
-// Route::get('/partners/{slug}', [PartnerController::class, 'show'])
-//     ->name('partners.show');
+    $projects = StudentProject::latest()->take(6)->get(); 
+    
+    return view('landing_page.index', compact('hero', 'banners', 'testimonials', 'projects'));
+})->name('landing');
 
-Route::get('lang/{locale}', function ($locale) {
-    $availableLangs = ['id', 'en', 'ja', 'ar', 'hi', 'tl', 'ms'];
-
-    if (in_array($locale, $availableLangs)) {
-        session(['locale' => $locale]);
+// Route Ganti Bahasa
+Route::get('/lang/{locale}', function ($locale) {
+    $availableLocales = ['en', 'id', 'ms', 'fil', 'ar', 'ja', 'bn'];
+    if (in_array($locale, $availableLocales)) {
+        Session::put('locale', $locale);
     }
-
     return redirect()->back();
-})->name('lang.switch');
+})->name('change.language');

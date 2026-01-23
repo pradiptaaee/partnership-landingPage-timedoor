@@ -1,294 +1,194 @@
-<div class="space-y-6">
+<div class="flex-1 p-8 bg-white min-h-screen font-sans">
     
-    {{-- Filter Card --}}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+    <div class="max-w-7xl mx-auto space-y-10">
+
+        {{-- 1. HEADER & STATS (Clean Layout) --}}
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 pb-8 border-b border-gray-100">
             
-            {{-- Search Input --}}
-            <div class="lg:col-span-2">
-                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
-                    Cari Kegiatan
-                </label>
-                <div class="relative">
-                    <i class="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            {{-- Title & Stats Text --}}
+            <div class="space-y-4">
+            
+                
+                {{-- Simple Stats Row --}}
+                <div class="flex items-center gap-8">
+                    <div>
+                        <span class="block text-2xl font-bold text-gray-900">{{ $totalActivities ?? 0 }}</span>
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Total</span>
+                    </div>
+                    <div class="w-px h-8 bg-gray-100"></div> {{-- Divider --}}
+                    <div>
+                        <span class="block text-2xl font-bold text-gray-900">{{ $partners->count() }}</span>
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Partners</span>
+                    </div>
+                    <div class="w-px h-8 bg-gray-100"></div> {{-- Divider --}}
+                    <div>
+                        <span class="block text-2xl font-bold text-gray-900">{{ $activities->sum(fn($a) => $a->photos ? $a->photos->count() : 0) }}</span>
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Photos</span>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Action & Search --}}
+            <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                {{-- Search Input (Minimalist) --}}
+                <div class="relative group">
                     <input type="text" 
                            wire:model.live.debounce.300ms="search" 
-                           class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                           placeholder="Cari judul kegiatan...">
+                           placeholder="Cari kegiatan..."
+                           class="w-full sm:w-64 pl-3 pr-10 py-2.5 bg-white border-b-2 border-gray-100 focus:border-[#0f5132] outline-none text-sm transition-colors placeholder-gray-400 group-hover:border-gray-300">
+                    <i class="bi bi-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
-            </div>
 
-            {{-- Filter Partner --}}
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
-                    Partner
-                </label>
-                <div class="relative">
-                    <select wire:model.live="partnerFilter" 
-                            class="w-full appearance-none px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white cursor-pointer">
-                        <option value="all">Semua Partner</option>
-                        @foreach ($partners as $partner)
-                            <option value="{{ $partner->id }}">{{ $partner->name }}</option>
-                        @endforeach
-                    </select>
-                    <i class="bi bi-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
-                </div>
-            </div>
-
-            {{-- Sort By --}}
-            <div>
-                <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
-                    Urutkan
-                </label>
-                <div class="relative">
-                    <select wire:model.live="sortBy" 
-                            class="w-full appearance-none px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white cursor-pointer">
-                        <option value="latest">Terbaru</option>
-                        <option value="oldest">Terlama</option>
-                        <option value="title">Judul A-Z</option>
-                    </select>
-                    <i class="bi bi-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
-                </div>
-            </div>
-
-            {{-- Reset Button --}}
-            <div class="flex items-end">
-                @if ($search !== '' || $partnerFilter !== 'all' || $sortBy !== 'latest')
-                    <button wire:click="resetFilters"
-                            class="w-full px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
-                        <i class="bi bi-arrow-counterclockwise"></i>
-                        Reset
-                    </button>
-                @endif
+                {{-- Add Button --}}
+                <a href="{{ route('admin.activity.create') }}" 
+                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0f5132] text-white text-sm font-semibold rounded-lg hover:bg-[#0b3d26] transition-all duration-200 shadow-md hover:shadow-lg">
+                        <i class="bi bi-plus-lg"></i>
+                        <span>Tambah Kegiatan</span>
+                    </a>
             </div>
         </div>
-    </div>
 
-    {{-- Activities Grid --}}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div wire:loading.remove class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{-- 2. FILTERS (Simple Tags) --}}
+        <div class="flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mr-2">Filter:</span>
+            
+            {{-- Partner Filter --}}
+            <select wire:model.live="partnerFilter" 
+                    class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm text-gray-600 focus:ring-1 focus:ring-[#0f5132] focus:border-[#0f5132] outline-none cursor-pointer hover:bg-gray-100 transition">
+                <option value="all">Semua Partner</option>
+                @foreach ($partners as $partner)
+                    <option value="{{ $partner->id }}">{{ Str::limit($partner->name, 20) }}</option>
+                @endforeach
+            </select>
+
+            {{-- Sort Filter --}}
+            <select wire:model.live="sortBy" 
+                    class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-full text-sm text-gray-600 focus:ring-1 focus:ring-[#0f5132] focus:border-[#0f5132] outline-none cursor-pointer hover:bg-gray-100 transition">
+                <option value="latest">Terbaru</option>
+                <option value="oldest">Terlama</option>
+                <option value="title">Judul (A-Z)</option>
+            </select>
+
+            {{-- Reset --}}
+            @if ($search !== '' || $partnerFilter !== 'all' || $sortBy !== 'latest')
+                <button wire:click="resetFilters" class="text-xs text-red-500 font-medium hover:underline ml-2">
+                    Clear Filters
+                </button>
+            @endif
+        </div>
+
+        {{-- 3. CONTENT GRID (Flat Cards) --}}
+        <div wire:loading.remove class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
             @forelse ($activities as $activity)
-                <div class="group h-full">
-                    <div class="flex flex-col bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-indigo-300 transition-all duration-300 h-full">
-                        
-                        {{-- Image Section --}}
-                        <div class="relative overflow-hidden h-48 flex-shrink-0">
+                {{-- CARD --}}
+                <div class="group flex flex-col h-full">
+                    {{-- Image --}}
+                    <div class="relative aspect-[3/2] overflow-hidden rounded-xl bg-gray-100 mb-4">
+                        <a href="{{ route('admin.activity.show', $activity->slug) }}">
                             @if ($activity->featured_image)
-                                <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                                    alt="{{ $activity->title }}">
+                                <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" 
+                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                     alt="{{ $activity->title }}">
                             @else
-                                <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                    <i class="bi bi-image text-gray-400 text-5xl"></i>
+                                <div class="w-full h-full flex items-center justify-center text-gray-300">
+                                    <i class="bi bi-image text-3xl"></i>
                                 </div>
                             @endif
+                        </a>
+                        
+                        {{-- Date Overlay (Minimalist) --}}
+                        <div class="absolute top-3 left-3 px-2 py-1 bg-white/95 backdrop-blur rounded text-[10px] font-bold uppercase tracking-wider text-gray-800">
+                            {{ \Carbon\Carbon::parse($activity->activity_date)->format('d M Y') }}
+                        </div>
+                    </div>
 
-                            {{-- Overlay Gradient --}}
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                            {{-- Partner Badge --}}
-                            <div class="absolute top-3 left-3 z-10">
-                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-green-500 text-white shadow-lg backdrop-blur-sm">
-                                    <i class="bi bi-building mr-1.5"></i>
-                                    {{ $activity->partner->name }}
-                                </span>
-                            </div>
-
-                            {{-- Photo Count Badge --}}
-                            @if ($activity->photos && $activity->photos->count() > 0)
-                                <div class="absolute top-3 right-3 z-10">
-                                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-gray-900/90 backdrop-blur-sm text-white shadow-lg">
-                                        <i class="bi bi-images mr-1.5"></i>
-                                        {{ $activity->photos->count() }}
-                                    </span>
-                                </div>
-                            @endif
-
-                            
+                    {{-- Content --}}
+                    <div class="flex flex-col flex-grow">
+                        {{-- Meta --}}
+                        <div class="flex items-center gap-2 mb-2 text-xs text-gray-500">
+                            <span class="font-semibold text-[#0f5132]">{{ Str::limit($activity->partner->name, 20) }}</span>
+                            <span class="text-gray-300">•</span>
+                            <span>{{ $activity->photos_count ?? 0 }} Photos</span>
                         </div>
 
-                        {{-- Content Section --}}
-                        <div class="p-5 flex flex-col flex-grow">
-                            {{-- Title --}}
-                            <a href="{{ route('admin.activity.show', $activity->slug) }}" 
-                            class="block mb-3">
-                                <h3 class="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-indigo-600 transition-colors leading-snug">
-                                    {{ $activity->title }}
-                                </h3>
+                        {{-- Title --}}
+                        <h3 class="text-lg font-bold text-gray-900 leading-snug mb-2 group-hover:text-[#0f5132] transition-colors">
+                            <a href="{{ route('admin.activity.show', $activity->slug) }}">
+                                {{ $activity->title }}
                             </a>
+                        </h3>
 
-                            {{-- Description --}}
-                            <p class="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed">
-                                {{ Str::limit(strip_tags($activity->full_description), 120) }}
-                            </p>
+                        {{-- Description --}}
+                        <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-4">
+                            {{ $activity->short_description ?? '-' }}
+                        </p>
 
-                            {{-- Spacer --}}
-                            <div class="flex-grow"></div>
-
-                            {{-- Date --}}
-                            <div class="mb-4 pb-4 border-b border-gray-100">
-                                <span class="inline-flex items-center text-sm font-medium text-gray-700">
-                                    <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-2.5">
-                                        <i class="bi bi-calendar-event text-indigo-600"></i>
-                                    </div>
-                                    {{ \Carbon\Carbon::parse($activity->activity_date)->format('d M Y') }}
-                                </span>
-                            </div>
-
-                            {{-- Action Buttons --}}
-                            <div class="flex gap-2.5 mb-4">
-                                <a href="{{ route('admin.activity.edit', $activity->id) }}"
-                                class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold rounded-lg transition-all duration-200 border border-amber-200 hover:border-amber-300 hover:shadow-md group/edit">
-                                    <i class="bi bi-pencil-square group-hover/edit:scale-110 transition-transform"></i>
-                                    Edit
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <a href="{{ route('admin.activity.show', $activity->slug) }}" class="text-xs font-bold text-gray-900 border-b border-transparent hover:border-gray-900 transition-all pb-0.5">
+                                READ MORE
+                            </a>
+                            
+                            {{-- Actions --}}
+                            <div class="flex items-center gap-3">
+                                <a href="{{ route('admin.activity.edit', $activity->id) }}" class="text-gray-400 hover:text-gray-900 transition">
+                                    <i class="bi bi-pencil"></i>
                                 </a>
-                                <button wire:click.prevent="confirmActivityDeletion({{ $activity->id }})"
-                                        class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-700 font-semibold rounded-lg transition-all duration-200 border border-red-200 hover:border-red-300 hover:shadow-md group/delete">
-                                    <i class="bi bi-trash3 group-hover/delete:scale-110 transition-transform"></i>
-                                    Hapus
+                                <button wire:click.prevent="confirmActivityDeletion({{ $activity->id }})" class="text-gray-400 hover:text-red-600 transition">
+                                    <i class="bi bi-trash"></i>
                                 </button>
-                            </div>
-
-                            {{-- Footer --}}
-                            <div class="pt-4 border-t border-gray-100">
-                                <span class="text-xs text-gray-500 flex items-center">
-                                    <i class="bi bi-clock-history mr-1.5 text-gray-400"></i>
-                                    Dibuat {{ $activity->created_at->diffForHumans() }}
-                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             @empty
-                {{-- Empty State --}}
-                <div class="col-span-full py-20 text-center">
-                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-amber-100 to-amber-200 rounded-2xl mb-5 shadow-inner">
-                        <i class="bi bi-inbox text-5xl text-amber-600"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Tidak Ada Kegiatan Ditemukan</h3>
-                    <p class="text-gray-500 mb-8 max-w-md mx-auto">Coba ubah kata kunci pencarian atau filter Anda untuk menemukan kegiatan yang sesuai</p>
-                    
-                    @if ($search !== '' || $partnerFilter !== 'all' || $sortBy !== 'latest')
-                        <button wire:click="resetFilters" 
-                                class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-200 shadow-md hover:shadow-lg">
-                            <i class="bi bi-arrow-counterclockwise"></i>
-                            Tampilkan Semua Kegiatan
-                        </button>
-                    @endif
+                {{-- EMPTY STATE --}}
+                <div class="col-span-full py-20 border-t border-gray-100 text-center">
+                    <p class="text-gray-400 text-sm">Tidak ada kegiatan ditemukan.</p>
                 </div>
             @endforelse
         </div>
 
-        {{-- Loading State --}}
-        <div wire:loading class="w-full py-20 text-center">
-            <div class="inline-flex items-center justify-center w-20 h-16 mb-4 animate-pulse">
-                <i class="bi bi-hourglass-split text-2xl text-indigo-600 animate-spin"></i>
-            </div>
-            
+        {{-- Loading --}}
+        <div wire:loading class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-black text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg z-50">
+            Loading...
         </div>
 
         {{-- Pagination --}}
         @if ($activities->hasPages())
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 pt-6 border-t border-gray-200">
-                <div class="text-sm text-gray-600">
-                    Menampilkan <span class="font-semibold text-gray-900">{{ $activities->firstItem() }}</span> - 
-                    <span class="font-semibold text-gray-900">{{ $activities->lastItem() }}</span> dari 
-                    <span class="font-semibold text-gray-900">{{ $activities->total() }}</span> kegiatan
-                </div>
-                
-                    {{ $activities->withPath('/admin/activity')->links('pagination') }}
-                
+            <div class="pt-8 border-t border-gray-100">
+                {{ $activities->links('pagination') }}
             </div>
         @endif
+
     </div>
 
-    {{-- Delete Confirmation Modal --}}
+    {{-- DELETE MODAL (Ultra Clean) --}}
     @if ($confirmingActivityDeletion)
-        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn h-full">
-            <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-scaleIn">
-                {{-- Modal Header --}}
-                <div class="flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mx-auto mb-4">
-                    <i class="bi bi-trash3-fill text-3xl text-red-600"></i>
-                </div>
-
-                <h3 class="text-xl font-bold text-gray-900 mb-2 text-center">Konfirmasi Hapus Kegiatan</h3>
-                <p class="text-gray-600 mb-6 text-center">
-                    Apakah Anda yakin ingin menghapus kegiatan ini? Tindakan ini tidak dapat dibatalkan.
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm animate-fadeIn">
+            <div class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl animate-scaleIn text-center rounded-none">
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Item?</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-8">
+                    Tindakan ini permanen. Lanjutkan?
                 </p>
-
-                {{-- Modal Actions --}}
-                <div class="flex gap-3">
-                    <button wire:click="$set('confirmingActivityDeletion', false)" 
-                            class="flex-1 px-5 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200">
-                        Batal
-                    </button>
+                <div class="flex flex-col gap-3">
                     <button wire:click="deleteActivity"
-                            class="flex-1 px-5 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors duration-200 shadow-md hover:shadow-lg">
-                        Ya, Hapus
+                            class="w-full px-4 py-3 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">
+                        YA, HAPUS
+                    </button>
+                    <button wire:click="$set('confirmingActivityDeletion', false)" 
+                            class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-bold hover:bg-gray-50 transition">
+                        BATAL
                     </button>
                 </div>
             </div>
         </div>
-    
+    @endif
 
-{{-- Custom Styles --}}
-<style>
-    /* Line Clamp Utilities */
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+    <style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        .animate-fadeIn { animation: fadeIn 0.15s ease-out; }
+        .animate-scaleIn { animation: scaleIn 0.15s ease-out; }
+    </style>
 
-    .line-clamp-3 {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes scaleIn {
-        from {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    .animate-fadeIn {
-        animation: fadeIn 0.2s ease-out;
-    }
-
-    .animate-scaleIn {
-        animation: scaleIn 0.2s ease-out;
-    }
-
-    .animate-spin {
-        animation: spin 1s linear infinite;
-    }
-</style>
-@endif
 </div>

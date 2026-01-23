@@ -15,13 +15,20 @@ return new class extends Migration
             $table->id();
             $table->foreignId('partner_id')
                 ->constrained('partners')
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
+
             $table->string('title');
-            $table->string('category_activity');
-            $table->string('slug')->unique();
-            $table->text('short_description')->nullable();
-            $table->longText('full_description');
+            $table->string('slug', 150)->unique();
+
+            $table->string('category_activity', 50);
             $table->date('activity_date');
+
+            $table->string('short_description')->nullable();
+            $table->longText('full_description');
+
+            // 🔑 kunci fleksibilitas
+            $table->json('extra_attributes')->nullable();
+
             $table->string('featured_image')->nullable();
             $table->timestamps();
 

@@ -14,7 +14,8 @@ class PartnerController extends Controller
 {
     public function index(Request $request)
     {
-        $partners = Partner::latest()->get();
+        // $partners = Partner::latest()->get();
+        $partners = Partner::whereNotNull('logo')->where('logo', '!=', '')->get();
 
         $activities = PartnerActivity::with(['partner', 'photos'])
             ->when($request->search, function ($q) use ($request) {
@@ -24,7 +25,7 @@ class PartnerController extends Controller
                 $q->whereYear('activity_date', $request->year);
             })
             ->latest()
-            ->paginate(6);
+            ->paginate(3);
 
         return view('partners.index', compact('partners', 'activities'));
     }

@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder; // <--- WAJIB IMPORT INI
+use Illuminate\Database\Eloquent\Builder; 
+use Spatie\Translatable\HasTranslations;
 
 class StudentProject extends Model
 {
     use HasFactory;
-
+    use HasTranslations;
     // Sesuai punya Anda
-    protected $fillable = ['student_name', 'project_type', 'project_image'];
-
+    protected $fillable = ['student_name', 'age', 'project_type', 'project_image'];
+    public $translatable = ['project_type'];
     /**
      * Scope Filter untuk Search & Sort
      */

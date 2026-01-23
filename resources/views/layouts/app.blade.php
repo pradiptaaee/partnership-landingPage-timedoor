@@ -499,27 +499,27 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('lang.switch', 'ja') }}">
+                                <a class="dropdown-item" href="{{ route('change.language', 'ja') }}">
                                     <img src="https://flagcdn.com/w20/jp.png" class="me-2" width="20" alt="JA">
                                     日本語 (Japanese)</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('lang.switch', 'ar') }}">
+                                <a class="dropdown-item" href="{{ route('change.language', 'ar') }}">
                                     <img src="https://flagcdn.com/w20/sa.png" class="me-2" width="20" alt="AR"> العربية (Arabic)
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('lang.switch', 'hi') }}">
+                                <a class="dropdown-item" href="{{ route('change.language', 'hi') }}">
                                     <img src="https://flagcdn.com/w20/in.png" class="me-2" width="20" alt="HI">
                                     हिन्दी (Hindi)</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('lang.switch', 'tl') }}">
+                                <a class="dropdown-item" href="{{ route('change.language', 'tl') }}">
                                     <img src="https://flagcdn.com/w20/ph.png" class="me-2" width="20" alt="TL">
                                     Filipino</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('lang.switch', 'ms') }}">
+                                <a class="dropdown-item" href="{{ route('change.language', 'ms') }}">
                                     <img src="https://flagcdn.com/w20/my.png" class="me-2" width="20" alt="MS">
                                     Bahasa Melayu</a>
                             </li>

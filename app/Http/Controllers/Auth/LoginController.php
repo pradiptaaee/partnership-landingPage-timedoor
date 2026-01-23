@@ -18,7 +18,7 @@ class LoginController extends Controller
     {
         // Jika user sudah login, arahkan ke dashboard
         if (Auth::check()) {
-            return redirect()->route('admin.partners.index');
+            return redirect()->route('admin.dashboard.index');
         }
 
         return view('auth.login');
@@ -52,7 +52,7 @@ class LoginController extends Controller
 
             Session::flash('login_success', 'Selamat datang kembali! Anda berhasil login.');
             // Otentikasi berhasil, arahkan ke halaman dashboard admin
-            return redirect()->intended(route('admin.partners.index'));
+            return redirect()->route('admin.dashboard');
         }
 
         // 3. Otentikasi gagal

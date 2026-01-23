@@ -14,35 +14,36 @@ use App\Models\Banner;
 
 class DashboardController extends Controller
 {
+    // Di DashboardController.php
     public function index()
     {
-        // 1. STATISTIK UTAMA (Card Atas)
-        // Kita pakai fungsi count() untuk menghitung jumlah data di database
-        $totalProjects = StudentProject::count();
-        $totalTestimonials = Testimonial::count();
-        $totalBanners = Banner::count();
+        // Stats Utama
+        $totalPartners = \App\Models\Partner::count();
+        $totalProjects = \App\Models\StudentProject::count(); // Sesuaikan nama model
+        $totalTestimonials = \App\Models\Testimonial::count(); // Sesuaikan nama model
         
-        // Jika belum ada model Partner, kita kasih nilai 0 dulu biar ga error
-        // $totalPartners = Partner::count(); 
-        $totalPartners = 0; 
+        // Kegiatan bulan ini (Penting untuk monitoring)
+        $activitiesThisMonth = \App\Models\PartnerActivity::whereMonth('activity_date', now()->month)
+                                ->whereYear('activity_date', now()->year)
+                                ->count();
 
-        // 2. DATA UNTUK CHART DONAT (Sebaran Tipe Project)
-        // Ini akan mengelompokkan project berdasarkan 'project_type' dan menghitung jumlahnya
-        $projectTypes = StudentProject::select('project_type', DB::raw('count(*) as total'))
-                        ->groupBy('project_type')
-                        ->pluck('total', 'project_type');
+        // 5 Kegiatan yang AKAN DATANG (Upcoming)
+        $upcomingActivities = \App\Models\PartnerActivity::with('partner')
+                                ->where('activity_date', '>=', now())
+                                ->orderBy('activity_date', 'asc')
+                                ->take(5)
+                                ->get();
 
-        // 3. TABEL PROJECT TERBARU (5 Data Terakhir)
-        $recentProjects = StudentProject::latest()->take(5)->get();
+        // Project Terbaru (untuk log)
+        $latestProjects = \App\Models\StudentProject::latest()->take(3)->get();
 
-        // 4. Kirim semua variabel ke View
         return view('admin.dashboard', compact(
             'totalPartners', 
             'totalProjects', 
-            'totalTestimonials',
-            'totalBanners',
-            'projectTypes',
-            'recentProjects'
+            'totalTestimonials', 
+            'activitiesThisMonth',
+            'upcomingActivities',
+            'latestProjects'
         ));
     }
 }

@@ -5,92 +5,143 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; // Wajib import ini untuk urus file
+use Illuminate\Support\Facades\Storage;
+use Stichoza\GoogleTranslate\GoogleTranslate; // Pastikan package ini sudah diinstall
 
 class BannerController extends Controller
 {
-    // Menampilkan daftar banner
+    /**
+     * LOGIC TRANSLASI OTOMATIS
+     * Sumber: Inggris (en) -> Target: Indo (id), Jepang (ja), dll.
+     */
+    private function processTranslation($inputArray)
+    {
+        // 1. Ambil teks sumber (Dari input 'en' di Form)
+        $sourceText = $inputArray['en'] ?? '';
+
+        // Jika tidak ada teks inggris, kembalikan array apa adanya
+        if (empty($sourceText)) {
+            return $inputArray;
+        }
+
+        // 2. Siapkan Google Translate
+        $tr = new GoogleTranslate();
+        $tr->setSource('en'); // Set sumber bahasa Inggris
+
+        // 3. Daftar Bahasa Tujuan (Format: 'kode_laravel' => 'kode_google')
+        $targets = [
+            'id'  => 'id',  // Indonesia
+            'ja'  => 'ja',  // Jepang
+            'ar'  => 'ar',  // Arab
+            'ms'  => 'ms',  // Melayu
+            'fil' => 'tl',  // Tagalog (Google pakai 'tl')
+            'bn'  => 'bn',  // Bengali
+        ];
+
+        // 4. Loop untuk translate ke bahasa yang kosong
+        foreach ($targets as $langKey => $googleCode) {
+            // Jika user tidak mengisi manual bahasa tersebut, kita translate otomatis
+            if (empty($inputArray[$langKey])) {
+                try {
+                    $tr->setTarget($googleCode);
+                    $inputArray[$langKey] = $tr->translate($sourceText);
+                } catch (\Exception $e) {
+                    // Jika gagal translate (misal koneksi error), pakai teks inggrisnya saja
+                    $inputArray[$langKey] = $sourceText;
+                }
+            }
+        }
+
+        return $inputArray;
+    }
+
     public function index()
     {
-        $banners = Banner::latest()
-                ->filter(request(['search', 'sort'])) // Panggil scopeFilter tadi
-                ->get();
-
+        $banners = Banner::latest()->get();
         return view('admin.landing_page.banners.index', compact('banners'));
     }
 
-    // Form tambah banner
     public function create()
     {
         return view('admin.landing_page.banners.create');
     }
 
-    // Proses simpan ke database
     public function store(Request $request)
     {
-        // 1. Validasi
+        // 1. Validasi (Sesuai name di Form: title[en], description[en])
         $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
+            'image'          => 'required|image|max:2048',
+            'title.en'       => 'required|string', 
+            'description.en' => 'required|string',
+        ], [
+            'title.en.required'       => 'Judul (Bahasa Inggris) wajib diisi.',
+            'description.en.required' => 'Deskripsi (Bahasa Inggris) wajib diisi.',
+            'image.required'          => 'Wajib upload gambar banner.',
         ]);
 
-        // 2. Upload Gambar
-        // Gambar disimpan di folder: storage/app/public/banners
+        // 2. Proses Auto-Translate
+        // Kita kirim array title['en']..., fungsi ini akan melengkapi ['id'], ['ja'], dll.
+        $titles = $this->processTranslation($request->title);
+        $descriptions = $this->processTranslation($request->description);
+
+        // 3. Upload Gambar
         $imagePath = $request->file('image')->store('banners', 'public');
 
-        // 3. Simpan ke Database
+        // 4. Simpan ke Database
         Banner::create([
-            'title' => $request->title,
-            'image' => $imagePath,
+            'image'       => $imagePath,
+            'title'       => $titles,       // Disimpan sebagai JSON otomatis (karena casts di Model)
+            'description' => $descriptions, // Disimpan sebagai JSON otomatis
+            
+            // 'is_active'   => true
         ]);
 
-        return redirect()->route('admin.banners.index')
-                         ->with('success', 'Banner berhasil ditambahkan!');
+        return redirect()->route('admin.banners.index')->with('success_message', 'Banner berhasil dibuat & diterjemahkan  otomatis!');
     }
 
-    // Form edit banner
     public function edit(Banner $banner)
     {
         return view('admin.landing_page.banners.edit', compact('banner'));
     }
 
-    // Proses update database
     public function update(Request $request, Banner $banner)
     {
+        // 1. Validasi Update
         $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Nullable karena kalau tidak ganti gambar, tidak apa2
+            'image'          => 'nullable|image|max:2048',
+            'title.en'       => 'required|string',
+            'description.en' => 'required|string',
         ]);
 
-        $data = ['title' => $request->title];
+        $data = $request->except(['image', 'title', 'description']);
+        
+        // 2. Proses Translate Ulang (Jika diedit)
+        $titles = $this->processTranslation($request->title);
+        $descriptions = $this->processTranslation($request->description);
+        
+        $data['title'] = $titles;
+        $data['description'] = $descriptions;
 
-        // Cek jika user upload gambar baru
+        // 3. Cek Ganti Gambar
         if ($request->hasFile('image')) {
-            // Hapus gambar lama dulu agar tidak numpuk sampah
+            // Hapus gambar lama
             if ($banner->image && Storage::disk('public')->exists($banner->image)) {
                 Storage::disk('public')->delete($banner->image);
             }
-            // Upload gambar baru
             $data['image'] = $request->file('image')->store('banners', 'public');
         }
 
         $banner->update($data);
 
-        return redirect()->route('admin.banners.index')
-                         ->with('success', 'Banner berhasil diperbarui!');
+        return redirect()->route('admin.banners.index')->with('success_message', 'Banner berhasil diperbarui!');
     }
 
-    // Hapus banner
     public function destroy(Banner $banner)
     {
-        // Hapus file gambarnya juga
         if ($banner->image && Storage::disk('public')->exists($banner->image)) {
             Storage::disk('public')->delete($banner->image);
         }
-
         $banner->delete();
-
-        return redirect()->route('admin.banners.index')
-                         ->with('success', 'Banner berhasil dihapus!');
+        return redirect()->back()->with('success_message', 'Banner dihapus.');
     }
 }

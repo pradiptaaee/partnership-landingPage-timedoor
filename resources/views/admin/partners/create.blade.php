@@ -3,251 +3,201 @@
 @section('title', 'Tambah Partner')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex-1 p-8 bg-white min-h-screen font-sans flex flex-col">
     
-    {{-- Breadcrumb & Header --}}
-    <div class="mb-8">
-        <nav class="flex mb-4" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-2">
-                <li class="inline-flex items-center">
-                    <a href="{{ route('admin.partners.index') }}" 
-                       class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors">
-                        <i class="bi bi-house-door mr-2"></i>
-                        Partner
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-                        <span class="ml-2 text-sm font-medium text-gray-500">Tambah Partner</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
-        
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <i class="bi bi-plus-circle-fill text-white text-2xl"></i>
-            </div>
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Tambah Partner Baru</h1>
-                <p class="text-gray-600 mt-1">Lengkapi form di bawah untuk menambahkan partner baru</p>
-            </div>
+    {{-- 1. HEADER PAGE --}}
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 shrink-0">
+        <div>
+            <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight mb-1">Tambah Partner</h1>
+            <p class="text-gray-500 text-sm">Lengkapi informasi untuk mendaftarkan partner baru.</p>
         </div>
+        
+        <a href="{{ route('admin.partners.index') }}" 
+           class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-600 text-sm font-semibold rounded-lg hover:bg-gray-50 hover:text-[#0f5132] transition border border-gray-200 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Kembali
+        </a>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    {{-- CARD WRAPPER --}}
+    <div class="flex-grow bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col">
         
-        {{-- Form Card --}}
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                {{-- Card Header --}}
-                <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4">
-                    <h2 class="text-lg font-semibold text-white flex items-center">
-                        <i class="bi bi-pencil-square mr-2"></i>
-                        Form Tambah Partner
-                    </h2>
-                </div>
-
-                {{-- Card Body --}}
-                <div class="p-6">
-                    <form action="{{ route('admin.partners.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-
-                        {{-- Nama Partner --}}
-                        <div class="mb-6">
-                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Nama Partner <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 @error('name') border-red-500 ring-2 ring-red-200 @enderror" 
-                                   id="name" 
-                                   name="name" 
-                                   value="{{ old('name') }}" 
-                                   placeholder="Masukkan nama partner"
-                                   required>
-                            @error('name')
-                            <p class="mt-2 text-sm text-red-600 flex items-center">
-                                <i class="bi bi-exclamation-circle mr-1"></i>
-                                {{ $message }}
-                            </p>
-                            @enderror
-                        </div>
-
-                        {{-- Kategori --}}
-                        <div class="mb-6">
-                            <label for="category" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Kategori <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 @error('category') border-red-500 ring-2 ring-red-200 @enderror" 
-                                   id="category" 
-                                   name="category" 
-                                   value="{{ old('category') }}" 
-                                   placeholder="Contoh: Pemerintah, Swasta, NGO"
-                                   required>
-                            @error('category')
-                            <p class="mt-2 text-sm text-red-600 flex items-center">
-                                <i class="bi bi-exclamation-circle mr-1"></i>
-                                {{ $message }}
-                            </p>
-                            @enderror
-                        </div>
-
-                        {{-- Deskripsi --}}
-                        <div class="mb-6">
-                            <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Deskripsi
-                            </label>
-                            <textarea class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 @error('description') border-red-500 ring-2 ring-red-200 @enderror" 
-                                      id="description" 
-                                      name="description" 
-                                      rows="4" 
-                                      placeholder="Masukkan deskripsi partner (opsional)">{{ old('description') }}</textarea>
-                            @error('description')
-                            <p class="mt-2 text-sm text-red-600 flex items-center">
-                                <i class="bi bi-exclamation-circle mr-1"></i>
-                                {{ $message }}
-                            </p>
-                            @enderror
-                        </div>
-
-                        {{-- Logo Upload --}}
-                        <div class="mb-8">
-                            <label for="logo" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Logo Partner
-                            </label>
-                            <div class="relative">
-                                <input type="file" 
-                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-700 file:font-medium hover:file:bg-indigo-100 @error('logo') border-red-500 ring-2 ring-red-200 @enderror" 
-                                       id="logo" 
-                                       name="logo" 
-                                       accept="image/png,image/jpeg,image/jpg,image/webp"
-                                       onchange="previewImage(event)">
-                            </div>
-                            <p class="mt-2 text-xs text-gray-500 flex items-center">
-                                <i class="bi bi-info-circle mr-1"></i>
-                                Format: PNG, JPG, JPEG, WEBP. Maksimal 2MB
-                            </p>
-                            @error('logo')
-                            <p class="mt-2 text-sm text-red-600 flex items-center">
-                                <i class="bi bi-exclamation-circle mr-1"></i>
-                                {{ $message }}
-                            </p>
-                            @enderror
-                            
-                            {{-- Image Preview --}}
-                            <div id="imagePreview" class="mt-4 hidden">
-                                <p class="text-sm font-medium text-gray-700 mb-2">Preview:</p>
-                                <div class="relative inline-block">
-                                    <img id="preview" src="" alt="Preview" class="rounded-xl border-2 border-gray-200 shadow-md max-w-xs">
-                                    <button type="button" 
-                                            onclick="removePreview()" 
-                                            class="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg transition-colors">
-                                        <i class="bi bi-x text-xl"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Action Buttons --}}
-                        <div class="flex gap-3 pt-4 border-t border-gray-200">
-                            <button type="submit" 
-                                    class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-indigo-800 shadow-md hover:shadow-lg transition-all duration-200">
-                                <i class="bi bi-check-circle-fill"></i>
-                                Simpan Partner
-                            </button>
-                            <a href="{{ route('admin.partners.index') }}" 
-                               class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-200">
-                                <i class="bi bi-x-circle"></i>
-                                Batal
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        {{-- Info Sidebar --}}
-        <div class="lg:col-span-1 space-y-6">
+        <form action="{{ route('admin.partners.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col lg:flex-row h-full">
+            @csrf
             
-            {{-- Info Card --}}
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4 border-b border-blue-200">
-                    <h3 class="text-lg font-semibold text-blue-900 flex items-center">
-                        <i class="bi bi-info-circle-fill mr-2"></i>
-                        Informasi
-                    </h3>
+            {{-- KOLOM KIRI: Input Form --}}
+            <div class="w-full lg:w-7/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
+                
+                <div class="space-y-6 flex-grow overflow-y-auto pr-2 custom-scrollbar">
+                    
+                    {{-- 1. Nama Partner --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Nama Partner <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               name="name" 
+                               value="{{ old('name') }}"
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                               placeholder="Contoh: PT. Teknologi Nusantara" 
+                               required>
+                        @error('name') 
+                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
+                        @enderror
+                    </div>
+
+                    {{-- 2. Kategori --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Kategori <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               name="category" 
+                               value="{{ old('category') }}"
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                               placeholder="Contoh: Swasta, Pemerintah, NGO" 
+                               required>
+                        @error('category') 
+                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
+                        @enderror
+                    </div>
+
+                    {{-- 3. Deskripsi --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Deskripsi Singkat
+                        </label>
+                        <textarea name="description" 
+                                  rows="4" 
+                                  class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm leading-relaxed resize-none" 
+                                  placeholder="Jelaskan sedikit tentang partner ini...">{{ old('description') }}</textarea>
+                        @error('description') 
+                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
+                        @enderror
+                    </div>
+
                 </div>
-                <div class="p-6">
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <i class="bi bi-check2 text-green-600 text-sm font-bold"></i>
+
+                {{-- ACTION BUTTONS --}}
+                <div class="pt-6 mt-6 border-t border-gray-100 flex gap-3 shrink-0">
+                    <a href="{{ route('admin.partners.index') }}" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-bold text-center hover:bg-gray-50 hover:text-gray-800 transition">
+                        Batal
+                    </a>
+                    <button type="submit" class="flex-1 px-4 py-3 rounded-lg bg-[#0f5132] text-white text-sm font-bold shadow-md hover:bg-[#0b3d26] transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        Simpan Partner
+                    </button>
+                </div>
+
+            </div>
+
+            {{-- KOLOM KANAN: Upload Logo & Info --}}
+            <div class="w-full lg:w-5/12 bg-gray-50 border-l border-gray-100 overflow-y-auto custom-scrollbar flex flex-col p-8">
+                
+                {{-- Upload Area --}}
+                <div class="mb-8">
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">
+                        Logo Partner
+                    </label>
+                    
+                    <div class="relative group w-full h-64 bg-white rounded-2xl border-2 border-dashed border-gray-300 hover:border-[#0f5132] hover:bg-emerald-50/30 transition-all duration-300 overflow-hidden flex flex-col items-center justify-center text-center cursor-pointer">
+                        
+                        <input type="file" id="logo" name="logo" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" onchange="previewImage(event)">
+                        
+                        {{-- Prompt --}}
+                        <div id="upload-prompt" class="p-6">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400 group-hover:bg-white group-hover:text-[#0f5132] transition shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                </svg>
                             </div>
-                            <span class="text-sm text-gray-700">
-                                Field dengan tanda <span class="text-red-500 font-semibold">*</span> wajib diisi
-                            </span>
+                            <p class="text-sm font-semibold text-gray-600 group-hover:text-[#0f5132]">Upload Logo</p>
+                            <p class="text-[10px] text-gray-400 mt-1">PNG, JPG (Max 2MB)</p>
+                        </div>
+
+                        {{-- Preview Image --}}
+                        <img id="preview" src="" class="hidden w-full h-full object-contain p-4 z-10">
+                        
+                        {{-- Remove Button (Hidden by default) --}}
+                        <button type="button" id="remove-btn" onclick="removePreview()" class="hidden absolute top-3 right-3 z-30 p-2 bg-white text-red-500 rounded-full shadow-md hover:bg-red-50 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    @error('logo') <p class="text-red-500 text-xs mt-2 text-center">{{ $message }}</p> @enderror
+                </div>
+
+                {{-- Info Section --}}
+                <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+                    <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-[#0f5132]">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                        Panduan
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex gap-3 text-xs text-gray-600 leading-relaxed">
+                            <span class="w-1.5 h-1.5 bg-[#0f5132] rounded-full mt-1.5 shrink-0"></span>
+                            Pastikan logo memiliki latar belakang transparan (PNG) untuk hasil terbaik.
                         </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <i class="bi bi-check2 text-green-600 text-sm font-bold"></i>
-                            </div>
-                            <span class="text-sm text-gray-700">
-                                Logo akan ditampilkan di halaman partner
-                            </span>
+                        <li class="flex gap-3 text-xs text-gray-600 leading-relaxed">
+                            <span class="w-1.5 h-1.5 bg-[#0f5132] rounded-full mt-1.5 shrink-0"></span>
+                            Gunakan gambar berkualitas tinggi agar tidak pecah saat ditampilkan.
                         </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <i class="bi bi-check2 text-green-600 text-sm font-bold"></i>
-                            </div>
-                            <span class="text-sm text-gray-700">
-                                Pastikan logo berkualitas baik untuk tampilan optimal
-                            </span>
+                        <li class="flex gap-3 text-xs text-gray-600 leading-relaxed">
+                            <span class="w-1.5 h-1.5 bg-[#0f5132] rounded-full mt-1.5 shrink-0"></span>
+                            Isi kategori dengan jelas (misal: "Teknologi", "Pendidikan") untuk memudahkan filter.
                         </li>
                     </ul>
                 </div>
+
             </div>
 
-            {{-- Tips Card --}}
-            <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl shadow-sm border border-amber-200 p-6">
-                <div class="flex items-start gap-3">
-                    <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <i class="bi bi-lightbulb-fill text-white text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-amber-900 mb-2">Tips</h4>
-                        <p class="text-sm text-amber-800">
-                            Gunakan logo dengan latar belakang transparan untuk hasil terbaik
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
 <script>
-function previewImage(event) {
-    const preview = document.getElementById('preview');
-    const previewContainer = document.getElementById('imagePreview');
-    const file = event.target.files[0];
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            previewContainer.classList.remove('hidden');
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const prompt = document.getElementById('upload-prompt');
+        const removeBtn = document.getElementById('remove-btn');
+        const file = event.target.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                prompt.classList.add('hidden');
+                removeBtn.classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(file);
-    } else {
-        previewContainer.classList.add('hidden');
     }
-}
 
-function removePreview() {
-    document.getElementById('logo').value = '';
-    document.getElementById('imagePreview').classList.add('hidden');
-}
+    function removePreview() {
+        const input = document.getElementById('logo');
+        const preview = document.getElementById('preview');
+        const prompt = document.getElementById('upload-prompt');
+        const removeBtn = document.getElementById('remove-btn');
+
+        input.value = '';
+        preview.src = '';
+        preview.classList.add('hidden');
+        prompt.classList.remove('hidden');
+        removeBtn.classList.add('hidden');
+    }
 </script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 20px; }
+</style>
 @endsection

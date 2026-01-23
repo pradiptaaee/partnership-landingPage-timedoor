@@ -3,64 +3,64 @@
 @section('title', 'Manajemen Kegiatan Partner')
 
 @section('content')
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 py-4">
+    {{-- CONTAINER UTAMA: Background Putih --}}
+    <div class="flex-1 bg-white min-h-screen font-sans flex flex-col">
         
-        {{-- Header Section --}}
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900 mb-2">Manajemen Kegiatan Partner</h1>
-                <p class="text-gray-600">Kelola seluruh kegiatan dan aktivitas partner</p>
+        {{-- 1. HEADER SECTION (Opsional: Jika di Livewire sudah ada header, bagian ini bisa dihapus) --}}
+        <div class="max-w-7xl mx-auto px-8 pt-8 w-full">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b border-gray-100">
+                
+                {{-- Judul & Subjudul --}}
+                <div>
+                    <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight mb-1">Manajemen Kegiatan</h1>
+                    <p class="text-gray-500 text-sm">Kelola seluruh aktivitas dan event partner.</p>
+                </div>
+
+                {{-- Tombol Aksi --}}
+                <div class="flex flex-wrap gap-3">
+                    {{-- Tombol Kembali --}}
+                    <a href="{{ route('admin.partners.index') }}" 
+                       class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 text-gray-600 text-sm font-semibold rounded-lg hover:bg-gray-50 hover:text-[#0f5132] transition-colors duration-200 shadow-sm">
+                        <i class="bi bi-arrow-left"></i>
+                        <span>Kembali ke Partner</span>
+                    </a>
+
+                    {{-- Tombol Tambah --}}
+                    
+                </div>
             </div>
-            <div class="flex flex-wrap gap-3">
-                {{-- Tombol Kembali ke Partner --}}
-                <a href="{{ route('admin.partners.index') }}" 
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors duration-200 shadow-sm">
-                    <i class="bi bi-arrow-left"></i>
-                    Kembali ke Partner
-                </a>
-                {{-- Tombol Tambah Kegiatan --}}
-                <a href="{{ route('admin.activity.create') }}" 
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-indigo-800 shadow-md hover:shadow-lg transition-all duration-200">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Tambah Kegiatan
-                </a>
-            </div>
+
+            {{-- 2. SUCCESS ALERT (Emerald Style) --}}
+            @if (session('success'))
+                <div class="mb-8 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-800 flex items-start gap-3 animate-fadeIn" role="alert">
+                    <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <i class="bi bi-check-lg text-emerald-600 text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-bold text-emerald-900">Berhasil!</h3>
+                        <p class="text-sm mt-0.5">{{ session('success') }}</p>
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="text-emerald-400 hover:text-emerald-600 transition">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            @endif
         </div>
 
-        {{-- Success Alert --}}
-        @if (session('success'))
-            <div class="mb-6 bg-green-50 border border-green-200 rounded-xl p-4 flex items-start gap-3 animate-slideDown">
-                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i class="bi bi-check-circle-fill text-white text-xl"></i>
-                </div>
-                <div class="flex-1">
-                    <p class="text-green-800 font-medium">{{ session('success') }}</p>
-                </div>
-                <button onclick="this.parentElement.remove()" 
-                        class="text-green-600 hover:text-green-800 transition-colors">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-        @endif
-
-        {{-- Livewire Component --}}
+        {{-- 3. LIVEWIRE COMPONENT --}}
+        {{-- Pastikan komponen Livewire Anda tidak memiliki container/padding ganda agar rapi --}}
         @livewire('admin.activity-table')
+        
     </div>
 
+    {{-- Styles untuk Animasi Alert --}}
     <style>
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .animate-slideDown {
-            animation: slideDown 0.3s ease-out;
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out forwards;
         }
     </style>
 @endsection
