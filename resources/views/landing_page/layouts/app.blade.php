@@ -7,20 +7,29 @@
     <title>Timedoor Academy</title>
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '869669909261686');
-    fbq('track', 'PageView');
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '869669909261686');
+        fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=869669909261686&ev=PageView&noscript=1"
-    /></noscript>
+            src="https://www.facebook.com/tr?id=869669909261686&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Memuat Font Poppins -->
@@ -95,16 +104,55 @@
             </div>
 
             <div class="flex items-center gap-3 xl:gap-7">
+                @php
+                // Mapping locale ke kode tampilan dan bendera
+                $localeMapping = [
+                'en' => ['code' => 'EN', 'flag' => 'images/enFlag.png', 'type' => 'img'],
+                'id' => ['code' => 'ID', 'flag' => 'images/idFlag.png', 'type' => 'img'],
+                'bn' => ['code' => 'BD', 'flag' => 'bd', 'type' => 'svg'],
+                'ar' => ['code' => 'AR', 'flag' => 'images/arFlag.png', 'type' => 'img'],
+                'fil' => ['code' => 'PH', 'flag' => 'images/phFlag.png', 'type' => 'img'],
+                'ja' => ['code' => 'JP', 'flag' => 'jp', 'type' => 'svg'],
+                'ms' => ['code' => 'MY', 'flag' => 'images/myFlag.png', 'type' => 'img'],
+                ];
+                $currentLocale = app()->getLocale();
+                $currentLangData = $localeMapping[$currentLocale] ?? $localeMapping['en'];
+                @endphp
                 <div class="relative inline-block">
                     <!-- Dropdown Button -->
                     <button id="languageButton" class="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
                         <!-- Flag Circle -->
                         <div id="currentFlag" class="flag-container w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md overflow-hidden flex items-center justify-center">
-                            <img class="h-full" src="images/enFlag.png" alt="EN FLAG">
-
+                            @if($currentLangData['type'] === 'img')
+                            <img class="h-full" src="{{ $currentLangData['flag'] }}" alt="{{ $currentLangData['code'] }} FLAG">
+                            @elseif($currentLangData['flag'] === 'bd')
+                            <svg width="2000" height="2000" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <clipPath id="circleBDCurrent">
+                                        <circle cx="1000" cy="1000" r="1000" />
+                                    </clipPath>
+                                </defs>
+                                <g clip-path="url(#circleBDCurrent)">
+                                    <rect width="2000" height="2000" fill="#006A4E" />
+                                    <circle cx="900" cy="1000" r="450" fill="#F42A41" />
+                                </g>
+                            </svg>
+                            @elseif($currentLangData['flag'] === 'jp')
+                            <svg width="2000" height="2000" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <clipPath id="circleJPCurrent">
+                                        <circle cx="1000" cy="1000" r="1000" />
+                                    </clipPath>
+                                </defs>
+                                <g clip-path="url(#circleJPCurrent)">
+                                    <rect width="2000" height="2000" fill="white" />
+                                    <circle cx="1000" cy="1000" r="600" fill="#BC002D" />
+                                </g>
+                            </svg>
+                            @endif
                         </div>
                         <!-- Language Code -->
-                        <span id="currentLang" class="font-bold text-gray-500 text-sm sm:text-base transition-all duration-150">EN</span>
+                        <span id="currentLang" class="font-bold text-gray-500 text-sm sm:text-base transition-all duration-150">{{ $currentLangData['code'] }}</span>
                         <!-- Dropdown Arrow -->
                         <svg id="dropdownArrow" class="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 transition-transform duration-200 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
@@ -207,7 +255,7 @@
 
                 <a href="#" id="trialButton"
                     class="bg-[#10AF13] text-white shadow-[0_7px_0_#0E8E10] hover:shadow-[0_5px_0_#0E8E10] active:shadow-[0_2px_0_#0E8E10] font-bold py-2.5 px-4 rounded-xl uppercase text-[10px] sm:text-sm transition-all duration-150 hover:translate-y-[5px] active:translate-y-[7px]">
-                    Book a Free Trial
+                    {{ __('Book a Free Trial') }}
                 </a>
             </div>
         </div>

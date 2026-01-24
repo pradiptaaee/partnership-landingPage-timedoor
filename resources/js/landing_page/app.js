@@ -47,25 +47,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Mapping dari kode negara ke kode locale Laravel
+    const langCodeMapping = {
+        'EN': 'en',
+        'ID': 'id',
+        'BD': 'bn',  // Bangladesh -> Bengali
+        'AR': 'ar',  // Arabic
+        'PH': 'fil', // Philippines -> Filipino
+        'JP': 'ja',  // Japan -> Japanese
+        'MY': 'ms'   // Malaysia -> Malay
+    };
+
     // Pilih bahasa
     langOptions.forEach(option => {
         option.addEventListener('click', function () {
             const langCode = this.getAttribute('data-lang');
+            const locale = langCodeMapping[langCode];
 
-            // Update tombol utama
-            currentLang.textContent = langCode;
-            const flagContainer = this.querySelector('.flag-container');
-            if (flagContainer) {
-                currentFlag.innerHTML = flagContainer.innerHTML;
+            // Redirect ke route perubahan bahasa
+            if (locale) {
+                window.location.href = `/lang/${locale}`;
             }
-
-            // Tutup dropdown
-            menu.classList.add('hidden');
-            arrow.classList.remove('rotate-180');
-            backdrop.classList.add('hidden');
-
-            // Update visibility untuk next open
-            hideActiveOption();
         });
     });
 
@@ -122,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 span.classList.remove('text-gray-600');
                 span.classList.add('text-white');
             });
-            
+
             // Ubah warna hover menjadi hijau lebih gelap
             const langButtons = dropdownMenu.querySelectorAll('.lang-option');
             langButtons.forEach(button => {
@@ -160,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 span.classList.remove('text-white');
                 span.classList.add('text-gray-600');
             });
-            
+
             // Kembalikan warna hover
             const langButtons = dropdownMenu.querySelectorAll('.lang-option');
             langButtons.forEach(button => {
@@ -187,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // SWIPER
 import Swiper from "swiper";
-import { Autoplay, Navigation} from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import 'swiper/css';
 
 // SWIPER
@@ -208,7 +210,7 @@ new Swiper(".swiper_left", {
 
     breakpoints: {
         1366: {
-            slidesPerView: 2, 
+            slidesPerView: 2,
         },
     },
 });
