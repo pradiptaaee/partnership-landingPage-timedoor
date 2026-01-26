@@ -75,7 +75,7 @@
         </div>
     </nav> -->
 
-    <main class="mt-24 sm:mt-32 xl:mt-10 mx-auto flex-grow xl:flex xl:flex-row-reverse xl:items-center xl:gap-12">
+    <main class="mt-10 sm:mt-15 xl:mt-0 mx-auto flex-grow xl:flex xl:flex-row-reverse xl:items-center xl:gap-12">
 
         <div class="xl:w-1/2 mx-auto">
 
