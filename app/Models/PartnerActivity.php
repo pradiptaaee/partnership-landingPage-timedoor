@@ -2,55 +2,44 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 
 class PartnerActivity extends Model
 {
-    use HasTranslations;
+    use HasFactory;
 
     protected $fillable = [
         'partner_id',
         'title',
+        'slug',
         'category_activity',
-        'short_description',
         'full_description',
         'activity_date',
-        'extra_attributes',
         'featured_image',
     ];
 
-    protected $casts = [
-        'extra_attributes' => 'array',
-        'activity_date' => 'date',
-    ];
-
-    public function getSpeakerNameAttribute()
+    // File: app/Models/PartnerActivity.php
+    public function seminarDetail()
     {
-        return $this->extra_attributes['speaker_name'] ?? null;
+        return $this->hasOne(ActivitySeminarDetail::class, 'partner_activity_id');
     }
 
-    public function getMentorNameAttribute()
+    public function workshopDetail()
     {
-        return $this->extra_attributes['mentor_name'] ?? null;
+        return $this->hasOne(ActivityWorkshopDetail::class, 'partner_activity_id');
     }
 
     /**
-     * Mengambil Foto Speaker dari JSON extra_attributes (Jika ada)
+     * =========================
+     * CASTS
+     * =========================
      */
-    public function getSpeakerPhotoUrlAttribute()
-    {
-        $photo = $this->extra_attributes['speaker_photo'] ?? null;
-        return $photo ? asset('storage/activity/speakers/' . $photo) : null;
-    }
-
-    // Optional helper
-    public function getExtra(string $key, $default = null)
-    {
-        return $this->extra_attributes[$key] ?? $default;
-    }
+    protected $casts = [
+        'activity_date' => 'date',
+    ];
 
     public function partner()
     {
@@ -59,42 +48,52 @@ class PartnerActivity extends Model
 
     public function photos()
     {
-        return $this->hasMany(PhotoActivity::class, 'activity_id');
+        return $this->hasMany(PhotoActivity::class, 'partner_activity_id');
     }
 
-    // URL accessor
-    public function getFeaturedImageUrlAttribute()
+    
+    public function getFeaturedImageUrlAttribute(): ?string
     {
         return $this->featured_image
             ? asset('storage/activity/featured/' . $this->featured_image)
             : null;
     }
-    // public function getFeaturedImageUrlAttribute()
-    // {
-    //     return $this->featured_image
-    //         ? asset('storage/' . $this->featured_image)
-    //         : null;
-    // }
 
-    // Delete images automatically when activity is deleted
+    /**
+     * =========================
+     * HELPER
+     * =========================
+     */
+    public function hasSeminarExtra(): bool
+    {
+        return strtolower($this->category_activity) === 'seminar';
+    }
+
+    /**
+     * =========================
+     * MODEL EVENTS
+     * =========================
+     */
     protected static function booted()
     {
         static::deleting(function ($activity) {
+
+            // featured image
             if ($activity->featured_image) {
                 Storage::disk('public')->delete($activity->featured_image);
             }
 
+            // speaker photo (extra)
+            // if (!empty($activity->extra_attributes['speaker_photo'])) {
+            //     Storage::disk('public')->delete(
+            //         $activity->extra_attributes['speaker_photo']
+            //     );
+            // }
+
+            // gallery photos
             foreach ($activity->photos as $photo) {
-                $photo->delete(); // model PhotoActivity will delete its file
+                $photo->delete();
             }
         });
     }
-
-
-    public function hasExtraDescription()
-    {
-        $allowed = ['seminar', 'workshop'];
-        return in_array(strtolower($this->category_activity), $allowed);
-    }
-
 }

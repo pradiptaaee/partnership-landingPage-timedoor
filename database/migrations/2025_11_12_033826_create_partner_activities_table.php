@@ -19,15 +19,9 @@ return new class extends Migration
 
             $table->string('title');
             $table->string('slug', 150)->unique();
-
             $table->string('category_activity', 50);
             $table->date('activity_date');
-
-            $table->string('short_description')->nullable();
             $table->longText('full_description');
-
-            // 🔑 kunci fleksibilitas
-            $table->json('extra_attributes')->nullable();
 
             $table->string('featured_image')->nullable();
             $table->timestamps();

@@ -68,18 +68,28 @@
             @forelse ($activities as $activity)
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                        @if ($activity->featured_image_url)
-                            <img src="{{ $activity->featured_image_url }}" class="card-img-top"
-                                alt="{{ $activity->title }}" style="height: 200px; object-fit: cover;">
-                        @else
-                            <div class="card-img-top d-flex align-items-center justify-content-center bg-light border-bottom"
-                                style="height: 200px;">
-                                <div class="text-center">
-                                    <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
-                                    <p class="text-muted small mb-0">No Image</p>
-                                </div>
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 start-0 m-3 z-1">
+                                <span class="badge px-3 py-2 shadow-sm"
+                                    style="background-color: rgba(144, 249, 163, 0.442); backdrop-filter: blur(4px); border-radius: 10px; font-weight: 600;">
+                                    <i class="bi bi-building me-1"></i>
+                                    {{ $activity->partner->name ?? '' }}
+                                </span>
                             </div>
-                        @endif
+
+                            @if ($activity->featured_image_url)
+                                <img src="{{ $activity->featured_image_url }}" class="card-img-top"
+                                    alt="{{ $activity->title }}" style="height: 200px; object-fit: cover;">
+                            @else
+                                <div class="card-img-top d-flex align-items-center justify-content-center bg-light border-bottom"
+                                    style="height: 200px;">
+                                    <div class="text-center">
+                                        <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
+                                        <p class="text-muted small mb-0">No Image</p>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
 
                         <div class="card-body d-flex flex-column p-4">
                             <p style="color: #10A300; font-size: 14px; font-weight: 600;">
@@ -90,8 +100,8 @@
                                 {{ $activity->title }}
                             </h5>
 
-                            <p class="text-muted grow">
-                                {{ $activity->short_description }}
+                            <p class="text-muted description-clamp">
+                                {{ \Illuminate\Support\Str::words(strip_tags($activity->full_description), 8, '...') }}
                             </p>
 
                             <a href="{{ route('partnership.show', $activity->slug) }}" class="btn btn-primary mt-3"
@@ -112,7 +122,7 @@
         <!-- ========== PAGINATION ========== -->
         @if ($activities->hasPages())
             <div class="mt-5 d-flex justify-content-between">
-                {{ $activities->links() }}
+                {{ $activities->links('component.pagination') }}
             </div>
         @endif
     </div>

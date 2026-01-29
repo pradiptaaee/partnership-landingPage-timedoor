@@ -248,4 +248,49 @@
         @csrf
         @method('DELETE')
     </form>
+
+    <div id="deleteActivityModal"
+     class="fixed inset-0 z-50 hidden items-center justify-center bg-white/80 backdrop-blur-sm">
+
+    <div class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl text-center">
+        <h3 class="text-lg font-bold text-gray-900 mb-2">
+            Hapus Kegiatan?
+        </h3>
+
+        <p class="text-sm text-gray-500 mb-8">
+            Kegiatan ini akan dihapus permanen dan tidak dapat dikembalikan.
+        </p>
+
+        <div class="flex flex-col gap-3">
+            <button onclick="submitDeleteActivity()"
+                class="w-full px-4 py-3 bg-red-600 text-white font-bold hover:bg-red-700 transition">
+                YA, HAPUS
+            </button>
+
+            <button onclick="closeDeleteActivityModal()"
+                class="w-full px-4 py-3 bg-white border border-gray-200 font-bold hover:bg-gray-50 transition">
+                BATAL
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        const modal = document.getElementById('deleteActivityModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeDeleteActivityModal() {
+        const modal = document.getElementById('deleteActivityModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+    function submitDeleteActivity() {
+        document.getElementById('deleteForm').submit();
+    }
+</script>
+
 @endsection

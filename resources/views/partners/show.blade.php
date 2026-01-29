@@ -39,44 +39,51 @@
                     <div class="col-md-4 border-end">
                         <i class="bi bi-envelope fs-3 mb-2" style="color: #10A300;"></i>
                         <h6 class="fw-bold mb-1">Email</h6>
-                        <p class="text-muted mb-0 small">{{ $activity->partner->email ?? 'info@timedooracademy.com' }}</p>
+                        <p class="text-muted mb-0 small">{{ $activity->partner->email ?? '-' }}</p>
                     </div>
                     <div class="col-md-4">
                         <i class="bi bi-telephone fs-3 mb-2" style="color: #10A300;"></i>
                         <h6 class="fw-bold mb-1">Telepon</h6>
-                        <p class="text-muted mb-0 small">{{ $activity->partner->phone ?? '+62 888 947 793' }}</p>
+                        <p class="text-muted mb-0 small">{{ $activity->partner->no_telepon ?? '-' }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         {{-- KATEGORI: SEMINAR --}}
-        @if (strtolower($activity->category_activity) == 'seminar')
+        {{-- SEMINAR: Speaker Profile --}}
+        @if (strtolower($activity->category_activity) === 'seminar')
             <div class="card border-0 shadow-sm mb-5" style="border-radius: 15px; overflow: hidden;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        @if ($activity->speaker_photo)
-                            <img src="{{ asset('storage/' . $activity->speaker_photo) }}" class="w-100 h-100"
-                                style="object-fit: cover; min-height: 300px;">
+                        @if (!empty($activity->seminarDetail->speaker_photo))
+                            <img src="{{ asset('storage/activity/speakers/' . $activity->seminarDetail->speaker_photo) }}"
+                                class="w-100 h-100" style="object-fit: cover; min-height: 300px;">
                         @else
                             <div class="bg-light d-flex align-items-center justify-content-center h-100"
                                 style="min-height: 300px;">
-                                <i class="bi bi-person-bounding-box text-secondary" style="font-size: 4rem;"></i>
+                                <i class="bi bi-person-circle text-secondary" style="font-size: 4rem;"></i>
                             </div>
                         @endif
                     </div>
+
                     <div class="col-md-8">
                         <div class="card-body p-5">
                             <div class="d-flex align-items-center mb-3">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                    style="width: 50px; height: 50px; background: linear-gradient(135deg, #10A300 0%, #0d8500 100%);">
+                                    style="width: 50px; height: 50px;
+                        background: linear-gradient(135deg, #10A300 0%, #0d8500 100%);">
                                     <i class="bi bi-person-badge text-white fs-4"></i>
                                 </div>
                                 <h3 class="fw-bold mb-0" style="color: #001D7A;">Profil Pembicara</h3>
                             </div>
-                            <h4 class="fw-bold text-dark mb-2">{{ $activity->speaker_name }}</h4>
-                            <p class="text-muted italic mb-4" style="font-size: 18px; line-height: 1.8;">
-                                "{{ $activity->short_description }}"
+
+                            <h4 class="fw-bold text-dark mb-2">
+                                {{ $activity->seminarDetail->speaker_name }}
+                            </h4>
+
+                            <p class="text-muted fst-italic mb-4" style="font-size: 18px; line-height: 1.8;">
+                                "{{ $activity->seminarDetail->speaker_about ?? 'Informasi pembicara tidak tersedia.' }}"
                             </p>
                         </div>
                     </div>
@@ -84,24 +91,29 @@
             </div>
         @endif
 
-        {{-- KATEGORI: WORKSHOP (Tanpa Foto Mentor) --}}
-        @if (strtolower($activity->category_activity) == 'workshop')
+        @if (strtolower($activity->category_activity) === 'workshop')
             <div class="card border-0 shadow-sm mb-5" style="border-radius: 15px; border-left: 10px solid #10A300;">
                 <div class="card-body p-5">
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                            style="width: 50px; height: 50px; background: linear-gradient(135deg, #10A300 0%, #0d8500 100%);">
+                            style="width: 50px; height: 50px;
+                background: linear-gradient(135deg, #10A300 0%, #0d8500 100%);">
                             <i class="bi bi-mortarboard text-white fs-4"></i>
                         </div>
                         <h3 class="fw-bold mb-0" style="color: #001D7A;">Mentor Workshop</h3>
                     </div>
-                    <h4 class="fw-bold text-dark mb-2">{{ $activity->mentor_name }}</h4>
+
+                    <h4 class="fw-bold text-dark mb-2">
+                        {{ $activity->workshopDetail->mentor_name ?? '-' }}
+                    </h4>
+
                     <p class="text-muted mb-0" style="font-size: 17px; line-height: 1.8;">
-                        {{ $activity->short_description }}
+                        {{ $activity->workshopDetail->description }}
                     </p>
                 </div>
             </div>
         @endif
+
 
         <div class="card border-0 shadow-sm mb-5" style="border-radius: 15px;">
             <div class="card-body p-5">
@@ -124,34 +136,7 @@
 
 
 
-        <div class="mb-5">
-            <h3 class="fw-bold mb-4 text-center" style="color: #001D7A;">
-                <i class="bi bi-images me-2" style="color: #10A300;"></i>
-                Galeri Kegiatan
-            </h3>
-
-            <div class="row g-3">
-                @forelse ($activity->photos as $index => $photo)
-                    <div class="{{ $index === 0 ? 'col-md-8' : 'col-md-4' }}">
-                        <div class="gallery-box {{ $index === 0 ? 'gallery-large' : 'gallery-small' }}">
-                            {{-- PERBAIKAN: Menggunakan image_path sesuai database --}}
-                            <img src="{{ asset('storage/activity/gallery/' . $photo->image_path) }}"
-                                alt="Galeri {{ $activity->title }}" class="w-100 h-100 gallery-img shadow-sm">
-                        </div>
-                    </div>
-                @empty
-                    {{-- Tampilan jika galeri kosong --}}
-                    <div class="col-12">
-                        <div class="card border-0 shadow-sm bg-light text-center py-5" style="border-radius: 15px;">
-                            <div class="card-body">
-                                <i class="bi bi-camera-video-off text-secondary mb-3" style="font-size: 3rem;"></i>
-                                <h5 class="text-muted">Belum ada dokumentasi foto untuk kegiatan ini.</h5>
-                            </div>
-                        </div>
-                    </div>
-                @endforelse
-            </div>
-        </div>
+        <livewire:activity-gallery :activity="$activity" />
 
 
         <div class="text-center mt-5">
@@ -163,27 +148,90 @@
     </div>
 
     <style>
-        .gallery-box {
-            overflow: hidden;
-            border-radius: 15px;
-        }
+        /* === GALLERY GRID === */
+/* === MASONRY GALLERY === */
+.gallery-masonry {
+    column-count: 3;
+    column-gap: 1rem;
+}
 
-        .gallery-large {
-            height: 450px;
-        }
+.gallery-masonry .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f4f6f8;
+    cursor: pointer;
+}
 
-        .gallery-small {
-            height: 218px;
-        }
+.gallery-masonry img {
+    width: 100%;
+    height: auto; /* ⬅ rasio asli */
+    display: block;
+    transition: transform .35s ease;
+}
 
-        .gallery-img {
-            object-fit: cover;
-            transition: 0.3s;
-        }
+.gallery-masonry .gallery-item:hover img {
+    transform: scale(1.04);
+}
 
-        .gallery-img:hover {
-            transform: scale(1.03);
-        }
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
+    .gallery-masonry {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-masonry {
+        column-count: 1;
+    }
+}
+
+
+
+/* ===== LIGHTBOX ===== */
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    z-index: 1055;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image {
+    max-width: 85vw;
+    max-height: 85vh;
+    object-fit: contain;
+}
+
+.lightbox-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.lightbox-btn.left { left: 24px; }
+.lightbox-btn.right { right: 24px; }
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 26px;
+    color: white;
+    background: none;
+    border: none;
+}
+
+
 
         .italic {
             font-style: italic;

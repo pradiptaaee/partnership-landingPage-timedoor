@@ -7,7 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\PartnerActivity; // Sesuaikan dengan model kamu
 
-class PartnerSearch extends Component
+class PartnerActivityCard extends Component
 {
     use WithPagination;
 
@@ -39,6 +39,7 @@ class PartnerSearch extends Component
         $this->year = '';
         $this->resetPage();
     }
+    
 
     public function render()
     {
@@ -56,7 +57,7 @@ class PartnerSearch extends Component
             ->latest('activity_date')
             ->paginate(6); // 9 items per page (3 kolom x 3 baris)
 
-        return view('livewire.partner-search', [
+        return view('livewire.partner-activity-card', [
             'activities' => $activities
         ]);
     }

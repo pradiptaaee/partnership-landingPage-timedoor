@@ -142,7 +142,7 @@
                                 @enderror
                             </div>
 
-                            <div>
+                            {{-- <div>
                                 <div class="flex justify-between items-center mb-2">
                                     <label for="short_description" class="text-sm font-bold text-gray-700">Deskripsi Singkat
                                         <span class="text-red-500">*</span></label>
@@ -156,7 +156,7 @@
                                 @error('short_description')
                                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <div>
                                 <label for="full_description" class="block mb-2 text-sm font-bold text-gray-700">Deskripsi
@@ -178,47 +178,63 @@
                         </div>
 
                         <div class="p-8 space-y-6">
-
                             {{-- SEMINAR --}}
-                            <div class="extra-form hidden" data-category="seminar">
-                                {{-- <pre class="text-xs bg-gray-100 p-2">
-{{ json_encode($activity->extra_attributes, JSON_PRETTY_PRINT) }}
-</pre> --}}
+                            <div class="extra-form space-y-6 hidden" data-category="seminar">
                                 <div>
                                     <label class="block mb-2 text-sm font-bold text-gray-700">Nama Pembicara</label>
-                                    <input type="text" name="extra[speaker_name]"
-                                        value="{{ old('extra.speaker_name', $activity->extra_attributes['speaker_name'] ?? '') }}"
-                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full">
+                                    <input type="text" name="speaker_name"
+                                        value="{{ old('extra.speaker_name', $activity->seminarDetail->speaker_name ?? '') }}"
+                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full focus:ring-[#0f5132] focus:border-[#0f5132]">
                                 </div>
 
                                 <div>
-                                    <label class="block mb-2 text-sm font-bold text-gray-700">Foto Pembicara</label>
-                                    <input type="file" name="extra[speaker_photo]" class="block w-full text-sm">
-                                    @if (!empty($activity->extra_attributes['speaker_photo']))
-                                        <p class="text-xs text-gray-500 mt-1">
-                                            File saat ini: {{ $activity->extra_attributes['speaker_photo'] }}
-                                        </p>
+                                    <label class="block text-xs font-bold text-[#0f5132] uppercase mb-1">Tentang
+                                        Pembicara</label>
+                                    <textarea name="speaker_about" rows="3"
+                                        class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 resize-none focus:ring-[#0f5132] focus:border-[#0f5132]">{{ old('extra.speaker_about', $activity->seminarDetail->speaker_about ?? '') }}</textarea>
+                                </div>
+
+                                <div class="space-y-2">
+                                    {{-- FOTO PEMBICARA SAAT INI --}}
+                                    @if ($activity->seminarDetail && $activity->seminarDetail->speaker_photo)
+                                        <div id="oldSpeakerPhoto" class="mb-2">
+                                            <img src="{{ asset('storage/activity/speakers/' . $activity->seminarDetail->speaker_photo) }}"
+                                                alt="Speaker Photo" class="w-32 h-32 object-cover rounded-lg shadow">
+                                            <p class="text-xs text-gray-500 mt-1 italic">Kosongkan jika tidak ingin
+                                                mengganti foto</p>
+                                        </div>
                                     @endif
+
+                                    {{-- PREVIEW FOTO BARU --}}
+                                    <div id="newSpeakerPreview" class="hidden">
+                                        <img id="speaker_preview_img" src=""
+                                            class="w-32 h-32 object-cover rounded-lg shadow border-2 border-[#0f5132]">
+                                    </div>
+
+                                    <label for="speaker_photo"
+                                        class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition">
+                                        <i class="fas fa-upload mr-2"></i> Pilih Foto Pembicara
+                                    </label>
+                                    <input type="file" id="speaker_photo" name="speaker_photo"
+                                        accept="image/*" class="hidden" onchange="previewSpeakerPhoto(event)">
                                 </div>
                             </div>
 
                             {{-- WORKSHOP --}}
-                            <div class="extra-form hidden" data-category="workshop">
+                            <div class="extra-form space-y-6 hidden" data-category="workshop">
                                 <div>
                                     <label class="block mb-2 text-sm font-bold text-gray-700">Nama Mentor</label>
-                                    <input type="text" name="extra[mentor_name]"
-                                        value="{{ old('extra.mentor_name', $activity->extra_attributes['mentor_name'] ?? '') }}"
-                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full">
+                                    <input type="text" name="mentor_name"
+                                        value="{{ old('extra.mentor_name', $activity->workshopDetail->mentor_name ?? '') }}"
+                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full focus:ring-[#0f5132] focus:border-[#0f5132]">
                                 </div>
-
                                 <div>
-                                    <label class="block mb-2 text-sm font-bold text-gray-700">Tools</label>
-                                    <input type="text" name="extra[tools]"
-                                        value="{{ old('extra.tools', $activity->extra_attributes['tools'] ?? '') }}"
-                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full">
+                                    <label class="block mb-2 text-sm font-bold text-gray-700">Deskripsi
+                                        Mentor/Workshop</label>
+                                    <textarea name="description" rows="3"
+                                        class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 resize-none focus:ring-[#0f5132] focus:border-[#0f5132]">{{ old('extra.description', $activity->workshopDetail->description ?? '') }}</textarea>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -311,8 +327,10 @@
 
                                                 <div
                                                     class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
-                                                    <button type="button" onclick="deletePhoto({{ $photo->id }})"
-                                                        class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-colors shadow-lg"
+                                                    <button type="button"
+                                                        onclick="confirmDeleteGallery('{{ route('admin.activity.photo.delete', $photo->id) }}')"
+                                                        class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full 
+           hover:bg-red-500 hover:text-white transition-colors shadow-lg"
                                                         title="Hapus Foto">
                                                         <i class="fas fa-trash-alt text-sm"></i>
                                                     </button>
@@ -362,11 +380,6 @@
                                 class="w-full text-white bg-[#0f5132] hover:bg-[#0a3622] focus:ring-4 focus:ring-[#0f5132]/50 font-bold rounded-xl text-sm px-5 py-3.5 focus:outline-none transition-all shadow-md transform hover:-translate-y-0.5 flex items-center justify-center">
                                 <i class="fas fa-save mr-2"></i> Simpan Perubahan
                             </button>
-
-                            <button type="button" onclick="deleteActivity()"
-                                class="w-full text-red-600 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 focus:ring-4 focus:ring-red-100 font-medium rounded-xl text-sm px-5 py-3 focus:outline-none transition-all flex items-center justify-center mt-3">
-                                <i class="fas fa-trash-alt mr-2"></i> Hapus Kegiatan
-                            </button>
                         </div>
 
                         <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 leading-relaxed">
@@ -386,37 +399,153 @@
         @method('DELETE')
     </form>
 
+    <div id="deleteModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-white/80 backdrop-blur-sm animate-fadeIn">
+
+        <div
+            class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl animate-scaleIn text-center rounded-none">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Item?</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-8">
+                Tindakan ini permanen. Lanjutkan?
+            </p>
+
+            <form id="deleteForm" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="flex flex-col gap-3">
+                    <button type="submit"
+                        class="w-full px-4 py-3 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">
+                        YA, HAPUS
+                    </button>
+
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-bold hover:bg-gray-50 transition">
+                        BATAL
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="deleteActivityModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+
+        <div class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl text-center">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Kegiatan?</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-8">
+                Tindakan ini permanen dan tidak dapat dibatalkan.
+            </p>
+
+            <div class="flex flex-col gap-3">
+                <button id="confirmDeleteActivityBtn"
+                    class="w-full px-4 py-3 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">
+                    YA, HAPUS
+                </button>
+
+                <button onclick="closeDeleteActivityModal()"
+                    class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-bold hover:bg-gray-50 transition">
+                    BATAL
+                </button>
+            </div>
+        </div>
+    </div>
+
     {{-- Script JavaScript --}}
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const categoryInput = document.getElementById('category_activity')
-            const forms = document.querySelectorAll('.extra-form')
+        function confirmDeleteGallery(actionUrl) {
+            const modal = document.getElementById('deleteModal');
+            const form = document.getElementById('deleteForm');
 
-            function toggleExtraForms(category) {
-                const value = category.trim().toLowerCase()
+            form.action = actionUrl;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
 
-                forms.forEach(form => {
-                    form.classList.add('hidden')
-                    form.querySelectorAll('input').forEach(i => i.required = false)
-                })
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
 
-                const active = document.querySelector(`[data-category="${value}"]`)
-                if (active) {
-                    active.classList.remove('hidden')
-                    active.querySelectorAll('input').forEach(i => {
-                        if (!i.name.includes('tools')) i.required = true
-                    })
-                }
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+       // Konfigurasi field yang wajib diisi saat mode Edit (tanpa file)
+    const REQUIRED_FIELDS = {
+        seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
+        workshop: ['extra[mentor_name]']
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoryInput = document.getElementById('category_activity');
+        const extraForms = document.querySelectorAll('.extra-form');
+
+        function activateForm(val) {
+            const category = val.trim().toLowerCase();
+            
+            // Sembunyikan semua & matikan required
+            extraForms.forEach(f => {
+                f.classList.add('hidden');
+                f.querySelectorAll('input, textarea').forEach(i => i.required = false);
+            });
+
+            // Tampilkan yang cocok
+            const target = document.querySelector(`.extra-form[data-category="${category}"]`);
+            if (target) {
+                target.classList.remove('hidden');
+                // Set required hanya untuk field teks (bukan file)
+                const fields = REQUIRED_FIELDS[category] || [];
+                fields.forEach(name => {
+                    const el = target.querySelector(`[name="${name}"]`);
+                    if (el) el.required = true;
+                });
+            }
+        }
+
+        // Listener input
+        categoryInput.addEventListener('input', (e) => activateForm(e.target.value));
+
+        // Jalankan saat load (untuk data lama)
+        if (categoryInput.value) activateForm(categoryInput.value);
+    });
+
+    // Preview Foto Pembicara (Seminar)
+    function previewSpeakerPhoto(event) {
+        const file = event.target.files[0];
+        const previewDiv = document.getElementById('newSpeakerPreview');
+        const previewImg = document.getElementById('speaker_preview_img');
+        const oldPhoto = document.getElementById('oldSpeakerPhoto');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                previewDiv.classList.remove('hidden');
+                if(oldPhoto) oldPhoto.style.opacity = '0.3';
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+        document.getElementById('speaker_photo')?.addEventListener('change', function(e) {
+            const file = e.target.files[0]
+            if (!file) return
+
+            const reader = new FileReader()
+
+            reader.onload = function(ev) {
+                const newPreview = document.getElementById('newSpeakerPreview')
+                const oldPreview = document.getElementById('oldSpeakerPhoto')
+
+                newPreview.querySelector('img').src = ev.target.result
+                newPreview.classList.remove('hidden')
+
+                if (oldPreview) oldPreview.classList.add('hidden')
             }
 
-            if (categoryInput && categoryInput.value) {
-                toggleExtraForms(categoryInput.value)
-            }
-
-            categoryInput.addEventListener('input', e => {
-                toggleExtraForms(e.target.value)
-            })
+            reader.readAsDataURL(file)
         })
+
+
         // Hitung Karakter
         const shortDesc = document.getElementById('short_description');
         const charCount = document.getElementById('char_count');
@@ -469,54 +598,6 @@
                     reader.readAsDataURL(file);
                 });
             }
-        }
-
-        // Delete Logic
-        function deleteActivity() {
-            if (confirm(
-                    'PERINGATAN: Apakah Anda yakin ingin menghapus kegiatan ini secara permanen? Data yang dihapus tidak bisa dikembalikan.'
-                )) {
-                document.getElementById('deleteActivityForm').submit();
-            }
-        }
-
-        function deletePhoto(photoId) {
-            if (!confirm('Hapus foto ini dari galeri?')) return;
-
-            const card = document.getElementById(`photo-card-${photoId}`);
-            if (card) {
-                card.style.opacity = '0.5';
-                card.style.pointerEvents = 'none';
-            }
-
-            fetch(`/admin/activity/photo/${photoId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    if (res.ok) {
-                        if (card) {
-                            card.classList.add('scale-0');
-                            setTimeout(() => card.remove(), 300);
-                        }
-                    } else {
-                        alert('Gagal menghapus foto.');
-                        if (card) {
-                            card.style.opacity = '1';
-                            card.style.pointerEvents = 'auto';
-                        }
-                    }
-                })
-                .catch(err => {
-                    alert('Terjadi kesalahan koneksi.');
-                    if (card) {
-                        card.style.opacity = '1';
-                        card.style.pointerEvents = 'auto';
-                    }
-                });
         }
     </script>
 @endsection

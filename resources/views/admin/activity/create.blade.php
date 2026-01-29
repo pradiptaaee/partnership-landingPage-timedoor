@@ -49,7 +49,7 @@
 
                     <div class="space-y-6 flex-grow overflow-y-auto pr-2 custom-scrollbar">
 
-                        {{-- 1. Partner Selection --}}
+                        {{-- 1. Partner Selection -path: --}}
                         <div>
                             <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
                                 Pilih Partner <span class="text-red-500">*</span>
@@ -119,60 +119,10 @@
                         </div>
 
                         {{-- EXTRA FIELD: SEMINAR --}}
-                        <div class="extra-form hidden space-y-4 mt-4" data-category="seminar">
-                            <div>
-                                <label class="block text-xs font-bold text-[#0f5132] uppercase mb-1">
-                                    Nama Pembicara <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" name="extra[speaker_name]"
-                                    class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200
-                   focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132]">
-                            </div>
+                        @include('admin.activity.extraForm.seminar')
+                        @include('admin.activity.extraForm.workshop')
 
-                            <div>
-                                <label class="block text-xs font-bold text-[#0f5132] uppercase mb-1">
-                                    Foto Pembicara <span class="text-red-500">*</span>
-                                </label>
-                                <input type="file" name="extra[speaker_photo]" accept="image/*"
-                                    class="w-full text-sm text-gray-600">
-                            </div>
-                        </div>
 
-                        {{-- EXTRA FIELD: WORKSHOP --}}
-                        <div class="extra-form hidden space-y-4 mt-4" data-category="workshop">
-                            <div>
-                                <label class="block text-xs font-bold text-[#0f5132] uppercase mb-1">
-                                    Nama Mentor <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" name="extra[mentor_name]"
-                                    class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200
-                   focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132]">
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-[#0f5132] uppercase mb-1">
-                                    Tools (Opsional)
-                                </label>
-                                <input type="text" name="extra[tools]"
-                                    class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200">
-                            </div>
-                        </div>
-
-                        {{-- 3. Deskripsi Singkat --}}
-                        <div>
-                            <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
-                                Deskripsi Singkat <span class="text-red-500">*</span>
-                            </label>
-                            <textarea name="short_description" id="short_description" rows="3" maxlength="200"
-                                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm leading-relaxed resize-none"
-                                placeholder="Ringkasan kegiatan untuk tampilan kartu..." required>{{ old('short_description') }}</textarea>
-                            <div class="flex justify-end mt-1">
-                                <span class="text-[10px] text-gray-400"><span id="char_count">0</span>/200 karakter</span>
-                            </div>
-                            @error('short_description')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
 
                         {{-- 4. Deskripsi Lengkap --}}
                         <div>
@@ -287,43 +237,61 @@
     {{-- JAVASCRIPT --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const categoryInput = document.getElementById('category_activity')
-            const extraForms = document.querySelectorAll('.extra-form')
+            const categoryInput = document.getElementById('category_activity');
+            const extraForms = document.querySelectorAll('.extra-form');
 
-            function toggleExtraForms(category) {
-                const value = category.trim().toLowerCase()
+            // Definisi field mana saja yang wajib diisi (required) saat kategori dipilih
+            const REQUIRED_FIELDS = {
+                seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
+                workshop: ['extra[mentor_name]']
+            };
 
+            /**
+             * Fungsi untuk menampilkan form tambahan berdasarkan kategori
+             */
+            function activateCategoryForm(category) {
+                const cleanCategory = category.trim().toLowerCase();
+
+                // 1. Sembunyikan semua extra form dan matikan status 'required' semua input di dalamnya
                 extraForms.forEach(form => {
-                    form.classList.add('hidden')
-                    form.querySelectorAll('input').forEach(input => {
-                        input.required = false
-                    })
-                })
+                    form.classList.add('hidden');
+                    form.querySelectorAll('input, textarea').forEach(el => {
+                        el.required = false;
+                    });
+                });
 
-                const activeForm = document.querySelector(`[data-category="${value}"]`)
-                if (activeForm) {
-                    activeForm.classList.remove('hidden')
-                    activeForm.querySelectorAll('input').forEach(input => {
-                        if (!input.name.includes('tools')) {
-                            input.required = true
+                // 2. Cari form yang sesuai dengan data-category
+                const targetForm = document.querySelector(`.extra-form[data-category="${cleanCategory}"]`);
+
+                if (targetForm) {
+                    // Tampilkan form dengan animasi (pastikan class animate-fade-in ada di CSS)
+                    targetForm.classList.remove('hidden');
+
+                    // 3. Aktifkan 'required' hanya untuk field spesifik di kategori tersebut
+                    const fieldsToRequire = REQUIRED_FIELDS[cleanCategory] || [];
+                    fieldsToRequire.forEach(name => {
+                        const field = targetForm.querySelector(`[name="${name}"]`);
+                        if (field) {
+                            field.required = true;
+
+                            // Opsional: Tambahkan indikator visual (border merah jika kosong)
+                            field.classList.add('border-emerald-200');
                         }
-                    })
+                    });
                 }
             }
 
-            categoryInput.addEventListener('input', e => {
-                toggleExtraForms(e.target.value)
-            })
+            // Listener saat user mengetik kategori
+            categoryInput.addEventListener('input', (e) => {
+                activateCategoryForm(e.target.value);
+            });
 
+            // Jalankan saat pertama kali halaman dimuat (untuk menangani 'old' value setelah reload/error)
             if (categoryInput.value) {
-                toggleExtraForms(categoryInput.value)
+                activateCategoryForm(categoryInput.value);
             }
-        })
-
-        // Character Counter
-        document.getElementById('short_description').addEventListener('input', function() {
-            document.getElementById('char_count').textContent = this.value.length;
         });
+
 
         // Preview Featured Image
         function previewFeaturedImage(event) {
