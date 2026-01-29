@@ -33,15 +33,15 @@
                 {{-- Search Input (Minimalist) --}}
                 <div class="relative group">
                     <input type="text" 
-                           wire:model.live.debounce.300ms="search" 
-                           placeholder="Cari kegiatan..."
-                           class="w-full sm:w-64 pl-3 pr-10 py-2.5 bg-white border-b-2 border-gray-100 focus:border-[#0f5132] outline-none text-sm transition-colors placeholder-gray-400 group-hover:border-gray-300">
+                        wire:model.live.debounce.300ms="search" 
+                        placeholder="Cari kegiatan..."
+                        class="w-full sm:w-64 pl-3 pr-10 py-2.5 bg-white border-b-2 border-gray-100 focus:border-[#0f5132] outline-none text-sm transition-colors placeholder-gray-400 group-hover:border-gray-300">
                     <i class="bi bi-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 </div>
 
                 {{-- Add Button --}}
                 <a href="{{ route('admin.activity.create') }}" 
-                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0f5132] text-white text-sm font-semibold rounded-lg hover:bg-[#0b3d26] transition-all duration-200 shadow-md hover:shadow-lg">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0f5132] text-white text-sm font-semibold rounded-lg hover:bg-[#0b3d26] transition-all duration-200 shadow-md hover:shadow-lg">
                         <i class="bi bi-plus-lg"></i>
                         <span>Tambah Kegiatan</span>
                     </a>
@@ -87,8 +87,8 @@
                         <a href="{{ route('admin.activity.show', $activity->slug) }}">
                             @if ($activity->featured_image)
                                 <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                                     alt="{{ $activity->title }}">
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                    alt="{{ $activity->title }}">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-gray-300">
                                     <i class="bi bi-image text-3xl"></i>

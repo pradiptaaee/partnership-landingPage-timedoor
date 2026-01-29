@@ -56,7 +56,7 @@ class PartnerSearch extends Component
             ->latest('activity_date')
             ->paginate(6); // 9 items per page (3 kolom x 3 baris)
 
-        return view('livewire.partner-search', [
+        return view('livewire.partner-main', [
             'activities' => $activities
         ]);
     }

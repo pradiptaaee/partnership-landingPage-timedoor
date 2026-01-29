@@ -10,7 +10,7 @@ use Spatie\Translatable\HasTranslations;
 class Testimonial extends Model
 {
     use HasFactory;
-    use HasTranslations;
+   
     // Sesuaikan dengan model Anda
     protected $fillable = [
         'parent_name', 
