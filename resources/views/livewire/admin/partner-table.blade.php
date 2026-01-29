@@ -125,6 +125,8 @@
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Info Partner</th>
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Deskripsi Singkat</th>
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Kategori</th>
+                                <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">No Telepon</th>
                                 <th class="px-6 py-4 text-center text-[11px] font-bold text-gray-400 uppercase tracking-wider">Aksi</th>
                             </tr>
                         </thead>
@@ -166,6 +168,16 @@
                                     <td class="px-6 py-4">
                                         <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">
                                             {{ $partner->category }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1 text-xs  text-grey-500 ">
+                                            {{ $partner->email }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1  text-xs  text-grey-500 ">
+                                            {{ $partner->no_telepon}}
                                         </span>
                                     </td>
 

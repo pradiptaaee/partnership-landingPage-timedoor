@@ -1,204 +1,215 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- ===========================
-            TITLE SECTION
-        =========================== -->
-<section class="title-section py-4 bg-white">
-    <div class="container-fluid px-0">
-        <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">Partnership</h1>
-    </div>
-</section>
-
-
-<!-- ===========================
-            HERO IMAGE
-        =========================== -->
-<section class="hero-section">
-    <div class="container py-4 px-lg-3 px-md-4 px-3">
-        <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-            alt="School Partnership" class="img-fluid w-100 shadow-sm hero-img">
-    </div>
-</section>
-
-<!-- ===========================
-            INTRO TEXT
-        =========================== -->
-<section class="intro-section py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <p class="text-center text-muted">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur.
-                </p>
+    <section class="">
+        <!-- ===========================
+                TITLE SECTION
+            =========================== -->
+        <section class="title-section bg-white">
+            <div class="container-fluid">
+                <h1 class="fw-bold display-5 text-primary text-center px-5 py-3 fs-4">School & Govermant Partnership</h1>
             </div>
+        </section>
+
+
+        <!-- ===========================
+                HERO IMAGE
+            =========================== -->
+        <section class="hero-section">
+            <div class="container-md py-0  px-md-4">
+                <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
+                    alt="School Partnership" class="img-fluid w-100 shadow-sm hero-img">
+            </div>
+        </section>
+
+
+        <!-- ===========================
+                INTRO TEXT
+            =========================== -->
+        <section class="intro-section py-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <p class="text-start text-muted">
+                            Jika Anda tertarik dengan kelas pemrograman atau desain, silakan hubungi kami di sini. Timedoor
+                            Academy menyediakan layanan pendidikan ke berbagai sekolah dan pemerintah.
+                            Kemitraan dapat dibentuk dalam berbagai bentuk, termasuk mata pelajaran utama, ekstrakurikuler,
+                            kegiatan klub, afiliasi rujukan siswa, kemitraan tempat, dan pelatihan guru. Jangan ragu untuk
+                            menghubungi kami terlebih dahulu.
+                        </p>
+                        <p class="text-start text-muted"><a href="#">Hubungi Kami</a> untuk gabung mitra bisnis kami
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===========================
+                SLIDER (AUTOPLAY FLEX)
+            =========================== -->
+        <div class="container-fluid px-0">
+            <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
+                {{ __('Partnership') }}
+            </h1>
         </div>
-    </div>
-</section>
 
-<!-- ===========================
-            SLIDER (AUTOPLAY FLEX)
-        =========================== -->
-<div class="container-fluid px-0">
-    <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
-        {{ __('Partnership') }}
-        </h2>
-</div>
+        <section class="partnership-slider py-4">
+            <div class="slider-container overflow-hidden"> {{-- Pastikan overflow hidden agar rapi --}}
+                <div class="slider-track" id="sliderTrack">
 
-<section class="partnership-slider py-4">
-    <div class="slider-container overflow-hidden"> {{-- Pastikan overflow hidden agar rapi --}}
-        <div class="slider-track" id="sliderTrack">
+                    {{-- Loop Pertama --}}
+                    @foreach ($partners as $p)
+                        {{-- Cek apakah logo ada dan file fisiknya ada --}}
+                        @if ($p->logo)
+                            <div class="slider-item group relative inline-block ">
+                                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}"
+                                    title="{{ $p->name }}" {{-- Tooltip bawaan browser --}}
+                                    class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                            </div>
+                        @endif
+                    @endforeach
 
-            {{-- Loop Pertama --}}
-            @foreach ($partners as $p)
-            {{-- Cek apakah logo ada dan file fisiknya ada --}}
-            @if($p->logo)
-            <div class="slider-item group relative inline-block ">
-                <img src="{{ asset('storage/' . $p->logo) }}"
-                    alt="{{ $p->name }}"
-                    title="{{ $p->name }}" {{-- Tooltip bawaan browser --}}
-                    class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+                    {{-- Duplikasi untuk Infinite Loop (Pastikan filter yang sama diterapkan) --}}
+                    @foreach ($partners as $p)
+                        @if ($p->logo)
+                            <div class="slider-item group relative inline-block ">
+                                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}"
+                                    title="{{ $p->name }}"
+                                    class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+
+                            </div>
+                        @endif
+                    @endforeach
+
+                </div>
             </div>
-            @endif
-            @endforeach
+        </section>
 
-            {{-- Duplikasi untuk Infinite Loop (Pastikan filter yang sama diterapkan) --}}
-            @foreach ($partners as $p)
-            @if($p->logo)
-            <div class="slider-item group relative inline-block ">
-                <img src="{{ asset('storage/' . $p->logo) }}"
-                    alt="{{ $p->name }}"
-                    title="{{ $p->name }}"
-                    class="transition-transform duration-300 hover:scale-110 cursor-pointer">
+        <!-- ===========================
+                WORKSHOP SECTION
+            =========================== -->
+        <section class="workshop-section py-5">
+            <div class="container">
+                <h2 class="text-center fs-3 fw-bold my-5">Workshop dan Pelatihan Sekolah</h2>
+
+                <!-- Search Section -->
+                @livewire('partner-activity-card')
 
             </div>
-            @endif
-            @endforeach
+        </section>
+    </section>
+    <style>
+        .btnFilter:hover {
+    background-color: #d2d2d2ff;
+}
 
-        </div>
-    </div>
-</section>
+/* Global Primary Text Color */
+.text-primary {
+    color: #001D7A !important;
+}
 
-<!-- ===========================
-            WORKSHOP SECTION
-        =========================== -->
-<section class="workshop-section py-5">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5">Workshop dan Pelatihan Sekolah</h2>
+.title-section {
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+}
 
-        <!-- Search Section -->
-        @livewire('partner-search')
+.hero-section {
+    padding: 0 13rem;
+}
 
-    </div>
-</section>
-<style>
-    /* Hover effect */
-    .btnFilter:hover {
-        background-color: #d2d2d2ff;
+/* -------- HERO IMAGE -------- */
+.hero-img {
+
+    max-height: 540px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/* -------- SLIDER -------- */
+/* ===== SLIDER WRAPPER ===== */
+.slider-container {
+    overflow: hidden;
+    width: 100%;
+    background: #ffffff;
+}
+
+/* ===== SLIDER TRACK ===== */
+.slider-track {
+    display: flex;
+    width: max-content;
+    gap: 0px;
+    animation: scroll 30s linear infinite;
+}
+
+/* ===== SLIDER ITEM ===== */
+.slider-item {
+    flex: 0 0 auto;
+    width: 300px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.slider-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
     }
 
-    /* Global Primary Text Color */
-    .text-primary {
-        color: #001D7A !important;
+    100% {
+        transform: translateX(-50%);
     }
+}
 
-    /* -------- HERO IMAGE -------- */
-    .hero-img {
-        max-height: 420px;
-        object-fit: cover;
-        border-radius: 20px;
-    }
-
-    /* -------- SLIDER -------- */
-    /* ===== SLIDER WRAPPER ===== */
-    .slider-container {
-        overflow: hidden;
-        width: 100%;
-        background: #ffffff;
-    }
-
-    /* ===== SLIDER TRACK ===== */
-    .slider-track {
-        display: flex;
-        width: max-content;
-        gap: 0px;
-        animation: scroll 30s linear infinite;
-    }
-
-    /* ===== SLIDER ITEM ===== */
-    .slider-item {
-        flex: 0 0 auto;
-        width: 300px;
-        height: 180px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-    }
-
-    .slider-item img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-    }
-
-    /* ===== ANIMATION ===== */
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-
-    /* Pause on hover */
-    .slider-track:hover {
-        animation-play-state: paused;
-    }
+/* Pause on hover */
+.slider-track:hover {
+    animation-play-state: paused;
+}
 
 
-    /* Global Primary Text Color */
-    .text-primary {
-        color: #001D7A !important;
-    }
+/* Global Primary Text Color */
+.text-primary {
+    color: #001D7A !important;
+}
 
-    /* Pause on hover */
-    .slider-track:hover {
-        animation-play-state: paused;
-    }
+/* Pause on hover */
+.slider-track:hover {
+    animation-play-state: paused;
+}
 
-    /* -------- WORKSHOP CARDS -------- */
-    .workshop-img {
-        height: 200px;
-        object-fit: cover;
-    }
+/* -------- WORKSHOP CARDS -------- */
+.workshop-img {
+    height: 200px;
+    object-fit: cover;
+}
 
 
-    .workshop-section {
-        background-color: #EDFFF3;
-    }
+.workshop-section {
+    background-color: #EDFFF3;
+}
+    </style>
 
-    /* Button Filter */
-</style>
-<script>
-    document.getElementById("loadMoreLink").addEventListener("click", function(e) {
-        e.preventDefault();
-        document.getElementById("moreWorkshops").classList.remove("d-none");
-        this.style.display = "none";
-    });
+    <script>
+        document.getElementById("loadMoreLink").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("moreWorkshops").classList.remove("d-none");
+            this.style.display = "none";
+        });
 
-    // load more 2
-    document.getElementById("loadMore").addEventListener("click", function(e) {
-        e.preventDefault();
-        document.getElementById("Workshops").classList.remove("d-none");
-        this.style.display = "none";
-    });
-</script>
+        // load more 2
+        document.getElementById("loadMore").addEventListener("click", function(e) {
+            e.preventDefault();
+            document.getElementById("Workshops").classList.remove("d-none");
+            this.style.display = "none";
+        });
+    </script>
 @endsection

@@ -34,7 +34,10 @@ class PartnerController extends Controller
 
     public function show($slug)
     {
-        $activity = PartnerActivity::with('partner', 'photos')
+        $activity = PartnerActivity::with('partner', 'photos',
+            'seminarDetail',
+            'workshopDetail',
+        )
             ->where('slug', $slug)
             ->firstOrFail();
 

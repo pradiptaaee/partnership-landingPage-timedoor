@@ -63,6 +63,32 @@
                             <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
                         @enderror
                     </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            Email <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" 
+                               name="email" 
+                               value="{{ old('email') }}"
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" >
+                        @error('email') 
+                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
+                            No Telepon <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               name="no_telepon" 
+                               value="{{ old('no_telepon') }}"
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
+                               
+                               >
+                        @error('no_telepon') 
+                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
+                        @enderror
+                    </div>
 
                     {{-- 3. Deskripsi --}}
                     <div>

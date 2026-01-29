@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 
 class PartnerActivity extends Model
@@ -15,10 +16,29 @@ class PartnerActivity extends Model
         'title',
         'slug',
         'category_activity',
-        'short_description',
         'full_description',
         'activity_date',
-        'featured_image'
+        'featured_image',
+    ];
+
+    // File: app/Models/PartnerActivity.php
+    public function seminarDetail()
+    {
+        return $this->hasOne(ActivitySeminarDetail::class, 'partner_activity_id');
+    }
+
+    public function workshopDetail()
+    {
+        return $this->hasOne(ActivityWorkshopDetail::class, 'partner_activity_id');
+    }
+
+    /**
+     * =========================
+     * CASTS
+     * =========================
+     */
+    protected $casts = [
+        'activity_date' => 'date',
     ];
 
     public function partner()
@@ -28,39 +48,52 @@ class PartnerActivity extends Model
 
     public function photos()
     {
-        return $this->hasMany(PhotoActivity::class, 'activity_id');
+        return $this->hasMany(PhotoActivity::class, 'partner_activity_id');
     }
 
-    // URL accessor
-    public function getFeaturedImageUrlAttribute()
+    
+    public function getFeaturedImageUrlAttribute(): ?string
     {
         return $this->featured_image
             ? asset('storage/activity/featured/' . $this->featured_image)
             : null;
     }
-    // public function getFeaturedImageUrlAttribute()
-    // {
-    //     return $this->featured_image
-    //         ? asset('storage/' . $this->featured_image)
-    //         : null;
-    // }
 
-    // Delete images automatically when activity is deleted
+    /**
+     * =========================
+     * HELPER
+     * =========================
+     */
+    public function hasSeminarExtra(): bool
+    {
+        return strtolower($this->category_activity) === 'seminar';
+    }
+
+    /**
+     * =========================
+     * MODEL EVENTS
+     * =========================
+     */
     protected static function booted()
     {
         static::deleting(function ($activity) {
+
+            // featured image
             if ($activity->featured_image) {
                 Storage::disk('public')->delete($activity->featured_image);
             }
 
+            // speaker photo (extra)
+            // if (!empty($activity->extra_attributes['speaker_photo'])) {
+            //     Storage::disk('public')->delete(
+            //         $activity->extra_attributes['speaker_photo']
+            //     );
+            // }
+
+            // gallery photos
             foreach ($activity->photos as $photo) {
-                $photo->delete(); // model PhotoActivity will delete its file
+                $photo->delete();
             }
         });
     }
-
-    protected $casts = [
-        'activity_date' => 'date',
-    ];
-
 }

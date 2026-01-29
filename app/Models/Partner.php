@@ -12,17 +12,13 @@ class Partner extends Model
 {
     use HasFactory;
 
-    // protected $table = 'partners';
-    protected $fillable = ['name', 'slug', 'category', 'description', 'logo'];
+    protected $fillable = ['name', 'slug', 'category', 'description', 'logo', 'email', 'no_telepon'];
 
     public function activities()
     {
         return $this->hasMany(PartnerActivity::class);
     }
 
-    /**
-     * Get the logo URL.
-     */
     public function getLogoUrlAttribute()
     {
         if ($this->logo) {
@@ -31,14 +27,10 @@ class Partner extends Model
         return null;
     }
 
-    /**
-     * Boot the model.
-     */
     protected static function boot()
     {
         parent::boot();
 
-        // Delete logo when partner is deleted
         static::deleting(function ($partner) {
             if ($partner->logo && Storage::disk('public')->exists($partner->logo)) {
                 Storage::disk('public')->delete($partner->logo);
