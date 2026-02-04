@@ -48,9 +48,9 @@
         <!-- ===========================
                 SLIDER (AUTOPLAY FLEX)
             =========================== -->
-        <div class="container-fluid px-0">
+        <div class="container-fluid px-0 h-40">
             <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
-                {{ __('Partnership') }}
+                Mitra Kami
             </h1>
         </div>
 

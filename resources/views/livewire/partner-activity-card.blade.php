@@ -92,22 +92,26 @@
                         </div>
 
                         <div class="card-body d-flex flex-column p-4">
-                            <p style="color: #10A300; font-size: 14px; font-weight: 600;">
-                                {{ $activity->activity_date->translatedFormat('d F Y') }}
-                            </p>
+                            <div>
+                                <p style="color: #10A300; font-size: 14px; font-weight: 600;">
+                                    {{ $activity->activity_date->translatedFormat('d F Y') }}
+                                </p>
 
-                            <h5 style="font-weight: 700; font-size: 18px; color: #0C3D8F;">
-                                {{ $activity->title }}
-                            </h5>
+                                <h5 style="font-weight: 700; font-size: 18px; color: #0C3D8F;">
+                                    {{ $activity->title }}
+                                </h5>
 
-                            <p class="text-muted description-clamp">
-                                {{ \Illuminate\Support\Str::words(strip_tags($activity->full_description), 8, '...') }}
-                            </p>
+                                <p class="text-muted description-clamp">
+                                    {{ \Illuminate\Support\Str::words(strip_tags($activity->full_description), 8, '...') }}
+                                </p>
+                            </div>
 
-                            <a href="{{ route('partnership.show', $activity->slug) }}" class="btn btn-primary mt-3"
-                                style="background: linear-gradient(135deg, #10A300 0%, #0d8500 100%); border: none; border-radius: 25px; padding: 10px 25px;">
-                                <i class="bi bi-eye me-2"></i>Lihat Detail
-                            </a>
+                            <div class=" mt-auto">
+                                <a href="{{ route('partnership.show', $activity->slug) }}" class="btn btn-primary mt-3 w-full"
+                                    style="background: linear-gradient(135deg, #10A300 0%, #0d8500 100%); border: none; border-radius: 25px; padding: 10px 25px;">
+                                    <i class="bi bi-eye me-2"></i>Lihat Detail
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

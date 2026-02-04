@@ -1,9 +1,9 @@
 <div class="flex-1 p-8 bg-white min-h-screen font-sans">
-    {{-- ^^^ INI ADALAH ROOT ELEMENT UTAMA (JANGAN ADA ELEMENT LAIN SEJAJAR DENGAN INI) --}}
+    
 
     <div class="max-w-7xl mx-auto space-y-8">
 
-        {{-- 1. STATS CARDS --}}
+        {{-- STATS CARDS --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {{-- Total Partner --}}
             <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-between hover:-translate-y-1 transition-transform duration-300">
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        {{-- 2. HEADER & ACTIONS --}}
+        {{-- HEADER & ACTIONS --}}
         <div class="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight">Data Partner</h1>
@@ -64,7 +64,7 @@
             </a>
         </div>
 
-        {{-- 3. TOOLBAR (Search & Filters) --}}
+        {{-- TOOLBAR (Search & Filters) --}}
         <div class="bg-gray-50 p-2 rounded-xl border border-gray-100 flex flex-col md:flex-row gap-3">
             
             {{-- Search Input --}}
@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        {{-- 4. TABLE --}}
+        {{-- TABLE --}}
         <div class="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_15px_rgba(0,0,0,0.03)] overflow-hidden">
             @if ($partners->count())
                 <div class="overflow-x-auto">
@@ -214,7 +214,7 @@
 
                 {{-- Pagination --}}
                 <div class="px-6 py-4 border-t border-gray-50 bg-white">
-                    {{ $partners->links('pagination') }}
+                    {{ $partners->links('component.pagination') }}
                 </div>
             @else
                 {{-- Empty State --}}

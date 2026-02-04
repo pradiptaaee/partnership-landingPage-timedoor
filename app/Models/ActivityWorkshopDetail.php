@@ -10,7 +10,10 @@ class ActivityWorkshopDetail extends Model
     use HasFactory;
     protected $table = 'activity_workshop';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'partner_activity_id',
+        'mentor_name',
+        'description']; 
 
     /**
      * Relasi balik ke PartnerActivity

@@ -1,13 +1,13 @@
 <div class="extra-form hidden space-y-6 animate-fade-in" data-category="workshop">
     <div class="p-6 bg-purple-50/50 rounded-2xl border border-purple-100/50 space-y-4">
-        <h3 class="text-sm font-bold text-purple-800 flex items-center gap-2">
+        <h3 class="text-sm font-bold text-gray-800 flex items-center gap-2">
             <i class="bi bi-tools"></i> Detail Workshop
         </h3>
 
         <div class="grid grid-cols-1 gap-4">
             {{-- Nama Mentor --}}
             <div>
-                <label class="block text-xs font-bold text-purple-700 uppercase tracking-wider mb-2">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                     Nama Mentor <span class="text-red-500">*</span>
                 </label>
                 <input
@@ -21,7 +21,7 @@
 
             {{-- Catatan Workshop --}}
             <div>
-                <label class="block text-xs font-bold text-purple-700 uppercase tracking-wider mb-2">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                     Catatan Workshop
                 </label>
                 <textarea

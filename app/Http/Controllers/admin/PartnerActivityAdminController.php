@@ -173,7 +173,7 @@ class PartnerActivityAdminController extends Controller
     public function update(Request $request, $id)
     {
         $activity = PartnerActivity::findOrFail($id);
-        $validated = $this->validateActivity($request, $id);
+        $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
 
@@ -186,6 +186,7 @@ class PartnerActivityAdminController extends Controller
             $activity->update([
                 'partner_id' => $validated['partner_id'],
                 'title' => $validated['title'],
+                'category_activity' => $validated['category_activity'],
                 'slug' => $activity->isDirty('title')
                     ? $this->generateUniqueSlug($validated['title'], $id)
                     : $activity->slug,
@@ -294,7 +295,9 @@ class PartnerActivityAdminController extends Controller
             $rules += [
                 'speaker_name' => 'required|string|max:255',
                 'speaker_about' => 'required|string',
-                'speaker_photo' => 'required|image|max:1024',
+                'speaker_photo' => $request->isMethod('post')
+                    ? 'required|image|max:1024'
+                    : 'nullable|image|max:1024',
             ];
         }
 
@@ -330,8 +333,11 @@ class PartnerActivityAdminController extends Controller
     private function updateActivityDetail(
         PartnerActivity $activity,
         array $data,
-        Request $request
-    ): void {
+        Request $request): void {
+        if ($activity->category_activity !== $data['category_activity']) {
+            $activity->seminarDetail()?->delete();
+            $activity->workshopDetail()?->delete();
+        }
         if ($activity->category_activity === 'seminar') {
 
             $payload = [
@@ -363,7 +369,7 @@ class PartnerActivityAdminController extends Controller
         }
 
         if ($activity->category_activity === 'workshop') {
-
+            
             $activity->workshopDetail()->updateOrCreate(
                 ['partner_activity_id' => $activity->id],
                 [

@@ -1,13 +1,13 @@
 <div class="extra-form hidden space-y-6 animate-fade-in" data-category="seminar">
     <div class="p-6 bg-blue-50/50 rounded-2xl border border-blue-100/50 space-y-4">
-        <h3 class="text-sm font-bold text-blue-800 flex items-center gap-2">
+        <h3 class="text-sm font-bold text-gray-800 flex items-center gap-2">
             <i class="bi bi-person-badge"></i> Detail Seminar
         </h3>
 
         <div class="grid grid-cols-1 gap-4">
             {{-- Nama Pembicara --}}
             <div>
-                <label class="block text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                     Nama Pembicara <span class="text-red-500">*</span>
                 </label>
                 <input
@@ -21,7 +21,7 @@
 
             {{-- Tentang Pembicara --}}
             <div>
-                <label class="block text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                     Tentang Pembicara <span class="text-red-500">*</span>
                 </label>
                 <textarea
@@ -34,14 +34,15 @@
 
             {{-- Foto Pembicara --}}
             <div>
-                <label class="block text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
-                    Foto Pembicara
+                <label for="speaker_photo" class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition">
+                    <i class="fas fa-upload mr-2"></i> Tambahkan Foto Pembicara
                 </label>
                 <input
                     type="file"
                     name="speaker_photo"
+                    id="speaker_photo"
                     accept="image/*"
-                    class="w-full text-xs text-gray-500"
+                    class="hidden "
                 >
                 <p class="text-[10px] text-blue-400 mt-1 italic">
                     *Format: JPG, PNG (Max 1MB)

@@ -46,10 +46,11 @@ class PartnerActivityCard extends Component
         $activities = PartnerActivity::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('short_description', 'like', '%' . $this->search . '%');
+                    ->orWhere('full_description', 'like', '%' . $this->search . '%')
+                    ->orWhere('category_activity', 'like', '%' . $this->search . '%');
             })
             ->when($this->category, function ($query) {
-                $query->where('category', $this->category);
+                $query->where('category_activity', $this->category);
             })
             ->when($this->year, function ($query) {
                 $query->whereYear('activity_date', $this->year);
