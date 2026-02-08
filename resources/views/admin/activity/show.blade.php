@@ -1,296 +1,154 @@
 @extends('layouts.admin')
 
-@section('title', $activity->title)
-
 @section('content')
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        {{-- Header Section --}}
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-3">
-                    <div
-                        class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <i class="bi bi-calendar-event text-white text-2xl"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-3xl font-bold text-gray-900">{{ $activity->title }}</h1>
-                        <p class="text-gray-600 mt-1">Detail kegiatan partner</p>
-                    </div>
+<div class="container py-4">
+    {{-- Breadcrumb & Header --}}
+    <div class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="{{ route('admin.activity.index') }}" class="text-decoration-none text-[#0f5132]">Activities</a></li>
+                <li class="breadcrumb-item active text-gray-400" aria-current="page">Detail Kegiatan</li>
+            </ol>
+        </nav>
+        <div class="w-full flex justify-between items-end">
+            <div>
+                <h2 class="font-bold text-gray-800 mb-0">{{ $activity->title }}</h2>
+                <div class="flex gap-4 mt-2">
+                    <span class="text-xs font-bold text-[#0f5132] uppercase tracking-wider bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
+                        <i class="bi bi-tag-fill me-1"></i> {{ $activity->category_activity }}
+                    </span>
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                        <i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($activity->activity_date)->format('d F Y') }}
+                    </span>
                 </div>
             </div>
-            <div class="flex gap-3">
-                <a href="{{ route('admin.activity.edit', $activity->id) }}"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-700 font-semibold rounded-lg transition-all duration-200 border border-amber-200 hover:border-amber-300 shadow-sm hover:shadow-md">
-                    <i class="bi bi-pencil-square"></i>
-                    Edit
-                </a>
-                <a href="{{ route('admin.activity.index') }}"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors duration-200 shadow-sm">
-                    <i class="bi bi-arrow-left"></i>
-                    Kembali
-                </a>
-            </div>
+            <a href="{{ route('admin.activity.index') }}" class="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 text-sm font-bold shadow-sm hover:bg-gray-50 transition flex items-center gap-2">
+                <i class="bi bi-arrow-left"></i> Kembali
+            </a>
         </div>
+    </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-            {{-- Main Content --}}
-            <div class="lg:col-span-2 space-y-6">
-
-                {{-- Featured Image --}}
-                @if ($activity->featured_image)
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-6 py-4 border-b border-purple-200">
-                            <h3 class="text-lg font-semibold text-purple-900 flex items-center">
-                                <i class="bi bi-image-fill mr-2"></i>
-                                Gambar Utama
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            <div class="relative group ">
-                                <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
-                                    class="rounded-xl shadow-md mx-auto" alt="{{ $activity->title }}" width="400">
-                                <div
-                                    class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 rounded-xl">
+    <div class="flex-grow bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden">
+        <div class="flex flex-col lg:flex-row h-full">
+            
+            {{-- KOLOM KIRI: Informasi Detail --}}
+            <div class="w-full lg:w-7/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
+                <div class="space-y-8 flex-grow custom-scrollbar">
+                    
+                    {{-- Detail Partner --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">Partner Pelaksana</label>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            @if($activity->partner && $activity->partner->logo)
+                                <img src="{{ asset('storage/partners/' . $activity->partner->logo) }}" class="w-12 h-12 rounded-lg object-contain bg-white p-1 border border-gray-200">
+                            @else
+                                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center border border-gray-200 text-gray-400">
+                                    <i class="bi bi-building"></i>
                                 </div>
+                            @endif
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800 mb-0">{{ $activity->partner->name ?? 'Internal / Partner Tidak Ditemukan' }}</h4>
+                                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">{{ $activity->partner->category ?? '-' }}</p>
                             </div>
                         </div>
                     </div>
-                @endif
 
-                
-
-                {{-- Deskripsi Lengkap --}}
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4 border-b border-blue-200">
-                        <h3 class="text-lg font-semibold text-blue-900 flex items-center">
-                            <i class="bi bi-file-text-fill mr-2"></i>
-                            Deskripsi Lengkap
-                        </h3>
-                    </div>
-                    <div class="p-6">
-                        <div class="prose max-w-none text-gray-700 leading-relaxed">
+                    {{-- Deskripsi --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">Deskripsi Lengkap</label>
+                        <div class="text-sm text-gray-600 leading-relaxed space-y-4">
                             {!! nl2br(e($activity->full_description)) !!}
                         </div>
                     </div>
+
+                    {{-- Info Tambahan (Sesuai extra form) --}}
+                    @if(isset($activity->location) || isset($activity->speaker))
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @if($activity->location)
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Lokasi</label>
+                            <span class="text-sm font-semibold text-gray-800"><i class="bi bi-geo-alt me-2 text-[#0f5132]"></i>{{ $activity->location }}</span>
+                        </div>
+                        @endif
+                        @if($activity->speaker)
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pembicara / Mentor</label>
+                            <span class="text-sm font-semibold text-gray-800"><i class="bi bi-person me-2 text-[#0f5132]"></i>{{ $activity->speaker }}</span>
+                        </div>
+                        @endif
+                    </div>
+                    @endif
+
                 </div>
 
-                {{-- Deskripsi Singkat (khusus Seminar) --}}
-                @if (strtolower($activity->category_activity) === 'seminar' && $activity->short_description)
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                            Deskripsi Tambahan
-                        </label>
-                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                            <p class="text-sm text-gray-700 leading-relaxed">
-                                {{ $activity->short_description }}
-                            </p>
-                        </div>
-                    </div>
-                @endif
+                {{-- ACTION BUTTONS --}}
+                
+            </div>
 
-                {{-- Gallery Photos --}}
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-50 to-green-100 px-6 py-4 border-b border-green-200">
-                        <h3 class="text-lg font-semibold text-green-900 flex items-center">
-                            <i class="bi bi-images mr-2"></i>
-                            Foto Kegiatan ({{ $activity->photos->count() }})
-                        </h3>
-                    </div>
-                    <div class="p-6">
-                        @if ($activity->photos->count() > 0)
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                @foreach ($activity->photos as $photo)
-                                    <div class="relative group cursor-pointer">
-                                        <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}"
-                                            class="w-full h-48 object-cover rounded-xl border-2 border-gray-200 group-hover:border-green-300 transition-all duration-300 shadow-sm group-hover:shadow-md"
-                                            alt="Photo {{ $loop->iteration }}"
-                                            onclick="openLightbox('{{ asset('storage/activity/photos/' . $photo->image_path) }}')">
-
-                                        {{-- Overlay on hover --}}
-                                        <div
-                                            class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-xl flex items-center justify-center">
-                                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                <div
-                                                    class="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
-                                                    <i class="bi bi-zoom-in text-gray-800 text-xl"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Photo number badge --}}
-                                        <div
-                                            class="absolute top-2 left-2 bg-gray-900/80 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-xs font-semibold">
-                                            {{ $loop->iteration }}
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
+            {{-- KOLOM KANAN: Media (Cover & Gallery) --}}
+            <div class="w-full lg:w-5/12 bg-gray-50 overflow-y-auto custom-scrollbar flex flex-col p-8">
+                
+                {{-- Featured Image --}}
+                <div class="mb-8">
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">Gambar Utama</label>
+                    <div class="relative w-full aspect-video bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+                        @if($activity->featured_image)
+                            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" class="w-full h-full object-cover">
                         @else
-                            <div class="text-center py-12">
-                                <div
-                                    class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-3">
-                                    <i class="bi bi-image text-3xl text-gray-400"></i>
-                                </div>
-                                <p class="text-gray-500">Tidak ada foto tambahan</p>
+                            <div class="w-full h-full flex flex-col items-center justify-center text-gray-300">
+                                <i class="bi bi-image text-4xl mb-2"></i>
+                                <span class="text-xs uppercase font-bold tracking-widest">No Cover Image</span>
                             </div>
                         @endif
                     </div>
                 </div>
 
-            </div>
-
-            {{-- Sidebar --}}
-            <div class="lg:col-span-1 space-y-6">
-
-                {{-- Informasi Utama --}}
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden sticky top-6">
-                    <div class="bg-gradient-to-r from-indigo-50 to-indigo-100 px-6 py-4 border-b border-indigo-200">
-                        <h3 class="text-lg font-semibold text-indigo-900 flex items-center">
-                            <i class="bi bi-info-circle-fill mr-2"></i>
-                            Informasi Kegiatan
-                        </h3>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        {{-- Partner --}}
-                        <div>
-                            <label
-                                class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Partner</label>
-                            <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
-                                <div
-                                    class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="bi bi-building text-white text-lg"></i>
+                {{-- Gallery flex --}}
+                <div>
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">Galeri Dokumentasi</label>
+                    @if($activity->photos && count($activity->photos) > 0)
+                        <div class="flex flex-wrap gap-2">
+                            @foreach($activity->photos as $photo)
+                                <div class="relative group w-20 h-20 bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex-shrink-0">
+                                    <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}" 
+                                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer">
                                 </div>
-                                <span class="font-semibold text-green-900">{{ $activity->partner->name ?? '-' }}</span>
-                            </div>
+                            @endforeach
                         </div>
-
-                        {{-- Tanggal --}}
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Tanggal
-                                Kegiatan</label>
-                            <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                <div
-                                    class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="bi bi-calendar-event text-white text-lg"></i>
-                                </div>
-                                <span
-                                    class="font-semibold text-blue-900">{{ \Carbon\Carbon::parse($activity->activity_date)->format('d F Y') }}</span>
-                            </div>
+                        <p class="mt-3 text-[10px] text-gray-400 italic font-medium">* Klik gambar untuk memperbesar (jika tersedia lightbox)</p>
+                    @else
+                        <div class="p-6 bg-white rounded-2xl border border-dashed border-gray-200 text-center">
+                            <i class="bi bi-images text-gray-300 text-2xl mb-2"></i>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Belum ada foto galeri</p>
                         </div>
+                    @endif
+                </div>
 
-                        {{-- kategori --}}
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">kategori Kegianta</label>
-                            <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                                <p class="text-sm text-gray-700 leading-relaxed">{{ $activity->category_activity }}</p>
-                            </div>
+                {{-- System Log Info --}}
+                <div class="mt-auto pt-8">
+                    <div class="p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase">Input Oleh</span>
+                            <span class="text-xs font-bold text-gray-700">Administrator</span>
                         </div>
-
-                        {{-- Divider --}}
-                        <div class="border-t border-gray-200 my-4"></div>
-
-                        {{-- Metadata --}}
-                        <div class="space-y-3 text-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Dibuat:</span>
-                                <span class="font-medium text-gray-900">{{ $activity->created_at->format('d M Y') }}</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Diupdate:</span>
-                                <span class="font-medium text-gray-900">{{ $activity->updated_at->format('d M Y') }}</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Jumlah Foto:</span>
-                                <span
-                                    class="inline-flex items-center px-2.5 py-1 bg-purple-100 text-purple-700 font-semibold rounded-lg text-xs">
-                                    {{ $activity->photos->count() }} foto
-                                </span>
-                            </div>
-                        </div>
-                        <div class="p-6 space-y-3">
-                            <a href="{{ route('admin.activity.edit', $activity->id) }}"
-                                class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold rounded-lg hover:from-amber-600 hover:to-amber-700 shadow-md hover:shadow-lg transition-all duration-200">
-                                <i class="bi bi-pencil-square"></i>
-                                Edit Kegiatan
-                            </a>
-
-                            <button type="button" onclick="confirmDelete()"
-                                class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-lg hover:from-red-600 hover:to-red-700 shadow-md hover:shadow-lg transition-all duration-200">
-                                <i class="bi bi-trash3-fill"></i>
-                                Hapus Kegiatan
-                            </button>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase">ID System</span>
+                            <span class="text-xs font-mono text-gray-500">ACT-{{ str_pad($activity->id, 5, '0', STR_PAD_LEFT) }}</span>
                         </div>
                     </div>
                 </div>
 
-                {{-- Quick Actions --}}
-
-
             </div>
-        </div>
-    </div>
 
-    {{-- Lightbox Modal --}}
-    <div id="lightbox" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-        onclick="closeLightbox()">
-        <button
-            class="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-full flex items-center justify-center transition-colors duration-200">
-            <i class="bi bi-x-lg text-2xl"></i>
-        </button>
-        <img id="lightbox-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl"
-            onclick="event.stopPropagation()">
-    </div>
-
-    {{-- Delete Form --}}
-    <form id="deleteForm" action="{{ route('admin.activity.destroy', $activity->id) }}" method="POST" class="hidden">
-        @csrf
-        @method('DELETE')
-    </form>
-
-    <div id="deleteActivityModal"
-     class="fixed inset-0 z-50 hidden items-center justify-center bg-white/80 backdrop-blur-sm">
-
-    <div class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl text-center">
-        <h3 class="text-lg font-bold text-gray-900 mb-2">
-            Hapus Kegiatan?
-        </h3>
-
-        <p class="text-sm text-gray-500 mb-8">
-            Kegiatan ini akan dihapus permanen dan tidak dapat dikembalikan.
-        </p>
-
-        <div class="flex flex-col gap-3">
-            <button onclick="submitDeleteActivity()"
-                class="w-full px-4 py-3 bg-red-600 text-white font-bold hover:bg-red-700 transition">
-                YA, HAPUS
-            </button>
-
-            <button onclick="closeDeleteActivityModal()"
-                class="w-full px-4 py-3 bg-white border border-gray-200 font-bold hover:bg-gray-50 transition">
-                BATAL
-            </button>
         </div>
     </div>
 </div>
 
-<script>
-    function confirmDelete() {
-        const modal = document.getElementById('deleteActivityModal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-
-    function closeDeleteActivityModal() {
-        const modal = document.getElementById('deleteActivityModal');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
-
-    function submitDeleteActivity() {
-        document.getElementById('deleteForm').submit();
-    }
-</script>
-
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #0f5132; border-radius: 10px; }
+    .text-emerald-700 { color: #047857 !important; }
+    .bg-emerald-50 { background-color: #ecfdf5 !important; }
+</style>
 @endsection

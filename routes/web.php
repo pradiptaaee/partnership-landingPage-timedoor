@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\StudentProjectController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\LandingController;
-
+use App\Livewire\UserManagement;
 use App\Models\Banner;
 use App\Models\Testimonial; 
 use App\Models\StudentProject;
@@ -39,6 +39,9 @@ Route::middleware(['auth', 'admin.locale'])->prefix('admin')->name('admin.')->gr
         return redirect()->route('admin.dashboard');
     });
 
+    Route::get('/users', function () {
+        return view('admin.users'); // Sesuaikan dengan lokasi file blade Anda
+    })->name('users');
     // 2. Group Partner & Activity
     Route::resource('partners', PartnerAdminController::class);
     

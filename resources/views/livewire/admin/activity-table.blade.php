@@ -120,7 +120,7 @@
 
                         {{-- Description --}}
                         <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-4">
-                            {{ $activity->short_description ?? '-' }}
+                            {{ Str::words(strip_tags($activity->full_description), 8, '...')  }}
                         </p>
 
                         <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
