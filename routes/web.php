@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\StudentProjectController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\LandingController;
-
+use App\Http\Controllers\LandingPageController;
 use App\Models\Banner;
 use App\Models\Testimonial; 
 use App\Models\StudentProject;
@@ -71,22 +71,24 @@ Route::prefix('partnership')->name('partnership.')->group(function () {
 });
 
 // --- PUBLIC LANDING PAGE ---
-Route::get('/', function() {
-    $hero = Hero::first();
+// Route::get('/', function() {
+//     $hero = Hero::first();
 
-    $banners = Banner::latest()->get();
-    $testimonials = Testimonial::latest()->get();
-    $projects = StudentProject::latest()->take(6)->get(); 
-    
-    return view('landing_page.index', compact('hero', 'banners', 'testimonials', 'projects'));
-})->name('landing');
+//     $banners = Banner::latest()->get();
+//     $testimonials = Testimonial::latest()->get();
+//     $projects = StudentProject::latest()->take(6)->get(); 
+
+//     return view('landing_page.index', compact('hero', 'banners', 'testimonials', 'projects'));
+// })->name('landing');
+Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 // Route Ganti Bahasa
-Route::get('/lang/{locale}', function ($locale) {
-    $availableLocales = ['en', 'id', 'ms', 'fil', 'ar', 'ja', 'bn'];
-    if (in_array($locale, $availableLocales)) {
-        Session::put('locale', $locale);
-    }
-    return redirect()->back();
-})->name('change.language');
+// Route::get('/lang/{locale}', function ($locale) {
+//     $availableLocales = ['en', 'id', 'ms', 'fil', 'ar', 'ja', 'bn'];
+//     if (in_array($locale, $availableLocales)) {
+//         Session::put('locale', $locale);
+//     }
+//     return redirect()->back();
+// })->name('change.language');
+Route::get('/lang/{locale}', [LandingPageController::class, 'changeLanguage'])->name('change.language');
 

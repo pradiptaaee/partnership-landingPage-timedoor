@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" 
-      dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timedoor Academy</title>
-    <!-- Meta Pixel Code -->
+
+    <!-- META PIXEL CODE -->
     <script>
         ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
@@ -38,12 +39,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS -->
-    <!-- <link href="src/output.css" rel="stylesheet"> -->
-    @vite('resources/css/app.css')
-
-    <!-- Swiper -->
-    @vite('resources/js/landing_page/app.js')
+    @vite([
+    'resources/css/app.css',
+    'resources/js/landing_page/app.js'
+    ])
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -56,7 +55,7 @@
     <!-- HEADER PAGE 1 (Logo Warna) -->
     <nav id="mainNavbar" class="fixed inset-x-0 top-0 bg-white z-50 transition-colors duration-300">
         <div class="flex justify-between w-full items-center py-6 px-4 xl:px-10">
-            <div class=" w-32 sm:w-40">
+            <div class=" w-20 sm:w-40">
                 <svg id="logo-black" width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto transition-opacity duration-300">
                     <path d="M26.1776 19.7233C27.1886 19.7233 28.0081 18.9038 28.0081 17.8928C28.0081 16.8819 27.1886 16.0623 26.1776 16.0623C25.1666 16.0623 24.3471 16.8819 24.3471 17.8928C24.3471 18.9038 25.1666 19.7233 26.1776 19.7233Z" fill="black" />
                     <path d="M30.7162 27.5984L30.7126 34.3308C30.7126 35.0037 30.0144 35.8104 29.2727 35.9479C24.7145 36.7944 11.0399 37.8652 11.0399 37.8652C10.4177 37.9485 10.4177 38.7299 11.0435 38.7299H34.4966C35.5638 38.7299 36.432 38.0787 36.432 37.2792V24.6718L30.7162 27.5984Z" fill="black" />
@@ -105,20 +104,6 @@
             </div>
 
             <div class="flex items-center gap-3 xl:gap-7">
-                @php
-                // Mapping locale ke kode tampilan dan bendera
-                $localeMapping = [
-                'en' => ['code' => 'EN', 'flag' => 'images/enFlag.png', 'type' => 'img'],
-                'id' => ['code' => 'ID', 'flag' => 'images/idFlag.png', 'type' => 'img'],
-                'bn' => ['code' => 'BD', 'flag' => 'bd', 'type' => 'svg'],
-                'ar' => ['code' => 'AR', 'flag' => 'images/arFlag.png', 'type' => 'img'],
-                'fil' => ['code' => 'PH', 'flag' => 'images/phFlag.png', 'type' => 'img'],
-                'ja' => ['code' => 'JP', 'flag' => 'jp', 'type' => 'svg'],
-                'ms' => ['code' => 'MY', 'flag' => 'images/myFlag.png', 'type' => 'img'],
-                ];
-                $currentLocale = app()->getLocale();
-                $currentLangData = $localeMapping[$currentLocale] ?? $localeMapping['en'];
-                @endphp
                 <div class="relative inline-block">
                     <!-- Dropdown Button -->
                     <button id="languageButton" class="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
@@ -182,7 +167,6 @@
                         <!-- Bangladesh Option -->
                         <button data-lang="BD" class="lang-option w-full flex items-center justify-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 hover:bg-gray-50 transition-colors">
                             <div class="flag-container w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md overflow-hidden flex items-center justify-center">
-                                <!-- <img class="h-full" src="images/bdFlag.png" alt="BD FLAG"> -->
                                 <svg width="2000" height="2000" viewBox="0 0 2000 2000"
                                     xmlns="http://www.w3.org/2000/svg">
 
@@ -225,7 +209,6 @@
                         <!-- Japan Option -->
                         <button data-lang="JP" class="lang-option w-full flex items-center justify-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 hover:bg-gray-50 transition-colors">
                             <div class="flag-container w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md overflow-hidden flex items-center justify-center">
-                                <!-- <img class="w-full h-full" src="images/jpFlag.png" alt="JP FLAG"> -->
                                 <svg width="2000" height="2000" viewBox="0 0 2000 2000"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <defs>
