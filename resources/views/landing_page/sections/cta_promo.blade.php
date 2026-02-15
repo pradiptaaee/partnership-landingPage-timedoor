@@ -50,14 +50,14 @@
 
             <!-- CTA Buttons -->
             <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" class="flex md:flex-row gap-4 items-stretch">
-                <button class="flex-grow w-4/5 p-2 bg-[#10AF13] hover:bg-green-700 text-white font-black {{ $fontClasses['cta_btn'] ?? 'text-base sm:text-3xl md:text-4xl' }} rounded-2xl shadow-lg transition transform hover:-translate-y-1 uppercase tracking-wide text-center">
+                <a class="flex-grow w-4/5 p-2 bg-[#10AF13] hover:bg-green-700 text-white font-black {{ $fontClasses['cta_btn'] ?? 'text-base sm:text-3xl md:text-4xl' }} rounded-2xl shadow-lg transition transform hover:-translate-y-1 uppercase tracking-wide text-center">
                     {{ __('Button Price') }}
-                </button>
+                </a>
 
-                <button class="{{ $fontClasses['cta_btn2'] ?? 'text-base sm:text-3xl md:text-4xl' }} flex-shrink-0 p-2 bg-[#10AF13] hover:bg-green-700 text-white font-black rounded-2xl shadow-lg transition transform hover:-translate-y-1 uppercase tracking-wide text-center leading-tight flex items-center justify-center ">
+                <a href="{{ route('trial.index') }}" class="{{ $fontClasses['cta_btn2'] ?? 'text-base sm:text-3xl md:text-4xl' }} flex-shrink-0 p-2 bg-[#10AF13] hover:bg-green-700 text-white font-black rounded-2xl shadow-lg transition transform hover:-translate-y-1 uppercase tracking-wide text-center leading-tight flex items-center justify-center ">
 
                     {!! __('Button Book Split') !!}
-                </button>
+                </a>
             </div>
 
         </div>

@@ -11,8 +11,11 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\StudentProjectController; 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\landing\LandingPageController as LandingLandingPageController;
+use App\Http\Controllers\landing\TrialController as LandingTrialController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\TrialController;
 use App\Models\Banner;
 use App\Models\Testimonial; 
 use App\Models\StudentProject;
@@ -80,7 +83,8 @@ Route::prefix('partnership')->name('partnership.')->group(function () {
 
 //     return view('landing_page.index', compact('hero', 'banners', 'testimonials', 'projects'));
 // })->name('landing');
-Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+Route::get('/', [LandingLandingPageController::class, 'index'])->name('landing');
+Route::resource('trial', LandingTrialController::class);
 
 // Route Ganti Bahasa
 // Route::get('/lang/{locale}', function ($locale) {
@@ -90,5 +94,5 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 //     }
 //     return redirect()->back();
 // })->name('change.language');
-Route::get('/lang/{locale}', [LandingPageController::class, 'changeLanguage'])->name('change.language');
+Route::get('/lang/{locale}', [LandingLandingPageController::class, 'changeLanguage'])->name('change.language');
 
