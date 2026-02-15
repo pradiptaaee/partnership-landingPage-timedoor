@@ -60,6 +60,6 @@ class HeroController extends Controller
 
         $hero->save();
 
-        return redirect()->back()->with('success', 'Hero Banner berhasil diupdate!');
+        return redirect()->back()->with('success_message', 'Hero Banner berhasil diupdate!');
     }
 }

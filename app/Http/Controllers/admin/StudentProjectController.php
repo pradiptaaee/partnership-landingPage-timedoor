@@ -98,7 +98,7 @@ class StudentProjectController extends Controller
             'project_type'  => $types,
         ]);
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project berhasil dibuat!');
+        return redirect()->route('admin.projects.index')->with('success_message', 'Project berhasil dibuat!');
     }
 
     /**
@@ -149,7 +149,7 @@ class StudentProjectController extends Controller
     $project->save(); // Simpan perubahan
     // ----------------------------------------
 
-    return redirect()->route('admin.projects.index')->with('success', 'Project berhasil diperbarui!');
+    return redirect()->route('admin.projects.index')->with('success_message', 'Project berhasil diperbarui!');
 }
 
     /**
@@ -165,6 +165,6 @@ class StudentProjectController extends Controller
         // Hapus record DB
         $project->delete();
 
-        return redirect()->back()->with('success', 'Project berhasil dihapus!');
+        return redirect()->back()->with('success_message', 'Project berhasil dihapus!');
     }
 }

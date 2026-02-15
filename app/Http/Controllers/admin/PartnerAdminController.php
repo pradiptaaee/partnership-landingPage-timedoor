@@ -82,6 +82,8 @@ class PartnerAdminController extends Controller
             'name' => 'required|unique:partners,name',
             'category' => 'required',
             'description' => 'required',
+            'email' => 'nullable|string',
+            'no_telepon' => 'nullable|string',
             'logo' => 'nullable|image|max:2048'
         ]);
 
@@ -91,6 +93,8 @@ class PartnerAdminController extends Controller
         $partner->name = $validated['name'];
         $partner->category = $validated['category'];
         $partner->description = $validated['description'];
+        $partner->email = $validated['email'] ?? null;
+        $partner->no_telepon = $validated['no_telepon'] ?? null;
         $partner->slug = Str::slug($validated['name']);
 
         // Upload logo hanya jika ada file
@@ -121,12 +125,17 @@ class PartnerAdminController extends Controller
             'name' => 'required|unique:partners,name,' . $partner->id,
             'category' => 'required',
             'description' => 'required',
+            'email' => 'nullable|string',
+            'no_telepon' => 'nullable|string',
             'logo' => 'nullable|image|max:2048'
         ]);
 
         $partner->name = $validated['name'];
         $partner->category = $validated['category'];
         $partner->description = $validated['description'];
+        $partner->email = $validated['email'] ?? null;
+        $partner->no_telepon = $validated['no_telepon'] ?? null;
+        $partner->slug = Str::slug($validated['name']);
 
         // Jika upload logo baru
         if ($request->hasFile('logo')) {

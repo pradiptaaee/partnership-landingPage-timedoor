@@ -254,7 +254,7 @@
                     </div>
                 </div>
 
-                <a href="#" id="trialButton"
+                <a href="{{ route('landing.book-trial') }}" id="trialButton"
                     class="bg-[#10AF13] text-white shadow-[0_7px_0_#0E8E10] hover:shadow-[0_5px_0_#0E8E10] active:shadow-[0_2px_0_#0E8E10] font-bold py-2.5 px-4 rounded-xl uppercase text-[10px] sm:text-sm transition-all duration-150 hover:translate-y-[5px] active:translate-y-[7px]">
                     {{ __('Book a Free Trial') }}
                 </a>

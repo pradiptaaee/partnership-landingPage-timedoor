@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\ActivitySeminarDetail;
+use App\Models\ActivityWorkshopDetail;
+
 
 class PartnerActivityAdminController extends Controller
 {
@@ -88,38 +91,38 @@ class PartnerActivityAdminController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi
         $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
+
         try {
+            /**
+             * =========================
+             * SIMPAN ACTIVITY UTAMA
+             * =========================
+             */
+            $activity = PartnerActivity::create([
+                'partner_id' => $validated['partner_id'],
+                'title' => $validated['title'],
+                'slug' => $this->generateUniqueSlug($validated['title']),
+                'category_activity' => $validated['category_activity'],
+                'full_description' => $validated['full_description'],
+                'activity_date' => $validated['activity_date'],
+                'featured_image' => $this->storeFeaturedImage($request),
+            ]);
 
-            $activity = new PartnerActivity();
-            $activity->partner_id = $validated['partner_id'];
-            $activity->title = $validated['title'];
-            $activity->slug = $this->generateUniqueSlug($validated['title']);
-            $activity->short_description = $validated['short_description'];
-            $activity->full_description = $validated['full_description'];
-            $activity->activity_date = $validated['activity_date'];
+            /**
+             * =========================
+             * SIMPAN DETAIL BERDASARKAN KATEGORI
+             * =========================
+             */
+            $this->storeActivityDetail($activity, $validated);
 
-            /** Upload Featured Image */
-            if ($request->hasFile('featured_image')) {
-
-                $file = $request->file('featured_image');
-
-                // buat nama unik
-                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-
-                // simpan ke storage/app/public/activity/featured
-                $file->storeAs('activity/featured', $filename, 'public');
-
-                // simpan hanya nama file ke database
-                $activity->featured_image = $filename;
-            }
-
-            $activity->save();
-
-            /** Upload Multiple Photos */
+            /**
+             * =========================
+             * SIMPAN GALERI FOTO
+             * =========================
+             */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
@@ -130,18 +133,15 @@ class PartnerActivityAdminController extends Controller
                 ->route('admin.activity.index')
                 ->with('success_message', 'Kegiatan berhasil ditambahkan.');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
-
-            if (isset($activity->featured_image)) {
-                Storage::disk('public')->delete($activity->featured_image);
-            }
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => 'Gagal menyimpan kegiatan: ' . $e->getMessage()]);
+                ->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
 
     public function show($slug)
@@ -173,63 +173,59 @@ class PartnerActivityAdminController extends Controller
     public function update(Request $request, $id)
     {
         $activity = PartnerActivity::findOrFail($id);
-
-        // Validate input
-        $validated = $this->validateActivity($request, $id);
+        $validated = $this->validateActivity($request);
 
         DB::beginTransaction();
+
         try {
-            // Update basic information
-            $activity->partner_id = $validated['partner_id'];
-            $activity->title = $validated['title'];
-            $activity->short_description = $validated['short_description'];
-            $activity->full_description = $validated['full_description'];
-            $activity->activity_date = $validated['activity_date'];
+            /**
+             * =========================
+             * UPDATE ACTIVITY UTAMA
+             * =========================
+             */
+            $activity->update([
+                'partner_id' => $validated['partner_id'],
+                'title' => $validated['title'],
+                'category_activity' => $validated['category_activity'],
+                'slug' => $activity->isDirty('title')
+                    ? $this->generateUniqueSlug($validated['title'], $id)
+                    : $activity->slug,
+                'full_description' => $validated['full_description'],
+                'activity_date' => $validated['activity_date'],
+                'featured_image' => $this->updateFeaturedImage($request, $activity),
+            ]);
 
-            // Update slug if title changed
-            if ($activity->isDirty('title')) {
-                $activity->slug = $this->generateUniqueSlug($validated['title'], $id);
-            }
+            /**
+             * =========================
+             * UPDATE DETAIL
+             * =========================
+             */
+            $this->updateActivityDetail($activity, $validated, $request);
 
-            // Handle featured image replacement
-            if ($request->hasFile('featured_image')) {
-
-                // hapus foto lama
-                if ($activity->featured_image) {
-                    Storage::disk('public')
-                        ->delete($this->featuredPath . '/' . $activity->featured_image);
-                }
-
-                // upload baru
-                $activity->featured_image = $this->uploadImage(
-                    $request->file('featured_image'),
-                    $this->featuredPath
-                );
-            }
-
-
-            $activity->save();
-
-            // Handle additional photos upload
+            /**
+             * =========================
+             * FOTO TAMBAHAN
+             * =========================
+             */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
 
             DB::commit();
-            
 
             return redirect()
-                ->route('admin.activity.index', $activity->id)
+                ->route('admin.activity.index')
                 ->with('success_message', 'Kegiatan berhasil diperbarui.');
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => 'Gagal memperbarui kegiatan: ' . $e->getMessage()]);
+                ->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
     /**
      * Remove the specified activity from storage.
@@ -283,34 +279,157 @@ class PartnerActivityAdminController extends Controller
     /**
      * Validate activity input.
      */
-    private function validateActivity(Request $request, $activityId = null)
+    private function validateActivity(Request $request): array
     {
-        return $request->validate([
+        $rules = [
             'partner_id' => 'required|exists:partners,id',
             'title' => 'required|string|max:255',
-            'short_description' => 'required|string|max:200',
+            'category_activity' => 'required|string',
             'full_description' => 'required|string',
             'activity_date' => 'required|date',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
-        ], [
-            'partner_id.required' => 'Partner wajib dipilih.',
-            'partner_id.exists' => 'Partner tidak valid.',
-            'title.required' => 'Judul kegiatan wajib diisi.',
-            'title.max' => 'Judul kegiatan maksimal 255 karakter.',
-            'short_description.required' => 'Deskripsi singkat wajib diisi.',
-            'short_description.max' => 'Deskripsi singkat maksimal 200 karakter.',
-            'full_description.required' => 'Deskripsi lengkap wajib diisi.',
-            'activity_date.required' => 'Tanggal kegiatan wajib diisi.',
-            'activity_date.date' => 'Format tanggal tidak valid.',
-            'featured_image.image' => 'File harus berupa gambar.',
-            'featured_image.mimes' => 'Format gambar harus jpeg, png, jpg, atau webp.',
-            'featured_image.max' => 'Ukuran gambar maksimal 2MB.',
-            'photos.*.image' => 'Semua file harus berupa gambar.',
-            'photos.*.mimes' => 'Format gambar harus jpeg, png, jpg, atau webp.',
-            'photos.*.max' => 'Ukuran setiap gambar maksimal 2MB.',
-        ]);
+            'featured_image' => 'nullable|image|max:2048',
+            'photos.*' => 'nullable|image|max:2048',
+        ];
+
+        if ($request->category_activity === 'seminar') {
+            $rules += [
+                'speaker_name' => 'required|string|max:255',
+                'speaker_about' => 'required|string',
+                'speaker_photo' => $request->isMethod('post')
+                    ? 'required|image|max:1024'
+                    : 'nullable|image|max:1024',
+            ];
+        }
+
+        if ($request->category_activity === 'workshop') {
+            $rules += [
+                'mentor_name' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+            ];
+        }
+
+        return $request->validate($rules);
     }
+
+    private function storeActivityDetail(PartnerActivity $activity, array $validated): void
+    {
+        $category = strtolower($validated['category_activity']);
+
+        if ($category === 'seminar') {
+            $activity->seminarDetail()->create([
+                'speaker_name' => $validated['speaker_name'],
+                'speaker_about' => $validated['speaker_about'],
+                'speaker_photo' => $this->storeSpeakerPhoto(request()),
+            ]);
+        }
+
+        if ($category === 'workshop') {
+            $activity->workshopDetail()->create([
+                'mentor_name' => $validated['mentor_name'],
+                'description' => $validated['description'],
+            ]);
+        }
+    }
+    private function updateActivityDetail(
+        PartnerActivity $activity,
+        array $data,
+        Request $request): void {
+        if ($activity->category_activity !== $data['category_activity']) {
+            $activity->seminarDetail()?->delete();
+            $activity->workshopDetail()?->delete();
+        }
+        if ($activity->category_activity === 'seminar') {
+
+            $payload = [
+                'speaker_name' => $data['speaker_name'],
+                'speaker_about' => $data['speaker_about'],
+            ];
+
+            if ($request->hasFile('speaker_photo')) {
+
+                // hapus foto lama
+                if (
+                    $activity->seminarDetail &&
+                    $activity->seminarDetail->speaker_photo &&
+                    Storage::disk('public')->exists('activity/speakers/' . $activity->seminarDetail->speaker_photo)
+                ) {
+                    Storage::disk('public')->delete(
+                        'activity/speakers/' . $activity->seminarDetail->speaker_photo
+                    );
+                }
+
+                // simpan foto baru
+                $payload['speaker_photo'] = $this->storeSpeakerPhoto($request);
+            }
+
+            $activity->seminarDetail()->updateOrCreate(
+                ['partner_activity_id' => $activity->id],
+                $payload
+            );
+        }
+
+        if ($activity->category_activity === 'workshop') {
+            
+            $activity->workshopDetail()->updateOrCreate(
+                ['partner_activity_id' => $activity->id],
+                [
+                    'mentor_name' => $data['mentor_name'],
+                    'description' => $data['description'],
+                ]
+            );
+        }
+    }
+
+    private function storeFeaturedImage(Request $request): ?string
+    {
+        if (!$request->hasFile('featured_image')) {
+            return null;
+        }
+
+        $file = $request->file('featured_image');
+        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs('activity/featured', $filename, 'public');
+
+        return $filename; // ⬅️ HANYA NAMA FILE
+    }
+
+    private function updateFeaturedImage(Request $request, PartnerActivity $activity): ?string
+    {
+        if (!$request->hasFile('featured_image')) {
+            return $activity->featured_image;
+        }
+
+        // Hapus file lama jika ada
+        if (
+            $activity->featured_image &&
+            Storage::disk('public')->exists($this->featuredPath . '/' . $activity->featured_image)
+        ) {
+            Storage::disk('public')->delete($this->featuredPath . '/' . $activity->featured_image);
+        }
+
+        $file = $request->file('featured_image');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs($this->featuredPath, $filename, 'public');
+
+        return $filename; // ⬅️ hanya nama file
+    }
+    private function storeSpeakerPhoto(Request $request): ?string
+    {
+        if (!$request->hasFile('speaker_photo')) {
+            return null;
+        }
+
+        $file = $request->file('speaker_photo');
+        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs('activity/speakers', $filename, 'public');
+
+        return $filename; // ⬅️ hanya nama file
+    }
+
+
 
     /**
      * Generate unique slug from title.
@@ -356,16 +475,16 @@ class PartnerActivityAdminController extends Controller
     /**
      * Upload multiple photos.
      */
-    private function uploadPhotos($photos, $activityId)
+    private function uploadPhotos($photos, int $activityId): void
     {
         foreach ($photos as $photo) {
-            $fileName = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+            $filename = time() . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
 
-            $photo->storeAs($this->photosPath, $fileName, 'public');
+            $photo->storeAs('activity/photos', $filename, 'public');
 
             PhotoActivity::create([
-                'activity_id' => $activityId,
-                'image_path' => $fileName
+                'partner_activity_id' => $activityId,
+                'image_path' => $filename, // ⬅️ hanya filename
             ]);
         }
     }

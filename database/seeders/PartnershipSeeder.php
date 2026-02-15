@@ -12,32 +12,69 @@ class PartnershipSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1) Seed 5 partners
         $partners = collect([
             [
-                'name' => 'Tech Innovators',
-                'category' => 'Technology',
-                'description' => 'Perusahaan berbasis teknologi yang fokus pada AI dan IoT.',
+                'name' => 'STMIK Primakara',
+                'category' => 'Kampus',
+                'description' => 'Perguruan tinggi di bidang teknologi dan bisnis digital.',
+                'email' => 'info@primakara.ac.id',
+                'no_telepon' => '0361222555',
             ],
             [
-                'name' => 'Edu Global',
-                'category' => 'Education',
-                'description' => 'Lembaga pendidikan internasional dengan fokus riset.',
+                'name' => 'Universitas Muhammadiyah Surakarta',
+                'category' => 'Kampus',
+                'description' => 'Universitas swasta dengan fokus pengembangan akademik dan teknologi.',
+                'email' => 'info@ums.ac.id',
+                'no_telepon' => '0271717111',
             ],
             [
-                'name' => 'HealthPlus',
-                'category' => 'Healthcare',
-                'description' => 'Layanan kesehatan modern dan digital.',
+                'name' => 'Sekolah Pelita Harapan',
+                'category' => 'Sekolah',
+                'description' => 'Sekolah nasional-plus dengan kurikulum internasional.',
+                'email' => 'info@uph.edu',
+                'no_telepon' => '0215460901',
             ],
             [
-                'name' => 'EcoFuture',
-                'category' => 'Environment',
-                'description' => 'Organisasi peduli lingkungan dan energi terbarukan.',
+                'name' => 'Education Plus School',
+                'category' => 'Sekolah',
+                'description' => 'Sekolah dengan pendekatan pembelajaran kreatif dan modern.',
+                'email' => 'contact@educationplus.sch.id',
+                'no_telepon' => '0361467890',
             ],
             [
-                'name' => 'Creative Media Labs',
-                'category' => 'Media',
-                'description' => 'Studio kreatif untuk produksi media dan digital branding.',
+                'name' => 'Blue Dolphin Playskool',
+                'category' => 'Sekolah',
+                'description' => 'Pendidikan anak usia dini dengan metode bermain edukatif.',
+                'email' => 'admin@bluedolphinplayskool.sch.id',
+                'no_telepon' => '081234567890',
+            ],
+            [
+                'name' => 'Taruwinara School',
+                'category' => 'Sekolah',
+                'description' => 'Sekolah berbasis karakter dan pengembangan potensi siswa.',
+                'email' => 'info@taruwinara.sch.id',
+                'no_telepon' => '0361223344',
+            ],
+            [
+                'name' => 'SekolahApa.com',
+                'category' => 'Platform Edukasi',
+                'description' => 'Platform informasi dan kolaborasi pendidikan di Indonesia.',
+                'email' => 'support@sekolahapa.com',
+                'no_telepon' => '082145678901',
+            ],
+            [
+                'name' => 'JJC Bali',
+                'category' => 'Komunitas',
+                'description' => 'Komunitas pengembangan bakat dan kreativitas anak muda.',
+                'email' => 'contact@jjcbali.org',
+                'no_telepon' => '081987654321',
+            ],
+            [
+                'name' => 'Finns Recreation Club',
+                'category' => 'Corporate',
+                'description' => 'Pusat rekreasi dan olahraga keluarga di Bali.',
+                'email' => 'info@finnsrecclub.com',
+                'no_telepon' => '0361848900',
             ],
         ]);
 
@@ -47,34 +84,33 @@ class PartnershipSeeder extends Seeder
                 'slug' => Str::slug($data['name']),
                 'category' => $data['category'],
                 'description' => $data['description'],
+                'email' => $data['email'],
+                'no_telepon' => $data['no_telepon'],
                 'logo' => null,
             ]);
         });
 
-        // 2) Seed 5 partner activities
         foreach ($partners as $partner) {
-            for ($i = 1; $i <= 1; $i++) { // 1 activity per partner
-                $title = $partner->name . " Activity Example";
+            $title = $partner->name . ' Activity Example';
 
-                $activity = PartnerActivity::create([
-                    'partner_id' => $partner->id,
-                    'title' => $title,
-                    'slug' => Str::slug($title) . '-' . strtolower(Str::random(4)),
-                    'short_description' => 'Kegiatan kolaborasi strategis dengan ' . $partner->name,
-                    'full_description' => 'Deskripsi lengkap mengenai aktivitas yang dilakukan dengan ' . $partner->name,
-                    'activity_date' => now()->subDays(rand(5, 60))->format('Y-m-d'),
-                    'featured_image' => null,
+            $activity = PartnerActivity::create([
+                'partner_id' => $partner->id,
+                'title' => $title,
+                'slug' => Str::slug($title) . '-' . strtolower(Str::random(4)),
+                
+                'full_description' => 'Deskripsi lengkap mengenai aktivitas yang dilakukan dengan ' . $partner->name,
+                'activity_date' => now()->subDays(rand(5, 60))->format('Y-m-d'),
+                'featured_image' => null,
+            ]);
+
+            for ($p = 1; $p <= 2; $p++) {
+                PhotoActivity::create([
+                    'activity_id' => $activity->id,
+                    'image_path' => 'partner_activities/photos/sample-' . rand(1, 5) . '.jpg',
                 ]);
-
-                // 3) Seed photos for each activity (2 photos per activity)
-                for ($p = 1; $p <= 2; $p++) {
-                    PhotoActivity::create([
-                        'activity_id' => $activity->id,
-                        'image_path' => 'partner_activities/photos/sample-' . rand(1, 5) . '.jpg'
-                    ]);
-                }
             }
         }
     }
+
 }
 

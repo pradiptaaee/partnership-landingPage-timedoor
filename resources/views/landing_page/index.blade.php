@@ -19,4 +19,6 @@
     <!-- FOOTER           -->
     @include('landing_page.sections.footer')
 
+    
+
 @endsection

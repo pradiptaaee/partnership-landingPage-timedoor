@@ -2,112 +2,153 @@
 
 @section('content')
 <div class="container py-4">
-
-    {{-- Header Section --}}
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-        <div>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-1">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.activity.index') }}" class="text-decoration-none text-success">Activities</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Detail</li>
-                </ol>
-            </nav>
-            <h3 class="fw-bold text-dark mb-0">{{ $activity->title }}</h3>
-        </div>
-        <a href="{{ route('admin.activity.index') }}" class="btn btn-outline-secondary px-4 rounded-pill shadow-sm transition-all hover-shadow">
-            <i class="bi bi-arrow-left me-2"></i>Kembali
-        </a>
-    </div>
-
-    <div class="row">
-        {{-- Sisi Kiri: Featured Image & Gallery --}}
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
-                <div class="card-header bg-white fw-bold py-3 border-0">
-                    <i class="bi bi-image me-2 text-success"></i>Featured Image
-                </div>
-                <div class="p-3 pt-0 text-center">
-                    @if($activity->featured_image)
-                        <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
-                             class="img-fluid rounded-3 shadow-sm"
-                             alt="{{ $activity->title }}" style="max-height: 250px; object-fit: cover; width: 100%;">
-                    @else
-                        <div class="bg-light rounded-3 py-5 text-muted">No Image Available</div>
-                    @endif
+    {{-- Breadcrumb & Header --}}
+    <div class="mb-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="{{ route('admin.activity.index') }}" class="text-decoration-none text-[#0f5132]">Activities</a></li>
+                <li class="breadcrumb-item active text-gray-400" aria-current="page">Detail Kegiatan</li>
+            </ol>
+        </nav>
+        <div class="w-full flex justify-between items-end">
+            <div>
+                <h2 class="font-bold text-gray-800 mb-0">{{ $activity->title }}</h2>
+                <div class="flex gap-4 mt-2">
+                    <span class="text-xs font-bold text-[#0f5132] uppercase tracking-wider bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
+                        <i class="bi bi-tag-fill me-1"></i> {{ $activity->category_activity }}
+                    </span>
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                        <i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($activity->activity_date)->format('d F Y') }}
+                    </span>
                 </div>
             </div>
+            <a href="{{ route('admin.activity.index') }}" class="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 text-sm font-bold shadow-sm hover:bg-gray-50 transition flex items-center gap-2">
+                <i class="bi bi-arrow-left"></i> Kembali
+            </a>
+        </div>
+    </div>
 
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
-                <div class="card-header bg-white fw-bold py-3 border-0">
-                    <i class="bi bi-images me-2 text-success"></i>Foto Kegiatan
+    <div class="flex-grow bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden">
+        <div class="flex flex-col lg:flex-row h-full">
+            
+            {{-- KOLOM KIRI: Informasi Detail --}}
+            <div class="w-full lg:w-7/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
+                <div class="space-y-8 flex-grow custom-scrollbar">
+                    
+                    {{-- Detail Partner --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">Partner Pelaksana</label>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                            @if($activity->partner && $activity->partner->logo)
+                                <img src="{{ asset('storage/partners/' . $activity->partner->logo) }}" class="w-12 h-12 rounded-lg object-contain bg-white p-1 border border-gray-200">
+                            @else
+                                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center border border-gray-200 text-gray-400">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                            @endif
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-800 mb-0">{{ $activity->partner->name ?? 'Internal / Partner Tidak Ditemukan' }}</h4>
+                                <p class="text-[10px] text-gray-500 uppercase tracking-tighter">{{ $activity->partner->category ?? '-' }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Deskripsi --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">Deskripsi Lengkap</label>
+                        <div class="text-sm text-gray-600 leading-relaxed space-y-4">
+                            {!! nl2br(e($activity->full_description)) !!}
+                        </div>
+                    </div>
+
+                    {{-- Info Tambahan (Sesuai extra form) --}}
+                    @if(isset($activity->location) || isset($activity->speaker))
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @if($activity->location)
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Lokasi</label>
+                            <span class="text-sm font-semibold text-gray-800"><i class="bi bi-geo-alt me-2 text-[#0f5132]"></i>{{ $activity->location }}</span>
+                        </div>
+                        @endif
+                        @if($activity->speaker)
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Pembicara / Mentor</label>
+                            <span class="text-sm font-semibold text-gray-800"><i class="bi bi-person me-2 text-[#0f5132]"></i>{{ $activity->speaker }}</span>
+                        </div>
+                        @endif
+                    </div>
+                    @endif
+
                 </div>
-                <div class="card-body pt-0">
-                    @if($activity->photos->count() > 0)
-                        <div class="row g-2">
+
+                {{-- ACTION BUTTONS --}}
+                
+            </div>
+
+            {{-- KOLOM KANAN: Media (Cover & Gallery) --}}
+            <div class="w-full lg:w-5/12 bg-gray-50 overflow-y-auto custom-scrollbar flex flex-col p-8">
+                
+                {{-- Featured Image --}}
+                <div class="mb-8">
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">Gambar Utama</label>
+                    <div class="relative w-full aspect-video bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+                        @if($activity->featured_image)
+                            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full flex flex-col items-center justify-center text-gray-300">
+                                <i class="bi bi-image text-4xl mb-2"></i>
+                                <span class="text-xs uppercase font-bold tracking-widest">No Cover Image</span>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Gallery flex --}}
+                <div>
+                    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">Galeri Dokumentasi</label>
+                    @if($activity->photos && count($activity->photos) > 0)
+                        <div class="flex flex-wrap gap-2">
                             @foreach($activity->photos as $photo)
-                                <div class="col-6">
-                                    <img src="{{ asset('storage/activity/photos/' . $photo) }}"
-                                         class="img-fluid rounded-3 shadow-sm border border-light"
-                                         style="height: 100px; width: 100%; object-fit: cover;">
+                                <div class="relative group w-20 h-20 bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex-shrink-0">
+                                    <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}" 
+                                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer">
                                 </div>
                             @endforeach
                         </div>
+                        <p class="mt-3 text-[10px] text-gray-400 italic font-medium">* Klik gambar untuk memperbesar (jika tersedia lightbox)</p>
                     @else
-                        <p class="text-muted small italic">Tidak ada foto tambahan.</p>
+                        <div class="p-6 bg-white rounded-2xl border border-dashed border-gray-200 text-center">
+                            <i class="bi bi-images text-gray-300 text-2xl mb-2"></i>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Belum ada foto galeri</p>
+                        </div>
                     @endif
                 </div>
-            </div>
-        </div>
 
-        {{-- Sisi Kanan: Detail Informasi --}}
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
-                <div class="card-body p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-success bg-opacity-10 p-2 rounded-3 me-3">
-                            <i class="bi bi-info-circle text-success fs-4"></i>
+                {{-- System Log Info --}}
+                <div class="mt-auto pt-8">
+                    <div class="p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase">Input Oleh</span>
+                            <span class="text-xs font-bold text-gray-700">Administrator</span>
                         </div>
-                        <h5 class="fw-bold mb-0 text-dark">Informasi Utama</h5>
-                    </div>
-                    
-                    <div class="row gy-3">
-                        <div class="col-md-6">
-                            <label class="text-muted small text-uppercase fw-bold">Partner</label>
-                            <p class="mb-0 fw-semibold text-dark">{{ $activity->partner->name ?? '-' }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="text-muted small text-uppercase fw-bold">Tanggal Kegiatan</label>
-                            <p class="mb-0 fw-semibold text-dark">{{ \Carbon\Carbon::parse($activity->activity_date)->format('d F Y') }}</p>
-                        </div>
-                        <div class="col-12">
-                            <label class="text-muted small text-uppercase fw-bold">Deskripsi Singkat</label>
-                            <p class="mb-0 text-secondary">{{ $activity->short_description }}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-bold text-gray-400 uppercase">ID System</span>
+                            <span class="text-xs font-mono text-gray-500">ACT-{{ str_pad($activity->id, 5, '0', STR_PAD_LEFT) }}</span>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-success bg-opacity-10 p-2 rounded-3 me-3">
-                            <i class="bi bi-text-paragraph text-success fs-4"></i>
-                        </div>
-                        <h5 class="fw-bold mb-0 text-dark">Deskripsi Lengkap</h5>
-                    </div>
-                    <div class="text-secondary leading-relaxed">
-                        {!! nl2br(e($activity->full_description)) !!}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 
 <style>
-    .rounded-4 { border-radius: 1rem !important; }
-    .transition-all { transition: all 0.3s ease; }
-    .hover-shadow:hover { box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; }
-    .leading-relaxed { line-height: 1.7; }
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #0f5132; border-radius: 10px; }
+    .text-emerald-700 { color: #047857 !important; }
+    .bg-emerald-50 { background-color: #ecfdf5 !important; }
 </style>
 @endsection

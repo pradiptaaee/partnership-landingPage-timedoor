@@ -14,13 +14,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     {{-- Bootstrap Icons (boleh tetap dipakai) --}}
     {{-- <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
 
     {{-- Tailwind via Vite --}}
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
-    
+
     @livewireStyles
 </head>
+<style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        .animate-fadeIn { animation: fadeIn 0.15s ease-out; }
+        .animate-scaleIn { animation: scaleIn 0.15s ease-out; }
+    </style>
 
 <body class="bg-gray-100">
 
@@ -59,9 +65,9 @@
             });
         });
 
-        window.onload = function () {
+        window.onload = function() {
 
-            @if (Session::has('login_success'))
+            @if(Session::has('login_success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Login Berhasil!',
@@ -71,7 +77,7 @@
             });
             @endif
 
-            @if (Session::has('success_message'))
+            @if(Session::has('success_message'))
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil!',
@@ -85,4 +91,5 @@
     </script>
 
 </body>
+
 </html>

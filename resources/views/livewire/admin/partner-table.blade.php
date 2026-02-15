@@ -1,9 +1,9 @@
 <div class="flex-1 p-8 bg-white min-h-screen font-sans">
-    {{-- ^^^ INI ADALAH ROOT ELEMENT UTAMA (JANGAN ADA ELEMENT LAIN SEJAJAR DENGAN INI) --}}
+    
 
     <div class="max-w-7xl mx-auto space-y-8">
 
-        {{-- 1. STATS CARDS --}}
+        {{-- STATS CARDS --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {{-- Total Partner --}}
             <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-between hover:-translate-y-1 transition-transform duration-300">
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        {{-- 2. HEADER & ACTIONS --}}
+        {{-- HEADER & ACTIONS --}}
         <div class="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight">Data Partner</h1>
@@ -64,7 +64,7 @@
             </a>
         </div>
 
-        {{-- 3. TOOLBAR (Search & Filters) --}}
+        {{-- TOOLBAR (Search & Filters) --}}
         <div class="bg-gray-50 p-2 rounded-xl border border-gray-100 flex flex-col md:flex-row gap-3">
             
             {{-- Search Input --}}
@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        {{-- 4. TABLE --}}
+        {{-- TABLE --}}
         <div class="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_15px_rgba(0,0,0,0.03)] overflow-hidden">
             @if ($partners->count())
                 <div class="overflow-x-auto">
@@ -125,6 +125,8 @@
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Info Partner</th>
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Deskripsi Singkat</th>
                                 <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Kategori</th>
+                                <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider">No Telepon</th>
                                 <th class="px-6 py-4 text-center text-[11px] font-bold text-gray-400 uppercase tracking-wider">Aksi</th>
                             </tr>
                         </thead>
@@ -168,6 +170,16 @@
                                             {{ $partner->category }}
                                         </span>
                                     </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1 text-xs  text-grey-500 ">
+                                            {{ $partner->email }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1  text-xs  text-grey-500 ">
+                                            {{ $partner->no_telepon}}
+                                        </span>
+                                    </td>
 
                                     {{-- Actions --}}
                                     <td class="px-6 py-4">
@@ -202,7 +214,7 @@
 
                 {{-- Pagination --}}
                 <div class="px-6 py-4 border-t border-gray-50 bg-white">
-                    {{ $partners->links() }}
+                    {{ $partners->links('component.pagination') }}
                 </div>
             @else
                 {{-- Empty State --}}
@@ -220,30 +232,26 @@
 
     {{-- DELETE MODAL --}}
     @if ($confirmingPartnerDeletion)
-        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fadeIn">
-            <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-scaleIn border border-gray-100">
-                <div class="text-center">
-                    <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-red-500">
-                        <i class="bi bi-exclamation-triangle text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Partner?</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-6">
-                        Tindakan ini tidak dapat dibatalkan. Semua data kegiatan terkait partner ini juga mungkin akan terhapus.
-                    </p>
-                    
-                    <div class="flex gap-3">
-                        <button wire:click="$set('confirmingPartnerDeletion', false)" 
-                                class="flex-1 px-4 py-2.5 bg-white border border-gray-200 text-gray-700 text-sm font-bold rounded-lg hover:bg-gray-50 transition">
-                            Batal
-                        </button>
-                        <button wire:click="deletePartner"
-                                class="flex-1 px-4 py-2.5 bg-red-600 text-white text-sm font-bold rounded-lg hover:bg-red-700 transition shadow-sm">
-                            Ya, Hapus
-                        </button>
-                    </div>
+       
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm animate-fadeIn">
+            <div class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl animate-scaleIn text-center rounded-none">
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Item?</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-8">
+                    Tindakan ini permanen. Lanjutkan?
+                </p>
+                <div class="flex flex-col gap-3">
+                    <button wire:click="deletePartner"
+                            class="w-full px-4 py-3 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">
+                        YA, HAPUS
+                    </button>
+                    <button wire:click="$set('confirmingPartnerDeletion', false)" 
+                            class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-bold hover:bg-gray-50 transition">
+                        BATAL
+                    </button>
                 </div>
             </div>
         </div>
+   
     @endif
 
     {{-- STYLE: Dipindah ke dalam DIV utama agar menjadi 1 root element --}}

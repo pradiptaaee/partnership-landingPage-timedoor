@@ -13,7 +13,8 @@
                     <ol class="inline-flex items-center space-x-1 md:space-x-2">
                         <li class="inline-flex items-center">
                             {{-- UBAH HOVER LINK BREADCRUMB --}}
-                            <a href="{{ route('admin.activity.index') }}" class="hover:text-[#0f5132] transition-colors flex items-center">
+                            <a href="{{ route('admin.activity.index') }}"
+                                class="hover:text-[#0f5132] transition-colors flex items-center">
                                 <i class="fas fa-home mr-2"></i> Kegiatan
                             </a>
                         </li>
@@ -28,22 +29,25 @@
                 <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Edit Kegiatan</h1>
                 <p class="text-gray-500 mt-1 text-sm">Perbarui detail, gambar utama, dan galeri kegiatan partner.</p>
             </div>
-            
+
             {{-- UBAH HOVER & FOCUS TOMBOL KEMBALI --}}
-            <a href="{{ route('admin.activity.index') }}" 
-               class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#0f5132] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0f5132] shadow-sm transition-all duration-200">
+            <a href="{{ route('admin.activity.index') }}"
+                class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#0f5132] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0f5132] shadow-sm transition-all duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Kembali
             </a>
         </div>
 
         {{-- Alert Success (GUNAKAN OPASITAS UNTUK BG TERANG) --}}
         @if (session('success'))
-            <div class="flex items-center p-4 mb-6 text-[#0f5132] rounded-xl bg-[#0f5132]/10 border border-[#0f5132]/20 shadow-sm" role="alert">
+            <div class="flex items-center p-4 mb-6 text-[#0f5132] rounded-xl bg-[#0f5132]/10 border border-[#0f5132]/20 shadow-sm"
+                role="alert">
                 <div class="flex-shrink-0 bg-[#0f5132]/20 rounded-full p-2">
                     <i class="fas fa-check text-[#0f5132]"></i>
                 </div>
                 <div class="ml-3 text-sm font-medium">{{ session('success') }}</div>
-                <button type="button" class="ml-auto bg-transparent text-[#0f5132] rounded-lg focus:ring-2 focus:ring-[#0f5132]/50 p-1.5 hover:bg-[#0f5132]/20 inline-flex h-8 w-8 justify-center items-center" onclick="this.parentElement.remove()">
+                <button type="button"
+                    class="ml-auto bg-transparent text-[#0f5132] rounded-lg focus:ring-2 focus:ring-[#0f5132]/50 p-1.5 hover:bg-[#0f5132]/20 inline-flex h-8 w-8 justify-center items-center"
+                    onclick="this.parentElement.remove()">
                     <span class="sr-only">Close</span>
                     <i class="fas fa-times"></i>
                 </button>
@@ -55,22 +59,23 @@
             @method('PUT')
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
+
                 {{-- KOLOM KIRI --}}
                 <div class="lg:col-span-2 space-y-8">
-                    
+
                     {{-- CARD INFORMASI DASAR --}}
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                             <h2 class="text-xl font-bold text-gray-800 flex items-center">
                                 {{-- WARNA ICON KOTAK --}}
-                                <span class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
+                                <span
+                                    class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
                                     <i class="fas fa-pen"></i>
                                 </span>
                                 Informasi Dasar
                             </h2>
                         </div>
-                        
+
                         <div class="p-8 space-y-6">
                             {{-- SEMUA INPUT MENGGUNAKAN focus:ring-[#0f5132] dan focus:border-[#0f5132] --}}
                             <div>
@@ -81,44 +86,154 @@
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <i class="fas fa-building text-gray-400"></i>
                                     </div>
-                                    <select id="partner_id" name="partner_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full pl-10 p-3 transition-colors @error('partner_id') border-red-500 bg-red-50 @enderror" required>
+                                    <select id="partner_id" name="partner_id"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full pl-10 p-3 transition-colors @error('partner_id') border-red-500 bg-red-50 @enderror"
+                                        required>
                                         <option value="">-- Pilih Partner --</option>
                                         @foreach ($partners as $partner)
-                                            <option value="{{ $partner->id }}" {{ old('partner_id', $activity->partner_id) == $partner->id ? 'selected' : '' }}>
+                                            <option value="{{ $partner->id }}"
+                                                {{ old('partner_id', $activity->partner_id) == $partner->id ? 'selected' : '' }}>
                                                 {{ $partner->name }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('partner_id') <p class="mt-2 text-sm text-red-600 flex items-center"><i class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p> @enderror
+                                @error('partner_id')
+                                    <p class="mt-2 text-sm text-red-600 flex items-center"><i
+                                            class="fas fa-exclamation-circle mr-1"></i> {{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div class="md:col-span-2">
-                                    <label for="title" class="block mb-2 text-sm font-bold text-gray-700">Judul Kegiatan <span class="text-red-500">*</span></label>
-                                    <input type="text" id="title" name="title" value="{{ old('title', $activity->title) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3 transition-shadow @error('title') border-red-500 bg-red-50 @enderror" placeholder="Contoh: Kunjungan Industri..." required>
-                                    @error('title') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                                    <label for="title" class="block mb-2 text-sm font-bold text-gray-700">Judul Kegiatan
+                                        <span class="text-red-500">*</span></label>
+                                    <input type="text" id="title" name="title"
+                                        value="{{ old('title', $activity->title) }}"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3 transition-shadow @error('title') border-red-500 bg-red-50 @enderror"
+                                        placeholder="Contoh: Kunjungan Industri..." required>
+                                    @error('title')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div>
-                                    <label for="activity_date" class="block mb-2 text-sm font-bold text-gray-700">Tanggal <span class="text-red-500">*</span></label>
-                                    <input type="date" id="activity_date" name="activity_date" value="{{ old('activity_date', \Carbon\Carbon::parse($activity->activity_date)->format('Y-m-d')) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3 @error('activity_date') border-red-500 bg-red-50 @enderror" required>
-                                    @error('activity_date') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                                    <label for="activity_date" class="block mb-2 text-sm font-bold text-gray-700">Tanggal
+                                        <span class="text-red-500">*</span></label>
+                                    <input type="date" id="activity_date" name="activity_date"
+                                        value="{{ old('activity_date', \Carbon\Carbon::parse($activity->activity_date)->format('Y-m-d')) }}"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3 @error('activity_date') border-red-500 bg-red-50 @enderror"
+                                        required>
+                                    @error('activity_date')
+                                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div>
+                                <label for="category_activity" class="block mb-2 text-sm font-bold text-gray-700">
+                                    Kategori Kegiatan <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="category_activity" name="category_activity"
+                                    value="{{ old('category_activity', $activity->category_activity) }}"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-[#0f5132] focus:border-[#0f5132] block w-full p-3"
+                                    placeholder="contoh: seminar, workshop" required>
+                                @error('category_activity')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- <div>
                                 <div class="flex justify-between items-center mb-2">
-                                    <label for="short_description" class="text-sm font-bold text-gray-700">Deskripsi Singkat <span class="text-red-500">*</span></label>
-                                    <span class="text-xs text-gray-500 font-medium"><span id="char_count">{{ strlen($activity->short_description) }}</span>/200 Karakter</span>
+                                    <label for="short_description" class="text-sm font-bold text-gray-700">Deskripsi Singkat
+                                        <span class="text-red-500">*</span></label>
+                                    <span class="text-xs text-gray-500 font-medium"><span
+                                            id="char_count">{{ strlen($activity->short_description) }}</span>/200
+                                        Karakter</span>
                                 </div>
-                                <textarea id="short_description" name="short_description" rows="3" maxlength="200" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all resize-none @error('short_description') border-red-500 bg-red-50 @enderror" placeholder="Tulis ringkasan singkat untuk tampilan kartu..." required>{{ old('short_description', $activity->short_description) }}</textarea>
-                                @error('short_description') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
-                            </div>
+                                <textarea id="short_description" name="short_description" rows="3" maxlength="200"
+                                    class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all resize-none @error('short_description') border-red-500 bg-red-50 @enderror"
+                                    placeholder="Tulis ringkasan singkat untuk tampilan kartu..." required>{{ old('short_description', $activity->short_description) }}</textarea>
+                                @error('short_description')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div> --}}
 
                             <div>
-                                <label for="full_description" class="block mb-2 text-sm font-bold text-gray-700">Deskripsi Lengkap <span class="text-red-500">*</span></label>
-                                <textarea id="full_description" name="full_description" rows="8" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all @error('full_description') border-red-500 bg-red-50 @enderror" placeholder="Jelaskan detail lengkap kegiatan..." required>{{ old('full_description', $activity->full_description) }}</textarea>
-                                @error('full_description') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                                <label for="full_description" class="block mb-2 text-sm font-bold text-gray-700">Deskripsi
+                                    Lengkap <span class="text-red-500">*</span></label>
+                                <textarea id="full_description" name="full_description" rows="8"
+                                    class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all @error('full_description') border-red-500 bg-red-50 @enderror"
+                                    placeholder="Jelaskan detail lengkap kegiatan..." required>{{ old('full_description', $activity->full_description) }}</textarea>
+                                @error('full_description')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- EXTRA FIELD DINAMIS --}}
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+                            <h2 class="text-xl font-bold text-gray-800">Informasi Tambahan</h2>
+                        </div>
+
+                        <div class="p-8 space-y-6">
+                            {{-- SEMINAR --}}
+                            <div class="extra-form space-y-6 hidden" data-category="seminar">
+                                <div>
+                                    <label class="block mb-2 text-sm font-bold text-gray-700">Nama Pembicara</label>
+                                    <input type="text" name="speaker_name"
+                                        value="{{ old('extra.speaker_name', $activity->seminarDetail->speaker_name ?? '') }}"
+                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full focus:ring-[#0f5132] focus:border-[#0f5132]">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#0f5132] uppercase mb-1">Tentang
+                                        Pembicara</label>
+                                    <textarea name="speaker_about" rows="3"
+                                        class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 resize-none focus:ring-[#0f5132] focus:border-[#0f5132]">{{ old('extra.speaker_about', $activity->seminarDetail->speaker_about ?? '') }}</textarea>
+                                </div>
+
+                                <div class="space-y-2">
+                                    {{-- FOTO PEMBICARA SAAT INI --}}
+                                    @if ($activity->seminarDetail && $activity->seminarDetail->speaker_photo)
+                                        <div id="oldSpeakerPhoto" class="mb-2">
+                                            <img src="{{ asset('storage/activity/speakers/' . $activity->seminarDetail->speaker_photo) }}"
+                                                alt="Speaker Photo" class="w-32 h-32 object-cover rounded-lg shadow">
+                                            <p class="text-xs text-gray-500 mt-1 italic">Kosongkan jika tidak ingin
+                                                mengganti foto</p>
+                                        </div>
+                                    @endif
+
+                                    {{-- PREVIEW FOTO BARU --}}
+                                    <div id="newSpeakerPreview" class="hidden">
+                                        <img id="speaker_preview_img" src=""
+                                            class="w-32 h-32 object-cover rounded-lg shadow border-2 border-[#0f5132]">
+                                    </div>
+
+                                    <label for="speaker_photo"
+                                        class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition">
+                                        <i class="fas fa-upload mr-2"></i> Pilih Foto Pembicara
+                                    </label>
+                                    <input type="file" id="speaker_photo" name="speaker_photo"
+                                        accept="image/*" class="hidden" onchange="previewSpeakerPhoto(event)">
+                                </div>
+                            </div>
+
+                            {{-- WORKSHOP --}}
+                            <div class="extra-form space-y-6 hidden" data-category="workshop">
+                                <div>
+                                    <label class="block mb-2 text-sm font-bold text-gray-700">Nama Mentor</label>
+                                    <input type="text" name="mentor_name"
+                                        value="{{ old('extra.mentor_name', $activity->workshopDetail->mentor_name ?? '') }}"
+                                        class="bg-gray-50 border border-gray-300 rounded-xl p-3 w-full focus:ring-[#0f5132] focus:border-[#0f5132]">
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm font-bold text-gray-700">Deskripsi
+                                        Mentor/Workshop</label>
+                                    <textarea name="description" rows="3"
+                                        class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 resize-none focus:ring-[#0f5132] focus:border-[#0f5132]">{{ old('extra.description', $activity->workshopDetail->description ?? '') }}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,44 +243,55 @@
                         <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
                             <h2 class="text-xl font-bold text-gray-800 flex items-center">
                                 {{-- WARNA ICON KOTAK --}}
-                                <span class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
+                                <span
+                                    class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
                                     <i class="fas fa-images"></i>
                                 </span>
                                 Media & Galeri
                             </h2>
                         </div>
-                        
+
                         <div class="p-8 space-y-8">
-                            
+
                             <div class="p-5 rounded-xl bg-gray-50 border border-gray-200 border-dashed">
                                 <label class="block mb-4 text-sm font-bold text-gray-700">Gambar Utama (Thumbnail)</label>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative shadow-inner group">
+                                    <div
+                                        class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative shadow-inner group">
                                         @if ($activity->featured_image)
-                                            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}" id="current_featured_preview" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                            <img src="{{ asset('storage/activity/featured/' . $activity->featured_image) }}"
+                                                id="current_featured_preview"
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                         @else
                                             <div class="flex flex-col items-center justify-center h-full text-gray-400">
                                                 <i class="fas fa-image text-3xl mb-2"></i>
                                                 <span class="text-xs">Tidak ada gambar</span>
                                             </div>
                                         @endif
-                                        <img id="new_featured_preview_img" class="absolute inset-0 w-full h-full object-cover hidden">
+                                        <img id="new_featured_preview_img"
+                                            class="absolute inset-0 w-full h-full object-cover hidden">
                                     </div>
-                                    
+
                                     <div>
                                         {{-- UBAH FOCUS RING TOMBOL UPLOAD --}}
-                                        <label for="featured_image" class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0f5132] focus:ring-offset-2 transition ease-in-out duration-150">
+                                        <label for="featured_image"
+                                            class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0f5132] focus:ring-offset-2 transition ease-in-out duration-150">
                                             <i class="fas fa-upload mr-2"></i> Pilih Gambar Baru
                                         </label>
-                                        <input id="featured_image" name="featured_image" type="file" class="hidden" accept="image/*" onchange="previewFeaturedImage(event)">
-                                        
+                                        <input id="featured_image" name="featured_image" type="file" class="hidden"
+                                            accept="image/*" onchange="previewFeaturedImage(event)">
+
                                         {{-- UBAH WARNA ICON CHECKLIST --}}
                                         <div class="mt-4 text-xs text-gray-500 space-y-1">
-                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Format: JPG, PNG, WEBP</p>
+                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Format: JPG, PNG,
+                                                WEBP</p>
                                             <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Max Size: 2MB</p>
-                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Rasio: 16:9 (Disarankan)</p>
+                                            <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Rasio: 16:9
+                                                (Disarankan)</p>
                                         </div>
-                                        @error('featured_image') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                                        @error('featured_image')
+                                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -174,27 +300,38 @@
                                 <div class="flex justify-between items-end mb-4">
                                     <label class="text-sm font-bold text-gray-700">Galeri Foto</label>
                                     {{-- UBAH WARNA LINK TAMBAH FOTO --}}
-                                    <label for="photos" class="cursor-pointer text-sm font-semibold text-[#0f5132] hover:text-[#0a3622] hover:underline">
+                                    <label for="photos"
+                                        class="cursor-pointer text-sm font-semibold text-[#0f5132] hover:text-[#0a3622] hover:underline">
                                         + Tambah Foto
                                     </label>
-                                    <input id="photos" name="photos[]" type="file" multiple class="hidden" accept="image/*" onchange="previewMultipleImages(event)">
+                                    <input id="photos" name="photos[]" type="file" multiple class="hidden"
+                                        accept="image/*" onchange="previewMultipleImages(event)">
                                 </div>
 
-                                <div id="photos_preview" class="grid grid-cols-4 sm:grid-cols-5 gap-3 mb-4 empty:hidden"></div>
+                                <div id="photos_preview" class="grid grid-cols-4 sm:grid-cols-5 gap-3 mb-4 empty:hidden">
+                                </div>
 
                                 @if ($activity->photos->isEmpty())
-                                    <div class="text-center py-8 rounded-xl bg-gray-50 border border-gray-200 border-dashed">
+                                    <div
+                                        class="text-center py-8 rounded-xl bg-gray-50 border border-gray-200 border-dashed">
                                         <i class="fas fa-camera text-gray-300 text-3xl mb-2"></i>
                                         <p class="text-gray-500 text-sm">Belum ada foto galeri.</p>
                                     </div>
                                 @else
                                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                                         @foreach ($activity->photos as $photo)
-                                            <div class="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all" id="photo-card-{{ $photo->id }}">
-                                                <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                                                
-                                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
-                                                    <button type="button" onclick="deletePhoto({{ $photo->id }})" class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full hover:bg-red-500 hover:text-white transition-colors shadow-lg" title="Hapus Foto">
+                                            <div class="group relative aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all"
+                                                id="photo-card-{{ $photo->id }}">
+                                                <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}"
+                                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+
+                                                <div
+                                                    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
+                                                    <button type="button"
+                                                        onclick="confirmDeleteGallery('{{ route('admin.activity.photo.delete', $photo->id) }}')"
+                                                        class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full 
+           hover:bg-red-500 hover:text-white transition-colors shadow-lg"
+                                                        title="Hapus Foto">
                                                         <i class="fas fa-trash-alt text-sm"></i>
                                                     </button>
                                                 </div>
@@ -217,34 +354,34 @@
                                 <i class="fas fa-rocket mr-3 text-[#0f5132]"></i> Publikasi
                             </h2>
                         </div>
-                        
+
                         <div class="p-6 space-y-4">
                             <div class="space-y-3 mb-6 text-sm text-gray-600">
                                 <div class="flex justify-between items-center pb-2 border-b border-gray-100">
                                     <span><i class="far fa-calendar-alt mr-2 text-gray-400"></i> Dibuat</span>
-                                    <span class="font-medium text-gray-900">{{ $activity->created_at->format('d M Y') }}</span>
+                                    <span
+                                        class="font-medium text-gray-900">{{ $activity->created_at->format('d M Y') }}</span>
                                 </div>
                                 <div class="flex justify-between items-center pb-2 border-b border-gray-100">
                                     <span><i class="far fa-clock mr-2 text-gray-400"></i> Update</span>
-                                    <span class="font-medium text-gray-900">{{ $activity->updated_at->diffForHumans() }}</span>
+                                    <span
+                                        class="font-medium text-gray-900">{{ $activity->updated_at->diffForHumans() }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span><i class="far fa-eye mr-2 text-gray-400"></i> Status</span>
                                     {{-- UBAH BADGE STATUS (BG Opacity, Text, Border) --}}
-                                    <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-[#0f5132]/10 text-[#0f5132] border border-[#0f5132]/20">PUBLISHED</span>
+                                    <span
+                                        class="px-2.5 py-0.5 rounded text-xs font-bold bg-[#0f5132]/10 text-[#0f5132] border border-[#0f5132]/20">PUBLISHED</span>
                                 </div>
                             </div>
 
                             {{-- TOMBOL SIMPAN SUDAH BENAR --}}
-                            <button type="submit" class="w-full text-white bg-[#0f5132] hover:bg-[#0a3622] focus:ring-4 focus:ring-[#0f5132]/50 font-bold rounded-xl text-sm px-5 py-3.5 focus:outline-none transition-all shadow-md transform hover:-translate-y-0.5 flex items-center justify-center">
+                            <button type="submit"
+                                class="w-full text-white bg-[#0f5132] hover:bg-[#0a3622] focus:ring-4 focus:ring-[#0f5132]/50 font-bold rounded-xl text-sm px-5 py-3.5 focus:outline-none transition-all shadow-md transform hover:-translate-y-0.5 flex items-center justify-center">
                                 <i class="fas fa-save mr-2"></i> Simpan Perubahan
                             </button>
-                            
-                            <button type="button" onclick="deleteActivity()" class="w-full text-red-600 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 focus:ring-4 focus:ring-red-100 font-medium rounded-xl text-sm px-5 py-3 focus:outline-none transition-all flex items-center justify-center mt-3">
-                                <i class="fas fa-trash-alt mr-2"></i> Hapus Kegiatan
-                            </button>
                         </div>
-                        
+
                         <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 leading-relaxed">
                             <i class="fas fa-info-circle mr-1 text-gray-400"></i>
                             Pastikan data benar. Foto yang dihapus tidak dapat dikembalikan.
@@ -256,20 +393,166 @@
         </form>
     </div>
 
-    <form id="deleteActivityForm" action="{{ route('admin.activity.destroy', $activity->id) }}" method="POST" class="hidden">
+    <form id="deleteActivityForm" action="{{ route('admin.activity.destroy', $activity->id) }}" method="POST"
+        class="hidden">
         @csrf
         @method('DELETE')
     </form>
 
+    <div id="deleteModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-white/80 backdrop-blur-sm animate-fadeIn">
+
+        <div
+            class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl animate-scaleIn text-center rounded-none">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Item?</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-8">
+                Tindakan ini permanen. Lanjutkan?
+            </p>
+
+            <form id="deleteForm" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="flex flex-col gap-3">
+                    <button type="submit"
+                        class="w-full px-4 py-3 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">
+                        YA, HAPUS
+                    </button>
+
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-bold hover:bg-gray-50 transition">
+                        BATAL
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="deleteActivityModal"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+
+        <div class="bg-white w-full max-w-sm p-8 border border-gray-200 shadow-2xl text-center">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Hapus Kegiatan?</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mb-8">
+                Tindakan ini permanen dan tidak dapat dibatalkan.
+            </p>
+
+            <div class="flex flex-col gap-3">
+                <button id="confirmDeleteActivityBtn"
+                    class="w-full px-4 py-3 bg-red-600 text-white text-sm font-bold hover:bg-red-700 transition">
+                    YA, HAPUS
+                </button>
+
+                <button onclick="closeDeleteActivityModal()"
+                    class="w-full px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-bold hover:bg-gray-50 transition">
+                    BATAL
+                </button>
+            </div>
+        </div>
+    </div>
+
     {{-- Script JavaScript --}}
     <script>
+        function confirmDeleteGallery(actionUrl) {
+            const modal = document.getElementById('deleteModal');
+            const form = document.getElementById('deleteForm');
+
+            form.action = actionUrl;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+       // Konfigurasi field yang wajib diisi saat mode Edit (tanpa file)
+    const REQUIRED_FIELDS = {
+        seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
+        workshop: ['extra[mentor_name]']
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoryInput = document.getElementById('category_activity');
+        const extraForms = document.querySelectorAll('.extra-form');
+
+        function activateForm(val) {
+            const category = val.trim().toLowerCase();
+            
+            // Sembunyikan semua & matikan required
+            extraForms.forEach(f => {
+                f.classList.add('hidden');
+                f.querySelectorAll('input, textarea').forEach(i => i.required = false);
+            });
+
+            // Tampilkan yang cocok
+            const target = document.querySelector(`.extra-form[data-category="${category}"]`);
+            if (target) {
+                target.classList.remove('hidden');
+                // Set required hanya untuk field teks (bukan file)
+                const fields = REQUIRED_FIELDS[category] || [];
+                fields.forEach(name => {
+                    const el = target.querySelector(`[name="${name}"]`);
+                    if (el) el.required = true;
+                });
+            }
+        }
+
+        // Listener input
+        categoryInput.addEventListener('input', (e) => activateForm(e.target.value));
+
+        // Jalankan saat load (untuk data lama)
+        if (categoryInput.value) activateForm(categoryInput.value);
+    });
+
+    // Preview Foto Pembicara (Seminar)
+    function previewSpeakerPhoto(event) {
+        const file = event.target.files[0];
+        const previewDiv = document.getElementById('newSpeakerPreview');
+        const previewImg = document.getElementById('speaker_preview_img');
+        const oldPhoto = document.getElementById('oldSpeakerPhoto');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                previewDiv.classList.remove('hidden');
+                if(oldPhoto) oldPhoto.style.opacity = '0.3';
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+        document.getElementById('speaker_photo')?.addEventListener('change', function(e) {
+            const file = e.target.files[0]
+            if (!file) return
+
+            const reader = new FileReader()
+
+            reader.onload = function(ev) {
+                const newPreview = document.getElementById('newSpeakerPreview')
+                const oldPreview = document.getElementById('oldSpeakerPhoto')
+
+                newPreview.querySelector('img').src = ev.target.result
+                newPreview.classList.remove('hidden')
+
+                if (oldPreview) oldPreview.classList.add('hidden')
+            }
+
+            reader.readAsDataURL(file)
+        })
+
+
         // Hitung Karakter
         const shortDesc = document.getElementById('short_description');
         const charCount = document.getElementById('char_count');
-        if(shortDesc && charCount) {
+        if (shortDesc && charCount) {
             shortDesc.addEventListener('input', function() {
                 charCount.textContent = this.value.length;
-                if(this.value.length >= 200) {
+                if (this.value.length >= 200) {
                     charCount.classList.add('text-red-500', 'font-bold');
                 } else {
                     charCount.classList.remove('text-red-500', 'font-bold');
@@ -296,14 +579,15 @@
             const container = document.getElementById('photos_preview');
             const files = event.target.files;
             container.innerHTML = '';
-            
+
             if (files.length > 0) {
                 container.classList.remove('hidden');
                 Array.from(files).forEach(file => {
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         const div = document.createElement('div');
-                        div.className = 'aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm relative';
+                        div.className =
+                            'aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm relative';
                         {{-- UBAH WARNA BORDER & BG OVERLAY PREVIEW JS --}}
                         div.innerHTML = `
                             <img src="${e.target.result}" class="w-full h-full object-cover">
@@ -314,52 +598,6 @@
                     reader.readAsDataURL(file);
                 });
             }
-        }
-
-        // Delete Logic
-        function deleteActivity() {
-            if (confirm('PERINGATAN: Apakah Anda yakin ingin menghapus kegiatan ini secara permanen? Data yang dihapus tidak bisa dikembalikan.')) {
-                document.getElementById('deleteActivityForm').submit();
-            }
-        }
-
-        function deletePhoto(photoId) {
-            if (!confirm('Hapus foto ini dari galeri?')) return;
-            
-            const card = document.getElementById(`photo-card-${photoId}`);
-            if(card) {
-                card.style.opacity = '0.5';
-                card.style.pointerEvents = 'none';
-            }
-
-            fetch(`/admin/activity/photo/${photoId}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(res => {
-                if(res.ok) {
-                    if(card) {
-                        card.classList.add('scale-0');
-                        setTimeout(() => card.remove(), 300);
-                    }
-                } else {
-                    alert('Gagal menghapus foto.');
-                    if(card) {
-                        card.style.opacity = '1';
-                        card.style.pointerEvents = 'auto';
-                    }
-                }
-            })
-            .catch(err => {
-                alert('Terjadi kesalahan koneksi.');
-                if(card) {
-                    card.style.opacity = '1';
-                    card.style.pointerEvents = 'auto';
-                }
-            });
         }
     </script>
 @endsection

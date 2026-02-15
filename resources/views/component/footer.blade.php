@@ -1,0 +1,560 @@
+<section class="w-100 position-relative overflow-hidden pt-5 pb-5" style="background-color: #1B2548;">
+
+    <!-- World Map Background -->
+    <div class="position-absolute top-0 start-0 end-0 bottom-0 d-flex align-items-center justify-content-center overflow-hidden"
+        style="z-index: 0; pointer-events: none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="World Map"
+            class="" style="filter: invert(2); transform: scale(1.5); opacity: 0.05;">
+    </div>
+
+    <div class="container-fluid position-relative" style="max-width: 1280px; z-index: 10; padding: 0 1.25rem;">
+
+        <!-- Title -->
+        <h2 class="fw-bold mb-5" style="color: #00C220; font-size: clamp(1.875rem, 5vw, 2.25rem);">
+            {{ __('Footer Branches') }}
+        </h2>
+
+        <!-- Branches Grid -->
+        <div class="d-flex flex-wrap g-4 g-lg-6 justify-content-center mb-5">
+
+            <!-- Indonesia -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇮🇩</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Indonesia</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+628814677923</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>id@timedooracademy.com</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom"
+                        style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
+                        <span>{{ __('Offline Branch') }}</span>
+                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Malaysia -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇲🇾</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Malaysia</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+601121898022</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>my@timedooracademy.com</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom"
+                        style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
+                        <span>{{ __('Offline Branch') }}</span>
+                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Philippines -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇵🇭</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Philippines</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>timedooracademy.ph</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>ph@timedooracademy.com</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom"
+                        style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
+                        <span>{{ __('Offline Branch') }}</span>
+                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Egypt -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇪🇬</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Egypt</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+201022439691</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>eg@timedooracademy.com</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom"
+                        style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
+                        <span>{{ __('Offline Branch') }}</span>
+                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Japan -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇯🇵</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Japan</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+6282144420385</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>info@timedooracademy.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Syria -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇸🇾</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Syria</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+963934354199</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>sy@timedooracademy.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bangladesh -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇧🇩</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Bangladesh</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+8801779800142</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>bg@timedooracademy.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- United States -->
+            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
+                <div class="text-white">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span style="font-size: 1.5rem;">🇺🇸</span>
+                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">United States</h3>
+                    </div>
+                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
+                    <div class="d-flex align-items-center gap-2 mb-1 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span style="color: #4ade80;">●</span>
+                        <span>+818080667680</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3 text-transition"
+                        style="font-size: 0.75rem; color: #d1d5db;">
+                        <span>✉</span>
+                        <span>info@timedooracademy.com</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Main Footer -->
+<footer class="w-100 pt-5 pb-4 border-top"
+    style="background-color: #182140; border-color: rgba(55, 65, 81, 0.5) !important;">
+    <div class="container-fluid" style="max-width: 1280px; padding: 0 1.25rem;">
+
+        <!-- Footer Links Grid -->
+        <div class="row g-4 mb-5">
+
+            <!-- Logo & Social -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="mb-4" style="width: 128px;">
+                    <svg width="166" height="43" viewBox="0 0 166 43" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M26.1776 19.7234C27.1886 19.7234 28.0081 18.9039 28.0081 17.8929C28.0081 16.8819 27.1886 16.0624 26.1776 16.0624C25.1666 16.0624 24.3471 16.8819 24.3471 17.8929C24.3471 18.9039 25.1666 19.7234 26.1776 19.7234Z"
+                            fill="white" />
+                        <path
+                            d="M30.7162 27.5985L30.7126 34.3309C30.7126 35.0038 30.0144 35.8105 29.2727 35.948C24.7145 36.7945 11.0399 37.8653 11.0399 37.8653C10.4177 37.9485 10.4177 38.7299 11.0435 38.7299H34.4966C35.5638 38.7299 36.432 38.0788 36.432 37.2793V24.6719L30.7162 27.5985Z"
+                            fill="white" />
+                        <path
+                            d="M11.1062 1.6311C11.1062 1.6311 24.6614 2.74895 29.1219 3.53759C30.0661 3.704 30.7137 4.32623 30.7137 5.04252V8.89167V10.6679V19.7192L36.4331 16.684V13.0447V12.5093V2.22801C36.4331 1.4249 35.5685 0.777344 34.4977 0.777344H11.1242C10.4369 0.856931 10.4731 1.51896 11.1062 1.6311Z"
+                            fill="white" />
+                        <path
+                            d="M9.42035 21.6347C9.60123 21.4647 9.38418 21.1753 9.17074 21.3055C5.70506 23.4074 -2.07644 28.841 0.521008 31.5362C1.57374 32.6287 3.96136 32.6866 5.26732 32.6612C7.92266 32.6178 11.041 32.1548 13.6023 31.453C16.9739 30.5268 20.3275 29.5501 23.6159 28.3346C26.7451 27.1769 29.7839 25.8312 32.7793 24.3407C35.9086 22.7815 39.0052 20.98 41.8378 18.8781C41.9391 18.8058 42.0368 18.7298 42.1345 18.6538C43.2813 17.782 44.3702 16.8161 45.3361 15.7272C46.2332 14.7142 47.4054 13.383 46.7904 11.8889C46.2911 10.6734 44.2255 10.3478 43.2198 10.2827C42.6988 10.2501 42.1128 10.2356 41.5918 10.2935C41.5014 10.3044 41.3495 10.3333 41.3531 10.3803C41.3567 10.478 41.5738 10.4708 41.9174 10.6119C42.5252 10.8579 43.1366 11.3101 43.1655 12.0046C43.1872 12.522 42.9557 13.061 42.6916 13.4951C42.4058 13.9654 42.1092 14.3018 41.7727 14.6744C41.1324 15.3871 40.2606 16.1432 39.3779 16.7835C35.4383 19.6378 32.215 21.1102 31.817 21.2983C26.6836 23.7076 20.3854 25.8927 17.2597 26.5836C15.0132 27.0793 12.7124 27.47 10.3899 27.3976C9.44206 27.3687 7.55004 27.0178 7.32213 26.0048C6.90611 24.196 8.30613 22.6802 9.42035 21.6347Z"
+                            fill="white" />
+                        <path
+                            d="M58.0014 7.87227V11.5912C58.0014 13.7437 57.9543 15.1075 58.3342 15.4476C58.7936 15.86 59.6185 15.7949 60.143 15.7949L61.0474 15.7768V18.6492H58.8877C55.99 18.6492 54.5429 17.2419 54.5429 14.4238V7.87227H52.1698V5.04691H54.5429V0.821533H58.005V5.05053H61.051V7.87589H58.0014V7.87227Z"
+                            fill="white" />
+                        <path
+                            d="M64.4696 3.44759C64.0681 3.06412 63.8691 2.58298 63.8691 2.0114C63.8691 1.43981 64.0681 0.958669 64.4696 0.575201C64.8712 0.191734 65.374 0 65.9818 0C66.5859 0 67.0924 0.191734 67.4903 0.575201C67.8919 0.962287 68.0909 1.43981 68.0909 2.0114C68.0909 2.5866 67.8883 3.06412 67.4903 3.44759C67.0888 3.83106 66.5859 4.02641 65.9818 4.02641C65.374 4.02279 64.8712 3.83106 64.4696 3.44759Z"
+                            fill="white" />
+                        <path d="M67.6719 5.04553H64.2351V18.6478H67.6719V5.04553Z" fill="white" />
+                        <path
+                            d="M91.7088 6.55594C92.7181 7.56526 93.2209 8.97251 93.2209 10.7813V18.6533H89.8312V11.2408C89.8312 10.1917 89.5635 9.38854 89.0317 8.83143C88.4999 8.27431 87.7728 7.99576 86.8539 7.99576C85.935 7.99576 85.2043 8.27431 84.6616 8.83143C84.119 9.38854 83.8513 10.1917 83.8513 11.2408V18.6496H80.4616V11.2408C80.4616 10.1917 80.1939 9.38854 79.6621 8.83143C79.1303 8.27431 78.4032 7.99576 77.4807 7.99576C76.5437 7.99576 75.8057 8.27431 75.2667 8.83143C74.724 9.38854 74.4563 10.1917 74.4563 11.2408V18.6496H71.0666V5.04378H74.4563V6.85982C74.8904 6.29548 75.4548 5.85051 76.1385 5.52854C76.8259 5.20657 77.5783 5.04378 78.4032 5.04378C79.4523 5.04378 80.3892 5.26445 81.214 5.70942C82.0389 6.15439 82.6756 6.78747 83.1278 7.60867C83.5655 6.8345 84.1986 6.21227 85.027 5.74198C85.8591 5.27531 86.7599 5.04016 87.7294 5.04016C89.3718 5.04378 90.6994 5.54663 91.7088 6.55594Z"
+                            fill="white" />
+                        <path
+                            d="M108.836 12.8475H99.1987C99.2783 13.799 99.6111 14.5442 100.197 15.0832C100.783 15.6222 101.507 15.8936 102.364 15.8936C103.601 15.8936 104.48 15.3618 105.005 14.2982H108.597C108.217 15.568 107.487 16.6098 106.409 17.4274C105.331 18.245 104.007 18.6538 102.433 18.6538C101.163 18.6538 100.027 18.3716 99.0178 17.8109C98.0121 17.2465 97.2235 16.4507 96.6627 15.4196C96.0984 14.3886 95.8198 13.1984 95.8198 11.8491C95.8198 10.4852 96.0948 9.28778 96.6519 8.25676C97.2054 7.22574 97.9832 6.43348 98.9816 5.87636C99.9801 5.32287 101.13 5.04431 102.433 5.04431C103.685 5.04431 104.81 5.31563 105.801 5.85466C106.792 6.39368 107.563 7.16062 108.109 8.15185C108.655 9.14308 108.93 10.2826 108.93 11.5669C108.93 12.0372 108.898 12.4677 108.836 12.8475ZM105.479 10.6118C105.464 9.75445 105.153 9.07072 104.553 8.5534C103.949 8.03608 103.211 7.77923 102.339 7.77923C101.514 7.77923 100.819 8.02885 100.259 8.52808C99.6943 9.02731 99.3506 9.72189 99.224 10.6118H105.479Z"
+                            fill="white" />
+                        <path
+                            d="M129.825 17.8108C128.809 17.2464 128.013 16.4505 127.434 15.4195C126.855 14.3885 126.566 13.1983 126.566 11.8489C126.566 10.4996 126.862 9.31298 127.459 8.27834C128.056 7.24732 128.866 6.45144 129.897 5.8871C130.928 5.32636 132.079 5.04419 133.349 5.04419C134.618 5.04419 135.769 5.32636 136.8 5.8871C137.831 6.45144 138.645 7.24732 139.238 8.27834C139.831 9.30936 140.132 10.4996 140.132 11.8489C140.132 13.1983 139.828 14.3885 139.216 15.4195C138.605 16.4505 137.78 17.2464 136.742 17.8108C135.704 18.3751 134.542 18.6537 133.255 18.6537C131.981 18.6537 130.838 18.3715 129.825 17.8108ZM134.951 15.311C135.483 15.018 135.906 14.5766 136.225 13.9906C136.543 13.4045 136.699 12.6882 136.699 11.8489C136.699 10.5972 136.369 9.63133 135.711 8.95845C135.053 8.28558 134.246 7.94914 133.294 7.94914C132.343 7.94914 131.543 8.28558 130.903 8.95845C130.259 9.63495 129.941 10.5972 129.941 11.8489C129.941 13.1006 130.256 14.0665 130.881 14.7394C131.507 15.4123 132.296 15.7487 133.247 15.7487C133.852 15.7487 134.419 15.604 134.951 15.311Z"
+                            fill="white" />
+                        <path
+                            d="M145 17.8109C143.984 17.2465 143.188 16.4507 142.609 15.4196C142.03 14.3886 141.741 13.1984 141.741 11.8491C141.741 10.4997 142.037 9.3131 142.634 8.27846C143.231 7.24744 144.042 6.45157 145.073 5.88722C146.104 5.32649 147.254 5.04431 148.524 5.04431C149.794 5.04431 150.944 5.32649 151.975 5.88722C153.006 6.45157 153.82 7.24744 154.413 8.27846C155.007 9.30949 155.307 10.4997 155.307 11.8491C155.307 13.1984 155.003 14.3886 154.392 15.4196C153.78 16.4507 152.955 17.2465 151.917 17.8109C150.879 18.3752 149.718 18.6538 148.43 18.6538C147.156 18.6538 146.013 18.3716 145 17.8109ZM150.126 15.3111C150.658 15.0181 151.082 14.5767 151.4 13.9907C151.718 13.4046 151.874 12.6883 151.874 11.8491C151.874 10.5974 151.545 9.63145 150.886 8.95858C150.228 8.2857 149.421 7.94926 148.47 7.94926C147.518 7.94926 146.719 8.2857 146.078 8.95858C145.434 9.63507 145.116 10.5974 145.116 11.8491C145.116 13.1008 145.431 14.0667 146.057 14.7395C146.683 15.4124 147.471 15.7488 148.423 15.7488C149.027 15.7488 149.595 15.6041 150.126 15.3111Z"
+                            fill="white" />
+                        <path
+                            d="M163.106 5.45071C163.403 5.38559 163.707 5.34941 164.011 5.32771C164.3 5.30962 164.59 5.306 164.879 5.30962C165.024 5.31324 165.168 5.31685 165.313 5.32047C165.389 5.32409 165.602 5.32047 165.602 5.32047C165.602 5.32047 165.602 5.51582 165.602 5.56647C165.602 5.67862 165.602 5.78714 165.602 5.89929C165.602 6.47811 165.602 7.05693 165.602 7.63213C165.602 7.79492 165.602 7.9541 165.602 8.12051C165.602 8.12051 164.575 8.12774 164.477 8.12774C164.069 8.12774 163.66 8.23989 163.497 8.29416C162.954 8.4678 162.448 8.81509 162.057 9.23474C161.543 9.79185 161.449 10.4611 161.449 11.1846C161.449 11.2389 161.449 11.8177 161.449 11.872V18.6478H157.987V5.04553H161.449C161.449 5.04553 161.449 6.3334 161.449 6.35873C161.449 6.30808 161.554 6.23211 161.591 6.19955C161.652 6.14167 161.717 6.08741 161.786 6.03676C161.923 5.93185 162.075 5.83779 162.231 5.7582C162.506 5.6135 162.802 5.51582 163.106 5.45071Z"
+                            fill="white" />
+                        <path
+                            d="M111.593 8.70667C111.727 8.4462 111.886 8.19658 112.067 7.96144C112.78 7.04256 113.782 6.36607 114.874 5.96813C116.741 5.28802 119.064 5.4906 120.409 6.32266C120.406 4.76346 120.413 2.40477 120.409 0.845581H123.871C123.875 0.845581 123.875 0.849199 123.875 0.849199V18.6443C123.875 18.6479 123.871 18.6479 123.871 18.6479H120.677C120.673 18.6479 120.413 18.6443 120.413 18.637C120.413 18.0293 120.413 18.0003 120.413 17.3853C119.385 18.912 115.573 19.0856 113.572 17.7073C112.751 17.143 112.078 16.3652 111.608 15.4897C110.946 14.2561 110.71 12.8163 110.859 11.4271C110.956 10.4829 111.159 9.54234 111.593 8.70667ZM120.236 10.1392C119.935 9.58937 119.527 9.16611 119.016 8.87308C118.503 8.58005 117.953 8.43173 117.367 8.43173C116.781 8.43173 116.238 8.57643 115.739 8.86223C115.243 9.14802 114.838 9.56766 114.531 10.1175C114.223 10.6674 114.068 11.3186 114.068 12.0711C114.068 12.8235 114.223 13.4819 114.531 14.0463C114.838 14.6106 115.247 15.0447 115.75 15.345C116.256 15.6453 116.792 15.7972 117.367 15.7972C117.953 15.7972 118.503 15.6489 119.016 15.3559C119.53 15.0628 119.935 14.6396 120.236 14.0897C120.536 13.5398 120.688 12.8814 120.688 12.1108C120.684 11.3511 120.536 10.6927 120.236 10.1392Z"
+                            fill="white" />
+                        <path
+                            d="M53.0124 28.03C53.309 27.4729 53.6852 26.9592 54.1338 26.5178C55.0599 25.5989 56.2863 24.9948 57.5742 24.785C58.4641 24.6403 59.3866 24.6945 60.2584 24.9333C60.6998 25.0563 61.1267 25.2227 61.5282 25.4398C61.9443 25.664 62.2807 25.9752 62.6678 26.2356C62.704 25.6568 62.704 25.2987 62.704 24.9767H66.1045V38.6513H62.704C62.704 38.3076 62.6931 37.6456 62.7076 37.3019C60.8843 39.089 57.245 38.9733 55.1902 37.689C52.9328 36.2781 51.9886 33.4311 52.1912 30.8662C52.2707 29.8822 52.5457 28.9018 53.0124 28.03ZM62.2228 29.553C61.9008 28.9669 61.4667 28.5147 60.9205 28.2C60.3742 27.8853 59.7882 27.7297 59.1587 27.7297C58.5292 27.7297 57.954 27.8816 57.4222 28.1891C56.8904 28.493 56.4599 28.9416 56.1307 29.5277C55.8015 30.1137 55.6351 30.8083 55.6351 31.615C55.6351 32.4218 55.7979 33.1236 56.1307 33.7241C56.4599 34.3282 56.8941 34.7913 57.4331 35.1133C57.9721 35.4352 58.5473 35.5944 59.1587 35.5944C59.7845 35.5944 60.3742 35.4389 60.9205 35.1241C61.4667 34.8094 61.9008 34.3608 62.2228 33.7711C62.5448 33.1851 62.704 32.4796 62.704 31.6584C62.704 30.8409 62.5448 30.139 62.2228 29.553Z"
+                            fill="white" />
+                        <path
+                            d="M82.4811 28.0297C82.7777 27.4726 83.154 26.9589 83.6026 26.5176C84.5287 25.5987 85.755 24.9945 87.0429 24.7847C87.9328 24.64 88.8553 24.6943 89.7272 24.933C90.1685 25.056 90.5954 25.2225 90.997 25.4395C91.413 25.6638 91.7494 25.9749 92.1365 26.2354C92.1727 25.6566 92.1727 25.2984 92.1727 24.9765H95.5733V38.6511H92.1727C92.1727 38.3074 92.1618 37.6454 92.1763 37.3017C90.353 39.0888 86.7137 38.973 84.6589 37.6888C82.4015 36.2779 81.4573 33.4308 81.6599 30.8659C81.7359 29.8819 82.0144 28.9016 82.4811 28.0297ZM91.6879 29.5527C91.366 28.9667 90.9318 28.5145 90.3856 28.1998C89.8393 27.885 89.2533 27.7295 88.6238 27.7295C87.9943 27.7295 87.4191 27.8814 86.8873 28.1889C86.3556 28.4928 85.9251 28.9414 85.5959 29.5274C85.2667 30.1135 85.1002 30.8081 85.1002 31.6148C85.1002 32.4215 85.263 33.1233 85.5959 33.7239C85.9251 34.328 86.3592 34.7911 86.8982 35.113C87.4372 35.435 88.0124 35.5942 88.6238 35.5942C89.2497 35.5942 89.8393 35.4386 90.3856 35.1239C90.9318 34.8091 91.366 34.3606 91.6879 33.7709C92.0099 33.1848 92.1691 32.4794 92.1691 31.6582C92.1727 30.8406 92.0099 30.1388 91.6879 29.5527Z"
+                            fill="white" />
+                        <path
+                            d="M126.495 32.7019H116.618C116.702 33.6786 117.042 34.442 117.642 34.9955C118.243 35.5489 118.984 35.8239 119.86 35.8239C121.126 35.8239 122.03 35.2776 122.566 34.1887H126.249C125.858 35.4911 125.109 36.5583 124.006 37.3939C122.899 38.2332 121.542 38.6492 119.932 38.6492C118.63 38.6492 117.465 38.3598 116.434 37.7846C115.403 37.2094 114.596 36.3919 114.021 35.3319C113.446 34.2755 113.156 33.0564 113.156 31.6745C113.156 30.2781 113.439 29.0517 114.01 27.9917C114.578 26.9354 115.374 26.1214 116.398 25.5535C117.422 24.9855 118.601 24.6997 119.932 24.6997C121.216 24.6997 122.367 24.9746 123.383 25.5281C124.4 26.0816 125.189 26.8667 125.749 27.8796C126.31 28.8961 126.592 30.061 126.592 31.3778C126.592 31.8734 126.56 32.3112 126.495 32.7019ZM123.054 30.4119C123.04 29.5328 122.721 28.831 122.103 28.3029C121.484 27.7747 120.728 27.5106 119.835 27.5106C118.988 27.5106 118.279 27.7674 117.7 28.2775C117.125 28.7912 116.77 29.5003 116.64 30.4119H123.054Z"
+                            fill="white" />
+                        <path
+                            d="M149.566 26.257C150.601 27.2917 151.118 28.7351 151.118 30.5873V38.6546H147.641V31.0612C147.641 29.9868 147.366 29.162 146.824 28.5904C146.277 28.0188 145.532 27.733 144.592 27.733C143.651 27.733 142.899 28.0188 142.345 28.5904C141.788 29.162 141.513 29.9868 141.513 31.0612V38.6546H138.04V31.0612C138.04 29.9868 137.769 29.162 137.223 28.5904C136.676 28.0188 135.931 27.733 134.987 27.733C134.028 27.733 133.272 28.0188 132.715 28.5904C132.162 29.162 131.883 29.9868 131.883 31.0612V38.6546H128.406V24.7051H131.883V26.5682C132.328 25.9893 132.903 25.5335 133.609 25.2043C134.314 24.8751 135.085 24.7087 135.927 24.7087C137.002 24.7087 137.964 24.9366 138.807 25.3924C139.65 25.8482 140.305 26.4958 140.768 27.3423C141.216 26.5464 141.864 25.9097 142.718 25.4322C143.571 24.9547 144.494 24.7123 145.485 24.7123C147.171 24.7051 148.531 25.2224 149.566 26.257Z"
+                            fill="white" />
+                        <path
+                            d="M79.7302 37.4467C79.0537 37.8628 78.3664 38.1666 77.6646 38.3584C76.9627 38.5537 76.2066 38.6478 75.3963 38.6478C73.1896 38.6478 71.4676 38.0292 70.2267 36.7919C68.9859 35.5547 68.3636 33.9557 68.3636 31.995C68.3636 29.7412 69.0257 27.9613 70.3533 26.6554C71.681 25.3494 73.4392 24.6982 75.6351 24.6982C76.4454 24.6982 77.1617 24.7778 77.7839 24.937C78.4025 25.0962 79.0212 25.353 79.6398 25.6967L78.1819 28.3195C77.7912 28.0916 77.4077 27.9288 77.0242 27.8311C76.6408 27.7334 76.2284 27.6864 75.7906 27.6864C74.7017 27.6864 73.848 28.0409 73.233 28.7427C72.6144 29.4482 72.3069 30.443 72.3069 31.7273C72.3069 32.9609 72.6361 33.9232 73.2945 34.6141C73.9529 35.3087 74.7813 35.6524 75.7762 35.6524C76.0728 35.6524 76.4382 35.5909 76.8795 35.4679C77.3173 35.3449 77.7622 35.1459 78.2108 34.8674L79.7302 37.4467Z"
+                            fill="white" />
+                        <path
+                            d="M98.6126 28.5705C98.7465 28.3101 98.9056 28.0568 99.0901 27.8217C99.8064 26.8956 100.816 26.2155 101.915 25.8139C103.793 25.1302 106.13 25.3328 107.487 26.1721C107.483 24.602 107.49 22.2289 107.487 20.6588H110.97C110.974 20.6588 110.974 20.6624 110.974 20.6624L110.97 38.6565H107.487C107.487 38.0451 107.487 37.9257 107.487 37.3071C106.452 38.8446 102.614 39.0182 100.602 37.6291C99.7775 37.0611 99.101 36.2761 98.6271 35.397C97.9578 34.1525 97.7263 32.7055 97.8746 31.3091C97.9687 30.3577 98.1749 29.4098 98.6126 28.5705ZM107.309 30.014C107.005 29.4605 106.597 29.0372 106.079 28.7406C105.562 28.4439 105.012 28.2992 104.419 28.2992C103.826 28.2992 103.283 28.4439 102.78 28.7297C102.281 29.0191 101.876 29.4388 101.565 29.9923C101.253 30.5458 101.098 31.2006 101.098 31.9603C101.098 32.72 101.253 33.382 101.565 33.9499C101.876 34.5179 102.284 34.9556 102.791 35.2595C103.297 35.5634 103.84 35.7153 104.419 35.7153C105.012 35.7153 105.562 35.567 106.079 35.274C106.597 34.9774 107.005 34.5541 107.309 34.0006C107.613 33.4471 107.765 32.7851 107.765 32.0109C107.765 31.2295 107.613 30.5675 107.309 30.014Z"
+                            fill="white" />
+                        <path
+                            d="M152.93 42.1927L153.816 39.3528C154.348 39.5301 154.793 39.6205 155.234 39.6205C156.475 39.6205 157.361 38.7342 157.984 36.958L153.107 24.7051H156.566L159.402 32.5155L162.151 24.7051H165.61L161.178 37.3993C160.556 39.2624 159.76 40.6841 158.783 41.4836C157.897 42.2831 156.743 42.7281 155.415 42.7281C154.525 42.6376 153.729 42.5508 152.93 42.1927Z"
+                            fill="white" />
+                    </svg>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="https://www.instagram.com/timedooracademy/"
+                        class="d-flex align-items-center justify-content-center text-white rounded-circle social-icon"
+                        style="width: 40px; height: 40px; background-color: #00C220;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.486-.276a2.478 2.478 0 0 1-.919-.598 2.48 2.48 0 0 1-.599-.92c-.11-.281-.24-.704-.275-1.485-.038-.843-.047-1.096-.047-3.232 0-2.136.009-2.388.047-3.231.036-.78.166-1.203.275-1.485.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/timedooracademy/"
+                        class="d-flex align-items-center justify-content-center text-white rounded-circle social-icon"
+                        style="width: 40px; height: 40px; background-color: #00C220;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <h3 class="fw-bold mb-4" style="color: #00C220; font-size: 1.125rem;">{{ __('Footer Quick Links') }}
+                </h3>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu About') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu FAQ') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Career') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Contact') }}</a></li>
+                </ul>
+            </div>
+
+            <!-- Course -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <h3 class="fw-bold mb-4" style="color: #00C220; font-size: 1.125rem;">{{ __('Footer Course') }}</h3>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Junior') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Adventure') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Python') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course IoT') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Software') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course AI') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Professional') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Subjects') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Portfolio') }}</a></li>
+                </ul>
+            </div>
+
+            <!-- Partnership -->
+            <div class="col-12 col-md-6 col-lg-3">
+                <h3 class="fw-bold mb-4" style="color: #00C220; font-size: 1.125rem;">{{ __('Footer Partnership') }}
+                </h3>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Franchise') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu School') }}</a></li>
+                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover"
+                            style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Referral') }}</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="pt-4 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+            style="border-color: #374151 !important; font-size: 0.875rem; color: #9ca3af;">
+
+            <!-- Language Switcher -->
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-sm-4 fw-medium">
+                <a href="{{ route('change.language', 'id') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'id' ? 'active-lang' : 'inactive-lang' }}">
+                    Indonesia
+                </a>
+                <a href="{{ route('change.language', 'en') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'en' ? 'active-lang' : 'inactive-lang' }}">
+                    English
+                </a>
+                <a href="{{ route('change.language', 'ja') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'ja' ? 'active-lang' : 'inactive-lang' }}">
+                    日本語
+                </a>
+                <a href="{{ route('change.language', 'ar') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'ar' ? 'active-lang' : 'inactive-lang' }}">
+                    عربي
+                </a>
+                <a href="{{ route('change.language', 'bn') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'bn' ? 'active-lang' : 'inactive-lang' }}">
+                    বাংলা
+                </a>
+                <a href="{{ route('change.language', 'fil') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'fil' ? 'active-lang' : 'inactive-lang' }}">
+                    Filipino
+                </a>
+                <a href="{{ route('change.language', 'ms') }}"
+                    class="text-decoration-none {{ app()->getLocale() == 'ms' ? 'active-lang' : 'inactive-lang' }}">
+                    Melayu
+                </a>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-md-end">
+                {{ __('Copyright') }}
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating Chat Button -->
+<div x-data="{ openChat: false }">
+
+    <!-- PANEL CHAT -->
+    <div
+        x-show="openChat"
+        x-transition
+        x-cloak
+        @click.outside="openChat = false"
+        class="fixed bottom-[100px] right-6 z-[1050]
+               flex flex-col items-end space-y-3"
+    >
+        <a href="https://wa.me/628814677923" target="_blank"
+            class="cta-items flex items-center justify-between bg-[#00C220] text-white
+                   px-4 py-1 rounded-[10px] shadow-xl
+                   hover:brightness-110 transition-all
+                   w-100 h-17 gap-1">
+            <div class="flex flex-col leading-tight">
+                <span class="text-sm font-medium">Kontak Dengan</span>
+                <span class="text-sm font-bold">Chat</span>
+            </div>
+            <i class="bi bi-whatsapp text-[25px]"></i>
+        </a>
+
+        <a href="https://timedooracademy.com/id/book-free-trial/"
+            class="cta-items flex items-center justify-between bg-[#00C220] text-white
+                   px-4 py-1 rounded-[10px] shadow-xl
+                   hover:brightness-110 transition-all
+                   w-100 h-17 ">
+            <span class="text-sm font-bold">Coba Gratis</span>
+            <i class="bi bi-file-earmark-text text-[25px]"></i>
+        </a>
+    </div>
+
+    <!-- FLOATING CHAT BUTTON -->
+    <button
+        @click="openChat = !openChat"
+        class="cta-chat fixed bottom-6 right-6 z-1100
+               flex items-center justify-center
+               bg-[#00C220] text-white 
+               w-15 h-15
+            shadow-2xl
+               active:scale-95 transition-transform"
+        aria-label="Open Chat"
+    >
+        <img src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize/timedooracademy.com/wp-content/themes/tmdrxacademy/assets/images/float-button.svg" class="float-button__image" alt="float button">
+    </button>
+
+</div>
+
+
+
+<style>
+    /* CSS wajib agar transisi smooth saat pertama kali dimuat */
+    [x-cloak] {
+        display: none !important;
+    }
+</style>
+
+<style>
+    /* Hover Effects & Transitions */
+    .text-transition {
+        transition: color 0.3s ease;
+    }
+
+    .text-transition:hover {
+        color: #ffffff !important;
+    }
+
+    .link-hover {
+        transition: color 0.3s ease;
+    }
+
+    .link-hover:hover {
+        color: #ffffff !important;
+    }
+
+    .social-icon {
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .chat-button {
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0, 194, 32, 0.3) !important;
+    }
+
+    .chat-button:hover {
+        transform: scale(1.1);
+    }
+
+    .dropdown-toggle-custom {
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .dropdown-toggle-custom:hover {
+        color: #ffffff !important;
+    }
+
+    .dropdown-toggle-custom .arrow-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown-toggle-custom:hover .arrow-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Active Language Styling */
+    .active-lang {
+        color: #ffffff !important;
+        font-weight: bold;
+        text-decoration: underline !important;
+        text-decoration-color: #00C220 !important;
+        text-decoration-thickness: 2px !important;
+        text-underline-offset: 4px;
+    }
+
+    .inactive-lang {
+        color: #9ca3af;
+        transition: color 0.3s ease;
+    }
+
+    .inactive-lang:hover {
+        color: #ffffff !important;
+    }
+
+    .cta-chat{
+        border-radius: 100%;
+    }
+
+    .cta-items{
+        text-decoration: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+        .col-lg-auto {
+            width: 45%;
+            min-width: 180px;
+        }
+    }
+
+    @media (max-width: 575px) {
+        .col-lg-auto {
+            width: 100%;
+        }
+    }
+</style>
