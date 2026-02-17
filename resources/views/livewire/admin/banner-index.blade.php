@@ -51,8 +51,9 @@
                         <a href="{{ route('admin.banners.edit', $banner->id) }}" class="w-9 h-9 flex items-center justify-center bg-white text-gray-700 rounded-full hover:text-[#0f5132] shadow-md transition">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        {{-- Tombol Hapus Tetap menggunakan JS Modal yang sudah Anda buat --}}
-                        <button type="button" onclick="prepareDelete('{{ route('admin.banners.destroy', $banner->id) }}')" 
+                      
+                        <button type="button" 
+                            onclick="BannerManager.prepareDelete('{{ route('admin.banners.destroy', $banner->id) }}')"
                             class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full hover:bg-red-50 shadow-md transition">
                             <i class="bi bi-trash"></i>
                         </button>

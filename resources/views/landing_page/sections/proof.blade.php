@@ -10,11 +10,6 @@
 
 <section class="w-full bg-[#10AF13] relative overflow-hidden bg-green-trigger margin">
 
-    {{-- Setup Locale --}}
-    @php
-        $locale = app()->getLocale();
-    @endphp
-
     <div class="absolute inset-0 z-0 pointer-events-none">
         <div class="absolute bottom-[-120px] left-[-120px] text-[#069801]">
             <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-fidget-spinner xl:w-[400px] xl:h-[400px]">
@@ -44,58 +39,53 @@
         <div class="">
             <div class="swiper swiper_left">
                 <div class="swiper-wrapper ![transition-timing-function:linear]">
-                    
+
                     {{-- CEK DATA DATABASE --}}
                     @if(isset($banners) && $banners->isNotEmpty())
-                        @foreach($banners as $banner)
-                            <div class="swiper-slide">
-                                <div class="border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14 p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
-                                    <div class="text-white z-10 w-1/2">
-                                        <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-semibold leading-tight">
-                                            {{-- AMBIL DARI MODEL BANNER (JSON) --}}
-                                            {{ $banner->title[$locale] ?? $banner->title['en'] ?? '' }}
-                                        </h3>
-                                    </div>
-                                    <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
-                                        {{--
-                                            PERUBAHAN PENTING:
-                                            1. Kembali gunakan 'object-cover' agar gambar penuh.
-                                            2. Tambahkan 'object-center' (atau 'object-[center_top]') untuk mengatur fokus gambar.
-                                        --}}
-                                        <img src="{{ Storage::url($banner->image) }}"
-                                             class="w-full h-full object-cover opacity-80"
-                                            alt="Banner Image">
-                                    </div>
-                                </div>
+                    @foreach($banners as $banner)
+                    <div class="swiper-slide">
+                        <div class="border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14 p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
+                            <div class="text-white z-10 w-1/2">
+                                <h3 class=" {{ $fontClasses['proof_bnr'] }} font-semibold leading-tight">
+                                    {{-- Langsung pakai data yang sudah diproses di controller --}}
+                                    {{ $banner->localized_title }}
+                                </h3>
                             </div>
-                        @endforeach
+                            <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
+                                <img src="{{ Storage::url($banner->image) }}"
+                                    class="w-full h-full object-cover opacity-80"
+                                    alt="Banner Image">
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                     @else
-                        {{-- FALLBACK CONTENT --}}
-                        <div class="swiper-slide">
-                            <div class="border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14 p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
-                                <div class="text-white z-10 w-1/2">
-                                    <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-semibold leading-tight">
-                                        🏆 Winner: Tech Kids Grand Prix ASEAN 2024
-                                    </h3>
-                                </div>
-                                <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
-                                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1740&auto=format&fit=crop"  class="w-full h-full object-cover opacity-80" alt="Winner">
-                                </div>
+                    {{-- FALLBACK CONTENT --}}
+                    <div class="swiper-slide">
+                        <div class="border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14 p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
+                            <div class="text-white z-10 w-1/2">
+                                <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-semibold leading-tight">
+                                    🏆 Winner: Tech Kids Grand Prix ASEAN 2024
+                                </h3>
+                            </div>
+                            <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
+                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1740&auto=format&fit=crop" class="w-full h-full object-cover opacity-80" alt="Winner">
                             </div>
                         </div>
-                        {{-- DUMMY 2 --}}
-                         <div class="swiper-slide">
-                            <div class="border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14 p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
-                                <div class="text-white z-10 w-1/2">
-                                    <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-semibold leading-tight">
-                                        🏆 Winner: Tech Kids Grand Prix ASEAN 2024
-                                    </h3>
-                                </div>
-                                <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
-                                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1740&auto=format&fit=crop" class="w-full h-full object-cover opacity-80" alt="Winner">
-                                </div>
+                    </div>
+                    {{-- DUMMY 2 --}}
+                    <div class="swiper-slide">
+                        <div class="border-4 border-white rounded-[2.5rem] mb-10 lg:mb-14 p-6 sm:p-10 flex items-center justify-between gap-8 relative overflow-hidden bg-[#10AF13]">
+                            <div class="text-white z-10 w-1/2">
+                                <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-semibold leading-tight">
+                                    🏆 Winner: Tech Kids Grand Prix ASEAN 2024
+                                </h3>
+                            </div>
+                            <div class="w-1/2 aspect-video bg-gray-800 rounded-3xl flex items-center justify-center text-white text-center overflow-hidden shadow-lg">
+                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1740&auto=format&fit=crop" class="w-full h-full object-cover opacity-80" alt="Winner">
                             </div>
                         </div>
+                    </div>
                     @endif
 
                 </div>
@@ -112,76 +102,75 @@
 
                             {{-- CEK DATA --}}
                             @if(isset($testimonials) && $testimonials->isNotEmpty())
-                                @foreach($testimonials as $item)
-                                    <div class="swiper-slide">
-                                        <div class="flex justify-center items-center">
-                                            <div class="flex gap-0 xl:w-3/5 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
-                                                <div class="w-2/5">
-                                                    <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] xl:h-[200px] xl:w-[200px] bg-gray-200 overflow-hidden border-4 border-green-100">
-                                                        <img src="{{ Storage::url($item->parent_image) }}" class="w-full h-full object-cover" alt="{{ $item->parent_name }}">
-                                                    </div>
-                                                    <div class="text-blue-900">
-                                                        {{-- DATA DARI DATABASE (NAMA KOLOM BARU) --}}
-                                                        <p class="font-extrabold text-xs md:text-xl lg:text-3xl">{{ $item->parent_name }}</p>
-                                                        <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">{{ $item->student_name }}</p>
-                                                        <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">{{ $item->course_name }}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="w-3/5">
-                                                    <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] xl:text-4xl leading-relaxed italic">
-                                                        {{-- KITA PAKSA AMBIL SESUAI BAHASA YG DIPILIH --}}
-                                                        "{{ $item->getTranslation('review', $locale) }}"
-                                                    </blockquote>
-                                                </div>
+                            @foreach($testimonials as $item)
+                            <div class="swiper-slide">
+                                <div class="flex justify-center items-center">
+                                    <div class="flex gap-0 xl:w-3/5 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
+                                        <div class="w-2/5">
+                                            <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] xl:h-[200px] xl:w-[200px] bg-gray-200 overflow-hidden border-4 border-green-100">
+                                                <img src="{{ Storage::url($item->parent_image) }}" class="w-full h-full object-cover" alt="{{ $item->parent_name }}">
+                                            </div>
+                                            <div class="text-blue-900">
+                                                <p class="font-extrabold text-xs md:text-xl lg:text-3xl">{{ $item->parent_name }}</p>
+                                                <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">{{ $item->student_name }}</p>
+                                                <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">{{ $item->course_name }}</p>
                                             </div>
                                         </div>
+                                        <div class="w-3/5">
+                                            <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] xl:text-4xl leading-relaxed italic">
+                                                {{-- Langsung pakai data yang sudah diproses di controller --}}
+                                                "{{ $item->localized_review }}"
+                                            </blockquote>
+                                        </div>
                                     </div>
-                                @endforeach
+                                </div>
+                            </div>
+                            @endforeach
                             @else
-                                {{-- FALLBACK --}}
-                                <div class="swiper-slide">
-                                    <div class="flex justify-center items-center">
-                                        <div class="flex gap-0 xl:w-3/5 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
-                                            <div class="w-2/5">
-                                                <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] xl:h-[200px] xl:w-[200px] bg-gray-200 overflow-hidden border-4 border-green-100">
-                                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover">
-                                                </div>
-                                                <div class="text-blue-900">
-                                                    <p class="font-extrabold text-xs md:text-xl lg:text-3xl">Ngurah Diva</p>
-                                                    <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">Students Name, age</p>
-                                                    <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">Level/Courses</p>
-                                                </div>
+                            {{-- FALLBACK --}}
+                            <div class="swiper-slide">
+                                <div class="flex justify-center items-center">
+                                    <div class="flex gap-0 xl:w-3/5 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
+                                        <div class="w-2/5">
+                                            <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] xl:h-[200px] xl:w-[200px] bg-gray-200 overflow-hidden border-4 border-green-100">
+                                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover">
                                             </div>
-                                            <div class="w-3/5">
-                                                <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] xl:text-4xl leading-relaxed italic">
-                                                    "My daughter's problem-solving skills have improved so much... The teachers are patient and the small class is perfect."
-                                                </blockquote>
+                                            <div class="text-blue-900">
+                                                <p class="font-extrabold text-xs md:text-xl lg:text-3xl">Ngurah Diva</p>
+                                                <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">Students Name, age</p>
+                                                <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">Level/Courses</p>
                                             </div>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] xl:text-4xl leading-relaxed italic">
+                                                "My daughter's problem-solving skills have improved so much... The teachers are patient and the small class is perfect."
+                                            </blockquote>
                                         </div>
                                     </div>
                                 </div>
-                                {{-- DUMMY 2 --}}
-                                <div class="swiper-slide">
-                                    <div class="flex justify-center items-center">
-                                        <div class="flex gap-0 xl:w-3/5 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
-                                            <div class="w-2/5">
-                                                <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] xl:h-[200px] xl:w-[200px] bg-gray-200 overflow-hidden border-4 border-green-100">
-                                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover">
-                                                </div>
-                                                <div class="text-blue-900">
-                                                    <p class="font-extrabold text-xs md:text-xl lg:text-3xl">Komang Sudana</p>
-                                                    <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">Students Name, age</p>
-                                                    <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">Level/Courses</p>
-                                                </div>
+                            </div>
+                            {{-- DUMMY 2 --}}
+                            <div class="swiper-slide">
+                                <div class="flex justify-center items-center">
+                                    <div class="flex gap-0 xl:w-3/5 bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl mb-12">
+                                        <div class="w-2/5">
+                                            <div class="w-[100px] h-[100px] md:w-[200px] md:h-[200px] lg:w-[300px] lg:h-[300px] xl:h-[200px] xl:w-[200px] bg-gray-200 overflow-hidden border-4 border-green-100">
+                                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop" class="w-full h-full object-cover">
                                             </div>
-                                            <div class="w-3/5">
-                                                <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] xl:text-4xl leading-relaxed italic">
-                                                    "My daughter's problem-solving skills have improved so much... The teachers are patient and the small class is perfect."
-                                                </blockquote>
+                                            <div class="text-blue-900">
+                                                <p class="font-extrabold text-xs md:text-xl lg:text-3xl">Komang Sudana</p>
+                                                <p class="text-[10px] md:text-lg lg:text-2xl font-semibold text-gray-600">Students Name, age</p>
+                                                <p class="text-[10px] md:text-lg lg:text-2xl text-gray-500">Level/Courses</p>
                                             </div>
+                                        </div>
+                                        <div class="w-3/5">
+                                            <blockquote class="text-blue-900 font-bold text-[15px] sm:text-xl md:text-3xl lg:text-[41px] xl:text-4xl leading-relaxed italic">
+                                                "My daughter's problem-solving skills have improved so much... The teachers are patient and the small class is perfect."
+                                            </blockquote>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             @endif
 
                         </div>
@@ -197,6 +186,3 @@
 
 {{-- 2. SCRIPT JAVASCRIPT UNTUK MENGAKTIFKAN SWIPER --}}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-{{-- PANGGIL FILE EKSTERNAL ANDA --}}
-@vite(['resources/js/landing_page/swiper-init.js'])

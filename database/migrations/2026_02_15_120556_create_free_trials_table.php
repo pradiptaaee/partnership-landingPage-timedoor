@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->text('kids_list')->nullable();
             $table->text('message')->nullable();
-            $table->timestamps(); // Ini bakal otomatis buat kolom created_at & updated_at
+            $table->timestamps(); 
         });
     }
 

@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Partnership</title>
+    <title>Admin Panel - Landing Pag & Partnership</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon-180x180.png') }}">
+
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/favicon-192x192.png') }}">
+
+    <link rel="shortcut icon" href="{{ asset('images/favicon-32x32.png') }}">
 
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
@@ -17,7 +24,7 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
 
     {{-- Tailwind via Vite --}}
-    @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+    @vite(['resources/css/admin.css'])
 
     @livewireStyles
 </head>
@@ -89,7 +96,7 @@
             @endif
         }
     </script>
-
+    @stack('scripts') {{-- Pastikan ini ada --}}
 </body>
 
 </html>

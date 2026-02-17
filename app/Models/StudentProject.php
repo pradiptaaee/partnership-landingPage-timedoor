@@ -4,22 +4,44 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder; 
-use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
 
 class StudentProject extends Model
 {
     use HasFactory;
-    use HasTranslations;
-    // Sesuai punya Anda
-    protected $fillable = ['student_name', 'age', 'project_type', 'project_image'];
-    public $translatable = ['project_type'];
+
     /**
-     * Scope Filter untuk Search & Sort
+     * Atribut yang dapat diisi melalui mass assignment.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'student_name', 
+        'age', 
+        'project_type', 
+        'project_image'
+    ];
+
+    /**
+     * Casting atribut ke tipe data tertentu.
+     * Project type disimpan sebagai array untuk mendukung lokalisasi (JSON).
+     *
+     * @var array
+     */
+    protected $casts = [
+        'project_type' => 'array',
+    ];
+
+    /**
+     * Local Scope untuk mempermudah pemfilteran data berdasarkan pencarian dan pengurutan.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param array $filters
+     * @return void
      */
     public function scopeFilter(Builder $query, array $filters): void
     {
-        // 1. Search (Cari berdasarkan Nama Murid atau Project Type)
+        // Filter berdasarkan kata kunci pencarian
         $query->when($filters['search'] ?? false, function ($query, $search) {
             $query->where(function($q) use ($search) {
                 $q->where('student_name', 'like', '%' . $search . '%')
@@ -27,11 +49,11 @@ class StudentProject extends Model
             });
         });
 
-        // 2. Sort
+        // Logika pengurutan data
         $query->when($filters['sort'] ?? false, function ($query, $sort) {
             match ($sort) {
                 'oldest' => $query->reorder('created_at', 'asc'),
-                'az'     => $query->reorder('student_name', 'asc'), // Urut abjad nama murid
+                'az'     => $query->reorder('student_name', 'asc'),
                 'za'     => $query->reorder('student_name', 'desc'),
                 default  => $query->latest(),
             };

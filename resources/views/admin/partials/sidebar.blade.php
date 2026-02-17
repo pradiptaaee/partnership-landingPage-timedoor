@@ -121,14 +121,13 @@
 
         {{-- === LANDING PAGE (DROPDOWN) === --}}
         <div class="relative">
-            {{-- LOGIC PHP: Tambahkan 'admin.free-trials.*' agar menu induk tetap nyala --}}
             @php
                 $isLandingPageActive =
                     request()->routeIs('admin.banners.*') ||
                     request()->routeIs('admin.testimonials.*') ||
                     request()->routeIs('admin.projects.*') ||
                     request()->routeIs('admin.hero.*') ||
-                    request()->routeIs('admin.free-trials.*'); // <--- TAMBAHIN INI JUGA
+                    request()->routeIs('admin.free-trials.*'); 
             @endphp
 
             <button type="button" onclick="toggleLandingMenu()"
@@ -144,6 +143,7 @@
                             d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                     </svg>
                     <span class="text-[15px]">Landing Page</span>
+                    @livewire('admin.trial-badge', ['type' => 'main'])
                 </div>
 
                 <svg id="landing-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -196,9 +196,13 @@
                     {{-- Trial Booking (PENAMBAHAN BARU) --}}
                     <li>
                         <a href="{{ route('admin.free-trials.index') }}"
-                            class="flex items-center gap-3 pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
+                            class="flex items-center justify-between pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
                                 {{ request()->routeIs('admin.free-trials.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
-                            Trial Bookings
+                            
+                            <span>Trial Bookings</span>
+
+                            {{-- Badge diletakkan di dalam <a> agar sejajar --}}
+                            @livewire('admin.trial-badge', ['type' => 'sub'])
                         </a>
                     </li>
                 </ul>

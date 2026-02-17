@@ -1,5 +1,5 @@
 {
-    "Book a Free Trial": "Mag-book ng Libreng Pagsubok",
+    "Book a Free Trial": "Libreng Trial",
     "Hero Title": "Huwag hayaang gumamit lang ng teknolohiya ang anak mo",
     "Hero Subtitle": "Turuan silang imbentuhin ito.",
     "Hero Desc": "Masayang klase ng coding para sa mga batang 5–18 taong gulang. Ginagawa naming superpower ang screen time nila.",
@@ -48,5 +48,10 @@
     "Proprietary Gamified Rewards": "Eksklusibong Gamified Rewards",
     "Our unique program feels like a game. Students earn coins for projects, keeping them motivated.": "Ang aming natatanging programa ay parang laro. Ang mga mag-aaral ay kumikita ng barya para sa mga proyekto, para manatiling motivated.",
     "Future-Proof Skills, Not Just Hobbies": "Kasanayan para sa Hinaharap, Hindi Lang Libangan",
-    "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "Itinuturo ng aming landas ang mga kasanayan para sa hinaharap: Paglikha ng Game, Website, App, at AI."
+    "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "Itinuturo ng aming landas ang mga kasanayan para sa hinaharap: Paglikha ng Game, Website, App, at AI.",
+
+    "Trial Desc": "I-maximize ang potensyal ng mga bata gamit ang Isang nakakatuwang IT na edukasyon",
+    "trial_success_msg": "Salamat! Ang iyong kahilingan para sa trial ay matagumpay na naipadala. Makikipag-ugnay kami sa iyo sa lalong madaling panahon.",
+    "trial_partial_success_msg": "Salamat! Ang iyong kahilingan ay natanggap na at pinoproseso na.",
+    "trial_error_msg": "Paumanhin, may problema sa koneksyon. Pakisubukan muli mamaya."
 }

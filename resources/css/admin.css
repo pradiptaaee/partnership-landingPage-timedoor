@@ -62,3 +62,25 @@
     /* Abu-abu sangat muda saat hover */
     color: #343a40 !important;
 }
+
+/* create banner */
+.custom-scrollbar::-webkit-scrollbar { 
+    width: 4px; 
+}
+.custom-scrollbar::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+    background-color: #e5e7eb; 
+    border-radius: 20px; 
+}
+
+/* index banner */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+}

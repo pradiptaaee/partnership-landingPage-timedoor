@@ -9,24 +9,25 @@ class Hero extends Model
 {
     use HasFactory;
 
-    // PENTING: Menentukan nama tabel yang benar sesuai migrasi Anda
     protected $table = 'hero';
 
-    // PENTING: Matikan fitur keamanan sementara agar semua data bisa masuk
-    // (Ini cara paling ampuh untuk memastikan data masuk)
-    protected $guarded = []; 
-    
-    // Atau jika ingin tetap pakai fillable, pastikan persis seperti ini:
-    /*
-    protected $fillable = [
-        'hero_title', 'hero_subtitle', 'hero_desc',
-        'image_id', 
-        'image_en', 
-        'image_ja', // <--- Pastikan ada
-        'image_ar', // <--- Pastikan ada
-        'image_bn', // <--- Pastikan ada
-        'image_fil',// <--- Pastikan ada
-        'image_ms', // <--- Pastikan ada
-    ];
-    */
+    protected $guarded = [];
+
+    /**
+     * Map localized language data for banner management.
+     */
+    public function getLanguageDataAttribute()
+    {
+        return collect(config('landing.languages'))->map(function ($lang) {
+            return (object) [
+                'code'       => $lang['code'],
+                'name'       => $lang['name'],
+                'flag'       => $lang['flag'],
+                'col'        => 'image_' . $lang['code'],
+                'input_id'   => 'input_' . $lang['code'],
+                'preview_id' => 'preview_' . $lang['code'],
+                'value'      => $this->{'image_' . $lang['code']},
+            ];
+        });
+    }
 }

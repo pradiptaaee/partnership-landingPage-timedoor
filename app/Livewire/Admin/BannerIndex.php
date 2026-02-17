@@ -22,7 +22,6 @@ class BannerIndex extends Component
     {
         $banners = Banner::query()
             ->when($this->search, function ($query) {
-                // Asumsi kolom title disimpan dalam JSON oleh Spatie Translatable
                 $query->where('title->en', 'like', '%' . $this->search . '%')
                     ->orWhere('title->id', 'like', '%' . $this->search . '%');
             })
