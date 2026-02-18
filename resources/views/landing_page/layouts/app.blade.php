@@ -429,7 +429,7 @@
 
                 </div>
 
-                <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
+                <div>
                     <div class="text-center md:text-right">{{ __('Copyright') }}</div>
                 </div>
             </div>

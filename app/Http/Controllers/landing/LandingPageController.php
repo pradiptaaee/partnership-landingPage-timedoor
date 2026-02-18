@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Hero;
 use App\Models\Banner;
+use App\Models\FreeTrial;
 use App\Models\Testimonial;
 use App\Models\StudentProject;
 
