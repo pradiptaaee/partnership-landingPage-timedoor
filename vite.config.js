@@ -7,10 +7,12 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css', 
+                'resources/css/admin.css', // Punya Anda
+                'resources/css/landing/app.css', // Punya Krisna
                 'resources/js/app.js', 
                 'resources/js/landing_page/app.js', 
-                'resources/css/admin.css', 
-                'resources/js/admin/landing_page/app.js'
+                'resources/js/landing_page/trial.js', // Punya Krisna (Penting!)
+                'resources/js/admin/landing_page/app.js' // Punya Anda
             ],
             refresh: true,
         }),

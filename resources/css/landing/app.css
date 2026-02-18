@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ================================================
+   Override CSS untuk intl-tel-input
+   Hanya untuk keperluan library, tidak bisa
+   digantikan dengan Tailwind utility class
+   ================================================ */
+
+/* Agar library fit dengan container */
+.iti {
+    width: 100%;
+    height: 100%;
+}
+
+/* Area bendera & kode negara - transparan & tanpa border */
+.iti__flag-container {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* Teks kode negara (+62) */
+.iti__selected-dial-code {
+    color: #3c4043;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Dropdown list negara */
+.iti__country-list {
+        width: 100% !important;      /* Lebar ngikutin induknya */
+        max-width: 100% !important;  /* Gak boleh lebih lebar */
+        border-radius: 0 0 8px 8px;  /* Sudut bawah tumpul */
+        border: 1px solid #dadce0;
+        border-top: none;            /* Hapus border atas biar seolah nyambung (opsional) */
+        margin-top: 2px;             /* Jarak dikit biar manis */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+/* Padding kiri agar input tidak tertimpa bendera & kode negara */
+#phone {
+    padding-left: 90px !important;
+}
