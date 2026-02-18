@@ -22,13 +22,13 @@ use App\Http\Controllers\landing\LandingPageController as LandingLandingPageCont
 // --- REDIRECT & PUBLIC LANDING ---
 Route::redirect('/', '/'); 
 
-// Halaman Utama (Tampilan Krisna)
+// Halaman Utama Landing
 Route::get('/', [LandingLandingPageController::class, 'index'])->name('landing');
 
-// Halaman Form Pendaftaran (Tombol Krisna manggil route ini)
+// Halaman Form Pendaftaran 
 Route::get('/book-free-trial', [LandingLandingPageController::class, 'showBookingForm'])->name('trial.index');
 
-// Proses Kirim Data (Logika Google Sheets & DB Sudana)
+// Proses Kirim Data
 Route::post('/book-free-trial', [LandingLandingPageController::class, 'storeBooking'])->name('landing.book-trial.store');
 
 // Route Ganti Bahasa (Fungsi Krisna)

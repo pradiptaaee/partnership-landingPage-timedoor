@@ -151,46 +151,52 @@ class LandingPageController extends BasePageController
      * Menyimpan data booking ke database dan meneruskannya ke Google Sheets.
      */
     public function storeBooking(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
+{
+    // Tambahkan semua field ke validasi agar Laravel memberi tahu jika ada yang kurang
+    $request->validate([
+        'prefix'    => 'required',
+        'name'      => 'required',
+        'country'   => 'required',
+        'phone'     => 'required',
+        'email'     => 'required|email',
+        'kids_list' => 'required',
+    ]);
 
-        try {
-            // Simpan data pendaftaran ke database lokal
-            $freeTrial = FreeTrial::create($request->all());
+    try {
+        // Simpan ke database
+        $freeTrial = FreeTrial::create($request->all());
 
-            // Kirim data ke Google Sheets menggunakan ID yang baru dibuat
-            $googleSheetUrl = "https://script.google.com/macros/s/AKfycbxMsES88FIn7xA9obdzEZvQ8Kpc5hlrp0buwp48A87qwuPoQBapjVql0J2Wng46z5vJHg/exec";
+        // URL Google Sheets
+        $googleSheetUrl = "https://script.google.com/macros/s/AKfycbxMsES88FIn7xA9obdzEZvQ8Kpc5hlrp0buwp48A87qwuPoQBapjVql0J2Wng46z5vJHg/exec";
 
-            $response = Http::asForm()
-                ->withOptions(['allow_redirects' => true])
-                ->timeout(20)
-                ->post($googleSheetUrl, [
-                    'action' => 'INSERT',
-                    'id' => $freeTrial->id,
-                    'prefix' => $request->prefix,
-                    'name' => $request->name,
-                    'country' => $request->country,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'kids_list' => $request->kids_list,
-                    'message' => $request->message,
-                ]);
+        // Gunakan pengiriman asinkron atau log error jika Sheets gagal
+        $response = Http::asForm()
+            ->withOptions(['allow_redirects' => true])
+            ->timeout(15) // Kurangi sedikit timeout agar user tidak menunggu terlalu lama
+            ->post($googleSheetUrl, [
+                'action'    => 'INSERT',
+                'id'        => $freeTrial->id,
+                'prefix'    => $request->prefix,
+                'name'      => $request->name,
+                'country'   => $request->country,
+                'phone'     => $request->phone,
+                'email'     => $request->email,
+                'kids_list' => $request->kids_list,
+                'message'   => $request->message,
+            ]);
 
-            if ($response->successful()) {
-                return redirect()->back()->with('success', __('trial_success_msg'));
-            }
-
-            // Penanganan jika simpan database berhasil namun pengiriman ke Google Sheets gagal
-            return redirect()->back()->with('success', __('trial_partial_success_msg'));
-
-        } catch (\Exception $e) {
-            // Penanganan kegagalan total proses pendaftaran
-            return redirect()->back()->with('error', __('trial_error_msg'));
+        if ($response->successful()) {
+            return redirect()->back()->with('success', 'Pendaftaran Berhasil!');
         }
+
+        return redirect()->back()->with('success', 'Data tersimpan di sistem, namun gagal sinkron ke Sheets.');
+
+    } catch (\Exception $e) {
+        // PENTING: Lihat error aslinya di log
+        \Log::error('Gagal Booking: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage());
     }
+}
 
     /**
      * Mengubah bahasa aplikasi berdasarkan locale yang dipilih.

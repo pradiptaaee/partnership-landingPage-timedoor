@@ -34,7 +34,7 @@
         <div class="w-full xl:w-5/6 bg-gray-100 rounded-4xl aspect-4/3 sm:aspect-video mb-10 mx-auto shadow-sm overflow-hidden relative group">
             <img src="{{ $heroImageUrl }}"
                 alt="Hero Banner {{ strtoupper(app()->getLocale()) }}"
-                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"> 
+                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700">
         </div>
 
         <div class="mb-16 text-center xl:hidden">
