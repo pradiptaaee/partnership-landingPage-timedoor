@@ -50,5 +50,8 @@
     "Future-Proof Skills, Not Just Hobbies": "Keterampilan Masa Depan, Bukan Sekadar Hobi",
     "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "Jalur lengkap kami mengajarkan keterampilan masa depan: Pembuatan Game, Website, Aplikasi, dan AI.",
 
-    "Trial Desc": "Maksimalkan potensi anak dengan pendidikan IT yang menyenangkan"
+    "Trial Desc": "Maksimalkan potensi anak dengan pendidikan IT yang menyenangkan",
+    "trial_success_msg": "Terima kasih! Permintaan trial Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.",
+    "trial_partial_success_msg": "Terima kasih! Permintaan Anda telah diterima, kami akan segera memprosesnya.",
+    "trial_error_msg": "Mohon maaf, terjadi gangguan koneksi. Silakan coba beberapa saat lagi."
 }

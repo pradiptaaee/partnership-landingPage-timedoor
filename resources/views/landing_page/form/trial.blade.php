@@ -13,7 +13,6 @@
             <p class="text-base text-gray-600 mb-12 leading-relaxed">
                 {{ __('Trial Desc') }}
             </p>
-
             <div class="relative w-full max-w-lg mx-auto">
                 <img src="{{ asset('images/trial-image.png') }}" alt="trial img" class="w-full h-auto">
             </div>
@@ -129,7 +128,7 @@
                                 class="w-full h-full bg-transparent border-none text-sm text-[#3c4043] placeholder-gray-400 focus:ring-0 focus:outline-none">
                         </div>
                     </div>
-
+                    
                     <div>
                         <label class="block text-[11px] font-bold text-gray-500 mb-2 tracking-widest uppercase">
                             {{ __('Email') }}

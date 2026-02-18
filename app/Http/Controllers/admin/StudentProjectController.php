@@ -10,10 +10,12 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class StudentProjectController extends Controller
 {
-    // --- HELPER TRANSLATE (Logika Indo-First) ---
+    /**
+     * Memproses terjemahan otomatis menggunakan Google Translate.
+     * Alur: Bahasa Indonesia -> Inggris -> Bahasa lainnya (MS, FIL, JA, AR, BN).
+     */
     private function processTranslation($inputArray)
     {
-        // 1. Ambil input Bahasa Indonesia (id)
         $indoText = $inputArray['id'] ?? '';
 
         if (empty($indoText)) {
@@ -22,28 +24,29 @@ class StudentProjectController extends Controller
 
         $tr = new GoogleTranslate();
 
-        // 2. Terjemahkan INDO -> INGGRIS (Jembatan Kualitas)
-        $englishText = '';
+        // Tahap 1: Terjemahkan dari Indonesia ke Inggris sebagai basis utama
         try {
-            $tr->setSource('id'); 
-            $tr->setTarget('en');
+            $tr->setSource('id')->setTarget('en');
             $englishText = $tr->translate($indoText);
-            
-            // Simpan hasil Inggris ke array
             $inputArray['en'] = $englishText; 
         } catch (\Exception $e) {
-            $englishText = $indoText; // Fallback
+            $englishText = $indoText;
             $inputArray['en'] = $indoText;
         }
 
-        // 3. Terjemahkan INGGRIS -> LAINNYA
-        $targets = ['ms' => 'ms', 'fil' => 'tl', 'ja' => 'ja', 'ar' => 'ar', 'bn' => 'bn'];
+        // Tahap 2: Terjemahkan dari Inggris ke bahasa target lainnya
+        $targets = [
+            'ms'  => 'ms', 
+            'fil' => 'tl', 
+            'ja'  => 'ja', 
+            'ar'  => 'ar', 
+            'bn'  => 'bn'
+        ];
 
         foreach ($targets as $laravelCode => $googleCode) {
             if (empty($inputArray[$laravelCode])) {
                 try {
-                    $tr->setSource('en'); 
-                    $tr->setTarget($googleCode);
+                    $tr->setSource('en')->setTarget($googleCode);
                     $inputArray[$laravelCode] = $tr->translate($englishText);
                 } catch (\Exception $e) {
                     $inputArray[$laravelCode] = $englishText;
@@ -55,26 +58,24 @@ class StudentProjectController extends Controller
     }
 
     /**
-     * Menampilkan List Project
+     * Menampilkan daftar proyek siswa.
      */
     public function index()
     {
         $projects = StudentProject::latest()->get();
-        // PERBAIKAN PATH: Mengarah ke folder 'student_projects'
         return view('admin.landing_page.student_projects.index', compact('projects'));
     }
 
     /**
-     * Menampilkan Form Create
+     * Menampilkan formulir tambah proyek siswa.
      */
     public function create()
     {
-        // PERBAIKAN PATH: Mengarah ke folder 'student_projects'
         return view('admin.landing_page.student_projects.create');
     }
 
     /**
-     * Simpan Data Baru (STORE)
+     * Menyimpan proyek baru ke database.
      */
     public function store(Request $request)
     {
@@ -82,13 +83,13 @@ class StudentProjectController extends Controller
             'project_image'   => 'required|image|max:2048',
             'student_name'    => 'required|string',
             'age'             => 'required|string',
-            'project_type.id' => 'required|string', // Validasi input ID
+            'project_type.id' => 'required|string',
         ]);
 
-        // Proses Translate
+        // Proses otomatisasi bahasa
         $types = $this->processTranslation($request->project_type);
         
-        // Upload Gambar
+        // Manajemen unggah gambar
         $imagePath = $request->file('project_image')->store('projects', 'public');
 
         StudentProject::create([
@@ -98,11 +99,12 @@ class StudentProjectController extends Controller
             'project_type'  => $types,
         ]);
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project berhasil dibuat!');
+        return redirect()->route('admin.projects.index')
+            ->with('success_message', 'Project berhasil dibuat!');
     }
 
     /**
-     * Menampilkan Detail (Redirect ke Edit)
+     * Mengarahkan detail proyek ke halaman edit.
      */
     public function show($id)
     {
@@ -110,61 +112,58 @@ class StudentProjectController extends Controller
     }
 
     /**
-     * Menampilkan Form Edit
+     * Menampilkan formulir ubah data proyek.
      */
     public function edit(StudentProject $project)
     {
-        // PERBAIKAN PATH: Mengarah ke folder 'student_projects'
         return view('admin.landing_page.student_projects.edit', compact('project'));
     }
 
     /**
-     * Update Data
+     * Memperbarui data proyek di database.
      */
     public function update(Request $request, StudentProject $project)
-{
-    $request->validate([
-        'project_image'   => 'nullable|image|max:2048',
-        'student_name'    => 'required|string',
-        'age'             => 'required|string', 
-        'project_type.id' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'project_image'   => 'nullable|image|max:2048',
+            'student_name'    => 'required|string',
+            'age'             => 'required|string', 
+            'project_type.id' => 'required|string',
+        ]);
 
-    // --- CARA MANUAL (MEMAKSA DATA MASUK) ---
-    $project->student_name = $request->student_name;
-    $project->age = $request->age; // Kita paksa isi kolom age
-    
-    // Proses Project Type (Translate)
-    $types = $this->processTranslation($request->project_type);
-    $project->project_type = $types;
+        // Update atribut dasar
+        $project->student_name = $request->student_name;
+        $project->age = $request->age;
+        
+        // Update tipe proyek dengan terjemahan baru
+        $project->project_type = $this->processTranslation($request->project_type);
 
-    // Proses Gambar
-    if ($request->hasFile('project_image')) {
-        if ($project->project_image && Storage::disk('public')->exists($project->project_image)) {
-            Storage::disk('public')->delete($project->project_image);
+        // Update gambar jika terdapat file baru yang diunggah
+        if ($request->hasFile('project_image')) {
+            if ($project->project_image && Storage::disk('public')->exists($project->project_image)) {
+                Storage::disk('public')->delete($project->project_image);
+            }
+            $project->project_image = $request->file('project_image')->store('projects', 'public');
         }
-        $project->project_image = $request->file('project_image')->store('projects', 'public');
+
+        $project->save();
+
+        return redirect()->route('admin.projects.index')
+            ->with('success_message', 'Project berhasil diperbarui!');
     }
 
-    $project->save(); // Simpan perubahan
-    // ----------------------------------------
-
-    return redirect()->route('admin.projects.index')->with('success', 'Project berhasil diperbarui!');
-}
-
     /**
-     * Hapus Data (DESTROY) - INI YANG TADI ANDA CARI
+     * Menghapus data proyek dan file gambar terkait.
      */
     public function destroy(StudentProject $project)
     {
-        // Hapus file gambar
         if ($project->project_image && Storage::disk('public')->exists($project->project_image)) {
             Storage::disk('public')->delete($project->project_image);
         }
 
-        // Hapus record DB
         $project->delete();
 
-        return redirect()->back()->with('success', 'Project berhasil dihapus!');
+        return redirect()->back()
+            ->with('success_message', 'Project berhasil dihapus!');
     }
 }

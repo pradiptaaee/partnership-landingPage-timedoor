@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('photos_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_id')
+            $table->foreignId('partner_activity_id')
                 ->constrained('partner_activities')
                 ->onDelete('cascade');
             $table->string('image_path');
             $table->timestamps();
 
-            $table->index('activity_id');
+            $table->index('partner_activity_id');
         });
     }
 

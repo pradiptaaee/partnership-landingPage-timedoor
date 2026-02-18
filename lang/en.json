@@ -50,5 +50,8 @@
     "Future-Proof Skills, Not Just Hobbies": "Future-Proof Skills, Not Just Hobbies",
     "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).",
 
-    "Trial Desc": "Maximize children’s potential with A fun-based IT education"
+    "Trial Desc": "Maximize children’s potential with A fun-based IT education",
+    "trial_success_msg": "Thank you! Your trial request has been sent successfully. We will contact you soon.",
+    "trial_partial_success_msg": "Thank you! Your request has been received and is being processed.",
+    "trial_error_msg": "Sorry, there is a connection issue. Please try again later."
 }

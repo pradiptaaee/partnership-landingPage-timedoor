@@ -108,7 +108,7 @@
                         <div class="flex items-center gap-2 mb-2 text-xs text-gray-500">
                             <span class="font-semibold text-[#0f5132]">{{ Str::limit($activity->partner->name, 20) }}</span>
                             <span class="text-gray-300">•</span>
-                            <span>{{ $activity->photos_count ?? 0 }} Photos</span>
+                            <span>{{ $activity->photos->count() }} Photos</span>
                         </div>
 
                         {{-- Title --}}
@@ -120,7 +120,7 @@
 
                         {{-- Description --}}
                         <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-4">
-                            {{ $activity->short_description ?? '-' }}
+                            {{ Str::words(strip_tags($activity->full_description), 8, '...')  }}
                         </p>
 
                         <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
@@ -156,7 +156,7 @@
         {{-- Pagination --}}
         @if ($activities->hasPages())
             <div class="pt-8 border-t border-gray-100">
-                {{ $activities->links() }}
+                {{ $activities->links('component.pagination') }}
             </div>
         @endif
 

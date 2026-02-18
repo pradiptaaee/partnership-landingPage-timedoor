@@ -50,5 +50,8 @@
     "Future-Proof Skills, Not Just Hobbies": "趣味に留まらない、未来に備えるスキル",
     "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "ゲーム制作、ウェブサイト構築、アプリ開発、AIなど、将来に役立つスキルを網羅しています。",
 
-    "Trial Desc": "楽しいIT教育で子供たちの可能性を最大限に引き出す"
+    "Trial Desc": "楽しいIT教育で子供たちの可能性を最大限に引き出す",
+    "trial_success_msg": "ありがとうございます！無料体験の申し込みが完了しました。まもなく担当者よりご連絡いたします。",
+    "trial_partial_success_msg": "ありがとうございます！リクエストを受け付けました。現在処理中です。",
+    "trial_error_msg": "申し訳ありません。接続に問題が発生しました。後ほど再試行してください。"
 }

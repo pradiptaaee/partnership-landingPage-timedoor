@@ -10,13 +10,13 @@ class PhotoActivity extends Model
     protected $table = 'photos_activities';
 
     protected $fillable = [
-        'activity_id',
+        'partner_activity_id',
         'image_path'
     ];
 
     public function activity()
     {
-        return $this->belongsTo(PartnerActivity::class, 'activity_id');
+        return $this->belongsTo(PartnerActivity::class, 'partner_activity_id');
     }
 
     public function getImageUrlAttribute()
