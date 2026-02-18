@@ -199,12 +199,3 @@
 </div>
 
 @endsection
-
-@push('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
-@endpush
-
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
-@vite('resources/js/landing_page/trial.js')
-@endpush
