@@ -37,10 +37,11 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('currentLangData', $localeMapping[$locale] ?? $localeMapping['en']);
         });
-        Paginator::useBootstrapFive();
+
+        Paginator::useTailwind();
+
         if (str_contains(config('app.url'), 'ngrok-free.app') || config('app.env') !== 'local') {
         URL::forceScheme('https');
     }
-        Paginator::useTailwind();
     }
 }
