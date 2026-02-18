@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useTailwind();
         Paginator::useBootstrapFive();
+        if (str_contains(config('app.url'), 'ngrok-free.app') || config('app.env') !== 'local') {
+        URL::forceScheme('https');
+    }
     }
 }
