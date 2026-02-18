@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\StudentProjectController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\FreeTrialAdminController;
 use App\Http\Controllers\landing\LandingPageController as LandingLandingPageController;
+use App\Http\Controllers\landing\TrialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ Route::get('/', [LandingLandingPageController::class, 'index'])->name('landing')
 Route::get('/book-free-trial', [LandingLandingPageController::class, 'showBookingForm'])->name('trial.index');
 
 // Proses Kirim Data
-Route::post('/book-free-trial', [LandingLandingPageController::class, 'storeBooking'])->name('landing.book-trial.store');
+Route::post('/book-free-trial', [TrialController::class, 'storeBooking'])->name('landing.book-trial.store');
 
 // Route Ganti Bahasa (Fungsi Krisna)
 Route::get('/lang/{locale}', [LandingLandingPageController::class, 'changeLanguage'])->name('change.language');

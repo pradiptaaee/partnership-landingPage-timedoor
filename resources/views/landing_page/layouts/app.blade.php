@@ -47,6 +47,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+    {{-- untuk di trial --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
+    
     @vite([
     'resources/css/landing/app.css',
     'resources/js/landing_page/app.js',
@@ -425,7 +429,7 @@
 
                 </div>
 
-                <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
+                <div>
                     <div class="text-center md:text-right">{{ __('Copyright') }}</div>
                 </div>
             </div>
