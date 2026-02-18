@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const langCodeMapping = {
         'EN': 'en',
         'ID': 'id',
-        'BD': 'bn',  // Bangladesh -> Bengali
-        'AR': 'ar',  // Arabic
-        'PH': 'fil', // Philippines -> Filipino
-        'JP': 'ja',  // Japan -> Japanese
-        'MY': 'ms'   // Malaysia -> Malay
+        'BD': 'bn',
+        'AR': 'ar',
+        'PH': 'fil',
+        'JP': 'ja',
+        'MY': 'ms'
     };
 
     // Pilih bahasa
@@ -79,111 +79,112 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('mainNavbar');
     const greenSections = document.querySelectorAll('.bg-green-trigger');
-
-    // Logo elements
     const logoBlack = document.getElementById('logo-black');
     const logoWhite = document.getElementById('logo-white');
-    const hasLogoSwitch = logoBlack && logoWhite;
-
-    // Tombol Book a Free Trial
     const trialButton = document.getElementById('trialButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const currentLang = document.getElementById('currentLang');
+    const dropdownArrow = document.getElementById('dropdownArrow');
+
+    // ✅ CEK DULU ADA ATAU TIDAK
+    if (!navbar) return;
 
     function updateNavbarBackground() {
         let shouldBeGreen = false;
-        const navbarHeight = navbar.offsetHeight || 100; // fallback
+        const navbarHeight = navbar.offsetHeight || 100;
 
         greenSections.forEach(section => {
             const rect = section.getBoundingClientRect();
-
-            // Jika section hijau mulai terlihat di bawah navbar
             if (rect.top < navbarHeight && rect.bottom > 0) {
                 shouldBeGreen = true;
             }
         });
 
         if (shouldBeGreen) {
-            // Navbar jadi hijau
             navbar.classList.remove('bg-white');
             navbar.classList.add('bg-[#10AF13]');
 
-            // Ganti logo ke versi putih
-            logoBlack.classList.add('hidden');
-            logoWhite.classList.remove('hidden');
+            if (logoBlack && logoWhite) {
+                logoBlack.classList.add('hidden');
+                logoWhite.classList.remove('hidden');
+            }
 
-            // Ubah tombol jadi putih + teks hijau cerah
-            trialButton.classList.remove('bg-[#10AF13]', 'text-white');
-            trialButton.classList.add('bg-white', 'text-[#00C220]');
+            if (trialButton) {
+                trialButton.classList.remove('bg-[#10AF13]', 'text-white');
+                trialButton.classList.add('bg-white', 'text-[#00C220]');
+            }
 
-            // // Ubah warna bg dropdown menu
-            dropdownMenu.classList.remove('bg-white');
-            dropdownMenu.classList.add('bg-[#10AF13]');
-            // Ubah warna teks di dalam dropdown menu menjadi putih
+            if (dropdownMenu) {
+                dropdownMenu.classList.remove('bg-white');
+                dropdownMenu.classList.add('bg-[#10AF13]');
 
-            const langOptions = dropdownMenu.querySelectorAll('.lang-option span');
-            langOptions.forEach(span => {
-                span.classList.remove('text-gray-600');
-                span.classList.add('text-white');
-            });
+                const langOptions = dropdownMenu.querySelectorAll('.lang-option span');
+                langOptions.forEach(span => {
+                    span.classList.remove('text-gray-600');
+                    span.classList.add('text-white');
+                });
 
-            // Ubah warna hover menjadi hijau lebih gelap
-            const langButtons = dropdownMenu.querySelectorAll('.lang-option');
-            langButtons.forEach(button => {
-                button.classList.remove('hover:bg-gray-50');
-                button.classList.add('hover:bg-[#0E8E10]');
-            });
+                const langButtons = dropdownMenu.querySelectorAll('.lang-option');
+                langButtons.forEach(button => {
+                    button.classList.remove('hover:bg-gray-50');
+                    button.classList.add('hover:bg-[#0E8E10]');
+                });
+            }
 
-            // Ubah warna teks bahasa
-            currentLang.classList.remove('text-gray-500');
-            currentLang.classList.add('text-white');
+            if (currentLang) {
+                currentLang.classList.remove('text-gray-500');
+                currentLang.classList.add('text-white');
+            }
 
-            dropdownArrow.classList.remove('text-gray-400');
-            dropdownArrow.classList.add('text-white');
+            if (dropdownArrow) {
+                dropdownArrow.classList.remove('text-gray-400');
+                dropdownArrow.classList.add('text-white');
+            }
 
         } else {
-            // Navbar kembali putih
             navbar.classList.remove('bg-[#10AF13]');
             navbar.classList.add('bg-white');
 
-            // Ganti logo ke versi hitam
-            logoBlack.classList.remove('hidden');
-            logoWhite.classList.add('hidden');
+            if (logoBlack && logoWhite) {
+                logoBlack.classList.remove('hidden');
+                logoWhite.classList.add('hidden');
+            }
 
-            // Kembalikan tombol ke hijau asli
-            trialButton.classList.remove('bg-white', 'text-[#00C220]');
-            trialButton.classList.add('bg-[#10AF13]', 'text-white');
+            if (trialButton) {
+                trialButton.classList.remove('bg-white', 'text-[#00C220]');
+                trialButton.classList.add('bg-[#10AF13]', 'text-white');
+            }
 
-            // Kembalikan waran dropdown menu
-            dropdownMenu.classList.remove('bg-[#10AF13]');
-            dropdownMenu.classList.add('bg-white');
+            if (dropdownMenu) {
+                dropdownMenu.classList.remove('bg-[#10AF13]');
+                dropdownMenu.classList.add('bg-white');
 
-            // Kembalikan warna teks di dalam dropdown menu
-            const langOptions = dropdownMenu.querySelectorAll('.lang-option span');
-            langOptions.forEach(span => {
-                span.classList.remove('text-white');
-                span.classList.add('text-gray-600');
-            });
+                const langOptions = dropdownMenu.querySelectorAll('.lang-option span');
+                langOptions.forEach(span => {
+                    span.classList.remove('text-white');
+                    span.classList.add('text-gray-600');
+                });
 
-            // Kembalikan warna hover
-            const langButtons = dropdownMenu.querySelectorAll('.lang-option');
-            langButtons.forEach(button => {
-                button.classList.remove('hover:bg-[#0E8E10]');
-                button.classList.add('hover:bg-gray-50');
-            });
+                const langButtons = dropdownMenu.querySelectorAll('.lang-option');
+                langButtons.forEach(button => {
+                    button.classList.remove('hover:bg-[#0E8E10]');
+                    button.classList.add('hover:bg-gray-50');
+                });
+            }
 
-            // kembalikan warna teks bahasa
-            currentLang.classList.remove('text-white');
-            currentLang.classList.add('text-gray-500');
+            if (currentLang) {
+                currentLang.classList.remove('text-white');
+                currentLang.classList.add('text-gray-500');
+            }
 
-            dropdownArrow.classList.remove('text-white');
-            dropdownArrow.classList.add('text-gray-400');
-
+            if (dropdownArrow) {
+                dropdownArrow.classList.remove('text-white');
+                dropdownArrow.classList.add('text-gray-400');
+            }
         }
     }
 
-    // Jalankan saat scroll
     window.addEventListener('scroll', updateNavbarBackground);
-
-    // Jalankan saat halaman pertama kali load
     updateNavbarBackground();
 });
 
@@ -192,89 +193,95 @@ import Swiper from "swiper";
 import { Autoplay, Navigation } from "swiper/modules";
 import 'swiper/css';
 
-// SWIPER
-new Swiper(".swiper_left", {
-    modules: [Autoplay],
-
-    loop: true,
-    allowTouchMove: false,
-
-    slidesPerView: "auto",
-    spaceBetween: 24,
-
-    speed: 5000,
-    autoplay: {
-        delay: 0,
-        disableOnInteraction: false,
-    },
-
-    breakpoints: {
-        1366: {
-            slidesPerView: 2,
+// ✅ CEK ELEMENT SWIPER ADA ATAU TIDAK
+const swiperLeftEl = document.querySelector(".swiper_left");
+if (swiperLeftEl) {
+    new Swiper(".swiper_left", {
+        modules: [Autoplay],
+        loop: true,
+        allowTouchMove: false,
+        slidesPerView: "auto",
+        spaceBetween: 24,
+        speed: 5000,
+        autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
         },
-    },
-});
-
-new Swiper(".swiper_right", {
-    modules: [Autoplay],
-    loop: true,
-
-    slidesPerView: "auto",
-    spaceBetween: 24,
-
-    speed: 800,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-        reverseDirection: true
-    },
-
-    // breakpoints: {
-    //     1024: {
-    //         slidesPerView: 2, 
-    //     },
-    // },
-});
-
-const projectSwiper = new Swiper(".project_swiper", {
-    modules: [Autoplay, Navigation],
-    loop: true,
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
-    on: {
-        init(swiper) {
-            updateStudentInfo(swiper);
+        breakpoints: {
+            1366: {
+                slidesPerView: 2,
+            },
         },
-        slideChange(swiper) {
-            updateStudentInfo(swiper);
+    });
+}
+
+const swiperRightEl = document.querySelector(".swiper_right");
+if (swiperRightEl) {
+    new Swiper(".swiper_right", {
+        modules: [Autoplay],
+        loop: true,
+        slidesPerView: "auto",
+        spaceBetween: 24,
+        speed: 800,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            reverseDirection: true
         },
-    },
-});
+    });
+}
 
-document.querySelector(".btn-prev").addEventListener("click", function () {
-    projectSwiper.slidePrev();
-});
+const projectSwiperEl = document.querySelector(".project_swiper");
+if (projectSwiperEl) {
+    const projectSwiper = new Swiper(".project_swiper", {
+        modules: [Autoplay, Navigation],
+        loop: true,
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+        },
+        on: {
+            init(swiper) {
+                updateStudentInfo(swiper);
+            },
+            slideChange(swiper) {
+                updateStudentInfo(swiper);
+            },
+        },
+    });
 
-document.querySelector(".btn-next").addEventListener("click", function () {
-    projectSwiper.slideNext();
-});
+    // ✅ CEK BUTTON ADA ATAU TIDAK
+    const btnPrev = document.querySelector(".btn-prev");
+    const btnNext = document.querySelector(".btn-next");
 
-function updateStudentInfo(swiper) {
-    const activeSlide = swiper.slides[swiper.activeIndex];
+    if (btnPrev) {
+        btnPrev.addEventListener("click", function () {
+            projectSwiper.slidePrev();
+        });
+    }
 
-    const title = document.getElementById("students");
-    const project = document.getElementById("project_type");
+    if (btnNext) {
+        btnNext.addEventListener("click", function () {
+            projectSwiper.slideNext();
+        });
+    }
 
-    title.classList.add("opacity-0");
-    project.classList.add("opacity-0");
+    function updateStudentInfo(swiper) {
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const title = document.getElementById("students");
+        const project = document.getElementById("project_type");
 
-    setTimeout(() => {
-        title.innerText = `${activeSlide.dataset.name}, ${activeSlide.dataset.age}`;
-        project.innerHTML = `<span class="block transform skew-x-6">${activeSlide.dataset.project}</span>`;
+        if (!title || !project) return; // ✅ CEK DULU
 
-        title.classList.remove("opacity-0");
-        project.classList.remove("opacity-0");
-    }, 200);
+        title.classList.add("opacity-0");
+        project.classList.add("opacity-0");
+
+        setTimeout(() => {
+            title.innerText = `${activeSlide.dataset.name}, ${activeSlide.dataset.age}`;
+            project.innerHTML = `<span class="block transform skew-x-6">${activeSlide.dataset.project}</span>`;
+
+            title.classList.remove("opacity-0");
+            project.classList.remove("opacity-0");
+        }, 200);
+    }
 }

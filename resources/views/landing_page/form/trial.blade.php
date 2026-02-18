@@ -41,7 +41,7 @@
             </div>
             @endif
 
-            <form id="trialForm" action="" method="POST">
+            <form id="trialForm" action="{{ route('landing.book-trial.store') }}" method="POST">
                 @csrf
 
                 {{-- Prefix & Name --}}
@@ -128,7 +128,7 @@
                                 class="w-full h-full bg-transparent border-none text-sm text-[#3c4043] placeholder-gray-400 focus:ring-0 focus:outline-none">
                         </div>
                     </div>
-                    
+
                     <div>
                         <label class="block text-[11px] font-bold text-gray-500 mb-2 tracking-widest uppercase">
                             {{ __('Email') }}
@@ -199,11 +199,6 @@
 
 @endsection
 
-@push('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
-@endpush
-
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
-@vite('resources/js/landing_page/trial.js')
+    @vite('resources/js/landing_page/trial.js')
 @endpush
