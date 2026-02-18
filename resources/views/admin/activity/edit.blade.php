@@ -3,8 +3,7 @@
 @section('title', 'Edit Kegiatan Partner')
 
 @section('content')
-    {{-- CDN Font Awesome (Agar icon muncul) --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
 
     <div class="p-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
@@ -367,12 +366,7 @@
                                     <span
                                         class="font-medium text-gray-900">{{ $activity->updated_at->diffForHumans() }}</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span><i class="far fa-eye mr-2 text-gray-400"></i> Status</span>
-                                    {{-- UBAH BADGE STATUS (BG Opacity, Text, Border) --}}
-                                    <span
-                                        class="px-2.5 py-0.5 rounded text-xs font-bold bg-[#0f5132]/10 text-[#0f5132] border border-[#0f5132]/20">PUBLISHED</span>
-                                </div>
+                                
                             </div>
 
                             {{-- TOMBOL SIMPAN SUDAH BENAR --}}
@@ -453,151 +447,151 @@
 
     {{-- Script JavaScript --}}
     <script>
-        function confirmDeleteGallery(actionUrl) {
-            const modal = document.getElementById('deleteModal');
-            const form = document.getElementById('deleteForm');
+    //     function confirmDeleteGallery(actionUrl) {
+    //         const modal = document.getElementById('deleteModal');
+    //         const form = document.getElementById('deleteForm');
 
-            form.action = actionUrl;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+    //         form.action = actionUrl;
+    //         modal.classList.remove('hidden');
+    //         modal.classList.add('flex');
+    //     }
 
-        function closeDeleteModal() {
-            const modal = document.getElementById('deleteModal');
+    //     function closeDeleteModal() {
+    //         const modal = document.getElementById('deleteModal');
 
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
+    //         modal.classList.add('hidden');
+    //         modal.classList.remove('flex');
+    //     }
 
-       // Konfigurasi field yang wajib diisi saat mode Edit (tanpa file)
-    const REQUIRED_FIELDS = {
-        seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
-        workshop: ['extra[mentor_name]']
-    };
+    //    // Konfigurasi field yang wajib diisi saat mode Edit (tanpa file)
+    // const REQUIRED_FIELDS = {
+    //     seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
+    //     workshop: ['extra[mentor_name]']
+    // };
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const categoryInput = document.getElementById('category_activity');
-        const extraForms = document.querySelectorAll('.extra-form');
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const categoryInput = document.getElementById('category_activity');
+    //     const extraForms = document.querySelectorAll('.extra-form');
 
-        function activateForm(val) {
-            const category = val.trim().toLowerCase();
+    //     function activateForm(val) {
+    //         const category = val.trim().toLowerCase();
             
-            // Sembunyikan semua & matikan required
-            extraForms.forEach(f => {
-                f.classList.add('hidden');
-                f.querySelectorAll('input, textarea').forEach(i => i.required = false);
-            });
+    //         // Sembunyikan semua & matikan required
+    //         extraForms.forEach(f => {
+    //             f.classList.add('hidden');
+    //             f.querySelectorAll('input, textarea').forEach(i => i.required = false);
+    //         });
 
-            // Tampilkan yang cocok
-            const target = document.querySelector(`.extra-form[data-category="${category}"]`);
-            if (target) {
-                target.classList.remove('hidden');
-                // Set required hanya untuk field teks (bukan file)
-                const fields = REQUIRED_FIELDS[category] || [];
-                fields.forEach(name => {
-                    const el = target.querySelector(`[name="${name}"]`);
-                    if (el) el.required = true;
-                });
-            }
-        }
+    //         // Tampilkan yang cocok
+    //         const target = document.querySelector(`.extra-form[data-category="${category}"]`);
+    //         if (target) {
+    //             target.classList.remove('hidden');
+    //             // Set required hanya untuk field teks (bukan file)
+    //             const fields = REQUIRED_FIELDS[category] || [];
+    //             fields.forEach(name => {
+    //                 const el = target.querySelector(`[name="${name}"]`);
+    //                 if (el) el.required = true;
+    //             });
+    //         }
+    //     }
 
-        // Listener input
-        categoryInput.addEventListener('input', (e) => activateForm(e.target.value));
+    //     // Listener input
+    //     categoryInput.addEventListener('input', (e) => activateForm(e.target.value));
 
-        // Jalankan saat load (untuk data lama)
-        if (categoryInput.value) activateForm(categoryInput.value);
-    });
+    //     // Jalankan saat load (untuk data lama)
+    //     if (categoryInput.value) activateForm(categoryInput.value);
+    // });
 
-    // Preview Foto Pembicara (Seminar)
-    function previewSpeakerPhoto(event) {
-        const file = event.target.files[0];
-        const previewDiv = document.getElementById('newSpeakerPreview');
-        const previewImg = document.getElementById('speaker_preview_img');
-        const oldPhoto = document.getElementById('oldSpeakerPhoto');
+    // // Preview Foto Pembicara (Seminar)
+    // function previewSpeakerPhoto(event) {
+    //     const file = event.target.files[0];
+    //     const previewDiv = document.getElementById('newSpeakerPreview');
+    //     const previewImg = document.getElementById('speaker_preview_img');
+    //     const oldPhoto = document.getElementById('oldSpeakerPhoto');
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                previewImg.src = e.target.result;
-                previewDiv.classList.remove('hidden');
-                if(oldPhoto) oldPhoto.style.opacity = '0.3';
-            }
-            reader.readAsDataURL(file);
-        }
-    }
+    //     if (file) {
+    //         const reader = new FileReader();
+    //         reader.onload = (e) => {
+    //             previewImg.src = e.target.result;
+    //             previewDiv.classList.remove('hidden');
+    //             if(oldPhoto) oldPhoto.style.opacity = '0.3';
+    //         }
+    //         reader.readAsDataURL(file);
+    //     }
+    // }
 
-        document.getElementById('speaker_photo')?.addEventListener('change', function(e) {
-            const file = e.target.files[0]
-            if (!file) return
+    //     document.getElementById('speaker_photo')?.addEventListener('change', function(e) {
+    //         const file = e.target.files[0]
+    //         if (!file) return
 
-            const reader = new FileReader()
+    //         const reader = new FileReader()
 
-            reader.onload = function(ev) {
-                const newPreview = document.getElementById('newSpeakerPreview')
-                const oldPreview = document.getElementById('oldSpeakerPhoto')
+    //         reader.onload = function(ev) {
+    //             const newPreview = document.getElementById('newSpeakerPreview')
+    //             const oldPreview = document.getElementById('oldSpeakerPhoto')
 
-                newPreview.querySelector('img').src = ev.target.result
-                newPreview.classList.remove('hidden')
+    //             newPreview.querySelector('img').src = ev.target.result
+    //             newPreview.classList.remove('hidden')
 
-                if (oldPreview) oldPreview.classList.add('hidden')
-            }
+    //             if (oldPreview) oldPreview.classList.add('hidden')
+    //         }
 
-            reader.readAsDataURL(file)
-        })
+    //         reader.readAsDataURL(file)
+    //     })
 
 
-        // Hitung Karakter
-        const shortDesc = document.getElementById('short_description');
-        const charCount = document.getElementById('char_count');
-        if (shortDesc && charCount) {
-            shortDesc.addEventListener('input', function() {
-                charCount.textContent = this.value.length;
-                if (this.value.length >= 200) {
-                    charCount.classList.add('text-red-500', 'font-bold');
-                } else {
-                    charCount.classList.remove('text-red-500', 'font-bold');
-                }
-            });
-        }
+    //     // Hitung Karakter
+    //     const shortDesc = document.getElementById('short_description');
+    //     const charCount = document.getElementById('char_count');
+    //     if (shortDesc && charCount) {
+    //         shortDesc.addEventListener('input', function() {
+    //             charCount.textContent = this.value.length;
+    //             if (this.value.length >= 200) {
+    //                 charCount.classList.add('text-red-500', 'font-bold');
+    //             } else {
+    //                 charCount.classList.remove('text-red-500', 'font-bold');
+    //             }
+    //         });
+    //     }
 
-        // Preview Featured
-        function previewFeaturedImage(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('new_featured_preview_img');
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        }
+    //     // Preview Featured
+    //     function previewFeaturedImage(event) {
+    //         const file = event.target.files[0];
+    //         const preview = document.getElementById('new_featured_preview_img');
+    //         if (file) {
+    //             const reader = new FileReader();
+    //             reader.onload = function(e) {
+    //                 preview.src = e.target.result;
+    //                 preview.classList.remove('hidden');
+    //             }
+    //             reader.readAsDataURL(file);
+    //         }
+    //     }
 
-        // Preview Gallery
-        function previewMultipleImages(event) {
-            const container = document.getElementById('photos_preview');
-            const files = event.target.files;
-            container.innerHTML = '';
+    //     // Preview Gallery
+    //     function previewMultipleImages(event) {
+    //         const container = document.getElementById('photos_preview');
+    //         const files = event.target.files;
+    //         container.innerHTML = '';
 
-            if (files.length > 0) {
-                container.classList.remove('hidden');
-                Array.from(files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const div = document.createElement('div');
-                        div.className =
-                            'aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm relative';
-                        {{-- UBAH WARNA BORDER & BG OVERLAY PREVIEW JS --}}
-                        div.innerHTML = `
-                            <img src="${e.target.result}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-[#0f5132]/20 border-2 border-[#0f5132] rounded-lg"></div>
-                        `;
-                        container.appendChild(div);
-                    }
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
+    //         if (files.length > 0) {
+    //             container.classList.remove('hidden');
+    //             Array.from(files).forEach(file => {
+    //                 const reader = new FileReader();
+    //                 reader.onload = function(e) {
+    //                     const div = document.createElement('div');
+    //                     div.className =
+    //                         'aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm relative';
+    //                     {{-- UBAH WARNA BORDER & BG OVERLAY PREVIEW JS --}}
+    //                     div.innerHTML = `
+    //                         <img src="${e.target.result}" class="w-full h-full object-cover">
+    //                         <div class="absolute inset-0 bg-[#0f5132]/20 border-2 border-[#0f5132] rounded-lg"></div>
+    //                     `;
+    //                     container.appendChild(div);
+    //                 }
+    //                 reader.readAsDataURL(file);
+    //             });
+    //         }
+    //     }
     </script>
 @endsection

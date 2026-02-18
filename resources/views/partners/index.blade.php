@@ -2,96 +2,121 @@
 
 @section('content')
     <section class="">
-        <!-- ===========================
-                TITLE SECTION
-            =========================== -->
-        <section class="title-section bg-white">
-            <div class="container-fluid">
-                <h1 class="fw-bold display-5 text-primary text-center px-5 py-3 fs-4">School & Govermant Partnership</h1>
+        {{-- HERO SECTION --}}
+        <section class="bg-white mt-16 mb-8 px-4">
+
+            <!-- TITLE -->
+            <div class="w-full">
+                <h1
+                    class="text-center font-bold text-[#001D7A]
+                   text-lg sm:text-xl md:text-2xl
+                   px-4 py-4 mb-6">
+                    {{ __('partnership.title') }}
+                </h1>
             </div>
-        </section>
 
-
-        <!-- ===========================
-                HERO IMAGE
-            =========================== -->
-        <section class="hero-section">
-            <div class="container-md py-0  px-md-4">
+            <!-- HERO IMAGE -->
+            <div class="px-4 sm:px-8 md:px-16 lg:px-45">
                 <img src="https://wallpapers.com/images/hd/teacher-class-recitation-students-raising-hands-hnlnd76tuq5wxeaz.jpg"
-                    alt="School Partnership" class="img-fluid w-100 shadow-sm hero-img">
+                    alt="School Partnership"
+                    class="w-full shadow-sm
+                    max-h-[300px] sm:max-h-[420px] md:max-h-[540px]
+                    object-cover
+                    rounded-xl md:rounded-[20px]">
             </div>
-        </section>
 
+            <!-- INTRO TEXT -->
+            <div class="py-12 sm:py-16 md:py-20 px-4">
+                <div class="max-w-4xl mx-auto">
 
-        <!-- ===========================
-                INTRO TEXT
-            =========================== -->
-        <section class="intro-section py-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <p class="text-start text-muted">
-                            Jika Anda tertarik dengan kelas pemrograman atau desain, silakan hubungi kami di sini. Timedoor
-                            Academy menyediakan layanan pendidikan ke berbagai sekolah dan pemerintah.
-                            Kemitraan dapat dibentuk dalam berbagai bentuk, termasuk mata pelajaran utama, ekstrakurikuler,
-                            kegiatan klub, afiliasi rujukan siswa, kemitraan tempat, dan pelatihan guru. Jangan ragu untuk
-                            menghubungi kami terlebih dahulu.
-                        </p>
-                        <p class="text-start text-muted"><a href="#">Hubungi Kami</a> untuk gabung mitra bisnis kami
-                        </p>
-                    </div>
+                    <p class="text-gray-600 text-base sm:text-md  leading-relaxed mb-6">
+                        {{ __('partnership.intro_1') }}
+                    </p>
+
+                    <p class="text-gray-600 text-base sm:text-md  leading-relaxed mb-6">
+                        {{ __('partnership.intro_2') }}
+                    </p>
+
+                    <p class="text-gray-600 text-base sm:text-md  leading-relaxed">
+                        <a href="#" class="text-[#001D7A] font-semibold hover:underline">
+                            {{ __('partnership.contact') }}
+                        </a>
+                        {{ __('partnership.contact_suffix') }}
+                    </p>
+
                 </div>
             </div>
+
         </section>
 
 
-        <!-- ===========================
-                SLIDER (AUTOPLAY FLEX)
-            =========================== -->
-        <div class="container-fluid px-0 h-40">
-            <h1 class="fw-bold display-5 text-primary text-center px-5 fs-3">
-                Mitra Kami
+
+        {{-- SLIDER LOGO --}}
+        <div class="w-full">
+            <h1 class="text-center font-bold text-[#001D7A] 
+                   text-[1.50rem] px-5 py-3">
+                {{ __('partnership.our_partners') }}
             </h1>
         </div>
 
-        <section class="partnership-slider py-4">
-            <div class="slider-container overflow-hidden"> {{-- Pastikan overflow hidden agar rapi --}}
-                <div class="slider-track" id="sliderTrack">
+        <section class="py-4 bg-white">
+
+            <div class="overflow-hidden w-full">
+
+                <div class="flex w-max animate-scroll hover:[animation-play-state:paused]">
 
                     {{-- Loop Pertama --}}
                     @foreach ($partners as $p)
-                        {{-- Cek apakah logo ada dan file fisiknya ada --}}
                         @if ($p->logo)
-                            <div class="slider-item group relative inline-block ">
-                                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}"
-                                    title="{{ $p->name }}" {{-- Tooltip bawaan browser --}}
-                                    class="transition-transform duration-300 hover:scale-110 cursor-pointer">
-                            </div>
-                        @endif
-                    @endforeach
+                            <div
+                                class="flex-shrink-0
+                                w-[120px] h-[70px]
+                                sm:w-[180px] sm:h-[100px]
+                                md:w-[240px] md:h-[140px]
+                                lg:w-[300px] lg:h-[180px]
+                                flex items-center justify-center
+                                p-2">
 
-                    {{-- Duplikasi untuk Infinite Loop (Pastikan filter yang sama diterapkan) --}}
-                    @foreach ($partners as $p)
-                        @if ($p->logo)
-                            <div class="slider-item group relative inline-block ">
                                 <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}"
                                     title="{{ $p->name }}"
-                                    class="transition-transform duration-300 hover:scale-110 cursor-pointer">
-
+                                    class="max-w-full max-h-full object-contain
+                                    transition-transform duration-300
+                                    hover:scale-110 cursor-pointer">
                             </div>
                         @endif
                     @endforeach
 
+                    {{-- Duplicate untuk infinite --}}
+                    @foreach ($partners as $p)
+                        @if ($p->logo)
+                            <div
+                                class="flex-shrink-0
+                                w-[120px] h-[70px]
+                                sm:w-[180px] sm:h-[100px]
+                                md:w-[240px] md:h-[140px]
+                                lg:w-[300px] lg:h-[180px]
+                                flex items-center justify-center
+                                p-2">
+
+                                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}"
+                                    title="{{ $p->name }}"
+                                    class="max-w-full max-h-full object-contain
+                                    transition-transform duration-300
+                                    hover:scale-110 cursor-pointer">
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </section>
 
-        <!-- ===========================
-                WORKSHOP SECTION
-            =========================== -->
-        <section class="workshop-section py-5">
-            <div class="container">
-                <h2 class="text-center fs-3 fw-bold my-5">Workshop dan Pelatihan Sekolah</h2>
+        {{-- WORKSHOP SECTION --}}
+        <section class="pt-10 pb-20 bg-[#EDFFF3]">
+            <div class="max-w-7xl mx-auto px-4 ">
+
+                <h2 class="text-center text-2xl font-bold my-12">
+                    {{ __('partnership.workshop_title') }}
+                </h2>
 
                 <!-- Search Section -->
                 @livewire('partner-activity-card')
@@ -99,117 +124,5 @@
             </div>
         </section>
     </section>
-    <style>
-        .btnFilter:hover {
-    background-color: #d2d2d2ff;
-}
 
-/* Global Primary Text Color */
-.text-primary {
-    color: #001D7A !important;
-}
-
-.title-section {
-    margin-top: 4rem;
-    margin-bottom: 1rem;
-}
-
-.hero-section {
-    padding: 0 13rem;
-}
-
-/* -------- HERO IMAGE -------- */
-.hero-img {
-
-    max-height: 540px;
-    object-fit: cover;
-    border-radius: 20px;
-}
-
-/* -------- SLIDER -------- */
-/* ===== SLIDER WRAPPER ===== */
-.slider-container {
-    overflow: hidden;
-    width: 100%;
-    background: #ffffff;
-}
-
-/* ===== SLIDER TRACK ===== */
-.slider-track {
-    display: flex;
-    width: max-content;
-    gap: 0px;
-    animation: scroll 30s linear infinite;
-}
-
-/* ===== SLIDER ITEM ===== */
-.slider-item {
-    flex: 0 0 auto;
-    width: 300px;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
-.slider-item img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* ===== ANIMATION ===== */
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-/* Pause on hover */
-.slider-track:hover {
-    animation-play-state: paused;
-}
-
-
-/* Global Primary Text Color */
-.text-primary {
-    color: #001D7A !important;
-}
-
-/* Pause on hover */
-.slider-track:hover {
-    animation-play-state: paused;
-}
-
-/* -------- WORKSHOP CARDS -------- */
-.workshop-img {
-    height: 200px;
-    object-fit: cover;
-}
-
-
-.workshop-section {
-    background-color: #EDFFF3;
-}
-    </style>
-
-    <script>
-        document.getElementById("loadMoreLink").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.getElementById("moreWorkshops").classList.remove("d-none");
-            this.style.display = "none";
-        });
-
-        // load more 2
-        document.getElementById("loadMore").addEventListener("click", function(e) {
-            e.preventDefault();
-            document.getElementById("Workshops").classList.remove("d-none");
-            this.style.display = "none";
-        });
-    </script>
 @endsection

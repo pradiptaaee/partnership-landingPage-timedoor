@@ -40,5 +40,22 @@
     "Course Subjects": "算数・英語・理科",
     "Course Portfolio": "生徒のポートフォリオ",
     "Years": "歳",
-    "Year": "歳"
+    "Year": "歳",
+    "partnership.title": "学校・政府機関とのパートナーシップ",
+    "partnership.intro_1": "Timedoor Academyは、学校および政府機関と連携し、実践的で現代に適したテクノロジー教育を提供しています。カリキュラムや生徒育成活動に合わせたプログラミングおよびデザインプログラムを提供します。",
+    "partnership.intro_2": "提携内容には、正規授業、課外活動、テクノロジークラブ、教員研修、アフィリエイト提携、会場提供などが含まれます。各プログラムは、持続的なデジタルスキル向上を目的として設計されています。",
+    "partnership.contact": "お問い合わせ",
+    "partnership.contact_suffix": "より、貴機関のニーズに合わせた連携についてご相談ください。",
+    "partnership.our_partners": "提携パートナー",
+    "partnership.workshop_title": "学校向けワークショップ・研修",
+    "activity.back": "戻る",
+    "activity.no_image": "ヒーロー画像はありません",
+    "activity.date": "日付",
+    "activity.email": "メール",
+    "activity.phone": "電話番号",
+    "activity.speaker_profile": "講師プロフィール",
+    "activity.speaker_not_available": "講師情報はありません。",
+    "activity.workshop_mentor": "ワークショップ講師",
+    "activity.full_description": "詳細説明",
+    "activity.back_to_list": "活動一覧へ戻る"
 }

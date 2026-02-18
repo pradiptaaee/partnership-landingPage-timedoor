@@ -23,9 +23,7 @@ class DashboardController extends Controller
         $totalTestimonials = \App\Models\Testimonial::count(); // Sesuaikan nama model
         
         // Kegiatan bulan ini (Penting untuk monitoring)
-        $activitiesThisMonth = \App\Models\PartnerActivity::whereMonth('activity_date', now()->month)
-                                ->whereYear('activity_date', now()->year)
-                                ->count();
+        $totalActivities = \App\Models\PartnerActivity::count();
 
         // 5 Kegiatan yang AKAN DATANG (Upcoming)
         $upcomingActivities = \App\Models\PartnerActivity::with('partner')
@@ -41,7 +39,7 @@ class DashboardController extends Controller
             'totalPartners', 
             'totalProjects', 
             'totalTestimonials', 
-            'activitiesThisMonth',
+            'totalActivities',
             'upcomingActivities',
             'latestProjects'
         ));

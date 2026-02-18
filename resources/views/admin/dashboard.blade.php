@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="flex-1 p-8 bg-gray-50/50 min-h-screen font-sans">
+<div class="flex-1 p-4 bg-gray-50/50 min-h-screen font-sans">
     
     <div class="max-w-7xl mx-auto space-y-8">
 
         {{-- 1. HEADER: Greeting & Date --}}
         <div class="flex flex-col md:flex-row justify-between items-end gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold text-[#0f5132] tracking-tight">Dashboard Overview</h1>
+                <h1 class="text-3xl font-extrabold text-[#0f5132] tracking-tight">Dashboard</h1>
                 <p class="text-gray-500 mt-1 text-sm">Selamat datang, Admin! Berikut ringkasan performa Academy hari ini.</p>
             </div>
             <div class="px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100 flex items-center gap-2 text-sm text-gray-600 font-medium">
@@ -26,7 +26,7 @@
                     <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-[#0f5132]">
                         <i class="bi bi-buildings-fill text-lg"></i>
                     </div>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Partners</span>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Partner</span>
                 </div>
                 <h3 class="text-3xl font-bold text-gray-800">{{ $totalPartners }}</h3>
                 <p class="text-xs text-gray-500 mt-1">Perusahaan & Sekolah</p>
@@ -40,8 +40,8 @@
                     </div>
                     <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Kegiatan</span>
                 </div>
-                <h3 class="text-3xl font-bold text-gray-800">{{ $activitiesThisMonth }}</h3>
-                <p class="text-xs text-gray-500 mt-1">Bulan {{ date('F') }} ini</p>
+                <h3 class="text-3xl font-bold text-gray-800">{{ $totalActivities }}</h3>
+                <p class="text-xs text-gray-500 mt-1">Seluruh riwayat kegiatan</p>
             </div>
 
             {{-- Card 3: Projects --}}
@@ -50,7 +50,7 @@
                     <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
                         <i class="bi bi-laptop-fill text-lg"></i>
                     </div>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Showcase</span>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Etalase</span>
                 </div>
                 <h3 class="text-3xl font-bold text-gray-800">{{ $totalProjects }}</h3>
                 <p class="text-xs text-gray-500 mt-1">Karya Siswa</p>
@@ -62,7 +62,7 @@
                     <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
                         <i class="bi bi-chat-quote-fill text-lg"></i>
                     </div>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Reviews</span>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Review</span>
                 </div>
                 <h3 class="text-3xl font-bold text-gray-800">{{ $totalTestimonials }}</h3>
                 <p class="text-xs text-gray-500 mt-1">Total Testimoni</p>

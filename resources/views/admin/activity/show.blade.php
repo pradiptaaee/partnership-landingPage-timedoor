@@ -12,7 +12,7 @@
         </nav>
         <div class="w-full flex justify-between items-end">
             <div>
-                <h2 class="font-bold text-gray-800 mb-0">{{ $activity->title }}</h2>
+                <h2 class="text-lg font-bold text-gray-800 mb-0">{{ $activity->title }}</h2>
                 <div class="flex gap-4 mt-2">
                     <span class="text-xs font-bold text-[#0f5132] uppercase tracking-wider bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
                         <i class="bi bi-tag-fill me-1"></i> {{ $activity->category_activity }}
@@ -40,7 +40,7 @@
                         <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">Partner Pelaksana</label>
                         <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                             @if($activity->partner && $activity->partner->logo)
-                                <img src="{{ asset('storage/partners/' . $activity->partner->logo) }}" class="w-12 h-12 rounded-lg object-contain bg-white p-1 border border-gray-200">
+                                <img src="{{ asset('storage/' . $activity->partner->logo) }}" class="w-12 h-12 rounded-lg object-contain bg-white p-1 border border-gray-200">
                             @else
                                 <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center border border-gray-200 text-gray-400">
                                     <i class="bi bi-building"></i>
@@ -110,7 +110,9 @@
                         <div class="flex flex-wrap gap-2">
                             @foreach($activity->photos as $photo)
                                 <div class="relative group w-20 h-20 bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex-shrink-0">
-                                    <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}" 
+                                    <img src="{{ asset('storage/activity/photos/' . $photo->image_path) }}"
+                                    onclick="viewImage('{{ asset('storage/activity/photos/' . $photo->image_path) }}')"
+      
                                          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer">
                                 </div>
                             @endforeach
@@ -144,11 +146,5 @@
     </div>
 </div>
 
-<style>
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #0f5132; border-radius: 10px; }
-    .text-emerald-700 { color: #047857 !important; }
-    .bg-emerald-50 { background-color: #ecfdf5 !important; }
-</style>
+
 @endsection

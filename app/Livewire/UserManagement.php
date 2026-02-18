@@ -55,7 +55,9 @@ class UserManagement extends Component
             'password' => Hash::make($this->password),
         ]);
 
-        session()->flash('success', 'User baru berhasil ditambahkan.');
+        // PERBAIKAN: Gunakan success-alert dan named argument 'message'
+        $this->dispatch('success-alert', message: 'User baru berhasil ditambahkan!');
+
         $this->closeModal();
     }
 
@@ -84,7 +86,10 @@ class UserManagement extends Component
         }
 
         $user->update($updateData);
-        session()->flash('success', 'User berhasil diperbarui.');
+
+        // PERBAIKAN: Ganti session flash ke dispatch agar tidak perlu refresh halaman
+        $this->dispatch('success-alert', message: 'Data user berhasil diperbarui.');
+
         $this->closeModal();
     }
 

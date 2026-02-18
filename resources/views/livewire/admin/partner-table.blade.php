@@ -1,4 +1,4 @@
-<div class="flex-1 p-8 bg-white min-h-screen font-sans">
+<div class="flex-1 p-5 bg-white min-h-screen font-sans">
     
 
     <div class="max-w-7xl mx-auto space-y-8">
@@ -39,7 +39,7 @@
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Kegiatan</p>
                     <h3 class="text-3xl font-bold text-[#0f5132]">{{ $totalActivities ?? 0 }}</h3>
                     <p class="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                        <i class="bi bi-lightning-charge-fill text-emerald-500"></i> Sedang berjalan
+                        <i class="bi bi-lightning-charge-fill text-emerald-500"></i> Sudah berjalan
                     </p>
                 </div>
                 <div class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-[#0f5132]">
@@ -51,7 +51,7 @@
         {{-- HEADER & ACTIONS --}}
         <div class="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight">Data Partner</h1>
+                <h1 class="text-3xl font-bold text-[#0f5132] tracking-tight">Daftar Partner</h1>
                 <p class="text-gray-500 text-sm mt-1">Kelola daftar perusahaan dan institusi yang bekerjasama.</p>
             </div>
             
@@ -214,7 +214,7 @@
 
                 {{-- Pagination --}}
                 <div class="px-6 py-4 border-t border-gray-50 bg-white">
-                    {{ $partners->links('component.pagination') }}
+                    {{ $partners->links() }}
                 </div>
             @else
                 {{-- Empty State --}}
@@ -255,7 +255,7 @@
     @endif
 
     {{-- STYLE: Dipindah ke dalam DIV utama agar menjadi 1 root element --}}
-    <style>
+    {{-- <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -264,6 +264,6 @@
         
         .animate-fadeIn { animation: fadeIn 0.2s ease-out; }
         .animate-scaleIn { animation: scaleIn 0.2s ease-out; }
-    </style>
+    </style> --}}
 
 </div>

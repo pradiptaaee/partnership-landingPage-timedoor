@@ -20,6 +20,7 @@ class ActivityTable extends Component
     public $confirmingActivityDeletion = false;
     public $activityIdToDelete = null;
 
+    
     // Method ini akan dijalankan saat properti di atas berubah
     public function updated($propertyName)
     {
@@ -28,11 +29,9 @@ class ActivityTable extends Component
     }
 
     
-
-    // Custom view pagination (agar menggunakan Bootstrap style)
     public function paginationView()
     {
-        return 'livewire::bootstrap';
+        return 'livewire::tailwind';
     }
 
     public function resetFilters()

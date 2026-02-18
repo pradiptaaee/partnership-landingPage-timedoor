@@ -187,43 +187,4 @@
         </form>
     </div>
 </div>
-
-<script>
-    function previewImage(event) {
-        const preview = document.getElementById('preview');
-        const prompt = document.getElementById('upload-prompt');
-        const removeBtn = document.getElementById('remove-btn');
-        const file = event.target.files[0];
-        
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.classList.remove('hidden');
-                prompt.classList.add('hidden');
-                removeBtn.classList.remove('hidden');
-            }
-            reader.readAsDataURL(file);
-        }
-    }
-
-    function removePreview() {
-        const input = document.getElementById('logo');
-        const preview = document.getElementById('preview');
-        const prompt = document.getElementById('upload-prompt');
-        const removeBtn = document.getElementById('remove-btn');
-
-        input.value = '';
-        preview.src = '';
-        preview.classList.add('hidden');
-        prompt.classList.remove('hidden');
-        removeBtn.classList.add('hidden');
-    }
-</script>
-
-<style>
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 20px; }
-</style>
 @endsection
