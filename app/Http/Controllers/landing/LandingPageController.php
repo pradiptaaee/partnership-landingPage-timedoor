@@ -36,7 +36,7 @@ class LandingPageController extends BasePageController
             'proof_bnr' => "text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl",
         ];
 
-        if (in_array($locale, ['id', 'ms', 'fil'])) {
+        if (in_array($locale, ['id', 'ms', 'fil', 'bn', 'ja'])) {
             $classes = [
                 'hero_h2'   => "text-xl md:text-4xl lg:text-5xl xl:text-4xl mb-3 xl:mb-6",
                 'hero_h1'   => "text-3xl md:text-6xl lg:text-7xl xl:text-6xl mb-3 xl:mb-6 leading-tight",
