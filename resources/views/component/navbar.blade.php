@@ -265,6 +265,3 @@
     </nav>
 </section>
 
-<script>
-    
-</script>
