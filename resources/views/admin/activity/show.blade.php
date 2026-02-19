@@ -5,8 +5,9 @@
     {{-- Breadcrumb & Header --}}
     <div class="mb-5">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-2">
+            <ol class="breadcrumb flex items-center mb-2">
                 <li class="breadcrumb-item"><a href="{{ route('admin.activity.index') }}" class="text-decoration-none text-[#0f5132]">Activities</a></li>
+                <li> / </li>
                 <li class="breadcrumb-item active text-gray-400" aria-current="page">Detail Kegiatan</li>
             </ol>
         </nav>
@@ -52,6 +53,95 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Deskripsi Tambahan Seminar --}}
+@if($activity->seminarDetail)
+<div>
+    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">
+        Detail Seminar
+    </label>
+
+    <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+
+            {{-- FOTO --}}
+            @if($activity->seminarDetail->speaker_photo)
+                <div class="w-32 h-32 flex-shrink-0">
+                    <img 
+                        src="{{ asset('storage/activity/speakers/' . $activity->seminarDetail->speaker_photo) }}"
+                        class="w-full h-full object-cover rounded-xl border border-emerald-200 shadow-sm"
+                        alt="Foto Pembicara"
+                    >
+                </div>
+            @endif
+
+            {{-- INFO --}}
+            <div class="flex-1 space-y-3">
+
+                @if($activity->seminarDetail->speaker_name)
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">
+                            Pembicara
+                        </span>
+                        <p class="text-sm font-bold text-gray-800">
+                            {{ $activity->seminarDetail->speaker_name }}
+                        </p>
+                    </div>
+                @endif
+
+                @if($activity->seminarDetail->speaker_about)
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">
+                            Tentang Pembicara
+                        </span>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            {{ $activity->seminarDetail->speaker_about }}
+                        </p>
+                    </div>
+                @endif
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@endif
+ 
+
+{{-- Deskripsi Tambahan Workshop --}}
+@if($activity->workshopDetail)
+<div>
+    <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-3">
+        Detail Workshop
+    </label>
+
+    <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100 space-y-3">
+        
+        @if($activity->workshopDetail->mentor_name)
+            <div>
+                <span class="text-[10px] text-gray-400 uppercase">Mentor</span>
+                <p class="text-sm font-semibold text-gray-800">
+                    {{ $activity->workshopDetail->mentor_name }}
+                </p>
+            </div>
+        @endif
+
+        @if($activity->workshopDetail->description)
+            <div>
+                <span class="text-[10px] text-gray-400 uppercase">Deskripsi Tambahan</span>
+                <p class="text-sm text-gray-700">
+                    {{ $activity->workshopDetail->description }}
+                </p>
+            </div>
+        @endif
+
+    </div>
+</div>
+@endif
+
+
 
                     {{-- Deskripsi --}}
                     <div>

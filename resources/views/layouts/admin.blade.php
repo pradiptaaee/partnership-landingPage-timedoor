@@ -25,6 +25,7 @@
     @vite(['resources/css/admin.css'])
 
     {{-- js --}}
+    @vite('resources/js/admin/partnership/app.js')
     @vite('resources/js/admin/partnership/partner.js')
     @vite('resources/js/admin/partnership/activity.js')
 
@@ -57,56 +58,12 @@
 
     {{-- Livewire & Session Alert --}}
     <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('success-alert', (data) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: data.message,
-                    position: 'center',
-                    showConfirmButton: false,
-                    timer: 2500,
-                    timerProgressBar: true,
-                });
-            });
-        });
+        window.flashMessages = {
+            loginSuccess: "{{ session('login_success') }}",
+            successMessage: "{{ session('success_message') }}"
+        };
 
-        window.onload = function() {
-
-            @if (Session::has('login_success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login Berhasil!',
-                    text: "{{ Session::get('login_success') }}",
-                    showConfirmButton: true,
-                    confirmButtonText: 'Lanjutkan',
-                });
-            @endif
-
-            @if (Session::has('success_message'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: "{{ Session::get('success_message') }}",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    timerProgressBar: true,
-                });
-            @endif
-
-        }
-        window.viewImage = function(url) {
-            Swal.fire({
-                imageUrl: url,
-                imageAlt: 'Dokumentasi Kegiatan',
-                showConfirmButton: false,
-                showCloseButton: true,
-                background: 'transparent',
-                customClass: {
-                    popup: 'border-none shadow-none'
-                }
-            });
-        }
+        
     </script>
     @stack('scripts') {{-- Pastikan ini ada --}}
 </body>
