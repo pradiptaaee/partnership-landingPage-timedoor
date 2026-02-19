@@ -105,7 +105,7 @@
                                 class="w-full h-full bg-transparent border-none text-[14px] text-[#3c4043] placeholder-[#80868b] focus:ring-0 focus:outline-none">
                         </div>
                     </div>
-                    
+
                     <div>
                         <label class="block text-[11px] font-bold text-[#6b7280] mb-[8px] tracking-tight uppercase">{{ __('Email') }}</label>
                         <div class="bg-[#e8eaed] rounded-[8px] h-[44px] overflow-hidden">
@@ -162,5 +162,5 @@
 @endsection
 
 @push('scripts')
-@vite('resources/js/landing_page/trial.js')
+    @vite('resources/js/landing_page/trial.js')
 @endpush

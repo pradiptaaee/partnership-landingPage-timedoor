@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\StudentProjectController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\FreeTrialAdminController;
 use App\Http\Controllers\landing\LandingPageController as LandingLandingPageController;
-use App\Http\Controllers\landing\TrialController;
+use App\Http\Controllers\landing\TrialController as LandingTrialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +27,10 @@ Route::redirect('/', '/');
 Route::get('/', [LandingLandingPageController::class, 'index'])->name('landing');
 
 // Halaman Form Pendaftaran 
-Route::get('/book-free-trial', [LandingLandingPageController::class, 'showBookingForm'])->name('trial.index');
+Route::get('/book-free-trial', [LandingTrialController::class, 'index'])->name('trial.index');
 
 // Proses Kirim Data
-Route::post('/book-free-trial', [TrialController::class, 'storeBooking'])->name('landing.book-trial.store');
+Route::post('/book-free-trial', [LandingTrialController::class, 'storeBooking'])->name('landing.book-trial.store');
 
 // Route Ganti Bahasa (Fungsi Krisna)
 Route::get('/lang/{locale}', [LandingLandingPageController::class, 'changeLanguage'])->name('change.language');
@@ -48,8 +48,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     })->name('users');
 
     // MANAGEMENT LANDING PAGE
-    // MANAGEMENT LANDING PAGE
-Route::prefix('landing-page')->group(function() {
+    Route::prefix('landing-page')->group(function() {
     // Dashboard Free Trials
     Route::get('free-trials', [FreeTrialAdminController::class, 'index'])->name('free-trials.index');
     Route::delete('free-trials/delete/{id}', [FreeTrialAdminController::class, 'destroy'])->name('free-trials.destroy');

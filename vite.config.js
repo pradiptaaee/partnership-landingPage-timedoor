@@ -12,7 +12,7 @@ export default defineConfig({
                 'resources/js/landing_page/app.js',
                 'resources/js/landing_page/trial.js',
                 'resources/css/admin.css', 
-                'resources/js/admin/landing_page/app.js'
+                'resources/js/admin/landing_page/app.js',
             ],
             refresh: true,
         }),

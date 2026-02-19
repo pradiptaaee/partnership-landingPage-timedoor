@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class FreeTrialIndex extends Component
 {
     use WithPagination;
-
+    protected $paginationTheme = 'tailwind';
     // State untuk manajemen modal konfirmasi hapus
     public $confirmingTrialDeletion = false; 
     public $selectedTrialId;
@@ -101,7 +101,8 @@ class FreeTrialIndex extends Component
             ->when($this->sortBy === 'oldest', function($q) {
                 return $q->oldest();
             })
-            ->paginate($this->perPage);
+            ->paginate($this->perPage)
+            ->onEachSide(1);
 
         return view('livewire.admin.free-trial-index', [
             'trials' => $trials,
