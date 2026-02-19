@@ -58,5 +58,18 @@
     "activity.speaker_not_available": "Speaker information is not available.",
     "activity.workshop_mentor": "Workshop Mentor",
     "activity.full_description": "Full Description",
-    "activity.back_to_list": "Back to Activity List"
+    "activity.back_to_list": "Back to Activity List",
+    "Our Proven Pathway to": "Our Proven Pathway to",
+    "\"Tech Inventor\"": "\"Tech Inventor\"",
+    "Small Classes, Big Impact": "Small Classes, Big Impact",
+    "With a maximum of 5 students, every child receives personalized, expert attention": "With a maximum of 5 students, every child receives personalized, expert attention",
+    "Proprietary Gamified Rewards": "Proprietary Gamified Rewards",
+    "Our unique program feels like a game. Students earn coins for projects, keeping them motivated.": "Our unique program feels like a game. Students earn coins for projects, keeping them motivated.",
+    "Future-Proof Skills, Not Just Hobbies": "Future-Proof Skills, Not Just Hobbies",
+    "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).",
+
+    "Trial Desc": "Maximize children’s potential with A fun-based IT education",
+    "trial_success_msg": "Thank you! Your trial request has been sent successfully. We will contact you soon.",
+    "trial_partial_success_msg": "Thank you! Your request has been received and is being processed.",
+    "trial_error_msg": "Sorry, there is a connection issue. Please try again later."
 }

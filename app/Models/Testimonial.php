@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Spatie\Translatable\HasTranslations;
 
 class Testimonial extends Model
 {
     use HasFactory;
-    use HasTranslations;
-    // Sesuaikan dengan model Anda
+
+    /**
+     * Atribut yang dapat diisi melalui mass assignment.
+     *
+     * @var array
+     */
     protected $fillable = [
         'parent_name', 
         'student_name', 
@@ -20,14 +23,26 @@ class Testimonial extends Model
         'parent_image'
     ];
 
-    public $translatable = ['review'];
+    /**
+     * Casting atribut ke tipe data tertentu.
+     * Kolom review disimpan sebagai array untuk mendukung data multi-bahasa (JSON).
+     *
+     * @var array
+     */
+    protected $casts = [
+        'review' => 'array',
+    ];
 
     /**
-     * Scope untuk memfilter pencarian dan sorting (Laravel Best Practice).
+     * Local Scope untuk mempermudah pemfilteran data berdasarkan pencarian dan pengurutan.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param array $filters
+     * @return void
      */
     public function scopeFilter(Builder $query, array $filters): void
     {
-        // 1. Logika Search (Mencari di Nama Ortu ATAU Nama Murid)
+        // Filter berdasarkan pencarian nama orang tua atau siswa
         $query->when($filters['search'] ?? false, function ($query, $search) {
             $query->where(function($q) use ($search) {
                 $q->where('parent_name', 'like', '%' . $search . '%')
@@ -35,13 +50,13 @@ class Testimonial extends Model
             });
         });
 
-        // 2. Logika Sort (Menggunakan match expression PHP 8+)
+        // Logika pengurutan data
         $query->when($filters['sort'] ?? false, function ($query, $sort) {
             match ($sort) {
-                'oldest' => $query->reorder('created_at', 'asc'),   // Terlama
-                'az'     => $query->reorder('parent_name', 'asc'),  // Abjad A-Z
-                'za'     => $query->reorder('parent_name', 'desc'), // Abjad Z-A
-                default  => $query->latest(),                       // Default Terbaru
+                'oldest' => $query->reorder('created_at', 'asc'),
+                'az'     => $query->reorder('parent_name', 'asc'),
+                'za'     => $query->reorder('parent_name', 'desc'),
+                default  => $query->latest(),
             };
         });
     }

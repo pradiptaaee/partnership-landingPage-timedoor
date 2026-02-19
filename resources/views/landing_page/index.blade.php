@@ -16,7 +16,4 @@
     <!-- Section 4: CTA & Promo            -->
     @include('landing_page.sections.cta_promo')
 
-    <!-- FOOTER           -->
-    @include('landing_page.sections.footer')
-
 @endsection

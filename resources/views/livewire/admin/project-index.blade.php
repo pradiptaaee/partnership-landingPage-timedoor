@@ -50,7 +50,7 @@
 
                     <div class="absolute top-3 left-3 z-10">
                         <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-white/90 backdrop-blur-md text-[10px] font-bold text-[#0f5132] uppercase border border-gray-100">
-                            {{ $project->project_type }}
+                            {{ $project->project_type[app()->getLocale()] ?? ($project->project_type['id'] ?? '-') }}
                         </span>
                     </div>
 
@@ -58,7 +58,8 @@
                         <a href="{{ route('admin.projects.edit', $project->id) }}" class="w-9 h-9 flex items-center justify-center bg-white text-gray-700 rounded-full hover:text-[#0f5132] shadow-md transition">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <button type="button" onclick="prepareDelete('{{ route('admin.projects.destroy', $project->id) }}')"
+                        <button type="button" 
+                        onclick="BannerManager.prepareDelete('{{ route('admin.projects.destroy', $project->id) }}', 'Project')"
                             class="w-9 h-9 flex items-center justify-center bg-white text-red-500 rounded-full hover:bg-red-50 shadow-md transition">
                             <i class="bi bi-trash"></i>
                         </button>
@@ -76,7 +77,7 @@
                         {{ $project->student_name }}
                     </h3>
                     <p class="text-xs text-gray-500 mt-1 line-clamp-1">
-                        {{ $project->getTranslation('project_type', 'id') }}
+                        {{ $project->project_type['id'] ?? '-' }}
                     </p>
                 </div>
             </div>

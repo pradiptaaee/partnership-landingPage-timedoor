@@ -14,7 +14,6 @@ class PartnerController extends Controller
 {
     public function index(Request $request)
     {
-        // $partners = Partner::latest()->get();
         $partners = Partner::whereNotNull('logo')->where('logo', '!=', '')->get();
 
         $activities = PartnerActivity::with('partner')

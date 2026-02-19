@@ -1,7 +1,6 @@
 @extends('layouts.admin') 
 
 @section('content')
-{{-- CONTAINER UTAMA --}}
 <div class="flex-1 p-8 bg-white min-h-screen font-sans flex flex-col">
     
     {{-- HEADER PAGE --}}
@@ -27,43 +26,28 @@
             @csrf
             @method('PUT')
             
-            {{-- ================= KOLOM KIRI: INPUT FORM ================= --}}
+            {{-- KOLOM KIRI: INPUT FORM --}}
             <div class="w-full lg:w-5/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
                 
                 <div class="space-y-6 flex-grow overflow-y-auto pr-2 custom-scrollbar">
                     
-                    {{-- 1. INPUT JUDUL (ID) --}}
                     <div>
                         <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
                             Judul Banner (ID) <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" 
-                               name="title[id]" 
+                        <input type="text" name="title[id]" 
                                value="{{ old('title.id', $banner->getTranslation('title', 'id')) }}"
-                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm font-medium" 
-                               placeholder="Contoh: Promo Spesial Tahun Baru" 
-                               required>
-                        @error('title.id') 
-                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
-                        @enderror
+                               class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:bg-white focus:border-[#0f5132] outline-none transition text-sm font-medium" required>
                     </div>
 
-                    {{-- 2. INPUT DESKRIPSI (ID) --}}
                     <div>
                         <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
                             Deskripsi (ID) <span class="text-red-500">*</span>
                         </label>
-                        <textarea name="description[id]" 
-                                  rows="5" 
-                                  class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:bg-white focus:border-[#0f5132] focus:ring-1 focus:ring-[#0f5132] outline-none transition text-sm leading-relaxed resize-none" 
-                                  placeholder="Tuliskan detail deskripsi banner di sini..." 
-                                  required>{{ old('description.id', $banner->getTranslation('description', 'id')) }}</textarea>
-                        @error('description.id') 
-                            <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p> 
-                        @enderror
+                        <textarea name="description[id]" rows="5" 
+                                  class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:bg-white focus:border-[#0f5132] outline-none transition text-sm leading-relaxed resize-none" required>{{ old('description.id', $banner->getTranslation('description', 'id')) }}</textarea>
                     </div>
 
-                    {{-- INFO BOX: AUTO TRANSLATE --}}
                     <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex gap-3 items-start">
                         <div class="shrink-0 mt-0.5 text-[#0f5132]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -72,35 +56,26 @@
                         </div>
                         <div>
                             <h4 class="text-[#0f5132] font-bold text-sm mb-0.5">Auto-Translate Aktif</h4>
-                            <p class="text-xs text-emerald-700 leading-relaxed">
-                                Jika Anda mengubah teks Bahasa Indonesia ini, sistem akan otomatis menerjemahkan ulang ke bahasa lain (Inggris, dll).
-                            </p>
+                            <p class="text-xs text-emerald-700 leading-relaxed">Jika Anda mengubah teks Bahasa Indonesia ini, sistem akan otomatis menerjemahkan ulang ke bahasa lain.</p>
                         </div>
                     </div>
-
                 </div>
 
-                {{-- ACTION BUTTONS --}}
                 <div class="pt-6 mt-6 border-t border-gray-100 flex gap-3 shrink-0">
-                    <a href="{{ route('admin.banners.index') }}" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-bold text-center hover:bg-gray-50 hover:text-gray-800 transition">
-                        Batal
-                    </a>
+                    <a href="{{ route('admin.banners.index') }}" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-bold text-center hover:bg-gray-50 transition">Batal</a>
                     <button type="submit" class="flex-1 px-4 py-3 rounded-lg bg-[#0f5132] text-white text-sm font-bold shadow-md hover:bg-[#0b3d26] transition flex items-center justify-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                         Simpan Perubahan
                     </button>
                 </div>
-
             </div>
 
-            {{-- ================= KOLOM KANAN: GAMBAR FULL (Clean) ================= --}}
-            {{-- Tidak ada background hitam, tidak ada pattern. Hanya gambar. --}}
-            <div class="w-full lg:w-7/12 bg-gray-100 relative group overflow-hidden flex items-center justify-center min-h-[300px] lg:min-h-auto">
+            {{-- KOLOM KANAN: GAMBAR FULL --}}
+            <div class="w-full lg:w-7/12 bg-gray-100 relative group overflow-hidden flex items-center justify-center min-h-[300px]">
                 
-                {{-- Input File Hidden --}}
-                <input id="dropzone-file" name="image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
+                {{-- PEMANGGILAN JS MODULAR --}}
+                <input id="dropzone-file" name="image" type="file" class="hidden" accept="image/*" onchange="LandingPage.updatePreviewBanner(event)" />
                 
-                {{-- Label Trigger (Overlay saat hover) --}}
                 <label for="dropzone-file" class="absolute inset-0 z-20 cursor-pointer flex flex-col items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white mb-2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
@@ -108,21 +83,15 @@
                     <span class="text-white font-bold text-lg tracking-tight">Ganti Gambar</span>
                 </label>
 
-                {{-- Gambar Asli (Full Cover) --}}
-                {{-- Menggunakan object-cover agar memenuhi area kanan seperti referensi --}}
                 <img id="preview-image" 
                      src="{{ Storage::url($banner->image) }}" 
-                     class="w-full h-full object-cover absolute inset-0">
+                     class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300">
 
-                {{-- Indikator "GAMBAR SAAT INI" (Pojok Kiri Bawah) --}}
                 <div class="absolute bottom-4 left-4 z-10 flex items-center gap-2 pointer-events-none">
                     <span class="w-2 h-2 rounded-full bg-[#4ade80] animate-pulse"></span>
-                    <span class="text-[10px] font-bold text-white uppercase tracking-wider drop-shadow-md">
-                        GAMBAR SAAT INI
-                    </span>
+                    <span class="text-[10px] font-bold text-white uppercase tracking-wider drop-shadow-md">GAMBAR SAAT INI</span>
                 </div>
 
-                {{-- Error Message --}}
                 @error('image')
                     <div class="absolute top-4 left-1/2 -translate-x-1/2 z-30 animate-bounce">
                         <span class="bg-red-500 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
@@ -131,41 +100,12 @@
                         </span>
                     </div>
                 @enderror
-
             </div>
-
         </form>
     </div>
 </div>
-
-{{-- SCRIPT: Preview Image --}}
-<script>
-    function previewImage(event) {
-        const input = event.target;
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                const img = document.getElementById('preview-image');
-                
-                // Efek fade simple
-                img.style.opacity = '0.5';
-                
-                setTimeout(() => {
-                    img.src = e.target.result;
-                    img.style.opacity = '1';
-                }, 200);
-            }
-            
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
-
-<style>
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 20px; }
-    .custom-scrollbar:hover::-webkit-scrollbar-thumb { background-color: #d1d5db; }
-</style>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin/landing_page/app.js')
+@endpush

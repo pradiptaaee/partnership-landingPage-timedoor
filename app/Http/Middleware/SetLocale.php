@@ -13,13 +13,16 @@ class SetLocale
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        // Cek apakah ada session 'locale', jika tidak ada pakai default (id)
-        if (session()->has('locale')) {
-            app()->setLocale(session('locale'));
+        if ($request->is('admin/*') || $request->is('admin')) {
+            app()->setLocale('id'); 
+        } else {
+            if (session()->has('locale')) {
+                app()->setLocale(session('locale'));
+            }
         }
-
+        
         return $next($request);
     }
 }

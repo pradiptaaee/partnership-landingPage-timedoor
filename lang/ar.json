@@ -40,7 +40,20 @@
     "Course Subjects": "الرياضيات، الإنجليزية والعلوم",
     "Course Portfolio": "ملف أعمال الطلاب",
     "Years": "سنوات",
-    "Year": "سنة"
+    "Year": "سنة",
+    "Our Proven Pathway to": "مسارنا المجرب لتصبح",
+    "\"Tech Inventor\"": "\"مخترع تقني\"",
+    "Small Classes, Big Impact": "فصول صغيرة، تأثير كبير",
+    "With a maximum of 5 students, every child receives personalized, expert attention": "مع حد أقصى 5 طلاب، يتلقى كل طفل اهتماماً شخصياً من الخبراء.",
+    "Proprietary Gamified Rewards": "مكافآت الألعاب الحصرية",
+    "Our unique program feels like a game. Students earn coins for projects, keeping them motivated.": "برنامجنا الفريد يشبه اللعبة. يكسب الطلاب عملات للمشاريع، مما يحافظ على حماسهم.",
+    "Future-Proof Skills, Not Just Hobbies": "مهارات المستقبل، ليست مجرد هوايات",
+    "Our full pathway teaches skills for the future: Game Creation, Website Building, App Development, and Artificial Intelligence (AI).": "يعلم مسارنا الكامل مهارات المستقبل: إنشاء الألعاب، بناء المواقع، تطوير التطبيقات، والذكاء الاصطناعي.",
+
+    "Trial Desc": "تعظيم إمكانات الأطفال من خلال تعليم تكنولوجيا المعلومات القائم على المرح",
+    "trial_success_msg": "شكراً لك! تم إرسال طلب التجربة بنجاح. سنقوم بالاتصال بك قريباً.",
+    "trial_partial_success_msg": "شكراً لك! لقد تلقينا طلبك، وهو قيد المعالجة الآن.",
+    "trial_error_msg": "عذراً، حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى لاحقاً."
 }
 
 

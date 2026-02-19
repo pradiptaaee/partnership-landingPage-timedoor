@@ -48,7 +48,8 @@
                         class="w-8 h-8 flex items-center justify-center bg-gray-50 text-gray-600 rounded-full hover:bg-[#0f5132] hover:text-white transition shadow-sm">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <button type="button" onclick="prepareDelete('{{ route('admin.testimonials.destroy', $item->id) }}')"
+                    <button type="button" 
+                    onclick="BannerManager.prepareDelete('{{ route('admin.testimonials.destroy', $item->id) }}', 'Testimoni')"
                         class="w-8 h-8 flex items-center justify-center bg-gray-50 text-red-500 rounded-full hover:bg-red-50 transition shadow-sm">
                         <i class="bi bi-trash"></i>
                     </button>
@@ -74,7 +75,7 @@
                 <div class="flex-1 relative mb-6 pl-2">
                     <i class="bi bi-quote absolute -top-3 -left-2 text-4xl text-gray-100"></i>
                     <p class="relative z-10 text-sm text-gray-600 italic leading-relaxed line-clamp-4">
-                        "{{ $item->review }}"
+                        "{{ $item->review[app()->getLocale()] ?? ($item->review['id'] ?? '-') }}"
                     </p>
                 </div>
 
