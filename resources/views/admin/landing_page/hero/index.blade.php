@@ -6,7 +6,7 @@
     {{-- HEADER: JUDUL & TOMBOL EDIT --}}
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
-            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Preview Hero Section</h1>
+            <h1 class="text-3xl font-extrabold text-[#0f5132] tracking-tight">Preview Hero Section</h1>
             <p class="text-gray-500 text-sm mt-1">Tampilan data banner utama yang saat ini aktif di website.</p>
         </div>
         

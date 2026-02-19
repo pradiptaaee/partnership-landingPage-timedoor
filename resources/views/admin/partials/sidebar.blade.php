@@ -121,93 +121,99 @@
 
         {{-- === LANDING PAGE (DROPDOWN) === --}}
         <div class="relative">
-            @php
-                $isLandingPageActive =
-                    request()->routeIs('admin.banners.*') ||
-                    request()->routeIs('admin.testimonials.*') ||
-                    request()->routeIs('admin.projects.*') ||
-                    request()->routeIs('admin.hero.*') ||
-                    request()->routeIs('admin.free-trials.*'); 
-            @endphp
+        @php
+            $isLandingPageActive =
+                request()->routeIs('admin.banners.*') ||
+                request()->routeIs('admin.testimonials.*') ||
+                request()->routeIs('admin.projects.*') ||
+                request()->routeIs('admin.hero.*') ||
+                request()->routeIs('admin.free-trials.*'); 
+        @endphp
 
-            <button type="button" onclick="toggleLandingMenu()"
-                class="w-full group flex items-center justify-between gap-4 px-6 py-3 transition-all duration-200 cursor-pointer
-                        {{ $isLandingPageActive
-                            ? 'border-l-[5px] border-[#0f5132] text-[#0f5132] font-semibold'
-                            : 'border-l-[5px] border-transparent text-gray-600 hover:text-[#0f5132]' }}">
+        <button type="button" onclick="toggleLandingMenu()"
+            class="w-full group flex items-center justify-between gap-4 px-6 py-3 transition-all duration-200 cursor-pointer
+                    {{ $isLandingPageActive
+                        ? 'border-l-[5px] border-[#0f5132] text-[#0f5132] font-semibold'
+                        : 'border-l-[5px] border-transparent text-gray-600 hover:text-[#0f5132]' }}">
 
-                <div class="flex items-center gap-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-                    </svg>
-                    <span class="text-[15px]">Landing Page</span>
-                    @livewire('admin.trial-badge', ['type' => 'main'])
-                </div>
-
-                <svg id="landing-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                    fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                    class="transition-transform duration-300 {{ $isLandingPageActive ? 'rotate-180 text-[#0f5132]' : 'text-gray-400' }}">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            <div class="flex items-center gap-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                 </svg>
-            </button>
-
-            {{-- SUBMENU --}}
-            <div id="landing-menu" class="{{ $isLandingPageActive ? 'block' : 'hidden' }}">
-                <ul class="py-1 space-y-1">
-
-                    {{-- Hero Section --}}
-                    <li>
-                        <a href="{{ route('admin.hero.index') }}"
-                            class="flex items-center gap-3 pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
-                                {{ request()->routeIs('admin.hero.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
-                            Hero Section
-                        </a>
-                    </li>
-
-                    {{-- Banner --}}
-                    <li>
-                        <a href="{{ route('admin.banners.index') }}"
-                            class="flex items-center gap-3 pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
-                                {{ request()->routeIs('admin.banners.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
-                            Banner Slider
-                        </a>
-                    </li>
-
-                    {{-- Testimonials --}}
-                    <li>
-                        <a href="{{ Route::has('admin.testimonials.index') ? route('admin.testimonials.index') : '#' }}"
-                            class="flex items-center gap-3 pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
-                                {{ request()->routeIs('admin.testimonials.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
-                            Testimonials
-                        </a>
-                    </li>
-
-                    {{-- Student Projects --}}
-                    <li>
-                        <a href="{{ route('admin.projects.index') }}"
-                            class="flex items-center gap-3 pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
-                                {{ request()->routeIs('admin.projects.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
-                            Student Projects
-                        </a>
-                    </li>
-
-                    {{-- Trial Booking (PENAMBAHAN BARU) --}}
-                    <li>
-                        <a href="{{ route('admin.free-trials.index') }}"
-                            class="flex items-center justify-between pl-20 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
-                                {{ request()->routeIs('admin.free-trials.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
-                            
-                            <span>Trial Bookings</span>
-
-                            {{-- Badge diletakkan di dalam <a> agar sejajar --}}
-                            @livewire('admin.trial-badge', ['type' => 'sub'])
-                        </a>
-                    </li>
-                </ul>
+                <span class="text-[15px]">Landing Page</span>
+                @livewire('admin.trial-badge', ['type' => 'main'])
             </div>
+
+            <svg id="landing-chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                class="transition-transform duration-300 {{ $isLandingPageActive ? 'rotate-180 text-[#0f5132]' : 'text-gray-400' }}">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+        </button>
+
+        {{-- SUBMENU --}}
+        <div id="landing-menu" class="{{ $isLandingPageActive ? 'block' : 'hidden' }}">
+            <ul class="py-1 space-y-1">
+
+                {{-- Hero Section --}}
+                <li>
+                    <a href="{{ route('admin.hero.index') }}"
+                        class="flex items-center gap-3 pl-10 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
+                            {{ request()->routeIs('admin.hero.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/></svg>
+                        Hero Section
+                    </a>
+                </li>
+
+                {{-- Banner --}}
+                <li>
+                    <a href="{{ route('admin.banners.index') }}"
+                        class="flex items-center gap-3 pl-10 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
+                            {{ request()->routeIs('admin.banners.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="m9 21 3-3 3 3"/></svg>
+                        Banner Slider
+                    </a>
+                </li>
+
+                {{-- Testimonials --}}
+                <li>
+                    <a href="{{ Route::has('admin.testimonials.index') ? route('admin.testimonials.index') : '#' }}"
+                        class="flex items-center gap-3 pl-10 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
+                            {{ request()->routeIs('admin.testimonials.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/></svg>
+                        Testimonials
+                    </a>
+                </li>
+
+                {{-- Student Projects --}}
+                <li>
+                    <a href="{{ route('admin.projects.index') }}"
+                        class="flex items-center gap-3 pl-10 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
+                            {{ request()->routeIs('admin.projects.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12h.01"/><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M3 13a20 20 0 0 0 18 0"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+                        Student Projects
+                    </a>
+                </li>
+
+                {{-- Trial Booking --}}
+                <li>
+                    <a href="{{ route('admin.free-trials.index') }}"
+                        class="flex items-center justify-between pl-10 pr-8 py-2 text-[14px] transition-all duration-200 border-l-[5px] border-transparent
+                            {{ request()->routeIs('admin.free-trials.*') ? 'text-[#0f5132] font-semibold' : 'text-gray-500 hover:text-[#0f5132]' }}">
+                        
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+                            <span>Trial Bookings</span>
+                        </div>
+
+                        @livewire('admin.trial-badge', ['type' => 'sub'])
+                    </a>
+                </li>
+            </ul>
         </div>
+</div>
 
         <div class="px-8 mt-6 mb-2">
             <span class="text-[11px] uppercase tracking-widest text-gray-400 font-bold">Administrator</span>
