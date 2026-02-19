@@ -14,7 +14,7 @@
         @endforeach
     </div>
 
-    {{-- LIGHTBOX --}}
+    <!-- {{-- LIGHTBOX --}}
     <div
         x-show="open"
         x-transition
@@ -32,6 +32,6 @@
 
         <button class="lightbox-btn right" @click.stop="$wire.next()">›</button>
         <button class="lightbox-close" @click="$wire.closeLightbox()">✕</button>
-    </div>
+    </div> -->
 
 </div>

@@ -1,209 +1,246 @@
-<section class="w-100 position-relative overflow-hidden pt-5 pb-5" style="background-color: #1B2548;">
-    
+<section class="w-full relative overflow-hidden bg-[#1B2548] py-20">
+
     <!-- World Map Background -->
-    <div class="position-absolute top-0 start-0 end-0 bottom-0 d-flex align-items-center justify-content-center overflow-hidden" style="z-index: 0; pointer-events: none;">
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
             alt="World Map"
-            class=""
-            style="filter: invert(2); transform: scale(1.5); opacity: 0.05;">
+            class="w-[160%] max-w-none">
     </div>
 
-    <div class="container-fluid position-relative" style="max-width: 1280px; z-index: 10; padding: 0 1.25rem;">
-        
+    <div class="relative max-w-[1280px] mx-auto px-6 z-10">
+
         <!-- Title -->
-        <h2 class="fw-bold mb-5" style="color: #00C220; font-size: clamp(1.875rem, 5vw, 2.25rem);">
-            {{ __('Footer Branches') }}
+        <h2 class="text-4xl font-extrabold text-[#00C220] mb-16">
+            Cabang Kami
         </h2>
 
-        <!-- Branches Grid -->
-        <div class="d-flex flex-wrap g-4 g-lg-6 justify-content-center mb-5">
-            
+        <!-- GRID CABANG -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-gray-300">
+
             <!-- Indonesia -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇮🇩</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Indonesia</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/id.png"
+                        alt="Indonesia Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">Indonesia</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+628814677923</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>id@timedooracademy.com</span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom" 
-                         style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
-                        <span>{{ __('Offline Branch') }}</span>
-                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
-                    </div>
+                </div>
+
+                <div class="mt-4 border-b border-white/20 pb-1 flex justify-between text-sm text-gray-400 hover:text-white transition cursor-pointer">
+                    <span>Cabang Offline</span>
+                    <span class="text-xs">▼</span>
                 </div>
             </div>
 
             <!-- Malaysia -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇲🇾</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Malaysia</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/my.png"
+                        alt="Malaysia Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+
+                    <h3 class="text-white font-bold text-lg">Malaysia</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+601121898022</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>my@timedooracademy.com</span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom" 
-                         style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
-                        <span>{{ __('Offline Branch') }}</span>
-                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
-                    </div>
+                </div>
+
+                <div class="mt-4 border-b border-white/20 pb-1 flex justify-between text-sm text-gray-400 hover:text-white transition cursor-pointer">
+                    <span>Cabang Offline</span>
+                    <span class="text-xs">▼</span>
                 </div>
             </div>
 
             <!-- Philippines -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇵🇭</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Philippines</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/ph.png"
+                        alt="Philippines Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">Philippines</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>timedooracademy.ph</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>ph@timedooracademy.com</span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom" 
-                         style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
-                        <span>{{ __('Offline Branch') }}</span>
-                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
-                    </div>
+                </div>
+
+                <div class="mt-4 border-b border-white/20 pb-1 flex justify-between text-sm text-gray-400 hover:text-white transition cursor-pointer">
+                    <span>Cabang Offline</span>
+                    <span class="text-xs">▼</span>
                 </div>
             </div>
 
             <!-- Egypt -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇪🇬</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Egypt</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/eg.png"
+                        alt="Egypt Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">Egypt</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+201022439691</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>eg@timedooracademy.com</span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between border-bottom pb-1 dropdown-toggle-custom" 
-                         style="font-size: 0.875rem; color: #d1d5db; border-color: #4b5563 !important; cursor: pointer;">
-                        <span>{{ __('Offline Branch') }}</span>
-                        <span class="arrow-icon" style="font-size: 0.75rem;">▼</span>
-                    </div>
+                </div>
+
+                <div class="mt-4 border-b border-white/20 pb-1 flex justify-between text-sm text-gray-400 hover:text-white transition cursor-pointer">
+                    <span>Cabang Offline</span>
+                    <span class="text-xs">▼</span>
                 </div>
             </div>
 
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-gray-300">
+
             <!-- Japan -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇯🇵</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Japan</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/jp.png"
+                        alt="Japan Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">Japan</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+6282144420385</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>info@timedooracademy.com</span>
                     </div>
                 </div>
             </div>
 
             <!-- Syria -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇸🇾</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Syria</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/sy.png"
+                        alt="Syria Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">Syria</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+963934354199</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>sy@timedooracademy.com</span>
                     </div>
                 </div>
             </div>
 
             <!-- Bangladesh -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇧🇩</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">Bangladesh</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/bd.png"
+                        alt="Bangladesh Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">Bangladesh</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+8801779800142</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>bg@timedooracademy.com</span>
                     </div>
                 </div>
             </div>
 
             <!-- United States -->
-            <div class="col-12 col-sm-6 col-lg-auto" style="width: auto; min-width: 200px;">
-                <div class="text-white">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <span style="font-size: 1.5rem;">🇺🇸</span>
-                        <h3 class="fw-bold mb-0" style="font-size: 1.25rem;">United States</h3>
-                    </div>
-                    <p class="fw-semibold mb-2" style="font-size: 0.875rem;">{{ __('Admin Online') }}</p>
-                    <div class="d-flex align-items-center gap-2 mb-1 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span style="color: #4ade80;">●</span> 
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <img src="https://flagcdn.com/w40/us.png"
+                        alt="United States Flag"
+                        class="w-6 h-4 object-cover rounded-sm">
+                    <h3 class="text-white font-bold text-lg">United States</h3>
+                </div>
+
+                <p class="text-sm font-semibold text-gray-300 mb-3">Admin Online</p>
+
+                <div class="space-y-2 text-sm text-gray-400">
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-[#22c55e] text-xs">●</span>
                         <span>+818080667680</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 mb-3 text-transition" style="font-size: 0.75rem; color: #d1d5db;">
-                        <span>✉</span> 
+                    <div class="flex items-center gap-2 hover:text-white transition">
+                        <span class="text-xs">✉</span>
                         <span>info@timedooracademy.com</span>
                     </div>
                 </div>
             </div>
 
         </div>
+
     </div>
 </section>
 
+
 <!-- Main Footer -->
-<footer class="w-100 pt-5 pb-4 border-top" style="background-color: #182140; border-color: rgba(55, 65, 81, 0.5) !important;">
-    <div class="container-fluid" style="max-width: 1280px; padding: 0 1.25rem;">
-        
+<footer class="w-full pt-12 pb-8 border-t bg-[#182140] border-[rgba(55,65,81,0.5)]">
+    <div class="max-w-7xl mx-auto px-6">
+
         <!-- Footer Links Grid -->
-        <div class="row g-4 mb-5">
-            
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
             <!-- Logo & Social -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="mb-4" style="width: 128px;">
+            <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+                <div class="mb-8 w-32 flex justify-center lg:justify-start">
                     <svg width="166" height="43" viewBox="0 0 166 43" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M26.1776 19.7234C27.1886 19.7234 28.0081 18.9039 28.0081 17.8929C28.0081 16.8819 27.1886 16.0624 26.1776 16.0624C25.1666 16.0624 24.3471 16.8819 24.3471 17.8929C24.3471 18.9039 25.1666 19.7234 26.1776 19.7234Z" fill="white" />
                         <path d="M30.7162 27.5985L30.7126 34.3309C30.7126 35.0038 30.0144 35.8105 29.2727 35.948C24.7145 36.7945 11.0399 37.8653 11.0399 37.8653C10.4177 37.9485 10.4177 38.7299 11.0435 38.7299H34.4966C35.5638 38.7299 36.432 38.0788 36.432 37.2793V24.6719L30.7162 27.5985Z" fill="white" />
@@ -227,17 +264,15 @@
                         <path d="M152.93 42.1927L153.816 39.3528C154.348 39.5301 154.793 39.6205 155.234 39.6205C156.475 39.6205 157.361 38.7342 157.984 36.958L153.107 24.7051H156.566L159.402 32.5155L162.151 24.7051H165.61L161.178 37.3993C160.556 39.2624 159.76 40.6841 158.783 41.4836C157.897 42.2831 156.743 42.7281 155.415 42.7281C154.525 42.6376 153.729 42.5508 152.93 42.1927Z" fill="white" />
                     </svg>
                 </div>
-                <div class="d-flex gap-3">
-                    <a href="https://www.instagram.com/timedooracademy/" 
-                       class="d-flex align-items-center justify-content-center text-white rounded-circle social-icon"
-                       style="width: 40px; height: 40px; background-color: #00C220;">
+                <div class="flex gap-3 justify-center lg:justify-start">
+                    <a href="https://www.instagram.com/timedooracademy/"
+                        class="flex items-center justify-center text-white rounded-full w-10 h-10 bg-[#00C220] transition-transform duration-300 hover:scale-110 shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.486-.276a2.478 2.478 0 0 1-.919-.598 2.48 2.48 0 0 1-.599-.92c-.11-.281-.24-.704-.275-1.485-.038-.843-.047-1.096-.047-3.232 0-2.136.009-2.388.047-3.231.036-.78.166-1.203.275-1.485.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
                         </svg>
                     </a>
-                    <a href="https://www.facebook.com/timedooracademy/" 
-                       class="d-flex align-items-center justify-content-center text-white rounded-circle social-icon"
-                       style="width: 40px; height: 40px; background-color: #00C220;">
+                    <a href="https://www.facebook.com/timedooracademy/"
+                        class="flex items-center justify-center text-white rounded-full w-10 h-10 bg-[#00C220] transition-transform duration-300 hover:scale-110 shadow-[0_4px_6px_rgba(0,0,0,0.1)]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
                         </svg>
@@ -245,180 +280,87 @@
                 </div>
             </div>
 
-            <!-- Quick Links -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <h3 class="fw-bold mb-4" style="color: #00C220; font-size: 1.125rem;">{{ __('Footer Quick Links') }}</h3>
-                <ul class="list-unstyled">
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu About') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu FAQ') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Career') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Contact') }}</a></li>
+            <div>
+                <h3 class="text-[#00C220] font-semibold text-xl mb-6">
+                    {{ __('Quick Links') }}
+                </h3>
+                <ul class="grid grid-cols-2 lg:grid-cols-1 gap-y-4 text-[#d1d5db]">
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu About') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu FAQ') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Career') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Contact') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Course -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <h3 class="fw-bold mb-4" style="color: #00C220; font-size: 1.125rem;">{{ __('Footer Course') }}</h3>
-                <ul class="list-unstyled">
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Junior') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Adventure') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Python') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course IoT') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Software') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course AI') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Professional') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Subjects') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Course Portfolio') }}</a></li>
+            <!-- KOLOM 3 : OUR COURSE -->
+            <div>
+                <h3 class="text-[#00C220] font-semibold text-xl mb-6">
+                    {{ __('Our Course') }}
+                </h3>
+                <ul class="grid grid-cols-2 lg:grid-cols-1 gap-y-4 text-[#d1d5db]">
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Junior') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Adventure') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Python') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course IoT') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Software') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course AI') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Professional') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Subjects') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Course Portfolio') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Partnership -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <h3 class="fw-bold mb-4" style="color: #00C220; font-size: 1.125rem;">{{ __('Footer Partnership') }}</h3>
-                <ul class="list-unstyled">
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Franchise') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu School') }}</a></li>
-                    <li class="mb-3"><a href="#" class="text-decoration-none link-hover" style="font-size: 0.875rem; color: #d1d5db;">{{ __('Menu Referral') }}</a></li>
+            <!-- KOLOM 4 : PARTNERSHIP -->
+            <div>
+                <h3 class="text-[#00C220] font-semibold text-xl mb-6">
+                    {{ __('Partnership') }}
+                </h3>
+                <ul class="grid grid-cols-2 lg:grid-cols-1 gap-y-4 text-[#d1d5db]">
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Franchise') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu School') }}</a></li>
+                    <li><a href="#" class="hover:text-white transition">{{ __('Menu Referral') }}</a></li>
                 </ul>
             </div>
+
 
         </div>
 
         <!-- Bottom Bar -->
-        <div class="pt-4 border-top d-flex flex-column flex-md-row justify-content-between align-items-center gap-3" 
-             style="border-color: #374151 !important; font-size: 0.875rem; color: #9ca3af;">
-            
+        <div class="pt-8 border-t border-[#374151] flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#9ca3af]">
+
             <!-- Language Switcher -->
-            <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 gap-sm-4 fw-medium">
-                <a href="{{ route('change.language', 'id') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'id' ? 'active-lang' : 'inactive-lang' }}">
+            <div class="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-4 font-medium">
+                <a href="{{ route('change.language', 'id') }}"
+                    class="no-underline transition-colors duration-300 {{ app()->getLocale() == 'id' ? 'text-white font-bold underline decoration-[#00C220] decoration-2 underline-offset-4' : 'text-[#9ca3af] hover:text-white' }}">
                     Indonesia
                 </a>
-                <a href="{{ route('change.language', 'en') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'en' ? 'active-lang' : 'inactive-lang' }}">
+                <a href="{{ route('change.language', 'en') }}"
+                    class="no-underline transition-colors duration-300 {{ app()->getLocale() == 'en' ? 'text-white font-bold underline decoration-[#00C220] decoration-2 underline-offset-4' : 'text-[#9ca3af] hover:text-white' }}">
                     English
                 </a>
-                <a href="{{ route('change.language', 'ja') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'ja' ? 'active-lang' : 'inactive-lang' }}">
-                    日本語
-                </a>
-                <a href="{{ route('change.language', 'ar') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'ar' ? 'active-lang' : 'inactive-lang' }}">
-                    عربي
-                </a>
-                <a href="{{ route('change.language', 'bn') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'bn' ? 'active-lang' : 'inactive-lang' }}">
+                <a href="{{ route('change.language', 'bn') }}"
+                    class="no-underline transition-colors duration-300 {{ app()->getLocale() == 'bn' ? 'text-white font-bold underline decoration-[#00C220] decoration-2 underline-offset-4' : 'text-[#9ca3af] hover:text-white' }}">
                     বাংলা
                 </a>
-                <a href="{{ route('change.language', 'fil') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'fil' ? 'active-lang' : 'inactive-lang' }}">
-                    Filipino
+                <a href="{{ route('change.language', 'ar') }}"
+                    class="no-underline transition-colors duration-300 {{ app()->getLocale() == 'ar' ? 'text-white font-bold underline decoration-[#00C220] decoration-2 underline-offset-4' : 'text-[#9ca3af] hover:text-white' }}">
+                    عربي
                 </a>
-                <a href="{{ route('change.language', 'ms') }}" 
-                   class="text-decoration-none {{ app()->getLocale() == 'ms' ? 'active-lang' : 'inactive-lang' }}">
-                    Melayu
-                </a>
+
             </div>
 
             <!-- Copyright -->
-            <div class="text-center text-md-end">
-                {{ __('Copyright') }}
+            <div class="text-center md:text-right">
+                Copyright PT Cerdas Digital Indonesia © 2026.{{ date('Y') }}. All Rights Reserved
             </div>
         </div>
     </div>
 </footer>
 
 <!-- Floating Chat Button -->
-<button class="position-fixed d-flex align-items-center justify-content-center text-white rounded-circle shadow-lg chat-button"
-        style="bottom: 24px; right: 24px; width: 56px; height: 56px; background-color: #00C220; z-index: 1050; border: none;">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 32px; height: 32px;">
+<!-- Floating Chat Button -->
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-[#00C220] rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-110 transition z-50">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12.375m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
     </svg>
 </button>
-
-<style>
-/* Hover Effects & Transitions */
-.text-transition {
-    transition: color 0.3s ease;
-}
-
-.text-transition:hover {
-    color: #ffffff !important;
-}
-
-.link-hover {
-    transition: color 0.3s ease;
-}
-
-.link-hover:hover {
-    color: #ffffff !important;
-}
-
-.social-icon {
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.social-icon:hover {
-    transform: scale(1.1);
-}
-
-.chat-button {
-    transition: transform 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 194, 32, 0.3) !important;
-}
-
-.chat-button:hover {
-    transform: scale(1.1);
-}
-
-.dropdown-toggle-custom {
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.dropdown-toggle-custom:hover {
-    color: #ffffff !important;
-}
-
-.dropdown-toggle-custom .arrow-icon {
-    transition: transform 0.3s ease;
-}
-
-.dropdown-toggle-custom:hover .arrow-icon {
-    transform: rotate(180deg);
-}
-
-/* Active Language Styling */
-.active-lang {
-    color: #ffffff !important;
-    font-weight: bold;
-    text-decoration: underline !important;
-    text-decoration-color: #00C220 !important;
-    text-decoration-thickness: 2px !important;
-    text-underline-offset: 4px;
-}
-
-.inactive-lang {
-    color: #9ca3af;
-    transition: color 0.3s ease;
-}
-
-.inactive-lang:hover {
-    color: #ffffff !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 991px) {
-    .col-lg-auto {
-        width: 45%;
-        min-width: 180px;
-    }
-}
-
-@media (max-width: 575px) {
-    .col-lg-auto {
-        width: 100%;
-    }
-}
-</style>

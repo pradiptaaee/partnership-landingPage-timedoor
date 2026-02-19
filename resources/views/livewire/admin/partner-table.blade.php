@@ -214,7 +214,7 @@
 
                 {{-- Pagination --}}
                 <div class="px-6 py-4 border-t border-gray-50 bg-white">
-                    {{ $partners->links('pagination') }}
+                    {{ $partners->links('component.pagination') }}
                 </div>
             @else
                 {{-- Empty State --}}
