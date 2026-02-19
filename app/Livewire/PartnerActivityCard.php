@@ -15,7 +15,10 @@ class PartnerActivityCard extends Component
     public $category = '';
     public $year = '';
 
-    protected $paginationTheme = 'bootstrap'; // Untuk Bootstrap styling
+     public function paginationView()
+    {
+        return 'livewire::tailwind';
+    }
 
     public function updatedSearch()
     {
@@ -56,7 +59,7 @@ class PartnerActivityCard extends Component
                 $query->whereYear('activity_date', $this->year);
             })
             ->latest('activity_date')
-            ->paginate(6); // 9 items per page (3 kolom x 3 baris)
+            ->paginate(6); 
 
         return view('livewire.partner-activity-card', [
             'activities' => $activities

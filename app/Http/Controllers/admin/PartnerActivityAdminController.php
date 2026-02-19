@@ -296,8 +296,8 @@ class PartnerActivityAdminController extends Controller
                 'speaker_name' => 'required|string|max:255',
                 'speaker_about' => 'required|string',
                 'speaker_photo' => $request->isMethod('post')
-                    ? 'required|image|max:1024'
-                    : 'nullable|image|max:1024',
+                    ? 'required|image|max:2028'
+                    : 'nullable|image|max:2028',
             ];
         }
 

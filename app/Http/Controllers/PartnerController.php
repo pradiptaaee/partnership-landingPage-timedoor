@@ -10,11 +10,12 @@ use App\Models\PartnerActivity;
 use App\Models\PhotoActivity;
 
 
-class PartnerController extends Controller
+class PartnerController extends landing\BasePageController
 {
     public function index(Request $request)
     {
         $partners = Partner::whereNotNull('logo')->where('logo', '!=', '')->get();
+        $currentLangData = $this->getCurrentLanguageData();
 
         $activities = PartnerActivity::with('partner')
             ->when($request->search, function ($q) use ($request) {
@@ -26,7 +27,7 @@ class PartnerController extends Controller
             ->latest()
             ->paginate(3);
 
-        return view('partners.index', compact('partners', 'activities'));
+        return view('partners.index', compact('partners','currentLangData', 'activities'));
     }
 
 
