@@ -11,7 +11,6 @@
                 <nav class="flex text-sm text-gray-500 mb-2" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-2">
                         <li class="inline-flex items-center">
-                            {{-- UBAH HOVER LINK BREADCRUMB --}}
                             <a href="{{ route('admin.activity.index') }}"
                                 class="hover:text-[#0f5132] transition-colors flex items-center">
                                 <i class="fas fa-home mr-2"></i> Kegiatan
@@ -28,15 +27,12 @@
                 <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Edit Kegiatan</h1>
                 <p class="text-gray-500 mt-1 text-sm">Perbarui detail, gambar utama, dan galeri kegiatan partner.</p>
             </div>
-
-            {{-- UBAH HOVER & FOCUS TOMBOL KEMBALI --}}
             <a href="{{ route('admin.activity.index') }}"
                 class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#0f5132] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0f5132] shadow-sm transition-all duration-200">
                 <i class="fas fa-arrow-left mr-2"></i> Kembali
             </a>
         </div>
-
-        {{-- Alert Success (GUNAKAN OPASITAS UNTUK BG TERANG) --}}
+        
         @if (session('success'))
             <div class="flex items-center p-4 mb-6 text-[#0f5132] rounded-xl bg-[#0f5132]/10 border border-[#0f5132]/20 shadow-sm"
                 role="alert">
@@ -66,7 +62,6 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                             <h2 class="text-xl font-bold text-gray-800 flex items-center">
-                                {{-- WARNA ICON KOTAK --}}
                                 <span
                                     class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
                                     <i class="fas fa-pen"></i>
@@ -76,7 +71,6 @@
                         </div>
 
                         <div class="p-8 space-y-6">
-                            {{-- SEMUA INPUT MENGGUNAKAN focus:ring-[#0f5132] dan focus:border-[#0f5132] --}}
                             <div>
                                 <label for="partner_id" class="block mb-2 text-sm font-bold text-gray-700">
                                     Partner Terkait <span class="text-red-500">*</span>
@@ -141,22 +135,6 @@
                                 @enderror
                             </div>
 
-                            {{-- <div>
-                                <div class="flex justify-between items-center mb-2">
-                                    <label for="short_description" class="text-sm font-bold text-gray-700">Deskripsi Singkat
-                                        <span class="text-red-500">*</span></label>
-                                    <span class="text-xs text-gray-500 font-medium"><span
-                                            id="char_count">{{ strlen($activity->short_description) }}</span>/200
-                                        Karakter</span>
-                                </div>
-                                <textarea id="short_description" name="short_description" rows="3" maxlength="200"
-                                    class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-[#0f5132] focus:border-[#0f5132] transition-all resize-none @error('short_description') border-red-500 bg-red-50 @enderror"
-                                    placeholder="Tulis ringkasan singkat untuk tampilan kartu..." required>{{ old('short_description', $activity->short_description) }}</textarea>
-                                @error('short_description')
-                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div> --}}
-
                             <div>
                                 <label for="full_description" class="block mb-2 text-sm font-bold text-gray-700">Deskripsi
                                     Lengkap <span class="text-red-500">*</span></label>
@@ -194,7 +172,7 @@
                                 </div>
 
                                 <div class="space-y-2">
-                                    {{-- FOTO PEMBICARA SAAT INI --}}
+                                    {{-- PREVIEW FOTO SAAT INI --}}
                                     @if ($activity->seminarDetail && $activity->seminarDetail->speaker_photo)
                                         <div id="oldSpeakerPhoto" class="mb-2">
                                             <img src="{{ asset('storage/activity/speakers/' . $activity->seminarDetail->speaker_photo) }}"
@@ -241,7 +219,6 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
                             <h2 class="text-xl font-bold text-gray-800 flex items-center">
-                                {{-- WARNA ICON KOTAK --}}
                                 <span
                                     class="bg-white border border-gray-200 text-[#0f5132] w-10 h-10 rounded-lg flex items-center justify-center mr-3 text-lg shadow-sm">
                                     <i class="fas fa-images"></i>
@@ -272,7 +249,6 @@
                                     </div>
 
                                     <div>
-                                        {{-- UBAH FOCUS RING TOMBOL UPLOAD --}}
                                         <label for="featured_image"
                                             class="cursor-pointer inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0f5132] focus:ring-offset-2 transition ease-in-out duration-150">
                                             <i class="fas fa-upload mr-2"></i> Pilih Gambar Baru
@@ -280,7 +256,6 @@
                                         <input id="featured_image" name="featured_image" type="file" class="hidden"
                                             accept="image/*" onchange="previewFeaturedImage(event)">
 
-                                        {{-- UBAH WARNA ICON CHECKLIST --}}
                                         <div class="mt-4 text-xs text-gray-500 space-y-1">
                                             <p><i class="fas fa-check-circle text-[#0f5132] mr-1"></i> Format: JPG, PNG,
                                                 WEBP</p>
@@ -298,7 +273,6 @@
                             <div>
                                 <div class="flex justify-between items-end mb-4">
                                     <label class="text-sm font-bold text-gray-700">Galeri Foto</label>
-                                    {{-- UBAH WARNA LINK TAMBAH FOTO --}}
                                     <label for="photos"
                                         class="cursor-pointer text-sm font-semibold text-[#0f5132] hover:text-[#0a3622] hover:underline">
                                         + Tambah Foto
@@ -344,12 +318,11 @@
                     </div>
                 </div>
 
-                {{-- KOLOM KANAN: SIDEBAR PUBLIKASI --}}
+                {{-- SIDEBAR PUBLIKASI --}}
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-6">
                         <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50">
                             <h2 class="text-lg font-bold text-gray-800 flex items-center">
-                                {{-- UBAH ICON ROKET --}}
                                 <i class="fas fa-rocket mr-3 text-[#0f5132]"></i> Publikasi
                             </h2>
                         </div>
@@ -369,7 +342,6 @@
                                 
                             </div>
 
-                            {{-- TOMBOL SIMPAN SUDAH BENAR --}}
                             <button type="submit"
                                 class="w-full text-white bg-[#0f5132] hover:bg-[#0a3622] focus:ring-4 focus:ring-[#0f5132]/50 font-bold rounded-xl text-sm px-5 py-3.5 focus:outline-none transition-all shadow-md transform hover:-translate-y-0.5 flex items-center justify-center">
                                 <i class="fas fa-save mr-2"></i> Simpan Perubahan
@@ -444,154 +416,4 @@
             </div>
         </div>
     </div>
-
-    {{-- Script JavaScript --}}
-    <script>
-    //     function confirmDeleteGallery(actionUrl) {
-    //         const modal = document.getElementById('deleteModal');
-    //         const form = document.getElementById('deleteForm');
-
-    //         form.action = actionUrl;
-    //         modal.classList.remove('hidden');
-    //         modal.classList.add('flex');
-    //     }
-
-    //     function closeDeleteModal() {
-    //         const modal = document.getElementById('deleteModal');
-
-    //         modal.classList.add('hidden');
-    //         modal.classList.remove('flex');
-    //     }
-
-    //    // Konfigurasi field yang wajib diisi saat mode Edit (tanpa file)
-    // const REQUIRED_FIELDS = {
-    //     seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
-    //     workshop: ['extra[mentor_name]']
-    // };
-
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     const categoryInput = document.getElementById('category_activity');
-    //     const extraForms = document.querySelectorAll('.extra-form');
-
-    //     function activateForm(val) {
-    //         const category = val.trim().toLowerCase();
-            
-    //         // Sembunyikan semua & matikan required
-    //         extraForms.forEach(f => {
-    //             f.classList.add('hidden');
-    //             f.querySelectorAll('input, textarea').forEach(i => i.required = false);
-    //         });
-
-    //         // Tampilkan yang cocok
-    //         const target = document.querySelector(`.extra-form[data-category="${category}"]`);
-    //         if (target) {
-    //             target.classList.remove('hidden');
-    //             // Set required hanya untuk field teks (bukan file)
-    //             const fields = REQUIRED_FIELDS[category] || [];
-    //             fields.forEach(name => {
-    //                 const el = target.querySelector(`[name="${name}"]`);
-    //                 if (el) el.required = true;
-    //             });
-    //         }
-    //     }
-
-    //     // Listener input
-    //     categoryInput.addEventListener('input', (e) => activateForm(e.target.value));
-
-    //     // Jalankan saat load (untuk data lama)
-    //     if (categoryInput.value) activateForm(categoryInput.value);
-    // });
-
-    // // Preview Foto Pembicara (Seminar)
-    // function previewSpeakerPhoto(event) {
-    //     const file = event.target.files[0];
-    //     const previewDiv = document.getElementById('newSpeakerPreview');
-    //     const previewImg = document.getElementById('speaker_preview_img');
-    //     const oldPhoto = document.getElementById('oldSpeakerPhoto');
-
-    //     if (file) {
-    //         const reader = new FileReader();
-    //         reader.onload = (e) => {
-    //             previewImg.src = e.target.result;
-    //             previewDiv.classList.remove('hidden');
-    //             if(oldPhoto) oldPhoto.style.opacity = '0.3';
-    //         }
-    //         reader.readAsDataURL(file);
-    //     }
-    // }
-
-    //     document.getElementById('speaker_photo')?.addEventListener('change', function(e) {
-    //         const file = e.target.files[0]
-    //         if (!file) return
-
-    //         const reader = new FileReader()
-
-    //         reader.onload = function(ev) {
-    //             const newPreview = document.getElementById('newSpeakerPreview')
-    //             const oldPreview = document.getElementById('oldSpeakerPhoto')
-
-    //             newPreview.querySelector('img').src = ev.target.result
-    //             newPreview.classList.remove('hidden')
-
-    //             if (oldPreview) oldPreview.classList.add('hidden')
-    //         }
-
-    //         reader.readAsDataURL(file)
-    //     })
-
-
-    //     // Hitung Karakter
-    //     const shortDesc = document.getElementById('short_description');
-    //     const charCount = document.getElementById('char_count');
-    //     if (shortDesc && charCount) {
-    //         shortDesc.addEventListener('input', function() {
-    //             charCount.textContent = this.value.length;
-    //             if (this.value.length >= 200) {
-    //                 charCount.classList.add('text-red-500', 'font-bold');
-    //             } else {
-    //                 charCount.classList.remove('text-red-500', 'font-bold');
-    //             }
-    //         });
-    //     }
-
-    //     // Preview Featured
-    //     function previewFeaturedImage(event) {
-    //         const file = event.target.files[0];
-    //         const preview = document.getElementById('new_featured_preview_img');
-    //         if (file) {
-    //             const reader = new FileReader();
-    //             reader.onload = function(e) {
-    //                 preview.src = e.target.result;
-    //                 preview.classList.remove('hidden');
-    //             }
-    //             reader.readAsDataURL(file);
-    //         }
-    //     }
-
-    //     // Preview Gallery
-    //     function previewMultipleImages(event) {
-    //         const container = document.getElementById('photos_preview');
-    //         const files = event.target.files;
-    //         container.innerHTML = '';
-
-    //         if (files.length > 0) {
-    //             container.classList.remove('hidden');
-    //             Array.from(files).forEach(file => {
-    //                 const reader = new FileReader();
-    //                 reader.onload = function(e) {
-    //                     const div = document.createElement('div');
-    //                     div.className =
-    //                         'aspect-square rounded-lg overflow-hidden border border-gray-200 shadow-sm relative';
-    //                     {{-- UBAH WARNA BORDER & BG OVERLAY PREVIEW JS --}}
-    //                     div.innerHTML = `
-    //                         <img src="${e.target.result}" class="w-full h-full object-cover">
-    //                         <div class="absolute inset-0 bg-[#0f5132]/20 border-2 border-[#0f5132] rounded-lg"></div>
-    //                     `;
-    //                     container.appendChild(div);
-    //                 }
-    //                 reader.readAsDataURL(file);
-    //             });
-    //         }
-    //     }
-    </script>
 @endsection

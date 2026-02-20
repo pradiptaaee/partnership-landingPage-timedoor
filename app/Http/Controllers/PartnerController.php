@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\landing\BasePageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Banner;
@@ -10,8 +11,27 @@ use App\Models\PartnerActivity;
 use App\Models\PhotoActivity;
 
 
-class PartnerController extends landing\BasePageController
+class PartnerController extends BasePageController
 {
+    protected function getLocaleMapping(): array
+    {
+        return [
+            'en'  => ['code' => 'EN', 'flag' => 'images/enFlag.png', 'type' => 'img'],
+            'id'  => ['code' => 'ID', 'flag' => 'images/idFlag.png', 'type' => 'img'],
+            'bn'  => ['code' => 'BD', 'flag' => 'bd',                'type' => 'svg'],
+            'ar'  => ['code' => 'AR', 'flag' => 'images/arFlag.png', 'type' => 'img'],
+            'fil' => ['code' => 'PH', 'flag' => 'images/phFlag.png', 'type' => 'img'],
+            'ja'  => ['code' => 'JP', 'flag' => 'jp',                'type' => 'svg'],
+            'ms'  => ['code' => 'MY', 'flag' => 'images/myFlag.png', 'type' => 'img'],
+        ];
+    }
+
+    protected function getCurrentLanguageData(): array
+    {
+        $localeMapping = $this->getLocaleMapping();
+        $currentLocale = app()->getLocale();
+        return $localeMapping[$currentLocale] ?? $localeMapping['en'];
+    }
     public function index(Request $request)
     {
         $partners = Partner::whereNotNull('logo')->where('logo', '!=', '')->get();
@@ -39,8 +59,9 @@ class PartnerController extends landing\BasePageController
         )
             ->where('slug', $slug)
             ->firstOrFail();
+        $currentLangData = $this->getCurrentLanguageData();
 
-        return view('partners.show', compact('activity'));
+        return view('partners.show', compact('activity', 'currentLangData' ));
     }
 
     public function store(Request $request)

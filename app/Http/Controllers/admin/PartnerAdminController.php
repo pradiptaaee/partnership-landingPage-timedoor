@@ -15,54 +15,46 @@ class PartnerAdminController extends Controller
 {
     public function index(Request $request)
     {
-        // $query = Partner::query();
+        $query = Partner::query();
 
-        // // Search by title
-        // if ($request->filled('search')) {
-        //     $query->where('name', 'like', '%' . $request->search . '%');
-        // }
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
 
 
-        // switch ($request->input('sort', 'latest')) { // Defaultnya 'latest'
-        //     case 'oldest':
-        //         $query->oldest(); // Urutkan berdasarkan created_at ASC
-        //         break;
-        //     case 'name_asc':
-        //         $query->orderBy('name', 'asc'); // Urutkan berdasarkan nama A-Z
-        //         break;
-        //     case 'name_desc':
-        //         $query->orderBy('name', 'desc'); // Urutkan berdasarkan nama Z-A
-        //         break;
-        //     default: // 'latest'
-        //         $query->latest(); // Urutkan berdasarkan created_at DESC
-        //         break;
-        // }
+        switch ($request->input('sort', 'latest')) { 
+            case 'oldest':
+                $query->oldest(); 
+                break;
+            case 'name_asc':
+                $query->orderBy('name', 'asc'); 
+                break;
+            case 'name_desc':
+                $query->orderBy('name', 'desc'); 
+                break;
+            default: // 'latest'
+                $query->latest(); 
+                break;
+        }
 
-        // $partners = $query->paginate(5);
+        $partners = $query->paginate(5);
 
-        // $totalPartners = Partner::count();
-        // // Total Kategori UNIK (Menggunakan kolom 'category' di tabel partners)
-        // $totalCategories = Partner::distinct('category')->count('category');
-       
-        // // Total Kegiatan (Menggunakan model PartnerActivity)
-        // $totalActivities = PartnerActivity::count();
+        $totalPartners = Partner::count();
+        $totalCategories = Partner::distinct('category')->count('category');
+        $totalActivities = PartnerActivity::count();
+
         return view('admin.partners.index');
     }
 
     public function show(Partner $partner)
     {
-        // 1. Ambil data statistik yang diminta
-
-        // Total Partner (Menggunakan model Partner)
+        
         $totalPartners = Partner::count();
 
-        // Total Kategori UNIK (Menggunakan kolom 'category' di tabel partners)
         $totalCategories = Partner::distinct('category')->count('category');
 
-        // Total Kegiatan (Menggunakan model PartnerActivity)
         $totalActivities = PartnerActivity::count();
 
-        // 2. Tampilkan view detail (misalnya: admin.partners.show_detail atau admin.partners.show)
         return view('admin.partners.show', compact(
             'partner',
             'totalPartners',
@@ -97,7 +89,7 @@ class PartnerAdminController extends Controller
         $partner->no_telepon = $validated['no_telepon'] ?? null;
         $partner->slug = Str::slug($validated['name']);
 
-        // Upload logo hanya jika ada file
+        // Upload logo 
         if ($request->hasFile('logo')) {
             $fileName = time() . '_' . $request->file('logo')->getClientOriginalName();
             $request->file('logo')->storeAs('public/partner/logo', $fileName);
@@ -137,10 +129,9 @@ class PartnerAdminController extends Controller
         $partner->no_telepon = $validated['no_telepon'] ?? null;
         $partner->slug = Str::slug($validated['name']);
 
-        // Jika upload logo baru
         if ($request->hasFile('logo')) {
 
-            // Hapus logo lama — hanya jika ada logo lama
+            // Hapus logo lama 
             if ($partner->logo && Storage::exists('public/' . $partner->logo)) {
                 Storage::delete('public/' . $partner->logo);
             }
@@ -152,7 +143,6 @@ class PartnerAdminController extends Controller
             $partner->logo = 'partner/logo/' . $fileName;
         }
 
-        // Jika tidak upload logo → biarkan logo lama
         Session::flash('success_message', 'Partner berhasil diperbarui!');
 
         $partner->save();

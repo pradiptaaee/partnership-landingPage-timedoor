@@ -3,7 +3,6 @@
 @section('title', 'Tambah Kegiatan Partner')
 
 @section('content')
-    {{-- CONTAINER UTAMA --}}
     <div class="flex-1 p-8 bg-white min-h-screen font-sans flex flex-col">
 
         {{-- HEADER PAGE --}}
@@ -43,13 +42,13 @@
                 class="flex flex-col lg:flex-row h-full">
                 @csrf
 
-                {{-- KOLOM KIRI: Input Form --}}
+                {{-- Input Form --}}
                 <div
                     class="w-full lg:w-7/12 p-8 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col h-full bg-white">
 
                     <div class="space-y-6 flex-grow overflow-y-auto pr-2 custom-scrollbar">
 
-                        {{-- 1. Partner Selection -path: --}}
+                        
                         <div>
                             <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
                                 Pilih Partner <span class="text-red-500">*</span>
@@ -74,7 +73,7 @@
                             @enderror
                         </div>
 
-                        {{-- 2. Judul & Tanggal (Grid) --}}
+                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
@@ -118,13 +117,11 @@
                             @enderror
                         </div>
 
-                        {{-- EXTRA FIELD: SEMINAR --}}
+                        
                         @include('admin.activity.extraForm.seminar')
                         @include('admin.activity.extraForm.workshop')
 
 
-
-                        {{-- 4. Deskripsi Lengkap --}}
                         <div>
                             <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-2">
                                 Deskripsi Lengkap <span class="text-red-500">*</span>
@@ -137,7 +134,7 @@
                             @enderror
                         </div>
 
-                        {{-- INFO BOX: PANDUAN --}}
+                        
                         <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex gap-3 items-start">
                             <i class="bi bi-info-circle-fill text-[#0f5132] mt-0.5"></i>
                             <div>
@@ -151,7 +148,7 @@
 
                     </div>
 
-                    {{-- ACTION BUTTONS --}}
+                    
                     <div class="pt-6 mt-6 border-t border-gray-100 flex gap-3 shrink-0">
                         <a href="{{ route('admin.activity.index') }}"
                             class="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-bold text-center hover:bg-gray-50 hover:text-gray-800 transition">
@@ -165,11 +162,10 @@
 
                 </div>
 
-                {{-- KOLOM KANAN: Upload Media --}}
-                <div
-                    class="w-full lg:w-5/12 bg-gray-50 border-l border-gray-100 overflow-y-auto custom-scrollbar flex flex-col">
+                
+                <div class="w-full lg:w-5/12 bg-gray-50 border-l border-gray-100 overflow-y-auto custom-scrollbar flex flex-col">
 
-                    {{-- 1. FEATURED IMAGE --}}
+                    {{-- FEATURED IMAGE --}}
                     <div class="p-8 border-b border-gray-100">
                         <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">
                             Gambar Utama (Cover)
@@ -182,7 +178,6 @@
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
                                 onchange="previewFeaturedImage(event)">
 
-                            {{-- Prompt --}}
                             <div id="featured_prompt" class="text-center p-6">
                                 <div
                                     class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400 group-hover:bg-white group-hover:text-[#0f5132] transition shadow-sm">
@@ -192,7 +187,6 @@
                                 <p class="text-[10px] text-gray-400 mt-1">JPG/PNG, Max 2MB</p>
                             </div>
 
-                            {{-- Preview --}}
                             <img id="featured_preview_img" src="#" class="hidden w-full h-full object-cover z-10">
                         </div>
                         @error('featured_image')
@@ -200,7 +194,7 @@
                         @enderror
                     </div>
 
-                    {{-- 2. GALLERY PHOTOS --}}
+                    {{-- GALLERY PHOTOS --}}
                     <div class="p-8 flex-grow">
                         <label class="block text-xs font-bold text-[#0f5132] uppercase tracking-wider mb-4">
                             Galeri Foto (Multiple)
@@ -224,7 +218,7 @@
 
                         {{-- Gallery Grid Preview --}}
                         <div id="gallery_preview_container" class="grid grid-cols-3 gap-2 mt-4">
-                            {{-- JS will populate this --}}
+                            
                         </div>
                     </div>
 
@@ -233,110 +227,5 @@
             </form>
         </div>
     </div>
-
-    {{-- JAVASCRIPT --}}
-    <script>
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     const categoryInput = document.getElementById('category_activity');
-        //     const extraForms = document.querySelectorAll('.extra-form');
-
-        //     // Definisi field mana saja yang wajib diisi (required) saat kategori dipilih
-        //     const REQUIRED_FIELDS = {
-        //         seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
-        //         workshop: ['extra[mentor_name]']
-        //     };
-
-        //     /**
-        //      * Fungsi untuk menampilkan form tambahan berdasarkan kategori
-        //      */
-        //     function activateCategoryForm(category) {
-        //         const cleanCategory = category.trim().toLowerCase();
-
-        //         // 1. Sembunyikan semua extra form dan matikan status 'required' semua input di dalamnya
-        //         extraForms.forEach(form => {
-        //             form.classList.add('hidden');
-        //             form.querySelectorAll('input, textarea').forEach(el => {
-        //                 el.required = false;
-        //             });
-        //         });
-
-        //         // 2. Cari form yang sesuai dengan data-category
-        //         const targetForm = document.querySelector(`.extra-form[data-category="${cleanCategory}"]`);
-
-        //         if (targetForm) {
-        //             // Tampilkan form dengan animasi (pastikan class animate-fade-in ada di CSS)
-        //             targetForm.classList.remove('hidden');
-
-        //             // 3. Aktifkan 'required' hanya untuk field spesifik di kategori tersebut
-        //             const fieldsToRequire = REQUIRED_FIELDS[cleanCategory] || [];
-        //             fieldsToRequire.forEach(name => {
-        //                 const field = targetForm.querySelector(`[name="${name}"]`);
-        //                 if (field) {
-        //                     field.required = true;
-
-        //                     // Opsional: Tambahkan indikator visual (border merah jika kosong)
-        //                     field.classList.add('border-emerald-200');
-        //                 }
-        //             });
-        //         }
-        //     }
-
-        //     // Listener saat user mengetik kategori
-        //     categoryInput.addEventListener('input', (e) => {
-        //         activateCategoryForm(e.target.value);
-        //     });
-
-        //     // Jalankan saat pertama kali halaman dimuat (untuk menangani 'old' value setelah reload/error)
-        //     if (categoryInput.value) {
-        //         activateCategoryForm(categoryInput.value);
-        //     }
-        // });
-
-
-        // // Preview Featured Image
-        // function previewFeaturedImage(event) {
-        //     const file = event.target.files[0];
-        //     const prompt = document.getElementById('featured_prompt');
-        //     const img = document.getElementById('featured_preview_img');
-
-        //     if (file) {
-        //         const reader = new FileReader();
-        //         reader.onload = function(e) {
-        //             img.src = e.target.result;
-        //             img.classList.remove('hidden');
-        //             prompt.classList.add('hidden');
-        //         }
-        //         reader.readAsDataURL(file);
-        //     }
-        // }
-
-        // // Preview Multiple Images
-        // function previewMultipleImages(event) {
-        //     const container = document.getElementById('gallery_preview_container');
-        //     const files = event.target.files;
-
-        //     container.innerHTML = ''; // Reset preview
-
-        //     if (files.length > 0) {
-        //         Array.from(files).forEach(file => {
-        //             const reader = new FileReader();
-        //             reader.onload = function(e) {
-        //                 const div = document.createElement('div');
-        //                 div.className =
-        //                     'relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm group';
-        //                 div.innerHTML = `
-        //                 <img src="${e.target.result}" class="w-full h-full object-cover">
-        //                 <div class="absolute inset-0 bg-black/20 hidden group-hover:flex items-center justify-center">
-        //                     <i class="bi bi-check-circle-fill text-white text-xl"></i>
-        //                 </div>
-        //             `;
-        //                 container.appendChild(div);
-        //             }
-        //             reader.readAsDataURL(file);
-        //         });
-        //     }
-        // }
-    </script>
-
     
 @endsection
