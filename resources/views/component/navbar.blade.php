@@ -7,7 +7,7 @@
                 <img src="{{ asset('images/logo-TA.svg') }}" alt="Timedoor Academy" class="h-10">
             </a>
 
-            
+
             <div class="flex items-center gap-2">
 
                 <!-- Mobile Trial Button -->
@@ -37,8 +37,8 @@
 
                 <!-- About -->
                 <div class="relative dropdown-container">
-                    <button
-                        class="flex nav-link items-center font-medium hover:text-emerald-600 dropdown-button focus:outline-none">
+                    <button data-dropdown="/about"
+                        class="flex nav-link items-center font-medium text[#505050] hover:text-emerald-600 dropdown-button focus:outline-none">
                         {{ __('Menu About') }}
                         <svg class="w-4 h-4 ml-1 transition-transform duration-200 arrow" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -46,20 +46,20 @@
                         </svg>
                     </button>
                     <div class="absolute dropdown-menu hidden bg-white shadow-lg rounded-md mt-2 w-48 z-50">
-                        <a href="{{ url('/about') }}"
+                        <a href="{{ url('/about') }}" data-nav="/about"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('Kenapa Pilih Kami?') }}</a>
-                        <a href="{{ url('/about/team') }}"
+                        <a href="{{ url('/about/team') }}" data-nav="/about"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('Cabang Kami') }}</a>
-                        <a href="{{ url('/about/team') }}"
+                        <a href="{{ url('/about/team') }}" data-nav="/about"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('FAQ') }}</a>
-                        <a href="{{ url('/about/testimonials') }}"
+                        <a href="{{ url('/about/testimonials') }}" data-nav="/about"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('Karir') }}</a>
                     </div>
                 </div>
 
                 <div class="relative dropdown-container">
                     <button
-                        class="flex items-center nav-link font-medium hover:text-emerald-600 dropdown-button focus:outline-none">
+                        class="flex items-center nav-link font-medium text[#505050] hover:text-emerald-600 dropdown-button focus:outline-none">
                         {{ __('Footer Course') }}
                         <svg class="w-4 h-4 ml-1 transition-transform duration-200 arrow" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('Python Developer') }}</a>
                         <a href="{{ url('/courses/digital-marketing') }}"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('ioT
-                                                                                    Developer') }}</a>
+                                                                                                                Developer') }}</a>
                         <a href="{{ url('/courses/digital-marketing') }}"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('Software Developer') }}</a>
                         <a href="{{ url('/courses/digital-marketing') }}"
@@ -94,14 +94,15 @@
 
 
                 <!-- Blog -->
-                <a href="{{ url('/blog') }}" class="font-medium nav-link hover:text-emerald-600">
+                <a href="{{ url('/blog') }}" class="font-medium nav-link text[#505050] hover:text-emerald-600">
                     {{ __('Menu Blog') }}
                 </a>
 
                 <!-- Partnership -->
                 <div class="relative dropdown-container">
                     <button
-                        class="flex items-center nav-link font-medium hover:text-emerald-600 dropdown-button focus:outline-none">
+                        class="flex items-center nav-link font-medium text[#505050] hover:text-emerald-600 dropdown-button focus:outline-none"
+                        data-dropdown="/partnership">
                         {{ __('Footer Partnership') }}
                         <svg class="w-4 h-4 ml-1 transition-transform duration-200 arrow" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
@@ -109,14 +110,12 @@
                         </svg>
                     </button>
                     <div class="absolute dropdown-menu hidden bg-white shadow-lg rounded-md mt-2 w-48 z-50">
-                        <a href="{{ url('/partnership') }}"
-                            class="block px-4 py-2 hover:bg-gray-100">{{ __('Franchise &
-                                                                                    Investasi') }}</a>
-                        <a href="{{ url('/partnership/activities') }}"
+                        <a href="{{ url('/partnership') }}" data-nav="/partnership/Franchise & Investasi"
+                            class="block px-4 py-2 hover:bg-gray-100">{{ __('Franchise & Investasi') }}</a>
+                        <a href="{{ url('/partnership') }}" data-nav="/partnership"
                             class="block px-4 py-2 hover:bg-gray-100">{{ __('Kerjasama Sekolah') }}</a>
-                        <a href="{{ url('/partnership/activities') }}"
-                            class="block px-4 py-2 hover:bg-gray-100">{{ __('Friend
-                                                                                    Referral') }}</a>
+                        <a href="{{ url('/partnership') }}" data-nav="/partnership/Friend Referral"
+                            class="block px-4 py-2 hover:bg-gray-100">{{ __('Friend Referral') }}</a>
                     </div>
                 </div>
 
@@ -125,7 +124,7 @@
                         <!-- Dropdown Button -->
                         <button id="languageButton"
                             class="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
-                            
+
                             <div id="currentFlag"
                                 class="flag-container w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md overflow-hidden flex items-center justify-center">
                                 @if ($currentLangData['type'] === 'img')
@@ -159,10 +158,10 @@
                                     </svg>
                                 @endif
                             </div>
-                            
+
                             <span id="currentLang"
                                 class="font-bold text-gray-500 text-sm sm:text-base transition-all duration-150">{{ $currentLangData['code'] }}</span>
-                           
+
                             <svg id="dropdownArrow"
                                 class="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 transition-transform duration-200 "
                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -268,7 +267,8 @@
                                 class="lang-option w-full flex items-center justify-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 hover:bg-gray-50 transition-colors">
                                 <div
                                     class="flag-container w-6 h-6 sm:w-8 sm:h-8 rounded-full shadow-md overflow-hidden flex items-center justify-center">
-                                    <img class="w-full h-full" src="{{ asset('images/myFlag.png') }}" alt="MY FLAG">
+                                    <img class="w-full h-full" src="{{ asset('images/myFlag.png') }}"
+                                        alt="MY FLAG">
                                 </div>
                                 <span id="langOption" class="font-bold text-gray-600 text-sm sm:text-base">MY</span>
                             </button>
@@ -434,72 +434,4 @@
     </nav>
 </section>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuBtn = document.getElementById('mobileToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const hamburgerIcon = document.getElementById('hamburgerIcon');
-        const closeIcon = document.getElementById('closeIcon');
-        const menuItems = document.querySelectorAll('#menuItems > li');
 
-        if (menuBtn) {
-            menuBtn.onclick = function(e) {
-                e.preventDefault();
-
-                // Cek apakah menu sedang terbuka
-                const isMenuOpen = !mobileMenu.classList.contains('translate-x-full');
-
-                if (isMenuOpen) {
-                    mobileMenu.classList.add('translate-x-full', 'opacity-0');
-                    hamburgerIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
-                    document.body.style.overflow = ''; 
-                } else {
-                    mobileMenu.classList.remove('translate-x-full', 'opacity-0');
-                    hamburgerIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-
-                    menuItems.forEach((item, index) => {
-                        item.style.opacity = "0";
-                        item.style.transform = "translateX(20px)";
-                        setTimeout(() => {
-                            item.style.transition = "all 0.4s ease";
-                            item.style.opacity = "1";
-                            item.style.transform = "translateX(0)";
-                        }, 80 * (index + 1));
-                    });
-                }
-            };
-        }
-    });
-
-    function toggleDropdown(id, button) {
-        const currentDropdown = document.getElementById(id);
-        const currentIcon = button.querySelector("svg");
-
-        if (!currentDropdown) return;
-
-        const isOpen = currentDropdown.style.maxHeight && currentDropdown.style.maxHeight !== "0px";
-
-        document.querySelectorAll('[id$="Dropdown"]').forEach(drop => {
-            if (drop.id !== id) {
-                drop.style.maxHeight = null;
-                const prevBtn = drop.previousElementSibling;
-                if (prevBtn) {
-                    const icon = prevBtn.querySelector("svg");
-                    if (icon) icon.classList.remove("rotate-180");
-                }
-            }
-        });
-
-        // Toggle klik
-        if (isOpen) {
-            currentDropdown.style.maxHeight = "0px";
-            if (currentIcon) currentIcon.classList.remove("rotate-180");
-        } else {
-            currentDropdown.style.maxHeight = currentDropdown.scrollHeight + "px";
-            if (currentIcon) currentIcon.classList.add("rotate-180");
-        }
-    }
-</script>

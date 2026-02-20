@@ -1,3 +1,100 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+    const currentPath = window.location.pathname;
+
+    document.querySelectorAll("[data-nav]").forEach(link => {
+
+        const navPath = link.dataset.nav;
+
+        // exact match
+        if (currentPath === navPath) {
+            link.classList.add("text-emerald-600");
+        }
+
+        // prefix match (important for nested)
+        if (currentPath.startsWith(navPath) && navPath !== "/") {
+            link.classList.add("text-emerald-600");
+        }
+    });
+
+    document.querySelectorAll("[data-dropdown]").forEach(drop => {
+
+        const dropPath = drop.dataset.dropdown;
+
+        if (currentPath.startsWith(dropPath)) {
+            drop.classList.add("text-emerald-600");
+        }
+    });
+
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById('mobileToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerIcon = document.getElementById('hamburgerIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    const menuItems = document.querySelectorAll('#menuItems > li');
+
+    if (menuBtn) {
+        menuBtn.onclick = function (e) {
+            e.preventDefault();
+
+            // Cek apakah menu sedang terbuka
+            const isMenuOpen = !mobileMenu.classList.contains('translate-x-full');
+
+            if (isMenuOpen) {
+                mobileMenu.classList.add('translate-x-full', 'opacity-0');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
+            } else {
+                mobileMenu.classList.remove('translate-x-full', 'opacity-0');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                menuItems.forEach((item, index) => {
+                    item.style.opacity = "0";
+                    item.style.transform = "translateX(20px)";
+                    setTimeout(() => {
+                        item.style.transition = "all 0.4s ease";
+                        item.style.opacity = "1";
+                        item.style.transform = "translateX(0)";
+                    }, 80 * (index + 1));
+                });
+            }
+        };
+    }
+});
+
+function toggleDropdown(id, button) {
+    const currentDropdown = document.getElementById(id);
+    const currentIcon = button.querySelector("svg");
+
+    if (!currentDropdown) return;
+
+    const isOpen = currentDropdown.style.maxHeight && currentDropdown.style.maxHeight !== "0px";
+
+    document.querySelectorAll('[id$="Dropdown"]').forEach(drop => {
+        if (drop.id !== id) {
+            drop.style.maxHeight = null;
+            const prevBtn = drop.previousElementSibling;
+            if (prevBtn) {
+                const icon = prevBtn.querySelector("svg");
+                if (icon) icon.classList.remove("rotate-180");
+            }
+        }
+    });
+
+    // Toggle klik
+    if (isOpen) {
+        currentDropdown.style.maxHeight = "0px";
+        if (currentIcon) currentIcon.classList.remove("rotate-180");
+    } else {
+        currentDropdown.style.maxHeight = currentDropdown.scrollHeight + "px";
+        if (currentIcon) currentIcon.classList.add("rotate-180");
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // 1. LOGIKA NAVBAR SCROLL (Shadow effect)
