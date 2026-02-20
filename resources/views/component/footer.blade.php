@@ -1,8 +1,8 @@
 <section class="w-full bg-[#1B2548] relative overflow-hidden pt-16 pb-20">
 
-    <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+    <div class="absolute bottom-0 inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="World Map"
-            class="scale-150 opacity-5" style="filter: invert(1);">
+            class="scale-150 opacity-5 " style="filter: invert(1);">
     </div>
 
 
