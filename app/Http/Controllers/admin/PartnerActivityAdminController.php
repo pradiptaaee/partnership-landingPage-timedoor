@@ -18,26 +18,19 @@ use App\Models\ActivityWorkshopDetail;
 
 class PartnerActivityAdminController extends Controller
 {
-    /**
-     * Display all activities with optional filtering.
-     */
     public function index(Request $request)
     {
-        // Menggunakan PartnerActivity sebagai model (asumsi: sama dengan PartnerActivity::class)
+        
         $query = PartnerActivity::with(['partner', 'photos']);
 
-        // Filter by partner
         if ($request->filled('partner_id')) {
             $query->where('partner_id', $request->partner_id);
         }
 
-        // Search by title
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-
-        // Sorting
         switch ($request->input('sort', 'latest')) {
             case 'oldest':
                 $query->oldest();
@@ -50,26 +43,8 @@ class PartnerActivityAdminController extends Controller
                 break;
         }
 
-        // Pagination: Set ke 3 item per halaman (sesuai setting Anda)
         $activities = $query->paginate(6);
 
-        // --- PENYESUAIAN UNTUK AJAX LOAD MORE DIMULAI DI SINI ---
-
-        // Cek apakah permintaan datang dari AJAX (klik tombol Load More)
-        if ($request->ajax()) {
-
-            // 1. Render partial view yang hanya berisi cards (tanpa layout)
-            $html = view('admin.activity.partials.activity_cards', compact('activities'))->render();
-
-            // 2. Kembalikan respons dalam format JSON
-            return response()->json([
-                'html' => $html,
-                'next_page_url' => $activities->nextPageUrl(), // URL ke halaman selanjutnya
-                'has_more' => $activities->hasMorePages(),      // Cek apakah masih ada halaman
-            ]);
-        }
-
-        // Jika bukan permintaan AJAX (pemuatan halaman pertama kali)
         return view('admin.activity.index', compact('activities'));
     }
 
@@ -96,11 +71,6 @@ class PartnerActivityAdminController extends Controller
         DB::beginTransaction();
 
         try {
-            /**
-             * =========================
-             * SIMPAN ACTIVITY UTAMA
-             * =========================
-             */
             $activity = PartnerActivity::create([
                 'partner_id' => $validated['partner_id'],
                 'title' => $validated['title'],
@@ -111,18 +81,8 @@ class PartnerActivityAdminController extends Controller
                 'featured_image' => $this->storeFeaturedImage($request),
             ]);
 
-            /**
-             * =========================
-             * SIMPAN DETAIL BERDASARKAN KATEGORI
-             * =========================
-             */
             $this->storeActivityDetail($activity, $validated);
 
-            /**
-             * =========================
-             * SIMPAN GALERI FOTO
-             * =========================
-             */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
@@ -138,7 +98,7 @@ class PartnerActivityAdminController extends Controller
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => $e->getMessage()]);
+                ->withErrors('errorMessage', 'Kegiatan gagal ditambahkan.');
         }
     }
 
@@ -178,11 +138,6 @@ class PartnerActivityAdminController extends Controller
         DB::beginTransaction();
 
         try {
-            /**
-             * =========================
-             * UPDATE ACTIVITY UTAMA
-             * =========================
-             */
             $activity->update([
                 'partner_id' => $validated['partner_id'],
                 'title' => $validated['title'],
@@ -195,18 +150,8 @@ class PartnerActivityAdminController extends Controller
                 'featured_image' => $this->updateFeaturedImage($request, $activity),
             ]);
 
-            /**
-             * =========================
-             * UPDATE DETAIL
-             * =========================
-             */
             $this->updateActivityDetail($activity, $validated, $request);
 
-            /**
-             * =========================
-             * FOTO TAMBAHAN
-             * =========================
-             */
             if ($request->hasFile('photos')) {
                 $this->uploadPhotos($request->file('photos'), $activity->id);
             }
@@ -222,7 +167,7 @@ class PartnerActivityAdminController extends Controller
 
             return back()
                 ->withInput()
-                ->withErrors(['error' => $e->getMessage()]);
+                ->with('errorMessage', 'Kegiatan gagal diperbarui.');
         }
     }
 
@@ -235,7 +180,6 @@ class PartnerActivityAdminController extends Controller
         $activity = PartnerActivity::findOrFail($id);
 
         try {
-            // Images will be deleted automatically via model boot method
             $activity->delete();
 
             return redirect()
@@ -244,7 +188,7 @@ class PartnerActivityAdminController extends Controller
 
         } catch (\Exception $e) {
             return back()
-                ->withErrors(['error' => 'Gagal menghapus kegiatan: ' . $e->getMessage()]);
+                ->withErrors('errorMessage', 'Kegiatan gagal diperbarui.'. $e->getMessage());
         }
     }
 
@@ -254,22 +198,20 @@ class PartnerActivityAdminController extends Controller
     public function deletePhoto(PhotoActivity $photo)
     {
         try {
-            // Dapatkan ID kegiatan yang terkait (untuk redirect yang lebih spesifik jika perlu)
+            
             $activityId = $photo->partner_activity_id;
 
-            // 1. Hapus file fisik dari storage
+            // Hapus file fisik dari storage
             $filePath = 'storage/activity/photos/' . $photo->image_path;
             Storage::disk('public')->delete($filePath);
 
-            // 2. Hapus record database
+           
             $photo->delete();
 
-            // Berhasil: Flash pesan sukses ke session
-            // Ini akan ditangkap oleh SweetAlert listener di layout admin
             return back()->with('success_alert', 'Foto berhasil dihapus dari galeri.');
 
         } catch (\Exception $e) {
-            // Gagal: Flash pesan error ke session
+            
             return back()->with('error_alert', 'Gagal menghapus foto. Error: ' . $e->getMessage());
         }
     }
@@ -391,7 +333,7 @@ class PartnerActivityAdminController extends Controller
 
         $file->storeAs('activity/featured', $filename, 'public');
 
-        return $filename; // ⬅️ HANYA NAMA FILE
+        return $filename; 
     }
 
     private function updateFeaturedImage(Request $request, PartnerActivity $activity): ?string
@@ -413,7 +355,7 @@ class PartnerActivityAdminController extends Controller
 
         $file->storeAs($this->featuredPath, $filename, 'public');
 
-        return $filename; // ⬅️ hanya nama file
+        return $filename; 
     }
     private function storeSpeakerPhoto(Request $request): ?string
     {
@@ -426,7 +368,7 @@ class PartnerActivityAdminController extends Controller
 
         $file->storeAs('activity/speakers', $filename, 'public');
 
-        return $filename; // ⬅️ hanya nama file
+        return $filename; 
     }
 
 
@@ -484,7 +426,7 @@ class PartnerActivityAdminController extends Controller
 
             PhotoActivity::create([
                 'partner_activity_id' => $activityId,
-                'image_path' => $filename, // ⬅️ hanya filename
+                'image_path' => $filename, 
             ]);
         }
     }

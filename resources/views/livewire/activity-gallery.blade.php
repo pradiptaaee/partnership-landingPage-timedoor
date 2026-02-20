@@ -1,7 +1,7 @@
 <div x-data="{ open: @entangle('open') }" class="mt-12">
 
     <h3 class="font-bold mb-6 text-[#001D7A] text-xl">
-        Galeri Dokumentasi
+        {{ __('Galeri Dokumentasi') }}
     </h3>
 
     <!-- Masonry Style Grid -->
@@ -24,6 +24,7 @@
     <div
         x-show="open"
         x-transition
+        x-cloak
         @click.self="$wire.closeLightbox()"
         class="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
     >
@@ -62,4 +63,9 @@
 
     </div>
 
+    <style>
+        [x-cloak] {
+        display: none !important;
+    }
+    </style>
 </div>

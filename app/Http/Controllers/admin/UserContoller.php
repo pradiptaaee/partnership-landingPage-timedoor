@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 
-class UserController extends Controller
+class UserContoller extends Controller
 {
     // --- HELPER TRANSLATE (Logika Indo-First) ---
     private function processTranslation($inputArray)

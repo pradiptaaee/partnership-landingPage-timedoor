@@ -41,7 +41,7 @@
                 </div>
 
                 <p class="text-[10px] text-blue-400 mt-1 italic">
-                    *Format: JPG, PNG (Max 1MB)
+                    *Format: JPG, PNG (Max 1MB) {{ $message }}
                 </p>
             </div>
 

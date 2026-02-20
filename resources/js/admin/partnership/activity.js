@@ -18,13 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
         function activateForm(val) {
             const category = val.trim().toLowerCase();
 
-            // Sembunyikan semua & matikan required
             extraForms.forEach(f => {
                 f.classList.add('hidden');
                 f.querySelectorAll('input, textarea').forEach(i => i.required = false);
             });
-
-            // Tampilkan form yang sesuai kategori
+            
             const target = document.querySelector(`.extra-form[data-category="${category}"]`);
             if (target) {
                 target.classList.remove('hidden');
@@ -118,7 +116,7 @@ window.previewSpeakerPhoto = function (event) {
         reader.onload = (e) => {
             previewImg.src = e.target.result;
             if (previewDiv) previewDiv.classList.remove('hidden');
-            if (oldPhoto) oldPhoto.classList.add('hidden'); // Sembunyikan foto lama saat ganti baru
+            if (oldPhoto) oldPhoto.classList.add('hidden'); 
         };
         reader.readAsDataURL(file);
     }

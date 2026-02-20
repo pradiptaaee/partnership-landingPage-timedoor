@@ -38,6 +38,16 @@ window.onload = function () {
             timerProgressBar: true,
         });
     }
+
+    if (flash && flash.errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: flash.errorMessage,
+            showConfirmButton: true,
+            confirmButtonText: 'Tutup',
+        });
+    }
 };
 
 window.viewImage = function (url) {
