@@ -1,16 +1,12 @@
 # 🚀 Timedoor Academy — Partnership Landing Page
 
-
-
-
-
-#  DOKUMENTASI UNTUK LANDING PAGE
-Dokumentasi teknis untuk proyek **Landing Page Partnership Timedoor Academy**, dibangun menggunakan **Laravel** dengan dukungan multi-bahasa, manajemen konten via Admin Panel, dan animasi modern.
+Dokumentasi teknis lengkap untuk proyek **Landing Page & Fitur Partnership Timedoor Academy**, dibangun menggunakan **Laravel** dengan dukungan multi-bahasa, manajemen konten via Admin Panel, dan animasi modern.
 
 ---
 
 ## 📋 Daftar Isi
 
+### Bagian 1 — Landing Page
 - [Gambaran Umum](#gambaran-umum)
 - [Tech Stack](#tech-stack)
 - [Struktur Direktori](#struktur-direktori)
@@ -18,9 +14,26 @@ Dokumentasi teknis untuk proyek **Landing Page Partnership Timedoor Academy**, d
 - [Struktur Halaman Landing](#struktur-halaman-landing)
 - [Sistem Multi-Bahasa](#sistem-multi-bahasa)
 - [Routes](#routes)
-- [Admin Panel](#admin-panel)
+- [Admin Panel Landing Page](#admin-panel-landing-page)
 - [JavaScript & Animasi](#javascript--animasi)
 - [Tracking & Analytics](#tracking--analytics)
+
+### Bagian 2 — Fitur Partnership
+- [Gambaran Umum Partnership](#gambaran-umum-partnership)
+- [Struktur File Partnership](#struktur-file-partnership)
+- [Database & Model](#database--model)
+- [Halaman Publik Partnership](#halaman-publik-partnership)
+- [Livewire: Activity Card](#livewire-activity-card)
+- [Halaman Detail Kegiatan](#halaman-detail-kegiatan)
+- [Admin Panel Partnership](#admin-panel-partnership)
+- [Alur Kerja Partnership](#alur-kerja-partnership)
+- [Penyimpanan File](#penyimpanan-file)
+
+---
+
+---
+
+# 📄 BAGIAN 1 — LANDING PAGE
 
 ---
 
@@ -41,17 +54,37 @@ Landing page ini berfungsi sebagai halaman utama pemasaran untuk **Program Partn
 
 ## Tech Stack
 
-| Layer | Teknologi |
+### Backend
+| Teknologi | Versi | Keterangan |
+|---|---|---|
+| PHP | ^8.1 | Minimum versi PHP yang dibutuhkan |
+| Laravel | ^10.0 | Framework utama (PHP) |
+| Livewire | ^3.7 | Komponen interaktif tanpa halaman reload |
+| Laravel Sanctum | ^3.2 | Autentikasi API |
+| Spatie Permission | ^6.24 | Role & permission management |
+| Spatie Translatable | ^6.11 | Dukungan konten multi-bahasa di model |
+| Guzzle HTTP | ^7.2 | HTTP client (kirim data ke Google Sheets) |
+| Google Translate PHP | ^5.3 | Terjemahan otomatis |
+| Blade Icons | ^1.8 | Paket icon via Blade |
+
+### Frontend
+| Teknologi | Versi | Keterangan |
+|---|---|---|
+| Tailwind CSS | ^4.1.18 | Utility-first CSS framework |
+| Vite | ^6.0.0 | Build tool & dev server |
+| laravel-vite-plugin | ^1.0.0 | Integrasi Vite dengan Laravel |
+| Swiper.js | ^12.0.3 | Slider/carousel (banner, testimoni, proyek) |
+| intl-tel-input | ^26.4.1 | Input nomor telepon internasional (form trial) |
+| Bootstrap Icons | ^1.13.1 | Ikon UI (digunakan di halaman partnership) |
+| Tabler Icons | ^3.35.0 | Ikon UI tambahan |
+| AOS | 2.3.1 (CDN) | Animate On Scroll — animasi saat scroll |
+| Autoprefixer | ^10.4.23 | PostCSS plugin untuk kompatibilitas CSS |
+
+### Tracking & Analytics
+| Teknologi | Keterangan |
 |---|---|
-| Framework | Laravel (PHP) |
-| Templating | Blade |
-| CSS | Custom CSS + Tailwind utility classes |
-| Build Tool | Vite |
-| Animation | [AOS (Animate On Scroll)](https://michalsnik.github.io/aos/) |
-| Slider | [Swiper.js v11](https://swiperjs.com/) |
-| Phone Input | [intl-tel-input v24](https://intl-tel-input.com/) |
-| Font | Google Fonts — Poppins |
-| Tracking | Meta Pixel, Microsoft Clarity |
+| Meta Pixel | Tracking konversi Facebook  |
+| Microsoft Clarity | Rekaman sesi pengguna  |
 
 ---
 
@@ -194,7 +227,7 @@ Tambahkan kunci yang sama di **semua 7 file JSON**:
 // lang/id.json
 "Kunci Baru": "Teks dalam Bahasa Indonesia"
 
-// lang/en.json  
+// lang/en.json
 "Kunci Baru": "Text in English"
 ```
 
@@ -216,7 +249,7 @@ Gunakan di Blade:
 | POST | `/book-free-trial` | `landing.book-trial.store` | Kirim data pendaftaran |
 | GET | `/lang/{locale}` | `change.language` | Ganti bahasa aktif |
 | GET | `/partnership` | `partnership.index` | Halaman daftar partner |
-| GET | `/partnership/{slug}` | `partnership.show` | Detail halaman partner |
+| GET | `/partnership/{slug}` | `partnership.show` | Detail halaman kegiatan partner |
 
 ### Admin Routes (requires auth)
 
@@ -243,7 +276,7 @@ Semua route admin diawali `/admin` dan memerlukan login:
 
 ---
 
-## Admin Panel
+## Admin Panel Landing Page
 
 Admin dapat mengelola semua konten landing page secara dinamis tanpa mengubah kode:
 
@@ -326,12 +359,295 @@ Dua tool tracking terintegrasi di `layouts/app.blade.php`:
 
 ---
 
-## Footer
+---
 
-Footer terdiri dari 3 blok:
-1. **CTA Banner** — Ajakan "Try Free Class" dengan tombol (tersembunyi di halaman trial)
-2. **Cabang Internasional** — Kontak admin per negara (ID, MY, PH, EG, JP, SY, BD, US)
-3. **Footer Utama** — Link navigasi, daftar kursus, partnership, sosial media, dan pilihan bahasa teks
+# 🤝 BAGIAN 2 — FITUR PARTNERSHIP
+
+---
+
+## Gambaran Umum Partnership
+
+Fitur Partnership memungkinkan Timedoor Academy untuk:
+- Menampilkan **logo-logo partner** (sekolah, institusi) dalam slider infinite-scroll
+- Memublikasikan **kegiatan bersama partner** (Workshop, Seminar, Pelatihan)
+- Menyediakan halaman **detail kegiatan** lengkap dengan galeri foto
+- Mengelola semua data tersebut melalui **Admin Panel**
+
+---
+
+## Struktur File Partnership
+
+```
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── PartnerController.php              # Controller publik partnership
+│   │   └── admin/
+│   │       ├── PartnerAdminController.php     # Admin CRUD partner
+│   │       └── PartnerActivityAdminController.php  # Admin CRUD kegiatan
+│   └── Models/
+│       ├── Partner.php                        # Model partner (sekolah/institusi)
+│       ├── PartnerActivity.php                # Model kegiatan partner
+│       ├── PhotoActivity.php                  # Model galeri foto kegiatan
+│       ├── ActivitySeminarDetail.php          # Detail ekstra seminar
+│       └── ActivityWorkshopDetail.php         # Detail ekstra workshop
+├── resources/views/
+│   ├── partners/
+│   │   ├── index.blade.php                   # Halaman daftar partner & kegiatan
+│   │   └── show.blade.php                    # Halaman detail kegiatan
+│   └── livewire/
+│       ├── partner-activity-card.blade.php   # Komponen Livewire kartu kegiatan
+│       └── activity-gallery.blade.php        # Komponen Livewire galeri foto
+```
+
+---
+
+## Database & Model
+
+### Model: `Partner`
+
+Merepresentasikan **sekolah atau institusi** yang bermitra dengan Timedoor.
+
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| `name` | string | Nama partner (unik) |
+| `slug` | string | URL-friendly name (auto-generate) |
+| `category` | string | Kategori partner (contoh: Sekolah, Perusahaan) |
+| `description` | text | Deskripsi singkat |
+| `logo` | string | Path file logo di storage |
+| `email` | string (nullable) | Email kontak partner |
+| `no_telepon` | string (nullable) | Nomor telepon partner |
+
+**Relasi:**
+- `activities()` → `hasMany(PartnerActivity)` — satu partner bisa punya banyak kegiatan
+- Saat partner dihapus, **logo fisik dihapus otomatis** dari storage (via model event `deleting`)
+
+---
+
+### Model: `PartnerActivity`
+
+Merepresentasikan **kegiatan** yang dilakukan bersama partner.
+
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| `partner_id` | foreign key | Relasi ke tabel `partners` |
+| `title` | string | Judul kegiatan |
+| `slug` | string | Auto-generate dari title, unik |
+| `category_activity` | string | Jenis: `seminar`, `workshop`, atau `pelatihan` |
+| `full_description` | text | Deskripsi panjang kegiatan |
+| `activity_date` | date | Tanggal pelaksanaan |
+| `featured_image` | string (nullable) | Nama file gambar utama |
+
+**Relasi:**
+- `partner()` → `belongsTo(Partner)`
+- `photos()` → `hasMany(PhotoActivity)`
+- `seminarDetail()` → `hasOne(ActivitySeminarDetail)`
+- `workshopDetail()` → `hasOne(ActivityWorkshopDetail)`
+
+**Accessor:** `getFeaturedImageUrlAttribute()` → URL lengkap gambar utama dari `storage/activity/featured/`
+
+**Model Events:** Saat kegiatan dihapus, featured image dan semua foto galeri otomatis terhapus dari storage.
+
+---
+
+### Model: `ActivitySeminarDetail`
+
+Detail tambahan khusus untuk kegiatan bertipe **seminar**.
+
+| Kolom | Keterangan |
+|---|---|
+| `partner_activity_id` | Foreign key ke `partner_activities` |
+| `speaker_name` | Nama pembicara/narasumber |
+| `speaker_about` | Bio singkat pembicara |
+| `speaker_photo` | Nama file foto pembicara |
+
+---
+
+### Model: `ActivityWorkshopDetail`
+
+Detail tambahan khusus untuk kegiatan bertipe **workshop**.
+
+| Kolom | Keterangan |
+|---|---|
+| `partner_activity_id` | Foreign key ke `partner_activities` |
+| `mentor_name` | Nama mentor workshop |
+| `description` | Deskripsi singkat workshop |
+
+---
+
+### Model: `PhotoActivity`
+
+Galeri foto untuk setiap kegiatan.
+
+| Kolom | Keterangan |
+|---|---|
+| `partner_activity_id` | Foreign key ke `partner_activities` |
+| `image_path` | Nama file foto di `storage/activity/photos/` |
+
+---
+
+## Halaman Publik Partnership
+
+### Index Page — `/partnership`
+
+**Controller:** `PartnerController::index()`  
+**View:** `resources/views/partners/index.blade.php`
+
+Halaman ini terdiri dari 3 bagian:
+
+#### 1. Hero Section
+- Judul halaman (dari `__('partnership.title')`)
+- Gambar hero statis
+- Dua paragraf intro dan link kontak
+
+#### 2. Slider Logo Partner
+- Slider **infinite scroll otomatis** (CSS animation `animate-scroll`)
+- Data dari database: partner yang memiliki logo (`whereNotNull('logo')`)
+- Logo di-duplicate (loop dua kali) untuk efek infinite tanpa jeda
+- Hover: animasi pause & logo scale-up
+- Gambar diakses via: `asset('storage/' . $partner->logo)`
+
+#### 3. Daftar Kegiatan (Workshop Section)
+- Background hijau muda `#EDFFF3`
+- Menggunakan **Livewire component** `@livewire('partner-activity-card')`
+- Fitur: pencarian, filter kategori & tahun, pagination (3 item per halaman)
+
+---
+
+## Livewire: Activity Card
+
+**View:** `resources/views/livewire/partner-activity-card.blade.php`
+
+Komponen Livewire yang menangani tampilan dan filter kegiatan secara **real-time tanpa reload halaman**.
+
+| Fitur | Wire Property | Keterangan |
+|---|---|---|
+| **Pencarian** | `wire:model.live.debounce.300ms="search"` | Cari berdasarkan judul, debounce 300ms |
+| **Filter Kategori** | `wire:model.live="category"` | Workshop / Seminar / Pelatihan |
+| **Filter Tahun** | `wire:model.live="year"` | 2021 – 2025 |
+| **Reset Filter** | `wire:click="resetFilters"` | Hapus semua filter |
+
+Setiap kartu menampilkan: badge nama partner, gambar featured, tanggal, judul, cuplikan deskripsi, dan tombol **"Lihat Detail"**.
+
+---
+
+## Halaman Detail Kegiatan
+
+**Route:** `GET /partnership/{slug}`  
+**Controller:** `PartnerController::show($slug)`  
+**View:** `resources/views/partners/show.blade.php`
+
+### Struktur Halaman
+
+1. **Hero Banner** — Gambar utama full-width, badge tanggal, judul kegiatan, tombol back
+2. **Info Card (3 kolom)** — Tanggal · Email partner · No. Telepon partner
+3. **Detail kondisional:**
+   - **Jika Seminar** → Foto + profil pembicara (nama & bio)
+   - **Jika Workshop** → Nama mentor & deskripsi
+4. **Deskripsi Lengkap** — Full description dengan `nl2br` dan karakter di-escape
+5. **Galeri Foto** — via `<livewire:activity-gallery :activity="$activity" />`
+6. **Tombol Kembali** ke `/partnership`
+
+---
+
+## Admin Panel Partnership
+
+> Semua route admin memerlukan **autentikasi** (`middleware: auth`).
+
+### Manajemen Partner — `/admin/partners`
+
+**Controller:** `PartnerAdminController`
+
+| Method | URL | Keterangan |
+|---|---|---|
+| GET | `/admin/partners` | Daftar semua partner |
+| GET | `/admin/partners/create` | Form tambah partner baru |
+| POST | `/admin/partners` | Simpan partner baru |
+| GET | `/admin/partners/{partner}` | Detail partner |
+| GET | `/admin/partners/{partner}/edit` | Form edit partner |
+| PUT | `/admin/partners/{partner}` | Update data partner |
+| DELETE | `/admin/partners/{partner}` | Hapus partner + logo |
+
+**Upload Logo:** Disimpan di `storage/public/partner/logo/`. Logo lama otomatis dihapus saat update/delete.
+
+---
+
+### Manajemen Kegiatan — `/admin/activity`
+
+**Controller:** `PartnerActivityAdminController`
+
+| Method | URL | Keterangan |
+|---|---|---|
+| GET | `/admin/activity` | Daftar kegiatan (paginate 6) |
+| GET | `/admin/activity/create` | Form tambah kegiatan |
+| POST | `/admin/activity` | Simpan kegiatan baru |
+| GET | `/admin/activity/{slug}` | Detail kegiatan (admin) |
+| GET | `/admin/activity/{id}/edit` | Form edit kegiatan |
+| PUT | `/admin/activity/{id}` | Update data kegiatan |
+| DELETE | `/admin/activity/{id}` | Hapus kegiatan + semua foto |
+| DELETE | `/admin/activity/photo/{photo}` | Hapus satu foto galeri |
+
+#### Validasi Input
+
+Field umum: `partner_id`, `title`, `category_activity`, `full_description`, `activity_date`, `featured_image` (max 2MB), `photos.*` (max 2MB).
+
+Field tambahan **jika Seminar**: `speaker_name` (required), `speaker_about` (required), `speaker_photo` (required saat create, nullable saat edit).
+
+Field tambahan **jika Workshop**: `mentor_name` (required), `description` (required, max 255).
+
+#### Proses Penyimpanan (Database Transaction)
+
+```
+1. Validasi input
+2. BEGIN TRANSACTION
+   ├── Simpan/update data PartnerActivity
+   ├── Simpan/update detail (seminarDetail atau workshopDetail)
+   └── Upload foto galeri (jika ada)
+3. COMMIT / ROLLBACK jika error
+```
+
+**Slug Auto-Generate:** Dibuat dari `title` via `Str::slug()`. Jika duplikat, ditambah counter: `judul-1`, `judul-2`, dst.
+
+---
+
+## Alur Kerja Partnership
+
+```
+[Admin]
+  ├── Tambah Partner → logo disimpan di storage/partner/logo/
+  └── Tambah Kegiatan
+        ├── Pilih Partner + isi data umum
+        ├── Upload featured image → storage/activity/featured/
+        ├── [Seminar] Data pembicara + foto → storage/activity/speakers/
+        ├── [Workshop] Data mentor
+        └── Upload foto galeri → storage/activity/photos/
+
+[Pengguna Publik]
+  ├── Buka /partnership
+  │     ├── Slider logo partner (infinite scroll)
+  │     ├── Filter kegiatan (cari / kategori / tahun)
+  │     └── Klik kartu → /partnership/{slug}
+  └── Detail kegiatan
+        ├── Hero image + info dasar
+        ├── Detail pembicara / mentor (kondisional)
+        ├── Deskripsi lengkap
+        └── Galeri foto
+```
+
+---
+
+## Penyimpanan File
+
+| Jenis File | Path di Storage | Cara Akses |
+|---|---|---|
+| Logo partner | `storage/partner/logo/` | `asset('storage/partner/logo/file.jpg')` |
+| Gambar utama kegiatan | `storage/activity/featured/` | `$activity->featured_image_url` (accessor) |
+| Foto pembicara seminar | `storage/activity/speakers/` | `asset('storage/activity/speakers/file.jpg')` |
+| Foto galeri kegiatan | `storage/activity/photos/` | via relasi `$activity->photos` |
+
+> **Pastikan storage link aktif:**
+> ```bash
+> php artisan storage:link
+> ```
 
 ---
 
