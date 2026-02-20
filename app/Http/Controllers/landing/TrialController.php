@@ -55,7 +55,6 @@ class TrialController extends BasePageController
             }
 
             return redirect()->back()->with('success', __('trial_partial_success_msg'));
-
         } catch (\Exception $e) {
             // Log error untuk mempermudah diagnosa jika gagal
             \Log::error("Trial Error: " . $e->getMessage());
