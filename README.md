@@ -1,66 +1,338 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Timedoor Academy — Partnership Landing Page
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#  DOKUMENTASI UNTUK LANDING PAGE
+Dokumentasi teknis untuk proyek **Landing Page Partnership Timedoor Academy**, dibangun menggunakan **Laravel** dengan dukungan multi-bahasa, manajemen konten via Admin Panel, dan animasi modern.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📋 Daftar Isi
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- [Gambaran Umum](#gambaran-umum)
+- [Tech Stack](#tech-stack)
+- [Struktur Direktori](#struktur-direktori)
+- [Cara Instalasi](#cara-instalasi)
+- [Struktur Halaman Landing](#struktur-halaman-landing)
+- [Sistem Multi-Bahasa](#sistem-multi-bahasa)
+- [Routes](#routes)
+- [Admin Panel](#admin-panel)
+- [JavaScript & Animasi](#javascript--animasi)
+- [Tracking & Analytics](#tracking--analytics)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Gambaran Umum
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Landing page ini berfungsi sebagai halaman utama pemasaran untuk **Program Partnership Timedoor Academy** — akademi coding anak-anak yang beroperasi di berbagai negara (Indonesia, Malaysia, Filipina, Bangladesh, Jepang, Arab, dll).
 
-### Premium Partners
+**Fitur Utama:**
+- ✅ Multi-bahasa (7 bahasa: ID, EN, JP, AR, BD, PH, MY)
+- ✅ Navbar dinamis (berubah warna saat melewati section hijau)
+- ✅ Konten dinamis dari database (banner, testimonial, proyek siswa, hero image)
+- ✅ Slider otomatis (Swiper.js)
+- ✅ Animasi scroll (AOS)
+- ✅ Formulir pendaftaran Free Trial terintegrasi
+- ✅ Admin panel untuk manajemen konten
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+## Tech Stack
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Layer | Teknologi |
+|---|---|
+| Framework | Laravel (PHP) |
+| Templating | Blade |
+| CSS | Custom CSS + Tailwind utility classes |
+| Build Tool | Vite |
+| Animation | [AOS (Animate On Scroll)](https://michalsnik.github.io/aos/) |
+| Slider | [Swiper.js v11](https://swiperjs.com/) |
+| Phone Input | [intl-tel-input v24](https://intl-tel-input.com/) |
+| Font | Google Fonts — Poppins |
+| Tracking | Meta Pixel, Microsoft Clarity |
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Struktur Direktori
 
-## Security Vulnerabilities
+```
+├── resources/
+│   ├── views/
+│   │   └── landing_page/
+│   │       ├── layouts/
+│   │       │   └── app.blade.php          # Layout utama (navbar, footer)
+│   │       ├── sections/
+│   │       │   ├── hero.blade.php          # Section 1: Hero banner
+│   │       │   ├── proof.blade.php         # Section 2: Banner & Testimoni
+│   │       │   ├── product_knowledge.blade.php  # Section 3.1: USP
+│   │       │   ├── output_proof.blade.php  # Section 3.2: Proyek Siswa
+│   │       │   └── cta_promo.blade.php     # Section 4: CTA & Statistik
+│   │       ├── form/                       # Form Free Trial
+│   │       └── index.blade.php             # Entry point halaman
+│   ├── js/
+│   │   └── landing_page/
+│   │       ├── app.js                      # JS utama (navbar, dropdown, swiper)
+│   │       └── trial.js                    # JS khusus form trial
+│   └── css/
+│       └── landing/
+│           └── app.css                     # CSS landing page
+├── lang/
+│   ├── id.json                             # Bahasa Indonesia
+│   ├── en.json                             # Bahasa Inggris
+│   ├── ja.json                             # Bahasa Jepang
+│   ├── ar.json                             # Bahasa Arab
+│   ├── bn.json                             # Bahasa Bangladesh
+│   ├── fil.json                            # Bahasa Filipina
+│   └── ms.json                             # Bahasa Melayu
+└── routes/
+    └── web.php                             # Definisi semua route
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Cara Instalasi
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# 1. Clone repositori
+git clone <repo-url>
+cd partnership-landingPage-timedoor
+
+# 2. Install dependensi PHP
+composer install
+
+# 3. Install dependensi Node.js
+npm install
+
+# 4. Salin dan konfigurasi environment
+cp .env.example .env
+php artisan key:generate
+
+# 5. Konfigurasi database di .env, lalu jalankan migrasi
+php artisan migrate --seed
+
+# 6. Build assets (mode development)
+npm run dev
+
+# 7. Jalankan server Laravel
+php artisan serve
+```
+
+> **Catatan:** Pastikan storage sudah di-link agar gambar tampil dengan benar.
+> ```bash
+> php artisan storage:link
+> ```
+
+---
+
+## Struktur Halaman Landing
+
+Halaman utama (`/`) terdiri dari 5 section yang di-include secara berurutan:
+
+### Section 1 — Hero (`hero.blade.php`)
+- Menampilkan **judul, subjudul, dan deskripsi** yang diambil dari file bahasa
+- **Hero image** dinamis dari database (dikelola via Admin → Hero)
+- Tombol CTA "Book a Free Trial" yang mengarah ke `/book-free-trial`
+- Data hero image dikirim dari `LandingPageController::index()`
+
+### Section 2 — Proof (`proof.blade.php`)
+- **Slider Banner** (kiri ke kanan, auto-scroll tanpa henti): menampilkan pencapaian/penghargaan dari database
+- **Slider Testimoni** (auto-scroll kanan ke kiri): menampilkan review orang tua siswa
+- Jika database kosong, tampilkan konten *fallback* statis
+- Menggunakan Swiper.js dengan mode `loop` dan `autoplay`
+
+### Section 3.1 — Product Knowledge (`product_knowledge.blade.php`)
+- Menampilkan **3 USP (Unique Selling Points)** Timedoor Academy:
+  1. Small Classes, Big Impact (maks. 5 siswa)
+  2. Proprietary Gamified Rewards (sistem koin)
+  3. Future-Proof Skills (Game, Web, App, AI)
+- Teks menggunakan sistem terjemahan `__('key')`
+
+### Section 3.2 — Output Proof (`output_proof.blade.php`)
+- **Slider Proyek Siswa** dengan tombol navigasi prev/next
+- Setiap slide menampilkan gambar proyek siswa beserta nama, usia, dan tipe proyek
+- Info siswa diperbarui secara dinamis saat slide berubah (via JavaScript)
+- Data dari model `StudentProject` di database
+
+### Section 4 — CTA & Promo (`cta_promo.blade.php`)
+- Judul besar ajakan bergabung (supports HTML via `{!! __('key') !!}`)
+- **3 Kotak Statistik**: jumlah siswa, kompetisi, modul
+- **2 Tombol CTA**: Cek Harga & Book Free Trial
+
+---
+
+## Sistem Multi-Bahasa
+
+Proyek ini mendukung **7 bahasa** menggunakan sistem terjemahan Laravel berbasis JSON.
+
+### Bahasa yang Tersedia
+
+| Kode Display | Locale Laravel | File |
+|---|---|---|
+| ID | `id` | `lang/id.json` |
+| EN | `en` | `lang/en.json` |
+| JP | `ja` | `lang/ja.json` |
+| AR | `ar` | `lang/ar.json` |
+| BD | `bn` | `lang/bn.json` |
+| PH | `fil` | `lang/fil.json` |
+| MY | `ms` | `lang/ms.json` |
+
+### Cara Kerja
+
+1. User memilih bahasa dari **dropdown navbar** (ikon bendera)
+2. Klik memicu redirect ke route `/lang/{locale}` (contoh: `/lang/en`)
+3. `LandingPageController::changeLanguage()` menyimpan locale ke **session** dan cookie
+4. Halaman di-reload dengan locale baru, semua teks `__('key')` otomatis berganti
+5. Untuk bahasa **Arab (RTL)**, atribut `dir="rtl"` ditambahkan otomatis di tag `<html>`
+
+### Menambah Kunci Terjemahan Baru
+
+Tambahkan kunci yang sama di **semua 7 file JSON**:
+
+```json
+// lang/id.json
+"Kunci Baru": "Teks dalam Bahasa Indonesia"
+
+// lang/en.json  
+"Kunci Baru": "Text in English"
+```
+
+Gunakan di Blade:
+```blade
+{{ __('Kunci Baru') }}
+```
+
+---
+
+## Routes
+
+### Public Routes
+
+| Method | URL | Nama Route | Keterangan |
+|---|---|---|---|
+| GET | `/` | `landing` | Halaman utama landing page |
+| GET | `/book-free-trial` | `trial.index` | Form pendaftaran kelas trial |
+| POST | `/book-free-trial` | `landing.book-trial.store` | Kirim data pendaftaran |
+| GET | `/lang/{locale}` | `change.language` | Ganti bahasa aktif |
+| GET | `/partnership` | `partnership.index` | Halaman daftar partner |
+| GET | `/partnership/{slug}` | `partnership.show` | Detail halaman partner |
+
+### Admin Routes (requires auth)
+
+Semua route admin diawali `/admin` dan memerlukan login:
+
+| URL | Keterangan |
+|---|---|
+| `/admin/dashboard` | Dashboard admin |
+| `/admin/landing-page/banners` | CRUD banner slider |
+| `/admin/landing-page/testimonials` | CRUD testimonial |
+| `/admin/landing-page/projects` | CRUD proyek siswa |
+| `/admin/landing-page/hero` | Edit hero image per bahasa |
+| `/admin/landing-page/free-trials` | Lihat & hapus data pendaftar trial |
+| `/admin/partners` | CRUD data partner |
+| `/admin/activity` | CRUD aktivitas partner |
+
+### Authentication
+
+| Method | URL | Keterangan |
+|---|---|---|
+| GET | `/login` | Halaman login admin |
+| POST | `/login` | Proses login |
+| POST | `/logout` | Logout |
+
+---
+
+## Admin Panel
+
+Admin dapat mengelola semua konten landing page secara dinamis tanpa mengubah kode:
+
+### 🖼️ Hero Management
+- **Path:** `/admin/landing-page/hero`
+- Upload gambar hero yang berbeda untuk setiap bahasa
+- Preview tampilan hero sebelum publish
+
+### 📢 Banner Management
+- **Path:** `/admin/landing-page/banners`
+- CRUD banner yang ditampilkan di slider Section 2
+- Setiap banner memiliki judul (multi-bahasa) dan gambar
+
+### 💬 Testimonial Management
+- **Path:** `/admin/landing-page/testimonials`
+- CRUD testimoni orang tua siswa
+- Field: foto orang tua, nama orang tua, nama siswa, nama kursus, isi review (multi-bahasa)
+
+### 🎨 Student Project Management
+- **Path:** `/admin/landing-page/projects`
+- CRUD proyek karya siswa untuk ditampilkan di slider Section 3.2
+- Field: nama siswa, usia, tipe proyek, gambar proyek
+
+### 📋 Free Trial Data
+- **Path:** `/admin/landing-page/free-trials`
+- Lihat semua data pendaftar kelas trial
+- Dapat menghapus data
+
+---
+
+## JavaScript & Animasi
+
+### `resources/js/landing_page/app.js`
+
+File utama berisi 3 modul:
+
+**1. Language Dropdown**
+- Membuka/menutup dropdown pilihan bahasa di navbar
+- Menyembunyikan bahasa yang sedang aktif dari daftar
+- Redirect ke `/lang/{locale}` saat bahasa dipilih
+- Peta kode: `ID→id`, `EN→en`, `BD→bn`, `AR→ar`, `PH→fil`, `JP→ja`, `MY→ms`
+
+**2. Dynamic Navbar**
+- Navbar berwarna putih secara default
+- Berubah menjadi **hijau** (`#10AF13`) saat scroll melewati section yang memiliki class `.bg-green-trigger`
+- Logo, warna tombol, dan dropdown ikut berubah menyesuaikan background
+
+**3. Swiper.js Sliders**
+
+| Instance | Selector | Arah | Kecepatan | Keterangan |
+|---|---|---|---|---|
+| `swiper_left` | `.swiper_left` | Kiri | 5000ms (linear, no pause) | Banner achievements |
+| `swiper_right` | `.swiper_right` | Kanan | 800ms, delay 3s | Testimonial |
+| `project_swiper` | `.project_swiper` | Auto | delay 3.5s | Proyek siswa + update info |
+
+### AOS (Animate On Scroll)
+Semua elemen penting menggunakan animasi `data-aos="fade-up"` dengan delay bertahap untuk efek cascade:
+```html
+<div data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
+```
+AOS diinisialisasi di akhir `app.blade.php`:
+```html
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
+```
+
+---
+
+## Tracking & Analytics
+
+Dua tool tracking terintegrasi di `layouts/app.blade.php`:
+
+### Meta Pixel (Facebook)
+- **Pixel ID:** `1400928094715921`
+- Event yang di-track: `PageView` (otomatis)
+
+### Microsoft Clarity
+- **Tag ID:** `vj2kxeea7l`
+- Merekam sesi pengguna untuk analisis UX
+
+---
+
+## Footer
+
+Footer terdiri dari 3 blok:
+1. **CTA Banner** — Ajakan "Try Free Class" dengan tombol (tersembunyi di halaman trial)
+2. **Cabang Internasional** — Kontak admin per negara (ID, MY, PH, EG, JP, SY, BD, US)
+3. **Footer Utama** — Link navigasi, daftar kursus, partnership, sosial media, dan pilihan bahasa teks
+
+---
+
+*Dikembangkan oleh Tim Timedoor Academy — Intern Magang Batch 2025*
