@@ -23,17 +23,14 @@ class DashboardController extends Controller
         $totalTestimonials = Testimonial::count();
         $totalFreeTrials = FreeTrial::count();
         
-        // Kegiatan bulan ini (Penting untuk monitoring)
-        $totalActivities = \App\Models\PartnerActivity::count();
         // Ambil jumlah kegiatan yang terdaftar pada bulan berjalan
         $activitiesThisMonth = PartnerActivity::whereMonth('activity_date', now()->month)
                                 ->whereYear('activity_date', now()->year)
                                 ->count();
-
-        // Ambil 5 agenda kegiatan mendatang termasuk hari ini
+        // Kegiatan bulan ini (Penting untuk monitoring)
+        $totalActivities = \App\Models\PartnerActivity::count();
         $upcomingActivities = PartnerActivity::with('partner')
                                 ->where('activity_date', '>=', now()->startOfDay())
-                                ->orderBy('activity_date', 'asc')
                                 ->take(5)
                                 ->get();
 
@@ -44,9 +41,9 @@ class DashboardController extends Controller
             'totalPartners', 
             'totalProjects', 
             'totalTestimonials', 
-            'totalActivities',
             'activitiesThisMonth',
             'totalFreeTrials',
+            'totalActivities',
             'upcomingActivities',
             'latestProjects'
         ));

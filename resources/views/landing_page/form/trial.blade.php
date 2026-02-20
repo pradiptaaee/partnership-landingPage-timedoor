@@ -1,41 +1,7 @@
 @extends('landing_page.layouts.app')
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
 
 @section('content')
-<style>
-    /* 1. Container Library: Wajib relative biar dropdown nempel di dia */
-    .iti { width: 100%; display: block; }
-
-    /* 2. Input Nomor: Padding kiri biar gak nabrak bendera */
-    #phone { padding-left: 90px !important; }
-
-    /* 3. Dropdown List Negara: INI KUNCINYA BIAR NEMPEL & RAPI */
-    .iti__country-list {
-        width: 100% !important;      /* Lebar ngikutin induknya */
-        max-width: 100% !important;  /* Gak boleh lebih lebar */
-        border-radius: 0 0 8px 8px;  /* Sudut bawah tumpul */
-        border: 1px solid #dadce0;
-        border-top: none;            /* Hapus border atas biar seolah nyambung (opsional) */
-        margin-top: 2px;             /* Jarak dikit biar manis */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        z-index: 999;
-    }
-
-    /* 4. Area Bendera */
-    .iti__flag-container {
-        border: none;
-        background: transparent;
-    }
-    
-    /* 5. Teks +62 */
-    .iti__selected-dial-code {
-        color: #3c4043;
-        font-size: 14px;
-        font-weight: 500;
-    }
-</style>
 
 <div class="w-full max-w-[1440px] mx-auto overflow-hidden mb-10 mt-10">
     <div class="grid lg:grid-cols-2 gap-10">
@@ -97,13 +63,34 @@
                 <div class="mb-6">
                     <label class="block text-[11px] font-bold text-[#6b7280] mb-[8px] tracking-tight uppercase">{{ __('Country') }}</label>
                     <div class="bg-[#e8eaed] rounded-[8px] h-[44px] overflow-hidden">
-                        <select name="country" id="country" required 
-                            class="w-full h-full bg-transparent border-none px-3 text-[14px] text-[#3c4043] focus:ring-0 focus:outline-none cursor-pointer">
-                            <option value="Indonesia">Indonesia</option>
-                            <option value="Singapore">Singapore</option>
-                            <option value="Malaysia">Malaysia</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Other">Other</option>
+                        <select id="country" name="country" required
+                            class="w-full h-full bg-transparent border-none px-3 text-sm text-[#3c4043] focus:ring-0 focus:outline-none cursor-pointer">
+                            <option value="Indonesia" {{ old('country') == 'Indonesia'            ? 'selected' : '' }}>Indonesia</option>
+                            <option value="Singapore" {{ old('country') == 'Singapore'            ? 'selected' : '' }}>Singapore</option>
+                            <option value="Malaysia" {{ old('country') == 'Malaysia'             ? 'selected' : '' }}>Malaysia</option>
+                            <option value="Australia" {{ old('country') == 'Australia'            ? 'selected' : '' }}>Australia</option>
+                            <option value="Bangladesh" {{ old('country') == 'Bangladesh'           ? 'selected' : '' }}>Bangladesh</option>
+                            <option value="Brazil" {{ old('country') == 'Brazil'               ? 'selected' : '' }}>Brazil</option>
+                            <option value="Canada" {{ old('country') == 'Canada'               ? 'selected' : '' }}>Canada</option>
+                            <option value="China" {{ old('country') == 'China'                ? 'selected' : '' }}>China</option>
+                            <option value="France" {{ old('country') == 'France'               ? 'selected' : '' }}>France</option>
+                            <option value="Germany" {{ old('country') == 'Germany'              ? 'selected' : '' }}>Germany</option>
+                            <option value="India" {{ old('country') == 'India'                ? 'selected' : '' }}>India</option>
+                            <option value="Japan" {{ old('country') == 'Japan'                ? 'selected' : '' }}>Japan</option>
+                            <option value="Netherlands" {{ old('country') == 'Netherlands'          ? 'selected' : '' }}>Netherlands</option>
+                            <option value="New Zealand" {{ old('country') == 'New Zealand'          ? 'selected' : '' }}>New Zealand</option>
+                            <option value="Pakistan" {{ old('country') == 'Pakistan'             ? 'selected' : '' }}>Pakistan</option>
+                            <option value="Philippines" {{ old('country') == 'Philippines'          ? 'selected' : '' }}>Philippines</option>
+                            <option value="Qatar" {{ old('country') == 'Qatar'                ? 'selected' : '' }}>Qatar</option>
+                            <option value="Saudi Arabia" {{ old('country') == 'Saudi Arabia'         ? 'selected' : '' }}>Saudi Arabia</option>
+                            <option value="South Korea" {{ old('country') == 'South Korea'          ? 'selected' : '' }}>South Korea</option>
+                            <option value="Thailand" {{ old('country') == 'Thailand'             ? 'selected' : '' }}>Thailand</option>
+                            <option value="Turkey" {{ old('country') == 'Turkey'               ? 'selected' : '' }}>Turkey</option>
+                            <option value="United Arab Emirates" {{ old('country') == 'United Arab Emirates' ? 'selected' : '' }}>United Arab Emirates</option>
+                            <option value="United Kingdom" {{ old('country') == 'United Kingdom'       ? 'selected' : '' }}>United Kingdom</option>
+                            <option value="United States" {{ old('country') == 'United States'        ? 'selected' : '' }}>United States</option>
+                            <option value="Vietnam" {{ old('country') == 'Vietnam'              ? 'selected' : '' }}>Vietnam</option>
+                            <option value="Other" {{ old('country') == 'Other'                ? 'selected' : '' }}>{{ __('Other') }}</option>
                         </select>
                     </div>
                 </div>
@@ -118,7 +105,7 @@
                                 class="w-full h-full bg-transparent border-none text-[14px] text-[#3c4043] placeholder-[#80868b] focus:ring-0 focus:outline-none">
                         </div>
                     </div>
-                    
+
                     <div>
                         <label class="block text-[11px] font-bold text-[#6b7280] mb-[8px] tracking-tight uppercase">{{ __('Email') }}</label>
                         <div class="bg-[#e8eaed] rounded-[8px] h-[44px] overflow-hidden">
@@ -152,25 +139,28 @@
                 </button>
             </form>
         </div>
+        <div class="px-6 py-4">
+            <div class="flex items-center space-x-4 text-lg">
+
+                <a href="{{ route('landing') }}" class="text-gray-400 font-medium hover:text-gray-600 transition">
+                    Home
+                </a>
+
+                <svg class="w-4 h-4 text-[#10AF13]" fill="currentColor" viewBox="0 0 20 20">
+                    <polygon points="0,0 20,10 0,20"></polygon>
+                </svg>
+
+                <span class="text-gray-600 font-semibold">
+                    {{ __('Book a Free Trial') }}
+                </span>
+
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    const inputPhone = document.querySelector("#phone");
-    const form = document.getElementById("trialForm");
-
-    // 1. Inisialisasi Library
-    const iti = window.intlTelInput(inputPhone, {
-        initialCountry: "id",
-        separateDialCode: true,
-        autoPlaceholder: "off",
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
-    });
-
-    // 2. Gabungin Nomor Pas Submit
-    form.addEventListener('submit', function() {
-        const fullNumber = iti.getNumber();
-        inputPhone.value = fullNumber; 
-    });
-</script>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/landing_page/trial.js')
+@endpush

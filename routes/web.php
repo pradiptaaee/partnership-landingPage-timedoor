@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\StudentProjectController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\FreeTrialAdminController;
 use App\Http\Controllers\landing\LandingPageController as LandingLandingPageController;
+use App\Http\Controllers\landing\TrialController as LandingTrialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +23,14 @@ use App\Http\Controllers\landing\LandingPageController as LandingLandingPageCont
 // --- REDIRECT & PUBLIC LANDING ---
 Route::redirect('/', '/'); 
 
-// Halaman Utama (Tampilan Krisna)
+// Halaman Utama Landing
 Route::get('/', [LandingLandingPageController::class, 'index'])->name('landing');
 
-// Halaman Form Pendaftaran (Tombol Krisna manggil route ini)
-Route::get('/book-free-trial', [LandingLandingPageController::class, 'showBookingForm'])->name('trial.index');
+// Halaman Form Pendaftaran 
+Route::get('/book-free-trial', [LandingTrialController::class, 'index'])->name('trial.index');
 
-// Proses Kirim Data (Logika Google Sheets & DB Sudana)
-Route::post('/book-free-trial', [LandingLandingPageController::class, 'storeBooking'])->name('landing.book-trial.store');
+// Proses Kirim Data
+Route::post('/book-free-trial', [LandingTrialController::class, 'storeBooking'])->name('landing.book-trial.store');
 
 // Route Ganti Bahasa (Fungsi Krisna)
 Route::get('/lang/{locale}', [LandingLandingPageController::class, 'changeLanguage'])->name('change.language');
@@ -47,8 +48,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     })->name('users');
 
     // MANAGEMENT LANDING PAGE
-    // MANAGEMENT LANDING PAGE
-Route::prefix('landing-page')->group(function() {
+    Route::prefix('landing-page')->group(function() {
     // Dashboard Free Trials
     Route::get('free-trials', [FreeTrialAdminController::class, 'index'])->name('free-trials.index');
     Route::delete('free-trials/delete/{id}', [FreeTrialAdminController::class, 'destroy'])->name('free-trials.destroy');

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -37,7 +38,10 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('currentLangData', $localeMapping[$locale] ?? $localeMapping['en']);
         });
-        Paginator::useBootstrapFive();
         Paginator::useTailwind();
+
+        if (str_contains(config('app.url'), 'ngrok-free.app') || config('app.env') !== 'local') {
+        URL::forceScheme('https');
+    }
     }
 }

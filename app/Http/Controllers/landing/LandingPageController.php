@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Hero;
 use App\Models\Banner;
+use App\Models\FreeTrial;
 use App\Models\Testimonial;
 use App\Models\StudentProject;
-use App\Models\FreeTrial;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Http;
 
@@ -44,7 +45,7 @@ class LandingPageController extends BasePageController
             'proof_bnr' => "text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl",
         ];
 
-        if (in_array($locale, ['id', 'ms', 'fil'])) {
+        if (in_array($locale, ['id', 'ms', 'fil', 'bn', 'ja'])) {
             $classes = [
                 'hero_h2' => "text-xl md:text-4xl lg:text-5xl xl:text-4xl mb-3 xl:mb-6",
                 'hero_h1' => "text-3xl md:text-6xl lg:text-7xl xl:text-6xl mb-3 xl:mb-6 leading-tight",
@@ -150,47 +151,6 @@ class LandingPageController extends BasePageController
     /**
      * Menyimpan data booking ke database dan meneruskannya ke Google Sheets.
      */
-    public function storeBooking(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
-
-        try {
-            // Simpan data pendaftaran ke database lokal
-            $freeTrial = FreeTrial::create($request->all());
-
-            // Kirim data ke Google Sheets menggunakan ID yang baru dibuat
-            $googleSheetUrl = "https://script.google.com/macros/s/AKfycbxMsES88FIn7xA9obdzEZvQ8Kpc5hlrp0buwp48A87qwuPoQBapjVql0J2Wng46z5vJHg/exec";
-
-            $response = Http::asForm()
-                ->withOptions(['allow_redirects' => true])
-                ->timeout(20)
-                ->post($googleSheetUrl, [
-                    'action' => 'INSERT',
-                    'id' => $freeTrial->id,
-                    'prefix' => $request->prefix,
-                    'name' => $request->name,
-                    'country' => $request->country,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'kids_list' => $request->kids_list,
-                    'message' => $request->message,
-                ]);
-
-            if ($response->successful()) {
-                return redirect()->back()->with('success', __('trial_success_msg'));
-            }
-
-            // Penanganan jika simpan database berhasil namun pengiriman ke Google Sheets gagal
-            return redirect()->back()->with('success', __('trial_partial_success_msg'));
-
-        } catch (\Exception $e) {
-            // Penanganan kegagalan total proses pendaftaran
-            return redirect()->back()->with('error', __('trial_error_msg'));
-        }
-    }
 
     /**
      * Mengubah bahasa aplikasi berdasarkan locale yang dipilih.
