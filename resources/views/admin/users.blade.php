@@ -5,7 +5,7 @@
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="mb-4" style="color: #0C3D8F; font-weight: 700;">User Management</h2>
+                    <h2 class="text-3xl font-bold text-[#0f5132] tracking-tight mb-6" >User Manajemen</h2>
 
                     {{-- Memanggil Komponen Livewire --}}
                     @livewire('user-management')
@@ -13,7 +13,7 @@
             </div>
         </div>
     </section>
-    <script>
+    {{-- <script>
     document.addEventListener('livewire:init', () => {
         Livewire.on('swal:success', (event) => {
             Swal.fire({
@@ -25,5 +25,5 @@
             });
         });
     });
-</script>
+</script> --}}
 @endsection

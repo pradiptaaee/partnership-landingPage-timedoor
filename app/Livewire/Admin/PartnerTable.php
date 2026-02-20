@@ -55,7 +55,7 @@ class PartnerTable extends Component
 
     public function paginationView()
     {
-        return 'livewire::bootstrap';
+        return 'livewire::tailwind';
     }
 
     public function resetFilters()

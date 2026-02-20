@@ -152,7 +152,7 @@
 
                         {{-- Hidden Input --}}
                         <input id="dropzone-file" name="logo" type="file" class="hidden" accept="image/*"
-                            onchange="previewImage(event)" />
+                            onchange="previewEditImage(event)" />
 
                         {{-- Trigger Label (Overlay) --}}
                         <label for="dropzone-file"
@@ -233,48 +233,5 @@
         @csrf @method('DELETE')
     </form>
 
-    {{-- SCRIPT --}}
-    <script>
-        function previewImage(event) {
-            const input = event.target;
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const img = document.getElementById('preview-image');
-                    const placeholder = document.getElementById('no-logo-placeholder');
-
-                    if (placeholder) placeholder.classList.add('hidden');
-
-                    img.classList.remove('hidden');
-                    img.src = e.target.result;
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function confirmDelete() {
-            if (confirm(
-                    'Apakah Anda yakin ingin menghapus partner ini?\n\nSemua kegiatan terkait juga akan terhapus permanen!'
-                    )) {
-                document.getElementById('deleteForm').submit();
-            }
-        }
-    </script>
-
-    <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #e5e7eb;
-            border-radius: 20px;
-        }
-    </style>
+    
 @endsection

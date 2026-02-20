@@ -13,27 +13,24 @@
 
     <link rel="shortcut icon" href="{{ asset('images/favicon-32x32.png') }}">
 
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-
     {{-- SweetAlert --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    {{-- Bootstrap Icons (boleh tetap dipakai) --}}
-    {{-- <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
+
+    {{-- CDN Font Awesome (Agar icon muncul) --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     {{-- Tailwind via Vite --}}
     @vite(['resources/css/admin.css'])
 
+    {{-- js --}}
+    @vite('resources/js/admin/partnership/partner.js')
+    @vite('resources/js/admin/partnership/activity.js')
+
     @livewireStyles
 </head>
-<style>
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-        .animate-fadeIn { animation: fadeIn 0.15s ease-out; }
-        .animate-scaleIn { animation: scaleIn 0.15s ease-out; }
-    </style>
+
 
 <body class="bg-gray-100">
 
@@ -53,6 +50,8 @@
 
     {{-- SweetAlert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
     @livewireScripts
 
@@ -74,26 +73,39 @@
 
         window.onload = function() {
 
-            @if(Session::has('login_success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Login Berhasil!',
-                text: "{{ Session::get('login_success') }}",
-                showConfirmButton: true,
-                confirmButtonText: 'Lanjutkan',
-            });
+            @if (Session::has('login_success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Berhasil!',
+                    text: "{{ Session::get('login_success') }}",
+                    showConfirmButton: true,
+                    confirmButtonText: 'Lanjutkan',
+                });
             @endif
 
-            @if(Session::has('success_message'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ Session::get('success_message') }}",
-                showConfirmButton: false,
-                timer: 2500,
-                timerProgressBar: true,
-            });
+            @if (Session::has('success_message'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{ Session::get('success_message') }}",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                });
             @endif
+
+        }
+        window.viewImage = function(url) {
+            Swal.fire({
+                imageUrl: url,
+                imageAlt: 'Dokumentasi Kegiatan',
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: 'transparent',
+                customClass: {
+                    popup: 'border-none shadow-none'
+                }
+            });
         }
     </script>
     @stack('scripts') {{-- Pastikan ini ada --}}

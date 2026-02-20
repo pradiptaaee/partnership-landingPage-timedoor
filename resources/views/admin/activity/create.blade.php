@@ -236,120 +236,107 @@
 
     {{-- JAVASCRIPT --}}
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const categoryInput = document.getElementById('category_activity');
-            const extraForms = document.querySelectorAll('.extra-form');
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const categoryInput = document.getElementById('category_activity');
+        //     const extraForms = document.querySelectorAll('.extra-form');
 
-            // Definisi field mana saja yang wajib diisi (required) saat kategori dipilih
-            const REQUIRED_FIELDS = {
-                seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
-                workshop: ['extra[mentor_name]']
-            };
+        //     // Definisi field mana saja yang wajib diisi (required) saat kategori dipilih
+        //     const REQUIRED_FIELDS = {
+        //         seminar: ['extra[speaker_name]', 'extra[speaker_about]'],
+        //         workshop: ['extra[mentor_name]']
+        //     };
 
-            /**
-             * Fungsi untuk menampilkan form tambahan berdasarkan kategori
-             */
-            function activateCategoryForm(category) {
-                const cleanCategory = category.trim().toLowerCase();
+        //     /**
+        //      * Fungsi untuk menampilkan form tambahan berdasarkan kategori
+        //      */
+        //     function activateCategoryForm(category) {
+        //         const cleanCategory = category.trim().toLowerCase();
 
-                // 1. Sembunyikan semua extra form dan matikan status 'required' semua input di dalamnya
-                extraForms.forEach(form => {
-                    form.classList.add('hidden');
-                    form.querySelectorAll('input, textarea').forEach(el => {
-                        el.required = false;
-                    });
-                });
+        //         // 1. Sembunyikan semua extra form dan matikan status 'required' semua input di dalamnya
+        //         extraForms.forEach(form => {
+        //             form.classList.add('hidden');
+        //             form.querySelectorAll('input, textarea').forEach(el => {
+        //                 el.required = false;
+        //             });
+        //         });
 
-                // 2. Cari form yang sesuai dengan data-category
-                const targetForm = document.querySelector(`.extra-form[data-category="${cleanCategory}"]`);
+        //         // 2. Cari form yang sesuai dengan data-category
+        //         const targetForm = document.querySelector(`.extra-form[data-category="${cleanCategory}"]`);
 
-                if (targetForm) {
-                    // Tampilkan form dengan animasi (pastikan class animate-fade-in ada di CSS)
-                    targetForm.classList.remove('hidden');
+        //         if (targetForm) {
+        //             // Tampilkan form dengan animasi (pastikan class animate-fade-in ada di CSS)
+        //             targetForm.classList.remove('hidden');
 
-                    // 3. Aktifkan 'required' hanya untuk field spesifik di kategori tersebut
-                    const fieldsToRequire = REQUIRED_FIELDS[cleanCategory] || [];
-                    fieldsToRequire.forEach(name => {
-                        const field = targetForm.querySelector(`[name="${name}"]`);
-                        if (field) {
-                            field.required = true;
+        //             // 3. Aktifkan 'required' hanya untuk field spesifik di kategori tersebut
+        //             const fieldsToRequire = REQUIRED_FIELDS[cleanCategory] || [];
+        //             fieldsToRequire.forEach(name => {
+        //                 const field = targetForm.querySelector(`[name="${name}"]`);
+        //                 if (field) {
+        //                     field.required = true;
 
-                            // Opsional: Tambahkan indikator visual (border merah jika kosong)
-                            field.classList.add('border-emerald-200');
-                        }
-                    });
-                }
-            }
+        //                     // Opsional: Tambahkan indikator visual (border merah jika kosong)
+        //                     field.classList.add('border-emerald-200');
+        //                 }
+        //             });
+        //         }
+        //     }
 
-            // Listener saat user mengetik kategori
-            categoryInput.addEventListener('input', (e) => {
-                activateCategoryForm(e.target.value);
-            });
+        //     // Listener saat user mengetik kategori
+        //     categoryInput.addEventListener('input', (e) => {
+        //         activateCategoryForm(e.target.value);
+        //     });
 
-            // Jalankan saat pertama kali halaman dimuat (untuk menangani 'old' value setelah reload/error)
-            if (categoryInput.value) {
-                activateCategoryForm(categoryInput.value);
-            }
-        });
+        //     // Jalankan saat pertama kali halaman dimuat (untuk menangani 'old' value setelah reload/error)
+        //     if (categoryInput.value) {
+        //         activateCategoryForm(categoryInput.value);
+        //     }
+        // });
 
 
-        // Preview Featured Image
-        function previewFeaturedImage(event) {
-            const file = event.target.files[0];
-            const prompt = document.getElementById('featured_prompt');
-            const img = document.getElementById('featured_preview_img');
+        // // Preview Featured Image
+        // function previewFeaturedImage(event) {
+        //     const file = event.target.files[0];
+        //     const prompt = document.getElementById('featured_prompt');
+        //     const img = document.getElementById('featured_preview_img');
 
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    img.src = e.target.result;
-                    img.classList.remove('hidden');
-                    prompt.classList.add('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        }
+        //     if (file) {
+        //         const reader = new FileReader();
+        //         reader.onload = function(e) {
+        //             img.src = e.target.result;
+        //             img.classList.remove('hidden');
+        //             prompt.classList.add('hidden');
+        //         }
+        //         reader.readAsDataURL(file);
+        //     }
+        // }
 
-        // Preview Multiple Images
-        function previewMultipleImages(event) {
-            const container = document.getElementById('gallery_preview_container');
-            const files = event.target.files;
+        // // Preview Multiple Images
+        // function previewMultipleImages(event) {
+        //     const container = document.getElementById('gallery_preview_container');
+        //     const files = event.target.files;
 
-            container.innerHTML = ''; // Reset preview
+        //     container.innerHTML = ''; // Reset preview
 
-            if (files.length > 0) {
-                Array.from(files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const div = document.createElement('div');
-                        div.className =
-                            'relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm group';
-                        div.innerHTML = `
-                        <img src="${e.target.result}" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/20 hidden group-hover:flex items-center justify-center">
-                            <i class="bi bi-check-circle-fill text-white text-xl"></i>
-                        </div>
-                    `;
-                        container.appendChild(div);
-                    }
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
+        //     if (files.length > 0) {
+        //         Array.from(files).forEach(file => {
+        //             const reader = new FileReader();
+        //             reader.onload = function(e) {
+        //                 const div = document.createElement('div');
+        //                 div.className =
+        //                     'relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm group';
+        //                 div.innerHTML = `
+        //                 <img src="${e.target.result}" class="w-full h-full object-cover">
+        //                 <div class="absolute inset-0 bg-black/20 hidden group-hover:flex items-center justify-center">
+        //                     <i class="bi bi-check-circle-fill text-white text-xl"></i>
+        //                 </div>
+        //             `;
+        //                 container.appendChild(div);
+        //             }
+        //             reader.readAsDataURL(file);
+        //         });
+        //     }
+        // }
     </script>
 
-    <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #e5e7eb;
-            border-radius: 20px;
-        }
-    </style>
+    
 @endsection

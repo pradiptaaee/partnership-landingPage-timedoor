@@ -6,10 +6,7 @@
 <div class="space-y-6">
 
     {{-- Header --}}
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <h1 class="text-2xl font-semibold text-gray-800">
-            Manajemen Partner
-        </h1>
+    <div class="flex flex-col mb-8 md:flex-row md:items-center md:justify-between gap-3">
 
         <nav class="text-sm text-gray-500">
             <ol class="flex items-center gap-2">

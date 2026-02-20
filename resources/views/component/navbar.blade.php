@@ -1,140 +1,116 @@
- <section>
-     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-         <div class="container d-flex justify-content-between px-5">
-             <!-- Logo -->
-             <a class="navbar-brand" href="{{ url('/') }}">
-                 <img src="{{ asset('images/logo-TA.svg') }}" alt="Timedoor Academy">
-             </a>
+<section>
+    <nav class="fixed navbar-custom top-0 w-full bg-white z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-4 lg:px-8 h-16">
 
-             <!-- Mobile Toggle Button -->
-             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                 <span class="navbar-toggler-icon"></span>
-             </button>
+            <!-- Logo -->
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('images/logo-TA.svg') }}" 
+                     alt="Timedoor Academy" 
+                     class="h-10">
+            </a>
 
-             <!-- Navigation Menu -->
-             <div class="d-flex" id="navbarNav">
-                 <ul class="navbar-nav">
-                     <!-- About Us -->
-                     <li class="nav-item dropdown">
-                         <a class="nav-link  dropdown-toggle {{ request()->is('about*') ? 'active' : '' }}"
-                             href="#" role="button" data-bs-toggle="dropdown">
-                             About Us
-                         </a>
-                         <ul class="dropdown-menu ">
-                             <li><a class="dropdown-item" href="{{ url('/about') }}">Our Story</a></li>
-                             <li><a class="dropdown-item" href="{{ url('/about/team') }}">Our Team</a></li>
-                             <li><a class="dropdown-item" href="{{ url('/about/testimonials') }}">Testimonials</a></li>
-                         </ul>
-                     </li>
+            <!-- Right Side -->
+            <div class="flex items-center gap-2">
 
-                     <!-- Our Courses -->
-                     <li class="nav-item dropdown">
-                         <a class="nav-link  dropdown-toggle {{ request()->is('courses*') ? 'active' : '' }}"
-                             href="#" role="button" data-bs-toggle="dropdown">
-                             Our Courses
-                         </a>
-                         <ul class="dropdown-menu ">
-                             <li><a class="dropdown-item" href="{{ url('/courses/programming') }}">Programming</a></li>
-                             <li><a class="dropdown-item" href="{{ url('/courses/design') }}">Design</a></li>
-                             <li><a class="dropdown-item" href="{{ url('/courses/digital-marketing') }}">Digital
-                                     Marketing</a></li>
-                             <li><a class="dropdown-item" href="{{ url('/courses/data-science') }}">Data Science</a>
-                             </li>
-                         </ul>
-                     </li>
+                <!-- Mobile Trial Button -->
+                <a href="{{ url('/book-trial') }}"
+                   class="lg:hidden sm:block bg-[#10AF13] text-white text-xs sm:text-sm font-medium py-2.5 px-4 rounded-xl uppercase shadow-[0_7px_0_#0E8E10] transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
+                    FREE TRIAL
+                </a>
 
-                     <!-- Blog -->
-                     <li class="nav-item">
-                         <a class="nav-link  {{ request()->is('blog*') ? 'active' : '' }}" href="{{ url('/blog') }}">
-                             Blog
-                         </a>
-                     </li>
+                <!-- Mobile Toggle -->
+                <button id="menuBtn" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" 
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
 
-                     <!-- Partnership (Highlighted) -->
-                     <li class="nav-item dropdown">
-                         <a class="nav-link  dropdown-toggle partnership {{ request()->is('partnership*') ? 'active' : '' }}"
-                             href="#" role="button" data-bs-toggle="dropdown">
-                             Partnership
-                         </a>
-                         <ul class="dropdown-menu">
-                             <li><a class="dropdown-item" href="{{ url('/partnership') }}">Our Partners</a></li>
-                             <li><a class="dropdown-item" href="{{ url('/partnership/activities') }}">Activities</a>
-                             </li>
-                             <li><a class="dropdown-item" href="{{ url('/partnership/apply') }}">Become a Partner</a>
-                             </li>
-                         </ul>
-                     </li>
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-2">
 
-                     <!-- Contact -->
-                     <li class="nav-item">
-                         <a class="nav-link  {{ request()->is('contact*') ? 'active' : '' }}"
-                             href="{{ url('/contact') }}">
-                             Contact
-                         </a>
-                     </li>
-                 </ul>
+                <!-- About -->
+                <div class="relative group">
+                    <button class="flex nav-link items-center font-medium hover:text-emerald-600">
+                        {{ __('Menu About') }}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute dropdown-menu hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48">
+                        <a href="{{ url('/about') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Our Story</a>
+                        <a href="{{ url('/about/team') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Our Team</a>
+                        <a href="{{ url('/about/testimonials') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Testimonials</a>
+                    </div>
+                </div>
 
-                 <!-- Right Side: Language & CTA -->
-                 <div class="d-flex align-items-center gap-3">
-                     <!-- Language Selector -->
-                     <div class="dropdown">
-                         <a class="nav-link  lang-selector dropdown-toggle" href="#" role="button"
-                             data-bs-toggle="dropdown">
-                             <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag">
-                             <span>EN</span>
-                         </a>
-                         <ul class="dropdown-menu dropdown-menu-end">
-                             <li>
-                                 <a class="dropdown-item" href="#">
-                                     <img src="https://flagcdn.com/w40/gb.png" alt="EN" class="lang-flag me-2">
-                                     English
-                                 </a>
-                             </li>
-                             <li>
-                                 <a class="dropdown-item" href="#">
-                                     <img src="https://flagcdn.com/w40/id.png" alt="ID" class="lang-flag me-2">
-                                     Indonesia
-                                 </a>
-                             </li>
-                             <li>
-                                 <a class="dropdown-item" href="{{ route('change.language', 'ja') }}">
-                                     <img src="https://flagcdn.com/w20/jp.png" class="me-2" width="20"
-                                         alt="JA">
-                                     日本語 (Japanese)</a>
-                             </li>
-                             <li>
-                                 <a class="dropdown-item" href="{{ route('change.language', 'ar') }}">
-                                     <img src="https://flagcdn.com/w20/sa.png" class="me-2" width="20"
-                                         alt="AR"> العربية (Arabic)
-                                 </a>
-                             </li>
-                             <li>
-                                 <a class="dropdown-item" href="{{ route('change.language', 'hi') }}">
-                                     <img src="https://flagcdn.com/w20/in.png" class="me-2" width="20"
-                                         alt="HI">
-                                     हिन्दी (Hindi)</a>
-                             </li>
-                             <li>
-                                 <a class="dropdown-item" href="{{ route('change.language', 'tl') }}">
-                                     <img src="https://flagcdn.com/w20/ph.png" class="me-2" width="20"
-                                         alt="TL">
-                                     Filipino</a>
-                             </li>
-                             <li>
-                                 <a class="dropdown-item" href="{{ route('change.language', 'ms') }}">
-                                     <img src="https://flagcdn.com/w20/my.png" class="me-2" width="20"
-                                         alt="MS">
-                                     Bahasa Melayu</a>
-                             </li>
-                         </ul>
-                     </div>
+                <!-- Courses -->
+                <div class="relative group">
+                    <button class="flex items-center nav-link font-medium hover:text-emerald-600">
+                        {{ __('Footer Course') }}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute dropdown-menu hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-56">
+                        <a href="{{ url('/courses/programming') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Programming</a>
+                        <a href="{{ url('/courses/design') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Design</a>
+                        <a href="{{ url('/courses/digital-marketing') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Digital Marketing</a>
+                    </div>
+                </div>
 
-                     <!-- CTA Button -->
-                     <a href="{{ url('/book-trial') }}" class="btn btn-trial">
-                         Book Free Trial
-                     </a>
-                 </div>
-             </div>
-         </div>
-     </nav>
- </section>
+                <!-- Blog -->
+                <a href="{{ url('/blog') }}" 
+                   class="font-medium nav-link hover:text-emerald-600">
+                    {{ __('Menu Blog') }}
+                </a>
+
+                <!-- Partnership -->
+                <div class="relative group">
+                    <button class="flex items-center nav-link font-medium hover:text-emerald-600">
+                        {{ __('Footer Partnership') }}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute dropdown-menu hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48">
+                        <a href="{{ url('/partnership') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Our Partners</a>
+                        <a href="{{ url('/partnership/activities') }}" class="dropdown-item block px-4 py-2 hover:bg-gray-100">Activities</a>
+                    </div>
+                </div>
+
+                <!-- Language -->
+                <div class="relative group">
+                    <button class="nav-link flex items-center gap-2 font-medium">
+                        <img src="https://flagcdn.com/w40/gb.png" 
+                             alt="EN" 
+                             class="w-5">
+                        EN
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-40">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Indonesia</a>
+                    </div>
+                </div>
+
+                <!-- Desktop Trial Button -->
+                <a href="{{ url('/book-trial') }}"
+                   class="hidden sm:block bg-[#10AF13] text-white text-xs sm:text-sm font-medium py-2.5 px-4 rounded-xl uppercase shadow-[0_7px_0_#0E8E10] transition-all duration-150 hover:translate-y-[5px] hover:shadow-[0_5px_0_#0E8E10] active:translate-y-[7px] active:shadow-[0_2px_0_#0E8E10]">
+                    Book Free Trial
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white shadow-md">
+            <div class="px-4 py-4 space-y-3">
+                <a href="{{ url('/about') }}" class="block">Our Story</a>
+                <a href="{{ url('/courses/programming') }}" class="block">Programming</a>
+                <a href="{{ url('/blog') }}" class="block">Blog</a>
+                <a href="{{ url('/partnership') }}" class="block">Partnership</a>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<script>
+    
+</script>

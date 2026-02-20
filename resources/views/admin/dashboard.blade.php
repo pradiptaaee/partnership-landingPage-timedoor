@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="flex-1 p-8 bg-gray-50/50 min-h-screen font-sans">
+<div class="flex-1 p-4 bg-gray-50/50 min-h-screen font-sans">
     
     <div class="max-w-7xl mx-auto space-y-8">
 
         {{-- 1. HEADER: Greeting & Date --}}
         <div class="flex flex-col md:flex-row justify-between items-end gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold text-[#0f5132] tracking-tight uppercase">Dashboard Overview</h1>
-                <p class="text-gray-500 mt-1 text-sm font-medium">Selamat datang kembali, Admin! Pantau performa akademi hari ini.</p>
+                <h1 class="text-3xl font-extrabold text-[#0f5132] tracking-tight">Dashboard</h1>
+                <p class="text-gray-500 mt-1 text-sm">Selamat datang, Admin! Berikut ringkasan performa Academy hari ini.</p>
             </div>
             <div class="px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100 flex items-center gap-2 text-sm text-gray-600 font-medium">
                 <i class="bi bi-calendar-week text-[#0f5132]"></i>
@@ -52,8 +52,8 @@
                     </div>
                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Events</span>
                 </div>
-                <h3 class="text-2xl font-black text-gray-800">{{ $activitiesThisMonth }}</h3>
-                <p class="text-[10px] font-bold text-gray-400 mt-1 uppercase">Bulan Ini</p>
+                <h3 class="text-3xl font-bold text-gray-800">{{ $totalActivities }}</h3>
+                <p class="text-xs text-gray-500 mt-1">Seluruh riwayat kegiatan</p>
             </div>
 
             {{-- Card 4: Projects --}}

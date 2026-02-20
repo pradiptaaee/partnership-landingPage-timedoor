@@ -1,37 +1,65 @@
-<div x-data="{ open: @entangle('open') }" class="mt-5">
+<div x-data="{ open: @entangle('open') }" class="mt-12">
 
-    <h3 class="fw-bold mb-4" style="color:#001D7A">Galeri Dokumentasi</h3>
+    <h3 class="font-bold mb-6 text-[#001D7A] text-xl">
+        Galeri Dokumentasi
+    </h3>
 
-    <div class="gallery-masonry">
+    <!-- Masonry Style Grid -->
+    <div class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+
         @foreach ($activity->photos as $i => $photo)
-            <div class="gallery-item">
+            <div class="break-inside-avoid overflow-hidden rounded-lg shadow-sm">
                 <img
                     src="{{ asset('storage/activity/photos/'.$photo->image_path) }}"
                     alt="Dokumentasi Kegiatan"
+                    class="w-full cursor-pointer hover:scale-105 transition duration-300"
                     @click="$wire.openLightbox({{ $i }})"
                 >
             </div>
         @endforeach
+
     </div>
 
-    {{-- LIGHTBOX --}}
+    <!-- LIGHTBOX -->
     <div
         x-show="open"
         x-transition
         @click.self="$wire.closeLightbox()"
-        class="lightbox-overlay"
+        class="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
     >
-        <button class="lightbox-btn left" @click.stop="$wire.prev()">‹</button>
 
+        <!-- Prev -->
+        <button
+            class="absolute left-4 text-white text-4xl px-4 py-2 hover:opacity-70"
+            @click.stop="$wire.prev()"
+        >
+            ‹
+        </button>
+
+        <!-- Image -->
         <img
             src="{{ isset($activity->photos[$activeIndex])
                 ? asset('storage/activity/photos/'.$activity->photos[$activeIndex]->image_path)
                 : '' }}"
-            class="lightbox-image"
+            class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg shadow-lg"
         >
 
-        <button class="lightbox-btn right" @click.stop="$wire.next()">›</button>
-        <button class="lightbox-close" @click="$wire.closeLightbox()">✕</button>
+        <!-- Next -->
+        <button
+            class="absolute right-4 text-white text-4xl px-4 py-2 hover:opacity-70"
+            @click.stop="$wire.next()"
+        >
+            ›
+        </button>
+
+        <!-- Close -->
+        <button
+            class="absolute top-6 right-6 text-white text-2xl hover:opacity-70"
+            @click="$wire.closeLightbox()"
+        >
+            ✕
+        </button>
+
     </div>
 
 </div>

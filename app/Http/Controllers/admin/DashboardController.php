@@ -27,6 +27,8 @@ class DashboardController extends Controller
         $activitiesThisMonth = PartnerActivity::whereMonth('activity_date', now()->month)
                                 ->whereYear('activity_date', now()->year)
                                 ->count();
+        // Kegiatan bulan ini (Penting untuk monitoring)
+        $totalActivities = \App\Models\PartnerActivity::count();
 
         // Ambil 5 agenda kegiatan mendatang termasuk hari ini
         $upcomingActivities = PartnerActivity::with('partner')
@@ -44,6 +46,7 @@ class DashboardController extends Controller
             'totalTestimonials', 
             'activitiesThisMonth',
             'totalFreeTrials',
+            'totalActivities',
             'upcomingActivities',
             'latestProjects'
         ));
